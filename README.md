@@ -4,10 +4,12 @@
 - Colaboradores:
   - Gabriel Natividade
   - Adryan
+  - Calvin soares
 
 - Novos colaboradores:
   - 1 back-end
-  - 2 fron-edn
+  - 2 fron-end
 
 ## Tela de níveis
-![WhatsApp Image 2023-10-23 at 21 16 08](https://github.com/StartupCodice/word-search-game/assets/94808306/86a5485c-8940-4d76-b28a-638315e7e18e)
+![image](https://github.com/StartupCodice/word-search-game/assets/99036067/890a1580-326e-4e74-9ac9-9c38af7ca31c)
+
