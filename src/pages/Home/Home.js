@@ -13,7 +13,7 @@ export default function Home({ navigation }) {
                 <View style={styles.buttonContainer}>                  
                         <Botoes navigation={navigation}/>                          
                     <ModalSettings />
-                    <ModalEvento />
+                    <ModalEvento navigation={navigation}/>
                 </View>
             </ImageBackground>
         </View>

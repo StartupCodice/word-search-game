@@ -5,6 +5,7 @@ const { Screen, Navigator } = createNativeStackNavigator();
 import { Jogar } from '../../ScreenJogar/Jogar';
 import { Estilos } from '../../Estilos/Estilos';
 import { Infinito } from '../../Infinito/Infinito';
+import { JogoFacil } from '../../JogoFacil/JogoFacil';
 import Home from '../Home';
 
 export function StackRoutes() {
@@ -28,6 +29,16 @@ export function StackRoutes() {
                 }        
             }}
              />   
+             <Screen 
+              name="JogoFacil"
+              component={JogoFacil}  
+              options={{ 
+                title: '',
+                headerStyle: {
+                    backgroundColor: '#445D5A'
+                }        
+            }}
+             /> 
 
              <Screen 
              name="Estilos"
