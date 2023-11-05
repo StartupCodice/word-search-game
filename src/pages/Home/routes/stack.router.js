@@ -29,6 +29,16 @@ export function StackRoutes() {
                 }        
             }}
              />   
+             <Screen 
+              name="JogoFacil"
+              component={JogoFacil}  
+              options={{ 
+                title: '',
+                headerStyle: {
+                    backgroundColor: '#445D5A'
+                }        
+            }}
+             /> 
 
              <Screen 
               name="JogoFacil"
