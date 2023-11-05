@@ -25,7 +25,7 @@ export function ModalSettings(){
                                 setSettingsVisible(!settingsVisible);
                             }}>
                             <View style={styles.centeredView}>
-                                <View style={styles.modalView}>
+                                <View style={styles.modalViewVolume}>
                                 <TouchableHighlight
                                     style={styles.buttonInside}
                                     underlayColor="null"

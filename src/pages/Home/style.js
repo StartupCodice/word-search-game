@@ -57,15 +57,51 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 35,
         top: 50,
+        left: 74,
+        width: 260,
+        height: 300,
+        borderWidth: 3,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+      },
+      modalViewVolume: {
+        backgroundColor: '#C3DFE0',
+        borderRadius: 20,
+        padding: 35,
+        top: 50,
         left: 108,
-        display: 'flex',
         width: 200,
         height: 200,
         borderWidth: 3,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
       },
+      header: {
+        backgroundColor: '#2196F3',
+        width: 256,
+        height: 50,
+        position: 'absolute',
+        margin: -1,
+        padding: 2,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+      },
+      textHeader: {
+        fontWeight: 'bold',
+        textAlign: 'center',
+        fontSize: 18.5,
+        top: 12
+      },
       button: {
+        borderRadius: 20,
+        width: 200,
+        padding: 10,
+        elevation: 2,
+        margin: 16,
+        bottom: 46,
+        right: 24
+      },
+      buttonSnow: {
         borderRadius: 20,
         padding: 10,
         elevation: 2,
@@ -84,17 +120,33 @@ const styles = StyleSheet.create({
         bottom: 40,
         left: 58,
       },
+      buttonInsideEvento: {
+        borderRadius: 20,
+        margin: 16,
+        bottom: 43,
+        left: 98,
+      },
       buttonOpen: {
         backgroundColor: '#2196F3',
       },
       buttonClose: {
-        backgroundColor: '#2196F3',
+        backgroundColor: 'red',
+        color: 'white'
       },
       buttonCloseVolume: {
         backgroundColor: '#2196F3',
         borderWidth: 2,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
+      },
+      textStyle: {
+        fontWeight: 'bold',
+        textAlign: 'center',
+      },
+      textStyleJogos: {
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color: 'white'
       },
       textStyle: {
         fontWeight: 'bold',
