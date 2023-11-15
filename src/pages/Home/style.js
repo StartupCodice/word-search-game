@@ -152,6 +152,10 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         textAlign: 'center',
       },
+      lock: {
+        marginTop: 10,
+        color: 'white'
+      },  
 });
 
 export default styles

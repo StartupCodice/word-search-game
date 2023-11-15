@@ -13,6 +13,10 @@ import styles from "../pages/Home/style";
 
 export function ModalSettings(){
     const [settingsVisible, setSettingsVisible] = useState(false);
+    const [volumeOn, setVolumeOff] = useState(true);
+    const toggleVolume = () => {
+        setVolumeOff(!volumeOn);
+      };
     return (
     
         <TouchableOpacity style={styles.settingsIcon} onPress={() => setSettingsVisible(true)}>
@@ -33,9 +37,8 @@ export function ModalSettings(){
                                     <Ionicons style={styles.textStyle} name="close-sharp" size={56} color="black" />
                                 </TouchableHighlight>
                                 <Pressable
-                                    style={[styles.buttonVolume, styles.buttonCloseVolume]}
-                                    onPress={() => setSettingsVisible(!settingsVisible)}>
-                                    <Ionicons style={styles.textStyle} name="volume-high" size={24} color="black" />
+                                    style={[styles.buttonVolume, styles.buttonCloseVolume]} onPress={toggleVolume}> 
+                                    <Ionicons style={styles.textStyle}  name={volumeOn ? 'volume-high' : 'volume-mute'} size={30} color="black"/>
                                 </Pressable>
                                 </View>
                             </View>
