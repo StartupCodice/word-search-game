@@ -2,11 +2,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const { Screen, Navigator } = createNativeStackNavigator();
 
-import { Jogar } from '../../ScreenJogar/Jogar';
+import { Ionicons } from '@expo/vector-icons';
+
+import Jogar from '../../ScreenJogar/Jogar';
 import { Estilos } from '../../Estilos/Estilos';
 import { Infinito } from '../../Infinito/Infinito';
-import { JogoFacil } from '../../JogoFacil/JogoFacil';
 import Home from '../Home';
+import { JogoFacil } from './../../JogoFacil/JogoFacil';
 
 export function StackRoutes() {
     return (
@@ -24,9 +26,7 @@ export function StackRoutes() {
               component={Jogar}  
               options={{ 
                 title: '',
-                headerStyle: {
-                    backgroundColor: '#445D5A'
-                }        
+                headerShown: false   
             }}
              />   
              <Screen 
@@ -34,9 +34,7 @@ export function StackRoutes() {
               component={JogoFacil}  
               options={{ 
                 title: '',
-                headerStyle: {
-                    backgroundColor: '#445D5A'
-                }        
+                headerShown: false      
             }}
              /> 
 
@@ -45,9 +43,7 @@ export function StackRoutes() {
              component={Estilos}
              options={{ 
                 title: '',
-                headerStyle: {
-                    backgroundColor: '#445D5A'
-                }        
+                headerShown: false       
             }}
              />
 
@@ -56,9 +52,7 @@ export function StackRoutes() {
              component={Infinito}
              options={{ 
                 title: '',
-                headerStyle: {
-                    backgroundColor: '#00364F'
-                }        
+                headerShown: false       
             }}  
              />
           

@@ -25,6 +25,13 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         top: 48
     },
+    button: {
+        width: 79,
+        height: 79,
+        padding: 15,
+        bottom: 120,
+        left: 5,
+      },
     buttonTextYellow: {
         fontSize: 20,
         color: '#000',

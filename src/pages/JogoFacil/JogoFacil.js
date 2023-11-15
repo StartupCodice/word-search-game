@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { View, Text, Modal, Alert, Pressable, TouchableHighlight, TouchableOpacity, ImageBackground } from "react-native";
 import styles from './style';
+import { Ionicons } from '@expo/vector-icons';
 
 export function JogoFacil() {
         return (

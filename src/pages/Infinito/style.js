@@ -18,6 +18,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         top: 48
     },
+    button: {
+        padding: 10,
+        top: 20,
+        left: 10,
+        position: 'absolute'
+      },
     buttonTextGreen: {
         fontSize: 20,
         color: 'darkgreen',
