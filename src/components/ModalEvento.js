@@ -10,9 +10,10 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import styles from "../pages/Home/style";
 import { JogoFacil } from "../pages/JogoFacil/JogoFacil";
+import { useNavigation } from '@react-navigation/native';
 
-
-export function ModalEvento({ navigation }){
+export function ModalEvento(){
+    const navigation = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
     return (
 
@@ -26,7 +27,7 @@ export function ModalEvento({ navigation }){
                                 setModalVisible(!modalVisible);
                             }}>
                             <View style={styles.centeredView}>
-                                <View style={styles.modalView}>
+                                <View style={styles.modalView}> 
                                 <View style={styles.header}>
                                     <Text style={styles.textHeader}>
                                         JOGOS DIARIOS
@@ -41,7 +42,8 @@ export function ModalEvento({ navigation }){
                                 <Pressable
                                     underlayColor="null"            
                                     style={[styles.button, styles.buttonClose]}
-                                    onPress={ () => navigation.navigate('JogoFacil') }>
+                                    onPress={ () => navigation.navigate('JogoFacil') ?? setModalVisible(!modalVisible)}>
+                                    
                                     <Text style={styles.textStyleJogos}>FÁCIL</Text>
                                 </Pressable>
                                 <Pressable
