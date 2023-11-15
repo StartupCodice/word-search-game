@@ -31,6 +31,7 @@ export function ModalEvento(){
                                 <View style={styles.header}>
                                     <Text style={styles.textHeader}>
                                         JOGOS DIARIOS
+                                        
                                     </Text>
                                 </View>
                                 <TouchableHighlight
@@ -42,21 +43,21 @@ export function ModalEvento(){
                                 <Pressable
                                     underlayColor="null"            
                                     style={[styles.button, styles.buttonClose]}
-                                    onPress={ () => navigation.navigate('JogoFacil') ?? setModalVisible(!modalVisible)}>
+                                    onPress={ () => setModalVisible(!modalVisible)}>
                                     
-                                    <Text style={styles.textStyleJogos}>FÁCIL</Text>
+                                    <Text style={styles.textStyleJogos}>EM BREVE <Ionicons style={styles.lock} name="md-lock-closed-sharp" size={16} color="black" /></Text>
+                                </Pressable>
+                                <Pressable
+                                    underlayColor="null"
+                                    style={[styles.button, styles.buttonClose]}
+                                    onPress={() => setModalVisible(!modalVisible)}>
+                                    <Text style={styles.textStyleJogos}>EM BREVE <Ionicons style={styles.lock} name="md-lock-closed-sharp" size={16} color="black" /></Text>
                                 </Pressable>
                                 <Pressable
                                     underlayColor="null"            
                                     style={[styles.button, styles.buttonClose]}
                                     onPress={() => setModalVisible(!modalVisible)}>
-                                    <Text style={styles.textStyleJogos}>MÉDIO</Text>
-                                </Pressable>
-                                <Pressable
-                                    underlayColor="null"            
-                                    style={[styles.button, styles.buttonClose]}
-                                    onPress={() => setModalVisible(!modalVisible)}>
-                                    <Text style={styles.textStyleJogos}>DÍFICIL</Text>
+                                    <Text style={styles.textStyleJogos}>EM BREVE <Ionicons style={styles.lock} name="md-lock-closed-sharp" size={16} color="black" /></Text>
                                 </Pressable>
                                 </View>
                             </View>
