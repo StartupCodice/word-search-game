@@ -1,6 +1,34 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
+    palavrasContainer: {
+      marginTop: -100,
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+      alignItems: 'center',
+      maxWidth: 400,
+      gap: 30,
+    },
+    cacaContainer: {
+      marginTop: 150,
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+      alignItems: 'center',
+      gap: 30,
+    },
+    caca: {
+      flexWrap: 'wrap',
+      flexDirection: 'row',
+    },
+    letter: {
+      padding: 10,
+      minWidth: 130,
+      minHeight: 50,
+      textAlign: 'center',
+      fontWeight: 'bold',
+    },
     container: {
       flex: 1,
       alignItems: 'center',
@@ -10,7 +38,7 @@ const styles = StyleSheet.create({
       flex: 1,
       resizeMode: "cover",
       width: "100%",
-      },
+    },
       retangulo: {
       position: 'absolute',
       top: 51,
@@ -18,7 +46,7 @@ const styles = StyleSheet.create({
       bottom: 0,
       right: 23,
       width: '89%',
-      height: '89%',
+      height: '100%',
       marginTop: 169,
       marginLeft: -2,
       marginRight: -2,
@@ -33,11 +61,8 @@ const styles = StyleSheet.create({
         left: 5,
       },
       palavras: {
-        fontSize: 17,
+        fontSize: 22,
         color: 'white',
-        marginTop: -85,
-        marginLeft: 90,
-        marginRight: 65,
         fontWeight: 'bold',
       },
       palavrasdois: {
@@ -67,8 +92,8 @@ const styles = StyleSheet.create({
           width: 47,
           height: 67,
           padding: 2,
-          top: 160,
-          left: 330,
+          top: 190,
+          left: 310,
         },
   });
 
