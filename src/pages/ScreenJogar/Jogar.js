@@ -1,18 +1,26 @@
-import React,{ useState, useEffect  } from 'react';
+import React,{ useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Text, View, ImageBackground, Image, TouchableOpacity, TextInput, Button, Alert } from 'react-native';
+import { Text, View, ImageBackground, Image, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import styles from './style';
+import { createGame } from 'hunting-words';
 import randomcolor from 'randomcolor';
 
 export default function Jogar({ navigation }) {
   const [palavras, setPalavras] = useState([
-    'ALEGRIA',
-    'PRESENTE',
-    'NOEL',
-    'NATAL',
+    { name: 'ALEGRIA', found: false },
+    { name: 'PRESENTE', found: false },
+    { name: 'NOEL', found: false },
+    { name: 'NATAL', found: false },
   ]);
-
+  const [board, setBoard] = useState({
+    game: new createGame(8, 8, [
+      'ALEGRIA',
+      'PRESENTE',
+      'NOEL',
+      'NATAL',
+    ]),
+  });
   const [cores, setCores] = useState([]);
 
   const [letters, setLetters] = useState([
@@ -26,48 +34,66 @@ export default function Jogar({ navigation }) {
 		['p','r','e','s','e','n','t','e'],
   ]);
 
-  const [indexes, setIndexes] = useState([
-    [ [0, 0], [0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6] ],
-    [ [7, 0], [7, 1], [7, 2], [7, 3], [7, 4], [7, 5], [7, 6], [7, 7] ],
-    [ [0, 3], [0, 4], [0, 5], [0, 6] ],
-    [ [4, 2], [4, 3], [4, 4], [4, 5], [4, 6] ]
-  ]);
+  function selectLetter(item) {
+    let game = board.game;
+    game.board[item.row][item.column].setIsSelected(!item.isSelected);
+
+    setBoard({ game });
+    verifyFindWord(item.word);
+  }
+
+  function verifyFindWord(words) {
+    for(let word of words){
+      let lettersSelected = getLetterSelectedSameWord(word)
+    
+      if (lettersSelected == word.length){
+        palavras.forEach((palavra) => {
+          if (palavra.name === word) {
+            palavra.found = true;
+            setPalavras([ ...palavras ]);
+          }
+        })
+      }
+
+      userWin();
+    }
+  }
+
+  function userWin() {
+    const isWin = palavras.every(palavra => palavra.found === true);
+
+    if (isWin) {
+      mostrarAlerta();
+    }
+  }
+
+  const mostrarAlerta = () => {
+    Alert.alert(
+      'Parabéns',
+      'Você conseguiu achar todas as palavras',
+      [
+        { text: 'OK', onPress: () => navigation.navigate('Home') }
+      ],
+      { cancelable: false }
+    );
+  };
+
+  function getLetterSelectedSameWord(word) {
+    let lettersSelected = 0;
+
+    board.game.board
+    .filter((row) =>{
+      lettersSelected = lettersSelected + row.filter((el)=> { return el.word == word && el.isSelected;}).length;
+    });
+
+    return lettersSelected;
+  }
 
   useEffect(() => {
     const coresAleatorias = palavras.map(() => randomcolor());
     setCores(coresAleatorias);
   }, [palavras]);
 
-  const [texto, setTexto] = useState('');
-
-  const handleInputChange = (text) => {
-    setTexto(text);
-  };
-
-  function getIndex(name) {
-    if (palavras.indexOf(name) > -1) {
-      let i = palavras.indexOf(name);
-      console.log('indexes[i] = ' + indexes[i]); 
-      return indexes[i];
-    }
-
-    setTexto('');
-    return false;
-  }
-
-  function select(row, column) {
-    console.log('row ' + row);
-    console.log('column ' + column);
-  }
-
-  const handleSubmit = () => {
-    const index = getIndex(texto.toUpperCase());
-
-    for (let i = 0; i < index.length; i++) {
-      select(index[i][0], index[i][1]);
-    }
-  };
- 
   return (
     <View style={styles.container}>
       <ImageBackground source={require('./../../assets/templatejogo.jpg')} style={styles.imageBackground}>
@@ -97,33 +123,37 @@ export default function Jogar({ navigation }) {
         <View style={styles.palavrasContainer}>
           {
             palavras.map((palavra, index) => (
-              <Text key={index} style={styles.palavras}>
-                {palavra}
+              <Text key={index} style={
+                [
+                  styles.palavras, 
+                  (palavra.found) ? { backgroundColor: cores[index] } : null,
+                  (palavra.found) ? styles.wordFound : null,
+                ]
+              }>
+                {palavra.name}
               </Text>
             ))
           }
         </View>
 
-        <View style={styles.sendLetter}>
-          <TextInput
-            style={styles.inputLetter}
-            placeholder="Digite aqui"
-            onChangeText={handleInputChange}
-            value={texto}
-          />
-          <Button style={styles.buttonLetter} title="Enviar" onPress={handleSubmit} />
-        </View>
-
         <View style={styles.lettersContainer}>
-          {
-            letters.map((palavra, index) => (
-              palavra.map((letter, otherIndex) => (
-                <Text key={otherIndex} style={[styles.letter]}>
-                  {letter.toUpperCase()}
-                </Text>
+            {
+              board.game.board.map((row, indexRow)=>(
+                <View key={indexRow}>
+                    {
+                      row.map((column, indexColumn)=>(
+                          <Text
+                            style={[styles.letter, (column.isSelected) ? styles.selected : null]}
+                            key={indexColumn}
+                            onPress={() => selectLetter(column)}
+                          >
+                            {column.letter}
+                          </Text>
+                      ))
+                    }
+                </View>
               ))
-            ))
-          }
+            } 
         </View>
 
         <StatusBar style="auto" />
