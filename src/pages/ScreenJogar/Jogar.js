@@ -1,79 +1,73 @@
 import React,{ useState, useEffect  } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Text, View, ImageBackground, Image, TouchableOpacity } from 'react-native';
+import { Text, View, ImageBackground, Image, TouchableOpacity, TextInput, Button, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import styles from './style';
 import randomcolor from 'randomcolor';
 
 export default function Jogar({ navigation }) {
   const [palavras, setPalavras] = useState([
-    {id: 1, name: 'PALAVRA 1'},
-    {id: 2, name: 'PALAVRA 2'},
-    {id: 3, name: 'PALAVRA 3'},
-    {id: 4, name: 'PALAVRA 4'},
-  ]);
-
-  const [allPalavras, setAllPalavras] = useState([
-    {id: 1, name: 'PALAVRA 1', show: false },
-    {id: 2, name: 'PALAVRA 2', show: false },
-    {id: 3, name: 'PALAVRA 3', show: false },
-    {id: 4, name: 'PALAVRA 4', show: false },
-    {id: 1, name: 'PALAVRA 1', show: false },
-    {id: 2, name: 'PALAVRA 2', show: false },
-    {id: 3, name: 'PALAVRA 3', show: false },
-    {id: 4, name: 'PALAVRA 4', show: false },
+    'ALEGRIA',
+    'PRESENTE',
+    'NOEL',
+    'NATAL',
   ]);
 
   const [cores, setCores] = useState([]);
 
-  const [primaryClick, setPrimartClick] = useState(1);
-  const [primeiraPalavra, setPrimeiraPalavra] = useState({});
+  const [letters, setLetters] = useState([
+    ['a','s','i','n','o','e','l','i'],
+		['l','a','l','p','a','l','h','t'],
+		['e','t','i','g','u','a','n','o'],
+		['g','c','i','f','r','a','c','u'],
+		['r','l','n','a','t','a','l','v'],
+		['i','u','s','i','c','a','t','r'],
+		['a','b','i','s','s','n','o','b'],
+		['p','r','e','s','e','n','t','e'],
+  ]);
 
-  function handleLetterPress(palavra) {
-    setPrimartClick(primaryClick + 1);
-    setPrimeiraPalavra(palavra);
-
-    if (!palavra.show) {
-      palavra.show = true;
-      setAllPalavras([...allPalavras, { id: palavra.id, name: palavra.name, show: palavra.show }]);
-
-      if (primaryClick === 2) {        
-        if (primeiraPalavra.id === palavra.id) {
-          console.log('achouuu');
-        } else {
-          resetShow();
-          setPrimartClick(1);
-        }
-      }
-    }
-
-  }
-
-  function shuffleArray(arr) {
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-
-    return arr;
-  }
-
-  function resetShow() {
-    allPalavras.forEach((palavra) => {
-      palavra.show = false;
-    })
-  }
+  const [indexes, setIndexes] = useState([
+    [ [0, 0], [0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6] ],
+    [ [7, 0], [7, 1], [7, 2], [7, 3], [7, 4], [7, 5], [7, 6], [7, 7] ],
+    [ [0, 3], [0, 4], [0, 5], [0, 6] ],
+    [ [4, 2], [4, 3], [4, 4], [4, 5], [4, 6] ]
+  ]);
 
   useEffect(() => {
-    const coresAleatorias = allPalavras.map(() => randomcolor());
+    const coresAleatorias = palavras.map(() => randomcolor());
     setCores(coresAleatorias);
-
-    shuffleArray(allPalavras);
-    resetShow();
-
-    setPrimartClick(1);
   }, [palavras]);
 
+  const [texto, setTexto] = useState('');
+
+  const handleInputChange = (text) => {
+    setTexto(text);
+  };
+
+  function getIndex(name) {
+    if (palavras.indexOf(name) > -1) {
+      let i = palavras.indexOf(name);
+      console.log('indexes[i] = ' + indexes[i]); 
+      return indexes[i];
+    }
+
+    setTexto('');
+    return false;
+  }
+
+  function select(row, column) {
+    console.log('row ' + row);
+    console.log('column ' + column);
+  }
+
+  const handleSubmit = () => {
+    const index = getIndex(texto.toUpperCase());
+
+    for (let i = 0; i < index.length; i++) {
+      select(index[i][0], index[i][1]);
+    }
+  };
+ 
   return (
     <View style={styles.container}>
       <ImageBackground source={require('./../../assets/templatejogo.jpg')} style={styles.imageBackground}>
@@ -104,23 +98,30 @@ export default function Jogar({ navigation }) {
           {
             palavras.map((palavra, index) => (
               <Text key={index} style={styles.palavras}>
-                {palavra.name}
+                {palavra}
               </Text>
             ))
           }
         </View>
 
+        <View style={styles.sendLetter}>
+          <TextInput
+            style={styles.inputLetter}
+            placeholder="Digite aqui"
+            onChangeText={handleInputChange}
+            value={texto}
+          />
+          <Button style={styles.buttonLetter} title="Enviar" onPress={handleSubmit} />
+        </View>
 
-        <View style={styles.cacaContainer}>
+        <View style={styles.lettersContainer}>
           {
-            allPalavras.map((palavra, index) => (
-              <View key={index} style={styles.caca}>
-                <TouchableOpacity style={[{ backgroundColor: cores[index] }]} onPress={() => handleLetterPress(palavra)}>
-                  <Text style={styles.letter}>
-                    { palavra.show ? palavra.name: '' }
-                  </Text>
-                </TouchableOpacity>
-              </View>
+            letters.map((palavra, index) => (
+              palavra.map((letter, otherIndex) => (
+                <Text key={otherIndex} style={[styles.letter]}>
+                  {letter.toUpperCase()}
+                </Text>
+              ))
             ))
           }
         </View>
