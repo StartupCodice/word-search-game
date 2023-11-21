@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     palavrasContainer: {
-      marginTop: -100,
+      marginTop: '-20%',
       flexDirection: 'row',
       flexWrap: 'wrap',
       justifyContent: 'center',
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     lettersContainer: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      justifyContent: 'center',
+      justifyContent: 'space-between',
       alignItems: 'center',
       textAlign: 'center',
       paddingLeft: 33,
@@ -34,9 +34,10 @@ const styles = StyleSheet.create({
       padding: 10,
     },
     cacaContainer: {
-      marginTop: 150,
-      width: 100,
-      height: 100,
+      marginTop: '20vh',
+      flex: 1,
+      width: '90%',
+      height: '100%',
     },
     caca: {
       flexWrap: 'wrap',
@@ -48,7 +49,8 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       fontWeight: 'bold',
       fontSize: 25,
-      width: 40,
+      width: '100%',
+      height: '15%',
     },
     sendLetter: {
       flexDirection: 'row',
@@ -57,7 +59,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     inputLetter: {
-      width: 200,
+      width: '100%',
       height: 40,
       paddingLeft: 10, 
       backgroundColor: 'gray',
@@ -77,12 +79,12 @@ const styles = StyleSheet.create({
     },
       retangulo: {
       position: 'absolute',
-      top: 51,
+      top: '8%',
       left: 23,
       bottom: 0,
       right: 23,
-      width: '89%',
-      height: '100%',
+      width: '91%',
+      height: '93%',
       marginTop: 169,
       marginLeft: -2,
       marginRight: -2,
@@ -128,8 +130,8 @@ const styles = StyleSheet.create({
           width: 47,
           height: 67,
           padding: 2,
-          top: 210,
-          left: 310,
+          top: '245%',
+          left: '81%',
         },
   });
 

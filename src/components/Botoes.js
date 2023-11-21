@@ -24,7 +24,7 @@ export default function Botoes() {
                     style={{ width: 180, height: 90, margin: 40 }}
                 >
                     <Text style={styles.buttonTextGreen}>
-                        ESTILOS
+                        NÍVEIS
                     </Text>
                 </ImageBackground>
             </TouchableHighlight>
