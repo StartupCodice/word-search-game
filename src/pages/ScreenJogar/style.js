@@ -1,6 +1,70 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
+    palavrasContainer: {
+      marginTop: -100,
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+      alignItems: 'center',
+      rowGap: 20,
+      columnGap: 40,
+    },
+    selected: {
+      backgroundColor: 'gray',
+      color: 'white',
+    },
+    lettersContainer: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+      alignItems: 'center',
+      textAlign: 'center',
+      paddingLeft: 33,
+      paddingRight: 33,
+      rowGap: 10,
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      marginBottom: 70,
+    },
+    wordFound: {
+      color: 'black',
+      padding: 10,
+    },
+    cacaContainer: {
+      marginTop: 150,
+      width: 100,
+      height: 100,
+    },
+    caca: {
+      flexWrap: 'wrap',
+      flexDirection: 'row',
+    },
+    letter: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      textAlign: 'center',
+      fontWeight: 'bold',
+      fontSize: 25,
+      width: 40,
+    },
+    sendLetter: {
+      flexDirection: 'row',
+      marginTop: 30,
+      gap: 20,
+      justifyContent: 'center',
+    },
+    inputLetter: {
+      width: 200,
+      height: 40,
+      paddingLeft: 10, 
+      backgroundColor: 'gray',
+      color: 'black',
+    },
+    buttonLetter: {
+    },
     container: {
       flex: 1,
       alignItems: 'center',
@@ -41,7 +105,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
       },
       palavrasdois: {
-        fontSize: 17,
+        fontSize: 20,
         color: 'white',
         marginTop: 1,
         marginLeft:  90,
