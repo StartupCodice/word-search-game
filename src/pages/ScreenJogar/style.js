@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
       flex: 1,
       resizeMode: "cover",
       width: "100%",
-      },
+    },
       retangulo: {
       position: 'absolute',
       top: 51,
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
       bottom: 0,
       right: 23,
       width: '89%',
-      height: '89%',
+      height: '100%',
       marginTop: 169,
       marginLeft: -2,
       marginRight: -2,
@@ -97,11 +97,8 @@ const styles = StyleSheet.create({
         left: 5,
       },
       palavras: {
-        fontSize: 17,
+        fontSize: 28,
         color: 'white',
-        marginTop: -85,
-        marginLeft: 90,
-        marginRight: 65,
         fontWeight: 'bold',
       },
       palavrasdois: {
@@ -124,15 +121,15 @@ const styles = StyleSheet.create({
           width: 95,
           height: 95,
           padding: 15,
-          top: 286,
+          top: 300,
           left: 7,
         },
         dica: {
           width: 47,
           height: 67,
           padding: 2,
-          top: 160,
-          left: 330,
+          top: 210,
+          left: 310,
         },
   });
 
