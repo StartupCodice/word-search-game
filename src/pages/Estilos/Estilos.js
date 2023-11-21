@@ -17,19 +17,19 @@ export function Estilos({ navigation }){
         </TouchableOpacity>
         <View style={styles.buttonContainer}>
           <View style={styles.buttonMode} >
-             <Text style={styles.textMode}>Fácil</Text>
-             <Text style={styles.textMode}>6x8</Text>
+            <Text style={styles.textMode}>Fácil</Text>
+            <Text style={styles.textMode}>6x8</Text>
           </View>
           <View style={styles.buttonMode}>
-            <Text style={styles.textMode}>Médio</Text>
+            <Text onPress={()=> navigation.navigate('Medio')} style={styles.textMode}>Médio</Text>
             <Text style={styles.textMode}>8x10</Text>
           </View>
-          <View style={styles.buttonMode}>
-            <Text style={styles.textMode}>Difícil</Text>
+          <View  style={styles.buttonMode}>
+            <Text onPress={()=> navigation.navigate('Dificil')} style={styles.textMode}>Difícil</Text>
             <Text style={styles.textMode}>9x12</Text>
           </View>
-          <View style={styles.buttonMode}>
-            <Text style={styles.textMode}>Pró</Text>
+          <View  style={styles.buttonMode}>
+            <Text onPress={()=> navigation.navigate('Pro')} style={styles.textMode}>Pró</Text>
             <Text style={styles.textMode}>11x14</Text>
           </View>
         </View> 
