@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
       },
       palavrasdois: {
-        fontSize: 17,
+        fontSize: 20,
         color: 'white',
         marginTop: 1,
         marginLeft:  90,
