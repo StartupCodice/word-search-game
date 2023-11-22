@@ -6,9 +6,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#0E34A0',
     },
     headerBack: {
-        flex: 1,
         backgroundColor: '#2DC7FF',
-        height: 100,
+        height: '14%',
         width: '100%'
     },
     buttonContainer: {
@@ -88,6 +87,12 @@ const styles = StyleSheet.create({
         left: 4,
 
       },
+    buttonNiveis: {
+        padding: 6,
+        bottom: 100,
+        right: 150,
+
+    },
     buttonTextGreen: {
         fontSize: 20,
         color: 'darkgreen',
@@ -121,6 +126,135 @@ const styles = StyleSheet.create({
     timerText: {
         fontSize: 30,
     },
-});
+
+    palavrasContainer: {
+      marginTop: '-20%',
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+      alignItems: 'center',
+      rowGap: 20,
+      columnGap: 40,
+    },
+    selected: {
+      backgroundColor: 'gray',
+      color: 'white',
+    },
+    lettersContainer: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      textAlign: 'center',
+      paddingLeft: 33,
+      paddingRight: 33,
+      rowGap: 10,
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      marginBottom: 70,
+    },
+    wordFound: {
+      color: 'black',
+      padding: 10,
+    },
+    cacaContainer: {
+      marginTop: '20vh',
+      flex: 1,
+      width: '90%',
+      height: '100%',
+    },
+    caca: {
+      flexWrap: 'wrap',
+      flexDirection: 'row',
+    },
+    letter: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      textAlign: 'center',
+      fontWeight: 'bold',
+      fontSize: 25,
+      width: '100%',
+      height: '15%',
+    },
+    sendLetter: {
+      flexDirection: 'row',
+      marginTop: 30,
+      gap: 20,
+      justifyContent: 'center',
+    },
+    inputLetter: {
+      width: '100%',
+      height: 40,
+      paddingLeft: 10, 
+      backgroundColor: 'gray',
+      color: 'black',
+    },
+    buttonLetter: {
+    },
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    imageBackground: {
+      flex: 1,
+      resizeMode: "cover",
+      width: "100%",
+    },
+      retangulo: {
+      position: 'absolute',
+      top: '8%',
+      left: 23,
+      bottom: 0,
+      right: 23,
+      width: '91%',
+      height: '93%',
+      marginTop: 169,
+      marginLeft: -2,
+      marginRight: -2,
+      borderColor: 'white',
+      borderRadius: 7,
+      },
+     
+      palavras: {
+        fontSize: 28,
+        color: 'white',
+        fontWeight: 'bold',
+      },
+      palavrasdois: {
+        fontSize: 20,
+        color: 'white',
+        marginTop: 1,
+        marginLeft:  90,
+        marginRight: 21,
+        fontWeight: 'bold',
+      },
+      palavrastres: {
+        fontSize: 17,
+        color: 'white',
+        marginTop: 1,
+        marginLeft:  90,
+        marginRight: 21,
+        fontWeight: 'bold',
+      },
+        chapeu: {
+          width: 95,
+          height: 95,
+          padding: 15,
+          top: 300,
+          left: 7,
+        },
+        dica: {
+          width: 47,
+          height: 67,
+          padding: 2,
+          top: '245%',
+          left: '81%',
+        },
+  });
+
+
 
 export default styles
