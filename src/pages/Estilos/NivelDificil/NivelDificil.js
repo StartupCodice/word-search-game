@@ -1,19 +1,19 @@
 import React from 'react'
 import { Text, View, Image, TouchableOpacity, TouchableHighlight, ImageBackground, ScrollView} from 'react-native';
-import styles from './style';
+import styles from '../style';
 import { Ionicons } from '@expo/vector-icons';
 
-export function Estilos({ navigation }){
+export function NivelDificil({ navigation }){
   return(
     
-      <ScrollView style={styles.container}>   
+      <View style={styles.container}>   
         <TouchableOpacity style={styles.headerBack}>
           <Ionicons 
             name="arrow-back" 
             size={45} 
             color="white" 
             style={styles.button}
-            onPress={() => navigation.navigate('Home')}/>
+            onPress={() => navigation.navigate('Estilos')}/>
         </TouchableOpacity>
         <View style={styles.buttonContainer}>
           <View style={styles.buttonMode} >
@@ -37,7 +37,7 @@ export function Estilos({ navigation }){
         <View style={styles.containerMode}>
           <View >
             <TouchableOpacity style={styles.estiloButton}>
-             <ImageBackground source={require('./../../assets/presenteNatal.png')} style={styles.imagemEstilo}  >
+            <ImageBackground source={require('./../../../assets/arvoresNatal.png')} style={styles.imagemEstilo}  >
              <Text style={styles.zeroTrinta}>0/30</Text>
              </ImageBackground>
            </TouchableOpacity>
@@ -45,7 +45,7 @@ export function Estilos({ navigation }){
           </View>
           <View >
             <TouchableOpacity style={styles.estiloButton}>
-             <ImageBackground source={require('./../../assets/arvoresNatal.png')} style={styles.imagemEstilo}  >
+             <ImageBackground source={require('./../../../assets/presenteNatal.png')} style={styles.imagemEstilo}  >
              <Text style={styles.zeroTrinta}>0/30</Text>
              </ImageBackground>
            </TouchableOpacity>
@@ -53,7 +53,7 @@ export function Estilos({ navigation }){
           </View>
           <View >
             <TouchableOpacity style={styles.estiloButton}>
-             <ImageBackground source={require('./../../assets/ComidasNatal.png')} style={styles.imagemEstilo}  >
+             <ImageBackground source={require('./../../../assets/ComidasNatal.png')} style={styles.imagemEstilo}  >
              <Text style={styles.zeroTrinta}>0/30</Text>
              </ImageBackground>
            </TouchableOpacity>
@@ -61,7 +61,7 @@ export function Estilos({ navigation }){
           </View>
           <View >
             <TouchableOpacity style={styles.estiloButton}>
-             <ImageBackground source={require('./../../assets/papai-noel.png')} style={styles.imagemEstilo}  >
+             <ImageBackground source={require('./../../../assets/papai-noel.png')} style={styles.imagemEstilo}  >
              <Text style={styles.zeroTrinta}>0/30</Text>
              </ImageBackground>
            </TouchableOpacity>
@@ -69,7 +69,7 @@ export function Estilos({ navigation }){
           </View>
           <View >
             <TouchableOpacity style={styles.estiloButton}>
-             <ImageBackground source={require('./../../assets/bolas-de-natal.png')} style={styles.imagemEstilo}  >
+             <ImageBackground source={require('./../../../assets/bolas-de-natal.png')} style={styles.imagemEstilo}  >
              <Text style={styles.zeroTrinta}>0/30</Text>
              </ImageBackground>
            </TouchableOpacity>
@@ -77,7 +77,7 @@ export function Estilos({ navigation }){
           </View>
           <View >
             <TouchableOpacity style={styles.estiloButton}>
-             <ImageBackground source={require('./../../assets/floco-de-neve.png')} style={styles.imagemEstilo}  >
+             <ImageBackground source={require('./../../../assets/floco-de-neve.png')} style={styles.imagemEstilo}  >
              <Text style={styles.zeroTrinta}>0/30</Text>
              </ImageBackground>
            </TouchableOpacity>
@@ -85,7 +85,7 @@ export function Estilos({ navigation }){
           </View>
           <View >
             <TouchableOpacity style={styles.estiloButton}>
-             <ImageBackground source={require('./../../assets/presenteNatal.png')} style={styles.imagemEstilo}  >
+             <ImageBackground source={require('./../../../assets/presenteNatal.png')} style={styles.imagemEstilo}  >
              <Text style={styles.zeroTrinta}>0/30</Text>
              </ImageBackground>
            </TouchableOpacity>
@@ -93,7 +93,7 @@ export function Estilos({ navigation }){
           </View>
           <View >
             <TouchableOpacity style={styles.estiloButton}>
-             <ImageBackground source={require('./../../assets/arvoresNatal.png')} style={styles.imagemEstilo}  >
+             <ImageBackground source={require('./../../../assets/arvoresNatal.png')} style={styles.imagemEstilo}  >
              <Text style={styles.zeroTrinta}>0/30</Text>
              </ImageBackground>
            </TouchableOpacity>
@@ -101,7 +101,7 @@ export function Estilos({ navigation }){
           </View>
           <View >
             <TouchableOpacity style={styles.estiloButton}>
-             <ImageBackground source={require('./../../assets/ComidasNatal.png')} style={styles.imagemEstilo}  >
+             <ImageBackground source={require('./../../../assets/ComidasNatal.png')} style={styles.imagemEstilo}  >
              <Text style={styles.zeroTrinta}>0/30</Text>
              </ImageBackground>
            </TouchableOpacity>
@@ -110,7 +110,7 @@ export function Estilos({ navigation }){
         </View>   
                 
         
-      </ScrollView>
+      </View>
     
 
     
