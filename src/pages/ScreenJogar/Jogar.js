@@ -1,4 +1,4 @@
-import React,{ useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Text, View, ImageBackground, Image, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -6,33 +6,67 @@ import styles from './style';
 import { createGame } from 'hunting-words';
 import randomcolor from 'randomcolor';
 
+const DIRECTIONS = [
+  [1, 0],     // horizontal direita
+  [1, 1],     // diagonal inferior direita
+  [0, 1],     // vertical para baixo
+  [-1, 1],    // diagonal inferior esquerda
+  [-1, 0],    // horizontal esquerda
+  [-1, -1],   // diagonal superior esquerda
+  [0, -1],    // vertical para cima
+  [1, -1],    // diagonal superior direita
+];
+
 export default function Jogar({ navigation }) {
-  const [palavras, setPalavras] = useState([
-    { name: 'ALEGRIA', found: false },
-    { name: 'PRESENTE', found: false },
-    { name: 'NOEL', found: false },
-    { name: 'NATAL', found: false },
-  ]);
+  const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
-    game: new createGame(8, 8, [
-      'ALEGRIA',
-      'PRESENTE',
-      'NOEL',
-      'NATAL',
-    ]),
+    game: new createGame(8, 8, []),
   });
   const [cores, setCores] = useState([]);
+  const [isMounted, setIsMounted] = useState(true);
 
-  const [letters, setLetters] = useState([
-    ['a','s','i','n','o','e','l','i'],
-		['l','a','l','p','a','l','h','t'],
-		['e','t','i','g','u','a','n','o'],
-		['g','c','i','f','r','a','c','u'],
-		['r','l','n','a','t','a','l','v'],
-		['i','u','s','i','c','a','t','r'],
-		['a','b','i','s','s','n','o','b'],
-		['p','r','e','s','e','n','t','e'],
-  ]);
+  useEffect(() => {
+    const selectRandomWords = (totalWords, numWords) => {
+      const selectedWords = [];
+      const allWords = [...totalWords];
+
+      while (selectedWords.length < numWords && allWords.length > 0) {
+        const randomIndex = Math.floor(Math.random() * allWords.length);
+        selectedWords.push(allWords.splice(randomIndex, 1)[0]);
+      }
+
+      return selectedWords;
+    };
+
+    const fetchData = async () => {
+      if (!isMounted) return; 
+
+      const palavrasOriginais = [
+        { name: 'NATAL', found: false },
+        { name: 'PRESENTE', found: false },
+        { name: 'ALEGRIA', found: false },
+        { name: 'PAZ', found: false },
+        { name: 'AMOR', found: false },
+        { name: 'TRADIÇAO', found: false },
+        { name: 'GRATIDAO', found: false },
+        { name: 'REUNIAO', found: false },
+        { name: 'BRILHO', found: false },
+      ];
+
+      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 4);
+      setPalavras(palavrasEscolhidas);
+
+      const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
+      setBoard({ game: new createGame(8, 8, palavrasJogo) });
+
+      const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
+      setCores(coresAleatorias);
+    };
+
+    fetchData();
+
+    return () => setIsMounted(false);
+  }, [isMounted]);
 
   function selectLetter(item) {
     let game = board.game;
@@ -43,16 +77,16 @@ export default function Jogar({ navigation }) {
   }
 
   function verifyFindWord(words) {
-    for(let word of words){
-      let lettersSelected = getLetterSelectedSameWord(word)
-    
-      if (lettersSelected == word.length){
+    for (let word of words) {
+      let lettersSelected = getLetterSelectedSameWord(word);
+
+      if (lettersSelected === word.length) {
         palavras.forEach((palavra) => {
           if (palavra.name === word) {
             palavra.found = true;
-            setPalavras([ ...palavras ]);
+            setPalavras([...palavras]);
           }
-        })
+        });
       }
 
       userWin();
@@ -60,7 +94,7 @@ export default function Jogar({ navigation }) {
   }
 
   function userWin() {
-    const isWin = palavras.every(palavra => palavra.found === true);
+    const isWin = palavras.every((palavra) => palavra.found === true);
 
     if (isWin) {
       mostrarAlerta();
@@ -71,9 +105,7 @@ export default function Jogar({ navigation }) {
     Alert.alert(
       'Parabéns',
       'Você conseguiu achar todas as palavras',
-      [
-        { text: 'OK', onPress: () => navigation.navigate('Home') }
-      ],
+      [{ text: 'OK', onPress: () => navigation.navigate('Home') }],
       { cancelable: false }
     );
   };
@@ -81,18 +113,17 @@ export default function Jogar({ navigation }) {
   function getLetterSelectedSameWord(word) {
     let lettersSelected = 0;
 
-    board.game.board
-    .filter((row) =>{
-      lettersSelected = lettersSelected + row.filter((el)=> { return el.word == word && el.isSelected;}).length;
+    board.game.board.filter((row) => {
+      lettersSelected =
+        lettersSelected +
+        row.filter((el) => {
+          return el.word == word && el.isSelected;
+        }).length;
     });
 
     return lettersSelected;
   }
 
-  useEffect(() => {
-    const coresAleatorias = palavras.map(() => randomcolor());
-    setCores(coresAleatorias);
-  }, [palavras]);
 
   return (
     <View style={styles.container}>
@@ -101,7 +132,7 @@ export default function Jogar({ navigation }) {
           source={require('./../../assets/telaingameretangulo.png')}
           style={styles.retangulo}
         />
-         
+
         <Image
           source={require('./../../assets/chapeu.png')}
           style={styles.chapeu}
@@ -111,13 +142,12 @@ export default function Jogar({ navigation }) {
           <Image
             source={require('./../../assets/lampada.png')}
             style={styles.dica}
-          />  
+          />
         </TouchableOpacity>
 
-        
         <TouchableOpacity style={styles.button}>
-          <Ionicons name="arrow-back" size={45} color="white" 
-          onPress={() => navigation.navigate('Home')}/>
+          <Ionicons name="arrow-back" size={45} color="white"
+            onPress={() => navigation.navigate('Home')} />
         </TouchableOpacity>
 
         <View style={styles.palavrasContainer}>
@@ -125,7 +155,7 @@ export default function Jogar({ navigation }) {
             palavras.map((palavra, index) => (
               <Text key={index} style={
                 [
-                  styles.palavras, 
+                  styles.palavras,
                   (palavra.found) ? { backgroundColor: cores[index] } : null,
                   (palavra.found) ? styles.wordFound : null,
                 ]
@@ -137,23 +167,23 @@ export default function Jogar({ navigation }) {
         </View>
 
         <View style={styles.lettersContainer}>
-            {
-              board.game.board.map((row, indexRow)=>(
-                <View key={indexRow}>
-                    {
-                      row.map((column, indexColumn)=>(
-                          <Text
-                            style={[styles.letter, (column.isSelected) ? styles.selected : null]}
-                            key={indexColumn}
-                            onPress={() => selectLetter(column)}
-                          >
-                            {column.letter}
-                          </Text>
-                      ))
-                    }
-                </View>
-              ))
-            } 
+          {
+            board.game.board.map((row, indexRow) => (
+              <View key={indexRow}>
+                {
+                  row.map((column, indexColumn) => (
+                    <Text
+                      style={[styles.letter, (column.isSelected) ? styles.selected : null]}
+                      key={indexColumn}
+                      onPress={() => selectLetter(column)}
+                    >
+                      {column.letter}
+                    </Text>
+                  ))
+                }
+              </View>
+            ))
+          }
         </View>
 
         <StatusBar style="auto" />
