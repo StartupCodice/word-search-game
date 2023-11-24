@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     palavrasContainer: {
-      marginTop: '-20%',
+      marginTop: -70,
       flexDirection: 'row',
       flexWrap: 'wrap',
       justifyContent: 'center',
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     lettersContainer: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      justifyContent: 'space-between',
+      justifyContent: 'center',
       alignItems: 'center',
       textAlign: 'center',
       paddingLeft: 33,
@@ -34,10 +34,9 @@ const styles = StyleSheet.create({
       padding: 10,
     },
     cacaContainer: {
-      marginTop: '20vh',
-      flex: 1,
-      width: '90%',
-      height: '100%',
+      marginTop: 150,
+      width: 100,
+      height: 100,
     },
     caca: {
       flexWrap: 'wrap',
@@ -49,8 +48,7 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       fontWeight: 'bold',
       fontSize: 25,
-      width: '100%',
-      height: '15%',
+      width: 40,
     },
     sendLetter: {
       flexDirection: 'row',
@@ -59,7 +57,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     inputLetter: {
-      width: '100%',
+      width: 200,
       height: 40,
       paddingLeft: 10, 
       backgroundColor: 'gray',
@@ -79,13 +77,13 @@ const styles = StyleSheet.create({
     },
       retangulo: {
       position: 'absolute',
-      top: '8%',
+      top: 51,
       left: 23,
       bottom: 0,
       right: 23,
-      width: '91%',
-      height: '93%',
-      marginTop: 169,
+      width: '92%',
+      height: '80%',
+      marginTop: 268,
       marginLeft: -2,
       marginRight: -2,
       borderColor: 'white',
@@ -104,7 +102,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
       },
       palavrasdois: {
-        fontSize: 20,
+        fontSize: 17,
         color: 'white',
         marginTop: 1,
         marginLeft:  90,
@@ -123,15 +121,15 @@ const styles = StyleSheet.create({
           width: 95,
           height: 95,
           padding: 15,
-          top: 300,
-          left: 7,
+          top: 372,
+          left: 20,
         },
         dica: {
           width: 47,
           height: 67,
           padding: 2,
-          top: '245%',
-          left: '81%',
+          top: 240,
+          left: 320,
         },
   });
 
