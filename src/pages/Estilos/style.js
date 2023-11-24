@@ -1,10 +1,6 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#0E34A0',
-    },
     headerBack: {
         backgroundColor: '#2DC7FF',
         height: '14%',
@@ -22,27 +18,31 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        marginBottom: 10,
-        marginTop: 10,
+        margin: 50,
+        maxWidth: '90%',
     },
     estiloButton: {
         backgroundColor: '#0081AF',
-        width: 120,
-        height: 90,
+        width: 140,
+        height: 140,
         marginTop: 6,
         marginLeft: 8,
         marginRight: 4,
         color: 'white',
         borderRadius: 8,
         shadowColor: 'black',
-        borderWidth: 1,
+        borderWidth: 3,
+        borderColor: 'white',
         shadowOpacity: 2,
-        shadowRadius: 5
+        shadowRadius: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center'
     },
     textCenter: {
         textAlign: 'center',
         color: 'white',
-        margin: 4,
+        margin: 10,
         fontWeight: 'bold',
         fontSize: 16,
 
@@ -51,21 +51,19 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         textAlign: 'center',
-        top: 58,
+        top: 78,
         fontSize: 12
 
     },
     imagemEstilo: {
-        width: 54,
-        height: 54,
-        left: 30,
-        top:3
+        width: 74,
+        height: 74,
     },
     buttonMode: {
         backgroundColor: '#0081AF',
-        width: 94,
+        width: 204,
         height: 85,
-        margin: 4,
+        margin: 10,
         color: 'white',
         borderRadius: 8,
         borderColor: 'white',
@@ -89,9 +87,8 @@ const styles = StyleSheet.create({
       },
     buttonNiveis: {
         padding: 6,
-        bottom: 100,
-        right: 150,
-
+        right: 160,
+        bottom: 60
     },
     buttonTextGreen: {
         fontSize: 20,
@@ -106,11 +103,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: 'bold',
         top: 48
-    },
-    imageBackground: {
-        flex: 1,
-        resizeMode: "cover",
-        width: "100%",
     },
     settingsIcon: {
         top: 60,
@@ -191,8 +183,6 @@ const styles = StyleSheet.create({
       backgroundColor: 'gray',
       color: 'black',
     },
-    buttonLetter: {
-    },
     container: {
       flex: 1,
       alignItems: 'center',
@@ -253,8 +243,23 @@ const styles = StyleSheet.create({
           top: '245%',
           left: '81%',
         },
+        buttonRed: {
+          width: 240,
+          height: 68,
+          margin: 36,
+          backgroundColor: 'red',
+          justifyContent: 'center',
+          borderRadius: 10,
+          borderWidth: 3,
+          borderColor: 'black',
+        },
+      
+        buttonText: {
+          fontSize: 26,
+          color: 'white',
+          textAlign: 'center',
+          fontWeight: 'bold',
+      },
   });
-
-
 
 export default styles
