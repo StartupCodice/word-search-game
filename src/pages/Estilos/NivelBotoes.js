@@ -10,50 +10,44 @@ export default function NiveisBotoes() {
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity>
-          <Ionicons 
-            name="arrow-back" 
-            size={45} 
-            color="black" 
-            style={styles.buttonNiveis}
-            onPress={() => navigation.navigate('Home')}/>
-        </TouchableOpacity>
-            <TouchableHighlight underlayColor="null" onPress={() => navigation.navigate('NivelFacil')}>
-                <ImageBackground
-                    style={{ width: 180, height: 90 }}
-                >
-                    <Text style={styles.buttonTextYellow}>
-                        Nivel Facil
-                    </Text>
-                </ImageBackground>
-            </TouchableHighlight>
-            <TouchableHighlight underlayColor="null" onPress={() => navigation.navigate('NivelMedio')}>
-                <ImageBackground
-                    style={{ width: 180, height: 90, margin: 40 }}
-                >
-                    <Text style={styles.buttonTextGreen}>
-                        Nivel Medio
-                    </Text>
-                </ImageBackground>
-            </TouchableHighlight>
-            <TouchableHighlight underlayColor="null" onPress={() => navigation.navigate('NivelDificil')}>
-                <ImageBackground
-                    style={{ width: 180, height: 90 }}
-                >
-                    <Text style={styles.buttonTextYellow}>
-                        Nivel Dificil
-                    </Text>
-                </ImageBackground>
-            </TouchableHighlight>
-            <TouchableHighlight underlayColor="null" onPress={() => navigation.navigate('NivelPro')}>
-                <ImageBackground
-                    style={{ width: 180, height: 90 }}
-                >
-                    <Text style={styles.buttonTextYellow}>
-                        Nivel Pró
-                    </Text>
-                </ImageBackground>
-            </TouchableHighlight>
+            <ImageBackground source={require('../../assets/natalbotões.jpg')} style={styles.imageBackground}>
+                <View style={styles.container}>
+                    <TouchableOpacity>
+                    <Ionicons 
+                        name="arrow-back" 
+                        size={45} 
+                        color="black" 
+                        style={styles.buttonNiveis}
+                        onPress={() => navigation.navigate('Home')}/>
+                    </TouchableOpacity>
+
+                        <TouchableHighlight underlayColor="null" onPress={() => navigation.navigate('NivelFacil')} style={styles.buttonRed}>
+                                <Text style={styles.buttonText}>
+                                    Nivel Facil
+                                </Text>
+                        </TouchableHighlight>
+
+                        <TouchableHighlight underlayColor="null" onPress={() => navigation.navigate('NivelMedio')} style={styles.buttonRed}>
+                                <Text style={styles.buttonText}>
+                                    Nivel Medio
+                                </Text>
+                        </TouchableHighlight>
+
+                        <TouchableHighlight underlayColor="null" onPress={() => navigation.navigate('NivelDificil')} style={styles.buttonRed}>
+                                <Text style={styles.buttonText}>
+                                    Nivel Dificil
+                                </Text>
+                        </TouchableHighlight>
+
+                        <TouchableHighlight underlayColor="null" onPress={() => navigation.navigate('NivelPro')} style={styles.buttonRed}>  
+                                <Text style={styles.buttonText}>
+                                    Nivel Pró
+                                </Text>
+                        </TouchableHighlight>
+
+                </View>
+            </ImageBackground>
+            
         </View>
     );
 }

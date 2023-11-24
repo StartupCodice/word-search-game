@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React,{ useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Text, View, ImageBackground, Image, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -7,17 +7,17 @@ import { createGame } from 'hunting-words';
 import randomcolor from 'randomcolor';
 
 const DIRECTIONS = [
-  [1, 0],     // horizontal direita
-  [1, 1],     // diagonal inferior direita
-  [0, 1],     // vertical para baixo
-  [-1, 1],    // diagonal inferior esquerda
-  [-1, 0],    // horizontal esquerda
-  [-1, -1],   // diagonal superior esquerda
-  [0, -1],    // vertical para cima
-  [1, -1],    // diagonal superior direita
-];
+    [1, 0],     // horizontal direita
+    [1, 1],     // diagonal inferior direita
+    [0, 1],     // vertical para baixo
+    [-1, 1],    // diagonal inferior esquerda
+    [-1, 0],    // horizontal esquerda
+    [-1, -1],   // diagonal superior esquerda
+    [0, -1],    // vertical para cima
+    [1, -1],    // diagonal superior direita
+  ];
 
-export default function Jogar({ navigation }) {
+export default function Personages({ navigation }) {
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
     game: new createGame(8, 8, []),
@@ -42,15 +42,13 @@ export default function Jogar({ navigation }) {
       if (!isMounted) return; 
 
       const palavrasOriginais = [
-        { name: 'NATAL', found: false },
-        { name: 'PRESENTE', found: false },
-        { name: 'ALEGRIA', found: false },
-        { name: 'PAZ', found: false },
-        { name: 'AMOR', found: false },
-        { name: 'TRADIÇAO', found: false },
-        { name: 'GRATIDAO', found: false },
-        { name: 'REUNIAO', found: false },
-        { name: 'BRILHO', found: false },
+        { name: 'BONECO', found: false },
+        { name: 'GRINCH', found: false },
+        { name: 'ELFOS', found: false },
+        { name: 'DUENDES', found: false },
+        { name: 'RUDOLPH', found: false },
+        { name: 'FADA', found: false },
+        { name: 'SOLDADO', found: false },
       ];
 
       const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 4);
@@ -127,27 +125,28 @@ export default function Jogar({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('./../../assets/templatejogo.jpg')} style={styles.imageBackground}>
+      <ImageBackground source={require('./../../../../../assets/templatejogo.jpg')} style={styles.imageBackground}>
         <Image
-          source={require('./../../assets/telaingameretangulo.png')}
+          source={require('./../../../../../assets/telaingameretangulo.png')}
           style={styles.retangulo}
         />
-
+         
         <Image
-          source={require('./../../assets/chapeu.png')}
+          source={require('./../../../../../assets/chapeu.png')}
           style={styles.chapeu}
         />
 
         <TouchableOpacity>
           <Image
-            source={require('./../../assets/lampada.png')}
+            source={require('./../../../../../assets/lampada.png')}
             style={styles.dica}
-          />
+          />  
         </TouchableOpacity>
 
+        
         <TouchableOpacity style={styles.button}>
-          <Ionicons name="arrow-back" size={45} color="white"
-            onPress={() => navigation.navigate('Home')} />
+          <Ionicons name="arrow-back" size={45} color="white" 
+          onPress={() => navigation.navigate('NivelFacil')}/>
         </TouchableOpacity>
 
         <View style={styles.palavrasContainer}>
@@ -155,7 +154,7 @@ export default function Jogar({ navigation }) {
             palavras.map((palavra, index) => (
               <Text key={index} style={
                 [
-                  styles.palavras,
+                  styles.palavras, 
                   (palavra.found) ? { backgroundColor: cores[index] } : null,
                   (palavra.found) ? styles.wordFound : null,
                 ]
@@ -167,23 +166,23 @@ export default function Jogar({ navigation }) {
         </View>
 
         <View style={styles.lettersContainer}>
-          {
-            board.game.board.map((row, indexRow) => (
-              <View key={indexRow}>
-                {
-                  row.map((column, indexColumn) => (
-                    <Text
-                      style={[styles.letter, (column.isSelected) ? styles.selected : null]}
-                      key={indexColumn}
-                      onPress={() => selectLetter(column)}
-                    >
-                      {column.letter}
-                    </Text>
-                  ))
-                }
-              </View>
-            ))
-          }
+            {
+              board.game.board.map((row, indexRow)=>(
+                <View key={indexRow}>
+                    {
+                      row.map((column, indexColumn)=>(
+                          <Text
+                            style={[styles.letter, (column.isSelected) ? styles.selected : null]}
+                            key={indexColumn}
+                            onPress={() => selectLetter(column)}
+                          >
+                            {column.letter}
+                          </Text>
+                      ))
+                    }
+                </View>
+              ))
+            } 
         </View>
 
         <StatusBar style="auto" />

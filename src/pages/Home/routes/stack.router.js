@@ -13,6 +13,11 @@ import  { NivelFacil }  from '../../Estilos/NivelFacil/NivelFacil';
 import  { NivelMedio }  from '../../Estilos/NivelMedio/NivelMedio';
 import { NivelDificil } from '../../Estilos/NivelDificil/NivelDificil';
 import { NivelPro } from '../../Estilos/NivelPro/NivelPro';
+import { Menu } from '../../Menu/Menu';
+import Alimentos from '../../Estilos/NivelFacil/TemasJogo/Alimentos/Alimentos';
+import Decoracoes from '../../Estilos/NivelFacil/TemasJogo/Decoracoes/Decoracoes';
+import Personages from '../../Estilos/NivelFacil/TemasJogo/Personagens/Personagens';
+import Presentes from '../../Estilos/NivelFacil/TemasJogo/Presentes/Presentes';
 
 export function StackRoutes() {
     return (
@@ -59,6 +64,42 @@ export function StackRoutes() {
                 headerShown: false       
             }}
              />
+
+            <Screen 
+             name="Alimentos"
+             component={Alimentos}
+             options={{ 
+                title: '',
+                headerShown: false       
+            }}
+             />
+
+            <Screen 
+             name="Decoracoes"
+             component={Decoracoes}
+             options={{ 
+                title: '',
+                headerShown: false       
+            }}
+             />
+            <Screen 
+             name="Personagens"
+             component={Personages}
+             options={{ 
+                title: '',
+                headerShown: false       
+            }}
+             />
+
+             <Screen 
+             name="Presentes"
+             component={Presentes}
+             options={{ 
+                title: '',
+                headerShown: false       
+            }}
+             />
+
 
             <Screen 
              name="NivelMedio"
