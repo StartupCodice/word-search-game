@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { StatusBar } from 'expo-status-bar';
 import { Text, View, ImageBackground, Image, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import styles from './style';
+import { StatusBar } from 'expo-status-bar';
+import Modal from 'react-native-modal';
+import styles from './style'; 
 import { createGame } from 'hunting-words';
 import randomcolor from 'randomcolor';
 
@@ -24,6 +25,21 @@ export default function Jogar({ navigation }) {
   });
   const [cores, setCores] = useState([]);
   const [isMounted, setIsMounted] = useState(true);
+  const [startTime, setStartTime] = useState(new Date());
+  const [isModalVisible, setModalVisible] = useState(false);
+
+
+  const selectRandomWords = (totalWords, numWords) => {
+    const selectedWords = [];
+    const allWords = [...totalWords];
+
+    while (selectedWords.length < numWords && allWords.length > 0) {
+      const randomIndex = Math.floor(Math.random() * allWords.length);
+      selectedWords.push(allWords.splice(randomIndex, 1)[0]);
+    }
+
+    return selectedWords;
+  };
 
   useEffect(() => {
     const selectRandomWords = (totalWords, numWords) => {
@@ -39,7 +55,7 @@ export default function Jogar({ navigation }) {
     };
 
     const fetchData = async () => {
-      if (!isMounted) return; 
+      if (!isMounted) return;
 
       const palavrasOriginais = [
         { name: 'NATAL', found: false },
@@ -61,6 +77,11 @@ export default function Jogar({ navigation }) {
 
       const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
       setCores(coresAleatorias);
+
+
+  setStartTime(new Date());
+  setModalVisible(false);
+  setTempoDecorrido(0);
     };
 
     fetchData();
@@ -74,6 +95,20 @@ export default function Jogar({ navigation }) {
 
     setBoard({ game });
     verifyFindWord(item.word);
+  }
+
+  function getLetterSelectedSameWord(word) {
+    let lettersSelected = 0;
+  
+    board.game.board.filter((row) => {
+      lettersSelected =
+        lettersSelected +
+        row.filter((el) => {
+          return el.word == word && el.isSelected;
+        }).length;
+    });
+  
+    return lettersSelected;
   }
 
   function verifyFindWord(words) {
@@ -97,33 +132,50 @@ export default function Jogar({ navigation }) {
     const isWin = palavras.every((palavra) => palavra.found === true);
 
     if (isWin) {
-      mostrarAlerta();
+      mostrarResultado();
     }
   }
 
-  const mostrarAlerta = () => {
-    Alert.alert(
-      'Parabéns',
-      'Você conseguiu achar todas as palavras',
-      [{ text: 'OK', onPress: () => navigation.navigate('Home') }],
-      { cancelable: false }
-    );
+  const mostrarResultado = () => {
+    const endTime = new Date();
+    const tempoDecorrido = (endTime - startTime) / 1000;  
+    setModalVisible(true);
+    setTempoDecorrido(tempoDecorrido);
   };
 
-  function getLetterSelectedSameWord(word) {
-    let lettersSelected = 0;
+  const reiniciarJogo = () => {
+    const palavrasOriginais = [
+      { name: 'NATAL', found: false },
+      { name: 'PRESENTE', found: false },
+      { name: 'ALEGRIA', found: false },
+      { name: 'PAZ', found: false },
+      { name: 'AMOR', found: false },
+      { name: 'TRADIÇAO', found: false },
+      { name: 'GRATIDAO', found: false },
+      { name: 'REUNIAO', found: false },
+      { name: 'BRILHO', found: false },
+    ];
 
-    board.game.board.filter((row) => {
-      lettersSelected =
-        lettersSelected +
-        row.filter((el) => {
-          return el.word == word && el.isSelected;
-        }).length;
-    });
+    const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 4);
+    setPalavras(palavrasEscolhidas);
 
-    return lettersSelected;
-  }
+    const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
+    setBoard({ game: new createGame(8, 8, palavrasJogo) });
 
+    const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
+    setCores(coresAleatorias);
+
+ 
+    setStartTime(new Date());
+    setModalVisible(false);
+    setTempoDecorrido(0);
+  };
+
+  const closeModal = () => {
+    reiniciarJogo();
+  };
+
+  const [tempoDecorrido, setTempoDecorrido] = useState(0);
 
   return (
     <View style={styles.container}>
@@ -186,8 +238,21 @@ export default function Jogar({ navigation }) {
           }
         </View>
 
-        <StatusBar style="auto" />
+        <Modal isVisible={isModalVisible} onBackdropPress={closeModal}>
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalText}>
+              Parabéns! Você conseguiu achar todas as palavras em {tempoDecorrido.toFixed(2)} segundos
+            </Text>
+            <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
+              <Text style={styles.modalButtonText}>Jogar Novamente</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.modalButton} onPress={() => navigation.navigate('Home')}>
+              <Text style={styles.modalButtonText}>Ir para a Home</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
 
+        <StatusBar style="auto" />
       </ImageBackground>
     </View>
   );

@@ -131,6 +131,29 @@ const styles = StyleSheet.create({
           top: 240,
           left: 320,
         },
+        modalContainer: {
+          backgroundColor: 'white',
+          padding: 20,
+          borderRadius: 10,
+        },
+      
+        modalText: {
+          fontSize: 18,
+          marginBottom: 20,
+        },
+      
+        modalButton: {
+          backgroundColor: '#007BFF',
+          padding: 10,
+          borderRadius: 5,
+          alignItems: 'center',
+          marginBottom: 10,
+        },
+      
+        modalButtonText: {
+          color: 'white',
+          fontSize: 16,
+        },
   });
 
 export default styles
