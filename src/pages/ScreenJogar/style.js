@@ -133,13 +133,27 @@ const styles = StyleSheet.create({
         },
         modalContainer: {
           backgroundColor: 'white',
-          padding: 20,
           borderRadius: 10,
+          width: '100%',
+          height: '100%',
+          justifyContent: 'center',
+          alignContent: 'center',
+          alignItems: 'center',
+          
+        },
+        modalContainer2: {
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderWidth: 5,
+          borderColor: '#007BFF',
+          borderRadius: 18,
+
         },
       
         modalText: {
-          fontSize: 18,
-          marginBottom: 20,
+          fontSize: 32,
+          margin: 20,
         },
       
         modalButton: {
@@ -147,13 +161,17 @@ const styles = StyleSheet.create({
           padding: 10,
           borderRadius: 5,
           alignItems: 'center',
-          marginBottom: 10,
+          margin: 20,
         },
       
         modalButtonText: {
           color: 'white',
-          fontSize: 16,
+          fontSize: 24,
         },
+        textTempo: {
+          fontSize: 28,
+          fontWeight: 'bold',
+        }
   });
 
 export default styles

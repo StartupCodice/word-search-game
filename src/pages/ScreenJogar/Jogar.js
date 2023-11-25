@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, ImageBackground, Image, TouchableOpacity, Alert } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { Text, View, ImageBackground, Image, TouchableOpacity, Animated } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import Modal from 'react-native-modal';
-import styles from './style'; 
+import { PanGestureHandler, State } from 'react-native-gesture-handler';
+import styles from './style';
 import { createGame } from 'hunting-words';
 import randomcolor from 'randomcolor';
 
@@ -24,10 +25,13 @@ export default function Jogar({ navigation }) {
     game: new createGame(8, 8, []),
   });
   const [cores, setCores] = useState([]);
-  const [isMounted, setIsMounted] = useState(true);
   const [startTime, setStartTime] = useState(new Date());
   const [isModalVisible, setModalVisible] = useState(false);
+  const [tempoDecorrido, setTempoDecorrido] = useState(0);
+  const [isDicaModalVisible, setDicaModalVisible] = useState(false);
+  const [dicaPalavra, setDicaPalavra] = useState('');
 
+  const isMountedRef = useRef(true);
 
   const selectRandomWords = (totalWords, numWords) => {
     const selectedWords = [];
@@ -41,58 +45,145 @@ export default function Jogar({ navigation }) {
     return selectedWords;
   };
 
-  useEffect(() => {
-    const selectRandomWords = (totalWords, numWords) => {
-      const selectedWords = [];
-      const allWords = [...totalWords];
+  const mostrarDicaModal = () => {
+    setDicaModalVisible(true);
+  };
 
-      while (selectedWords.length < numWords && allWords.length > 0) {
-        const randomIndex = Math.floor(Math.random() * allWords.length);
-        selectedWords.push(allWords.splice(randomIndex, 1)[0]);
+  const fecharDicaModal = () => {
+    setDicaModalVisible(false);
+  };
+
+  const revelarPalavraDica = () => {
+    const palavrasNaoEncontradas = palavras.filter((palavra) => !palavra.found);
+
+    if (palavrasNaoEncontradas.length > 0) {
+      const palavraAleatoria = palavrasNaoEncontradas[Math.floor(Math.random() * palavrasNaoEncontradas.length)];
+
+      // Marcar a palavra como encontrada
+      palavraAleatoria.found = true;
+      setPalavras([...palavras]);
+
+      // Destacar a palavra no tabuleiro
+      const palavraNoTabuleiro = palavraAleatoria.name;
+      destacarPalavraNoTabuleiro(palavraNoTabuleiro);
+    }
+
+    // Fechar o modal de dica
+    fecharDicaModal();
+  };
+
+  const destacarPalavraNoTabuleiro = (palavra) => {
+    const novoTabuleiro = { ...board.game };
+
+    // Percorrer o tabuleiro e destacar as letras da palavra
+    novoTabuleiro.board.forEach((row) => {
+      row.forEach((cell) => {
+        if (palavra.includes(cell.letter)) {
+          cell.isSelected = true; // Marcar como selecionada
+        } else {
+          cell.isSelected = false; // Deselecionar as letras que não fazem parte da palavra
+        }
+      });
+    });
+
+    setBoard({ game: novoTabuleiro });
+  };
+
+  const verificarPalavraSelecionada = () => {
+    const novoTabuleiro = { ...board.game };
+    const novasPalavras = [...palavras];
+  
+    novasPalavras.forEach((palavra) => {
+      const palavraNoTabuleiro = palavra.name;
+      const letrasSelecionadas = [];
+  
+      // Verificar quais letras estão selecionadas para a palavra atual
+      novoTabuleiro.board.forEach((row) => {
+        row.forEach((cell) => {
+          if (palavraNoTabuleiro.includes(cell.letter) && cell.isSelected) {
+            letrasSelecionadas.push(cell.letter);
+          }
+        });
+      });
+  
+      // Verificar se as letras selecionadas formam a palavra completa
+      const palavraCompleta = letrasSelecionadas.join('') === palavraNoTabuleiro;
+  
+      // Deselecionar as letras que não formam a palavra completa
+      if (!palavraCompleta) {
+        novoTabuleiro.board.forEach((row) => {
+          row.forEach((cell) => {
+            if (palavraNoTabuleiro.includes(cell.letter) && cell.isSelected) {
+              cell.isSelected = false;
+            }
+          });
+        });
       }
+    });
+  
+    setPalavras(novasPalavras);
+    setBoard({ game: novoTabuleiro });
+  };
 
-      return selectedWords;
-    };
+  
 
-    const fetchData = async () => {
-      if (!isMounted) return;
+  const fetchData = async () => {
+    try {
+    const palavrasOriginais = [
+      { name: 'NATAL', found: false },
+      { name: 'FLOCO', found: false },
+      { name: 'ALEGRIA', found: false },
+      { name: 'PAZ', found: false },
+      { name: 'AMOR', found: false },
+      { name: 'TRADIÇAO', found: false },
+      { name: 'GRATIDAO', found: false },
+      { name: 'REUNIAO', found: false },
+      { name: 'BRILHO', found: false },
+      { name: 'LUZES', found: false },
+      { name: 'PRESENTE', found: false },
+      { name: 'CEIA', found: false },
+      { name: 'ARVORE', found: false },
+      { name: 'CANÇAO', found: false },
+      { name: 'PAPAI', found: false },
+      { name: 'MAGIA', found: false },
+      { name: 'RENOS', found: false },
+      { name: 'BISCOITO', found: false },
+      { name: 'DOCES', found: false },
+      { name: 'FITAS', found: false },
+    ];
 
-      const palavrasOriginais = [
-        { name: 'NATAL', found: false },
-        { name: 'PRESENTE', found: false },
-        { name: 'ALEGRIA', found: false },
-        { name: 'PAZ', found: false },
-        { name: 'AMOR', found: false },
-        { name: 'TRADIÇAO', found: false },
-        { name: 'GRATIDAO', found: false },
-        { name: 'REUNIAO', found: false },
-        { name: 'BRILHO', found: false },
-      ];
-
+    if (isMountedRef.current) {
       const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 4);
-      setPalavras(palavrasEscolhidas);
+    setPalavras(palavrasEscolhidas);
 
-      const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-      setBoard({ game: new createGame(8, 8, palavrasJogo) });
+    const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
+    setBoard({ game: new createGame(8, 8, palavrasJogo) });
 
-      const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
-      setCores(coresAleatorias);
+    const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
+    setCores(coresAleatorias);
 
+    setStartTime(new Date());
+    setModalVisible(false);
+    setTempoDecorrido(0);
+    }
+    } catch (error) {
+      console.error('Erro ao buscar dados: ', error);
+    }
+  };
 
-  setStartTime(new Date());
-  setModalVisible(false);
-  setTempoDecorrido(0);
-    };
-
+  useEffect(() => {
     fetchData();
 
-    return () => setIsMounted(false);
-  }, [isMounted]);
+    return () => {
+      isMountedRef.current = false;
+    } 
+  }, []);
 
   function selectLetter(item) {
     let game = board.game;
     game.board[item.row][item.column].setIsSelected(!item.isSelected);
 
+    verificarPalavraSelecionada();
     setBoard({ game });
     verifyFindWord(item.word);
   }
@@ -139,14 +230,20 @@ export default function Jogar({ navigation }) {
   const mostrarResultado = () => {
     const endTime = new Date();
     const tempoDecorrido = (endTime - startTime) / 1000;  
+  
+    const minutos = Math.floor(tempoDecorrido / 60);
+    const segundos = Math.floor(tempoDecorrido % 60);
+  
+    const tempoFormatado = `${minutos} min ${segundos} seg`;
+  
     setModalVisible(true);
-    setTempoDecorrido(tempoDecorrido);
+    setTempoDecorrido(tempoFormatado);
   };
 
   const reiniciarJogo = () => {
     const palavrasOriginais = [
       { name: 'NATAL', found: false },
-      { name: 'PRESENTE', found: false },
+      { name: 'FLOCO', found: false },
       { name: 'ALEGRIA', found: false },
       { name: 'PAZ', found: false },
       { name: 'AMOR', found: false },
@@ -154,6 +251,17 @@ export default function Jogar({ navigation }) {
       { name: 'GRATIDAO', found: false },
       { name: 'REUNIAO', found: false },
       { name: 'BRILHO', found: false },
+      { name: 'LUZES', found: false },
+      { name: 'PRESENTE', found: false },
+      { name: 'CEIA', found: false },
+      { name: 'ARVORE', found: false },
+      { name: 'CANÇAO', found: false },
+      { name: 'PAPAI', found: false },
+      { name: 'MAGIA', found: false },
+      { name: 'RENOS', found: false },
+      { name: 'BISCOITO', found: false },
+      { name: 'DOCES', found: false },
+      { name: 'FITAS', found: false },
     ];
 
     const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 4);
@@ -175,7 +283,6 @@ export default function Jogar({ navigation }) {
     reiniciarJogo();
   };
 
-  const [tempoDecorrido, setTempoDecorrido] = useState(0);
 
   return (
     <View style={styles.container}>
@@ -190,7 +297,7 @@ export default function Jogar({ navigation }) {
           style={styles.chapeu}
         />
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={mostrarDicaModal}>
           <Image
             source={require('./../../assets/lampada.png')}
             style={styles.dica}
@@ -238,16 +345,36 @@ export default function Jogar({ navigation }) {
           }
         </View>
 
-        <Modal isVisible={isModalVisible} onBackdropPress={closeModal}>
+        <Modal isVisible={isDicaModalVisible} onBackdropPress={fecharDicaModal} style={styles.modalContainer2}>
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalText}>
+            Dica:
+          </Text>
+          <Text style={styles.textDica}>
+            {dicaPalavra}
+          </Text>
+          <TouchableOpacity style={styles.modalButton} onPress={revelarPalavraDica}>
+            <Text style={styles.modalButtonText}>Revelar Palavra</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.modalButton} onPress={fecharDicaModal}>
+            <Text style={styles.modalButtonText}>Fechar</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
+
+        <Modal isVisible={isModalVisible} onBackdropPress={closeModal} style={styles.modalContainer2}>
           <View style={styles.modalContainer}>
             <Text style={styles.modalText}>
-              Parabéns! Você conseguiu achar todas as palavras em {tempoDecorrido.toFixed(2)} segundos
+              TEMPO:
             </Text>
+            <Text style={styles.textTempo}>
+                {tempoDecorrido}s
+            </Text> 
             <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
-              <Text style={styles.modalButtonText}>Jogar Novamente</Text>
+              <Text style={styles.modalButtonText}>Continuar</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.modalButton} onPress={() => navigation.navigate('Home')}>
-              <Text style={styles.modalButtonText}>Ir para a Home</Text>
+              <Text style={styles.modalButtonText}>Voltar</Text>
             </TouchableOpacity>
           </View>
         </Modal>
