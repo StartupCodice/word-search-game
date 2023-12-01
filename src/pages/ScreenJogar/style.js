@@ -1,177 +1,165 @@
-import { StyleSheet } from "react-native";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { StyleSheet, Dimensions } from "react-native";
+import { moderateScale, verticalScale, scale, moderateVerticalScale } from 'react-native-size-matters';
+const {height, width} = Dimensions.get('window');
 
-const styles = StyleSheet.create({
-    palavrasContainer: {
-      marginTop: -70,
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      justifyContent: 'center',
-      alignItems: 'center',
-      rowGap: 20,
-      columnGap: 40,
-    },
-    selected: {
-      backgroundColor: 'gray',
-      color: 'white',
-    },
-    lettersContainer: {
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      justifyContent: 'center',
-      alignItems: 'center',
-      textAlign: 'center',
-      paddingLeft: 33,
-      paddingRight: 33,
-      rowGap: 10,
-      position: 'absolute',
-      bottom: 0,
-      left: 0,
-      right: 0,
-      marginBottom: 70,
-    },
-    wordFound: {
-      color: 'black',
-      padding: 10,
-    },
-    cacaContainer: {
-      marginTop: 150,
-      width: 100,
-      height: 100,
-    },
-    caca: {
-      flexWrap: 'wrap',
-      flexDirection: 'row',
-    },
-    letter: {
-      justifyContent: 'center',
-      alignItems: 'center',
-      textAlign: 'center',
-      fontWeight: 'bold',
-      fontSize: 25,
-      width: 40,
-    },
-    sendLetter: {
-      flexDirection: 'row',
-      marginTop: 30,
-      gap: 20,
-      justifyContent: 'center',
-    },
-    inputLetter: {
-      width: 200,
-      height: 40,
-      paddingLeft: 10, 
-      backgroundColor: 'gray',
-      color: 'black',
-    },
-    buttonLetter: {
-    },
-    container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    imageBackground: {
-      flex: 1,
-      resizeMode: "cover",
-      width: "100%",
-    },
-      retangulo: {
-      position: 'absolute',
-      top: 51,
-      left: 23,
-      bottom: 0,
-      right: 23,
-      width: '92%',
-      height: '80%',
-      marginTop: 268,
-      marginLeft: -2,
-      marginRight: -2,
-      borderColor: 'white',
-      borderRadius: 7,
+  const styles = StyleSheet.create({
+      palavrasContainer: {
+        top: hp(3),
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        alignItems: 'center',
+        rowGap: 20,
+        columnGap: 20,
       },
-      button: {
-        width: 79,
-        height: 79,
-        padding: 15,
-        bottom: 120,
-        left: 5,
-      },
-      palavras: {
-        fontSize: 28,
+      selected: {
+        backgroundColor: 'gray',
         color: 'white',
-        fontWeight: 'bold',
+        borderRadius: 10,
       },
-      palavrasdois: {
-        fontSize: 17,
-        color: 'white',
-        marginTop: 1,
-        marginLeft:  90,
-        marginRight: 21,
-        fontWeight: 'bold',
+      LetterContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+        rowGap: 10,
+        bottom: moderateVerticalScale(25, 1.5),
       },
-      palavrastres: {
-        fontSize: 17,
-        color: 'white',
-        marginTop: 1,
-        marginLeft:  90,
-        marginRight: 21,
-        fontWeight: 'bold',
+      wordFound: {
+        color: 'black',
+        padding: 10,
       },
-        chapeu: {
-          width: 95,
-          height: 95,
-          padding: 15,
-          top: 372,
-          left: 20,
-        },
-        dica: {
-          width: 47,
-          height: 67,
-          padding: 2,
-          top: 240,
-          left: 320,
-        },
-        modalContainer: {
-          backgroundColor: 'white',
-          borderRadius: 10,
-          width: '100%',
-          height: '100%',
-          justifyContent: 'center',
-          alignContent: 'center',
-          alignItems: 'center',
-          
-        },
-        modalContainer2: {
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderWidth: 5,
-          borderColor: '#007BFF',
-          borderRadius: 18,
+      cacaContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1
+      },
+      caca: {
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+      },
+      Letter: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: wp(6),
+        width: wp(9),
+      },
 
-        },
+      sendLetter: {
+        flexDirection: 'row',
+        marginTop: 30,
+        gap: 20,
+        justifyContent: 'center',
+      },
+      inputLetter: {
+        width: 200,
+        height: 40,
+        paddingLeft: 10, 
+        backgroundColor: 'gray',
+        color: 'black',
+      },
       
-        modalText: {
-          fontSize: 32,
-          margin: 20,
+      ScreenText: {
+        fontSize: 20,
+        color: '#000',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        top: 48
+      },
+      imageBackground: {
+        flex: 1,
+        resizeMode: "cover",
+        width: "100%",
+      },
+      container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+        retangulo: {
+        width: scale(290),
+        height: scale(330),
+        borderColor: 'white',
+        borderRadius: 7,
+        justifyContent: 'center',
+        alignItems: 'center',
+        top: scale(36)
         },
-      
-        modalButton: {
-          backgroundColor: '#007BFF',
-          padding: 10,
-          borderRadius: 5,
-          alignItems: 'center',
-          margin: 20,
+        button: {
+          width: wp(20),
+          padding: scale(20),
+          bottom: moderateVerticalScale(30, 0.6),
+          right: scale(2),
         },
-      
-        modalButtonText: {
+        palavras: {
+          fontSize: scale(18),
           color: 'white',
-          fontSize: 24,
-        },
-        textTempo: {
-          fontSize: 28,
           fontWeight: 'bold',
-        }
-  });
+          padding: scale(5),
+          borderRadius: scale(20)
+        },
+          Dica: {
+            width: scale(80),
+            height: scale(54),
+            top: moderateScale(50, 1),
+            left: scale(120),
+            justifyContent: 'center',
+            alignContent: 'center',
+            alignItems: 'center',
+          },
+          dicaNumber: {
+            backgroundColor: 'yellow',
+            borderRadius: 50,
+            width: scale(20),
+            height: scale(20),
+            textAlign: 'center',
+            fontSize: scale(12),
+          },
+          modalContainer: {
+            backgroundColor: 'white',
+            borderRadius: 10,
+            width: '100%',
+            height: '100%',
+            justifyContent: 'center',
+            alignContent: 'center',
+            alignItems: 'center',
+            
+          },
+          modalContainer2: {
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderWidth: 5,
+            borderColor: '#007BFF',
+            borderRadius: 18,
 
-export default styles
+          },
+        
+          modalText: {
+            fontSize: 32,
+            margin: 20,
+          },
+        
+          modalButton: {
+            backgroundColor: '#007BFF',
+            padding: 10,
+            borderRadius: 5,
+            alignItems: 'center',
+            margin: 20,
+          },
+        
+          modalButtonText: {
+            color: 'white',
+            fontSize: 24,
+          },
+          textTempo: {
+            fontSize: 28,
+            fontWeight: 'bold',
+          }
+    });
+
+  export default styles
