@@ -6,7 +6,7 @@ import { ModalSettings } from './../../components/ModalSettings';
 import Botoes from '../../components/Botoes';
 
 export default function Home({ navigation }) {
-
+    
     
 
     return (

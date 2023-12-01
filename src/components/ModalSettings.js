@@ -10,7 +10,6 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import styles from "../pages/Home/style";
 
-
 export function ModalSettings(){
     const [settingsVisible, setSettingsVisible] = useState(false);
     const [volumeOn, setVolumeOff] = useState(true);
@@ -28,7 +27,7 @@ export function ModalSettings(){
                                 Alert.alert('Modal has been closed.');
                                 setSettingsVisible(!settingsVisible);
                             }}>
-                            <View style={styles.centeredView}>
+                            <View style={styles.CenteredViewSettings}>
                                 <View style={styles.modalViewVolume}>
                                 <TouchableHighlight
                                     style={styles.buttonInside}
