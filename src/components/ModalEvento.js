@@ -10,7 +10,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import styles from "../pages/Home/style";
 import { useNavigation } from '@react-navigation/native';
-import { moderateScale, verticalScale, scale } from 'react-native-size-matters';
+import { scale } from 'react-native-size-matters';
 
 
 

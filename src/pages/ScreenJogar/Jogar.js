@@ -256,7 +256,7 @@ export default function Jogar({ navigation }) {
 
 
           <Ionicons style={styles.button} name="arrow-back" size={scale(40)} color="white"
-            onPress={() => navigation.navigate('NivelFacil')} />
+            onPress={() => navigation.navigate('Home')} />
 
 
         <View style={styles.palavrasContainer}>

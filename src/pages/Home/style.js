@@ -210,7 +210,6 @@ const styles = StyleSheet.create({
         left: scale(15),
       },
       modalContainer: {
-        backgroundColor: 'white',
         borderRadius: 10,
         justifyContent: 'center',
         alignContent: 'center',
