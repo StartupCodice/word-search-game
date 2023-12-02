@@ -13,31 +13,35 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#0081AF'
     },
+    ButtonEstilo: {
+      backgroundColor: '#0081AF',
+      width: 140,
+      height: 140,
+      marginTop: 6,
+      marginLeft: 8,
+      marginRight: 4,
+      color: 'white',
+      borderRadius: 8,
+      shadowColor: 'black',
+      borderWidth: 3,
+      borderColor: 'white',
+      shadowOpacity: 2,
+      shadowRadius: 5,
+      justifyContent: 'center',
+      alignItems: 'center',
+      textAlign: 'center'
+  },
+  ImagemEstilo: {
+    width: 74,
+    height: 74,
+},
     containerMode: {
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        margin: 50,
+        margin: 10,
         maxWidth: '90%',
-    },
-    estiloButton: {
-        backgroundColor: '#0081AF',
-        width: 140,
-        height: 140,
-        marginTop: 6,
-        marginLeft: 8,
-        marginRight: 4,
-        color: 'white',
-        borderRadius: 8,
-        shadowColor: 'black',
-        borderWidth: 3,
-        borderColor: 'white',
-        shadowOpacity: 2,
-        shadowRadius: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center'
     },
     textCenter: {
         textAlign: 'center',
@@ -47,18 +51,20 @@ const styles = StyleSheet.create({
         fontSize: 16,
 
     },
-    zeroTrinta: {
-        color: 'white',
-        fontWeight: 'bold',
-        textAlign: 'center',
-        top: 78,
-        fontSize: 12
-
-    },
-    imagemEstilo: {
-        width: 74,
-        height: 74,
-    },
+    TextCenterEstilo: {
+      textAlign: 'center',
+      color: 'white',
+      margin: 10,
+      fontWeight: 'bold',
+      fontSize: 16,
+  },
+  ZeroTrinta: {
+      color: 'white',
+      fontWeight: 'bold',
+      textAlign: 'center',
+      top: 78,
+      fontSize: 12
+  },
     buttonMode: {
         backgroundColor: '#0081AF',
         width: 204,
@@ -90,20 +96,6 @@ const styles = StyleSheet.create({
         right: 160,
         bottom: 60
     },
-    buttonTextGreen: {
-        fontSize: 20,
-        color: 'darkgreen',
-        textAlign: 'center',
-        fontWeight: 'bold',
-        top: 48
-    },
-    buttonTextYellow: {
-        fontSize: 20,
-        color: '#000',
-        textAlign: 'center',
-        fontWeight: 'bold',
-        top: 48
-    },
     settingsIcon: {
         top: 60,
         right: 30,
@@ -118,7 +110,6 @@ const styles = StyleSheet.create({
     timerText: {
         fontSize: 30,
     },
-
     palavrasContainer: {
       marginTop: '-20%',
       flexDirection: 'row',
@@ -150,16 +141,6 @@ const styles = StyleSheet.create({
     wordFound: {
       color: 'black',
       padding: 10,
-    },
-    cacaContainer: {
-      marginTop: '20vh',
-      flex: 1,
-      width: '90%',
-      height: '100%',
-    },
-    caca: {
-      flexWrap: 'wrap',
-      flexDirection: 'row',
     },
     letter: {
       justifyContent: 'center',
@@ -193,20 +174,6 @@ const styles = StyleSheet.create({
       resizeMode: "cover",
       width: "100%",
     },
-      retangulo: {
-      position: 'absolute',
-      top: '8%',
-      left: 23,
-      bottom: 0,
-      right: 23,
-      width: '91%',
-      height: '93%',
-      marginTop: 169,
-      marginLeft: -2,
-      marginRight: -2,
-      borderColor: 'white',
-      borderRadius: 7,
-      },
      
       palavras: {
         fontSize: 28,
@@ -229,37 +196,47 @@ const styles = StyleSheet.create({
         marginRight: 21,
         fontWeight: 'bold',
       },
-        chapeu: {
-          width: 95,
-          height: 95,
-          padding: 15,
-          top: 300,
-          left: 7,
-        },
-        dica: {
-          width: 47,
-          height: 67,
-          padding: 2,
-          top: '245%',
-          left: '81%',
-        },
-        buttonRed: {
-          width: 240,
-          height: 68,
-          margin: 36,
-          backgroundColor: 'red',
-          justifyContent: 'center',
-          borderRadius: 10,
-          borderWidth: 3,
-          borderColor: 'black',
-        },
-      
-        buttonText: {
-          fontSize: 26,
-          color: 'white',
-          textAlign: 'center',
-          fontWeight: 'bold',
+      modalContainer: {
+        backgroundColor: 'white',
+        borderRadius: 10,
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        alignContent: 'center',
+        alignItems: 'center',
+        
       },
+      modalContainer2: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderWidth: 5,
+        borderColor: '#007BFF',
+        borderRadius: 18,
+
+      },
+    
+      modalText: {
+        fontSize: 32,
+        margin: 20,
+      },
+    
+      modalButton: {
+        backgroundColor: '#007BFF',
+        padding: 10,
+        borderRadius: 5,
+        alignItems: 'center',
+        margin: 20,
+      },
+    
+      modalButtonText: {
+        color: 'white',
+        fontSize: 24,
+      },
+      textTempo: {
+        fontSize: 28,
+        fontWeight: 'bold',
+      }
   });
 
 export default styles
