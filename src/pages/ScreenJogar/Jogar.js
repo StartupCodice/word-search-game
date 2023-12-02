@@ -47,18 +47,37 @@ export default function Jogar({ navigation }) {
     return selectedWords;
   };
 
+  const [columns, setColumns] = useState([]);
+
   const mostrarDica = () => {
     if (numDicasUsadas < 2) {
+      // pega as palavras que não foram encontradas
       const palavrasNaoEncontradas = palavras.filter((palavra) => !palavra.found);
 
-      if (palavrasNaoEncontradas.length > 0) {
-        const palavraAleatoria = palavrasNaoEncontradas[Math.floor(Math.random() * palavrasNaoEncontradas.length)];
+      // pega uma palavra alatoria
+      const indiceAleatorio = Math.floor(Math.random() * palavrasNaoEncontradas.length);
+      const palavraAleatoria = palavrasNaoEncontradas[indiceAleatorio];
+      let game = board.game;
 
-        // Marcar a palavra como encontrada
-        palavraAleatoria.found = true;
-        setPalavras([...palavras]);
-      }
+      // seleciona as letra correspondente a palavra alatoria
+      columns.forEach((column) => {
+        if (column.word[0] == palavraAleatoria.name) {
+          game.board[column.row][column.column].setIsSelected(true);
+        }
+      })
 
+      // atualiza a state do board
+      setBoard({ game });
+
+      // muda o fundo da palavra encontrada
+      palavras.forEach((palavra) => {
+        if (palavra.name === palavraAleatoria.name) {
+          palavra.found = true;
+        }
+      })
+      
+
+      setPalavras([...palavras]);
       setNumDicasUsadas(numDicasUsadas + 1);
     } else {
       setHintsExhausted(true);
@@ -288,6 +307,7 @@ export default function Jogar({ navigation }) {
                       style={[styles.Letter, (column.isSelected) ? styles.selected : null]}
                       key={indexColumn}
                       onPress={() => selectLetter(column)}
+                      onLayout={() => setColumns([...columns, column])}
                     >
                       {column.letter}
                     </Text>
