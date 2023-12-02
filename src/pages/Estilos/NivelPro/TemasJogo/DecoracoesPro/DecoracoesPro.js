@@ -3,10 +3,11 @@ import { Text, View, ImageBackground, Image, TouchableOpacity, Animated, Dimensi
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import Modal from 'react-native-modal';
+import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import styles from './style';
 import { createGame } from 'hunting-words';
 import randomcolor from 'randomcolor';
-import { scale } from 'react-native-size-matters';
+import { moderateScale, verticalScale, scale } from 'react-native-size-matters';
 
 
 const DIRECTIONS = [
@@ -20,18 +21,18 @@ const DIRECTIONS = [
   [1, -1],    // diagonal superior direita
 ];
 
-export default function Alimentos({ navigation }) {
+export default function DecoracoesPro({ navigation }) {
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
-    game: new createGame(6, 8, []),
+    game: new createGame(8, 8, []),
   });
   const [cores, setCores] = useState([]);
   const [startTime, setStartTime] = useState(new Date());
   const [isModalVisible, setModalVisible] = useState(false);
   const [tempoDecorrido, setTempoDecorrido] = useState(0);
-  const [numDicasUsadas, setNumDicasUsadas] = useState(0);
-  const [hintsExhausted, setHintsExhausted] = useState(false);
+  const [isDicaModalVisible, setDicaModalVisible] = useState(false);
+  const [dicaPalavra, setDicaPalavra] = useState('');
 
   const isMountedRef = useRef(true);
 
@@ -47,28 +48,49 @@ export default function Alimentos({ navigation }) {
     return selectedWords;
   };
 
-  const mostrarDica = () => {
-    if (numDicasUsadas < 2) {
-      const palavrasNaoEncontradas = palavras.filter((palavra) => !palavra.found);
+  const mostrarDicaModal = () => {
+    setDicaModalVisible(true);
+  };
 
-      if (palavrasNaoEncontradas.length > 0) {
-        const palavraAleatoria = palavrasNaoEncontradas[Math.floor(Math.random() * palavrasNaoEncontradas.length)];
+  const fecharDicaModal = () => {
+    setDicaModalVisible(false);
+  };
 
-        // Marcar a palavra como encontrada
-        palavraAleatoria.found = true;
-        setPalavras([...palavras]);
-      }
+  const revelarPalavraDica = () => {
+    const palavrasNaoEncontradas = palavras.filter((palavra) => !palavra.found);
 
-      setNumDicasUsadas(numDicasUsadas + 1);
-    } else {
-      setHintsExhausted(true);
+    if (palavrasNaoEncontradas.length > 0) {
+      const palavraAleatoria = palavrasNaoEncontradas[Math.floor(Math.random() * palavrasNaoEncontradas.length)];
+
+      // Marcar a palavra como encontrada
+      palavraAleatoria.found = true;
+      setPalavras([...palavras]);
+
+      // Destacar a palavra no tabuleiro
+      const palavraNoTabuleiro = palavraAleatoria.name;
+      destacarPalavraNoTabuleiro(palavraNoTabuleiro);
     }
+
+    // Fechar o modal de dica
+    fecharDicaModal();
   };
 
-  const fecharModalDicasEsgotadas = () => {
-    setHintsExhausted(false);
-  };
+  const destacarPalavraNoTabuleiro = (palavra) => {
+    const novoTabuleiro = { ...board.game };
 
+    // Percorrer o tabuleiro e destacar as letras da palavra
+    novoTabuleiro.board.forEach((row) => {
+      row.forEach((cell) => {
+        if (palavra.includes(cell.letter)) {
+          cell.isSelected = true; // Marcar como selecionada
+        } else {
+          cell.isSelected = false; // Deselecionar as letras que não fazem parte da palavra
+        }
+      });
+    });
+
+    setBoard({ game: novoTabuleiro });
+  };
 
   const verificarPalavraSelecionada = () => {
     const novoTabuleiro = { ...board.game };
@@ -86,6 +108,13 @@ export default function Alimentos({ navigation }) {
           }
         });
       });
+  
+      // Verificar se as letras selecionadas formam a palavra completa
+      const palavraCompleta = letrasSelecionadas.join('') === palavraNoTabuleiro;
+  
+      // Deselecionar as letras que não formam a palavra completa
+      
+      
     });
   
     setPalavras(novasPalavras);
@@ -97,20 +126,18 @@ export default function Alimentos({ navigation }) {
   const fetchData = async () => {
     try {
       const palavrasOriginais = [
-        { name: 'PERU', found: false },
-        { name: 'VINHO', found: false },
-        { name: 'CEIA', found: false },
-        { name: 'LEITE', found: false },
-        { name: 'DOCE', found: false },
-        { name: 'GANSO', found: false },
-        { name: 'MESSA', found: false },
-        { name: 'SALSA', found: false },
-        { name: 'TORTA', found: false },
-        { name: 'NOZES', found: false },
-        { name: 'COCA', found: false },
-        { name: 'PÃO', found: false },
-        { name: 'FIGO', found: false },
-        { name: 'UVA', found: false },
+        { name: 'VISCO', found: false },
+        { name: 'COROA', found: false },
+        { name: 'ESTRELA', found: false },
+        { name: 'GUIRLANDA', found: false },
+        { name: 'LUZES', found: false },
+        { name: 'BENGALA', found: false },
+        { name: 'RENAS', found: false },
+        { name: 'ARVORE', found: false },
+        { name: 'VELAS', found: false },
+        { name: 'LAÇOS', found: false },
+        { name: 'SINOS', found: false },
+    
       ];
 
     if (isMountedRef.current) {
@@ -118,7 +145,7 @@ export default function Alimentos({ navigation }) {
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(6, 8, palavrasJogo) });
+    setBoard({ game: new createGame(8, 8, palavrasJogo) });
 
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
@@ -203,27 +230,25 @@ export default function Alimentos({ navigation }) {
 
   const reiniciarJogo = () => {
     const palavrasOriginais = [
-      { name: 'PERU', found: false },
-      { name: 'VINHO', found: false },
-      { name: 'CEIA', found: false },
-      { name: 'LEITE', found: false },
-      { name: 'DOCE', found: false },
-      { name: 'GANSO', found: false },
-      { name: 'MESSA', found: false },
-      { name: 'SALSA', found: false },
-      { name: 'TORTA', found: false },
-      { name: 'NOZES', found: false },
-      { name: 'COCA', found: false },
-      { name: 'PÃO', found: false },
-      { name: 'FIGO', found: false },
-      { name: 'UVA', found: false },
+      { name: 'VISCO', found: false },
+      { name: 'COROA', found: false },
+      { name: 'ESTRELA', found: false },
+      { name: 'GUIRLANDA', found: false },
+      { name: 'LUZES', found: false },
+      { name: 'BENGALA', found: false },
+      { name: 'RENAS', found: false },
+      { name: 'ARVORE', found: false },
+      { name: 'VELAS', found: false },
+      { name: 'LAÇOS', found: false },
+      { name: 'SINOS', found: false },
+  
     ];
 
     const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 4);
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(6, 8, palavrasJogo) });
+    setBoard({ game: new createGame(8, 8, palavrasJogo) });
 
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
@@ -243,16 +268,14 @@ export default function Alimentos({ navigation }) {
     <View style={styles.container}>
       <ImageBackground source={require('./../../../../../assets/templatejogo.jpg')} style={styles.imageBackground}>
         
-      <TouchableOpacity onPress={mostrarDica}>
-        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <ImageBackground
+        <TouchableOpacity onPress={mostrarDicaModal}>
+          <View style={{ justifyContent: 'center', alignItems: 'center'}}>
+            <ImageBackground
             source={require('./../../../../../assets/chapeu.png')}
             style={styles.Dica}
-          >
-            <Text style={styles.dicaNumber}>{2 - numDicasUsadas}</Text>
-          </ImageBackground>
-        </View>
-      </TouchableOpacity>
+          ><Text style={styles.dicaNumber} onPress={mostrarDicaModal}>1</Text></ImageBackground>
+          </View>
+        </TouchableOpacity>
 
 
           <Ionicons style={styles.button} name="arrow-back" size={scale(40)} color="white"
@@ -299,13 +322,21 @@ export default function Alimentos({ navigation }) {
         </View>
         </ImageBackground>
         </View>
+        
+        
 
-        <Modal isVisible={hintsExhausted} onBackdropPress={fecharModalDicasEsgotadas} style={styles.modalContainer2}>
+        <Modal isVisible={isDicaModalVisible} onBackdropPress={fecharDicaModal} style={styles.modalContainer2}>
         <View style={styles.modalContainer}>
           <Text style={styles.modalText}>
-            As dicas acabaram!
+            Dica:
           </Text>
-          <TouchableOpacity style={styles.modalButton} onPress={fecharModalDicasEsgotadas}>
+          <Text style={styles.textDica}>
+            {dicaPalavra}
+          </Text>
+          <TouchableOpacity style={styles.modalButton} onPress={revelarPalavraDica}>
+            <Text style={styles.modalButtonText}>Revelar Palavra</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.modalButton} onPress={fecharDicaModal}>
             <Text style={styles.modalButtonText}>Fechar</Text>
           </TouchableOpacity>
         </View>

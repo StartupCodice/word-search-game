@@ -3,10 +3,11 @@ import { Text, View, ImageBackground, Image, TouchableOpacity, Animated, Dimensi
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import Modal from 'react-native-modal';
+import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import styles from './style';
 import { createGame } from 'hunting-words';
 import randomcolor from 'randomcolor';
-import { scale } from 'react-native-size-matters';
+import { moderateScale, verticalScale, scale } from 'react-native-size-matters';
 
 
 const DIRECTIONS = [
@@ -20,11 +21,11 @@ const DIRECTIONS = [
   [1, -1],    // diagonal superior direita
 ];
 
-export default function Alimentos({ navigation }) {
+export default function AlimentosMedio({ navigation }) {
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
-    game: new createGame(6, 8, []),
+    game: new createGame(8, 10, []),
   });
   const [cores, setCores] = useState([]);
   const [startTime, setStartTime] = useState(new Date());
@@ -97,28 +98,38 @@ export default function Alimentos({ navigation }) {
   const fetchData = async () => {
     try {
       const palavrasOriginais = [
-        { name: 'PERU', found: false },
-        { name: 'VINHO', found: false },
-        { name: 'CEIA', found: false },
+        {name: 'PERU', found: false },
+        {name: 'PANETONE', found: false },
+        {name: 'CHESTER', found: false },
+        {name: 'RABANADA', found: false },
+        {name: 'BACALHAU', found: false },
+        {name: 'VINHO', found: false },
+        {name: 'FAROFA', found: false },
+        {name: 'CEIA', found: false },
+        {name: 'FRUTAS', found: false },
+        { name: 'BOLINHO', found: false },
+        { name: 'NOZES', found: false },
+        { name: 'GELEIA', found: false },
         { name: 'LEITE', found: false },
+        { name: 'COCO', found: false },
         { name: 'DOCE', found: false },
         { name: 'GANSO', found: false },
+        { name: 'MAÇA', found: false },
         { name: 'MESSA', found: false },
+        { name: 'MINGAU', found: false },
+        { name: 'PUDIM', found: false },
         { name: 'SALSA', found: false },
+        { name: 'SORVETE', found: false },
         { name: 'TORTA', found: false },
-        { name: 'NOZES', found: false },
-        { name: 'COCA', found: false },
-        { name: 'PÃO', found: false },
-        { name: 'FIGO', found: false },
-        { name: 'UVA', found: false },
+        { name: 'PASSAS', found: false },
       ];
 
     if (isMountedRef.current) {
-      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 4);
+      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 6);
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(6, 8, palavrasJogo) });
+    setBoard({ game: new createGame(8, 10, palavrasJogo) });
 
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
@@ -203,27 +214,37 @@ export default function Alimentos({ navigation }) {
 
   const reiniciarJogo = () => {
     const palavrasOriginais = [
-      { name: 'PERU', found: false },
-      { name: 'VINHO', found: false },
-      { name: 'CEIA', found: false },
+      {name: 'PERU', found: false },
+      {name: 'PANETONE', found: false },
+      {name: 'CHESTER', found: false },
+      {name: 'RABANADA', found: false },
+      {name: 'BACALHAU', found: false },
+      {name: 'VINHO', found: false },
+      {name: 'FAROFA', found: false },
+      {name: 'CEIA', found: false },
+      {name: 'FRUTAS', found: false },
+      { name: 'BOLINHO', found: false },
+      { name: 'NOZES', found: false },
+      { name: 'GELEIA', found: false },
       { name: 'LEITE', found: false },
+      { name: 'COCO', found: false },
       { name: 'DOCE', found: false },
       { name: 'GANSO', found: false },
+      { name: 'MAÇA', found: false },
       { name: 'MESSA', found: false },
+      { name: 'MINGAU', found: false },
+      { name: 'PUDIM', found: false },
       { name: 'SALSA', found: false },
+      { name: 'SORVETE', found: false },
       { name: 'TORTA', found: false },
-      { name: 'NOZES', found: false },
-      { name: 'COCA', found: false },
-      { name: 'PÃO', found: false },
-      { name: 'FIGO', found: false },
-      { name: 'UVA', found: false },
+      { name: 'PASSAS', found: false },
     ];
 
-    const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 4);
+    const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 6);
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(6, 8, palavrasJogo) });
+    setBoard({ game: new createGame(8, 10, palavrasJogo) });
 
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
@@ -256,7 +277,7 @@ export default function Alimentos({ navigation }) {
 
 
           <Ionicons style={styles.button} name="arrow-back" size={scale(40)} color="white"
-            onPress={() => navigation.navigate('NivelFacil')} />
+            onPress={() => navigation.navigate('NivelMedio')} />
 
 
         <View style={styles.palavrasContainer}>

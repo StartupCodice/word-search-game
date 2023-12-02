@@ -20,11 +20,11 @@ const DIRECTIONS = [
   [1, -1],    // diagonal superior direita
 ];
 
-export default function Alimentos({ navigation }) {
+export default function PersonagensMedio({ navigation }) {
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
-    game: new createGame(6, 8, []),
+    game: new createGame(9, 12, []),
   });
   const [cores, setCores] = useState([]);
   const [startTime, setStartTime] = useState(new Date());
@@ -48,7 +48,7 @@ export default function Alimentos({ navigation }) {
   };
 
   const mostrarDica = () => {
-    if (numDicasUsadas < 2) {
+    if (numDicasUsadas < 4) {
       const palavrasNaoEncontradas = palavras.filter((palavra) => !palavra.found);
 
       if (palavrasNaoEncontradas.length > 0) {
@@ -97,28 +97,34 @@ export default function Alimentos({ navigation }) {
   const fetchData = async () => {
     try {
       const palavrasOriginais = [
-        { name: 'PERU', found: false },
-        { name: 'VINHO', found: false },
-        { name: 'CEIA', found: false },
-        { name: 'LEITE', found: false },
-        { name: 'DOCE', found: false },
-        { name: 'GANSO', found: false },
-        { name: 'MESSA', found: false },
-        { name: 'SALSA', found: false },
-        { name: 'TORTA', found: false },
-        { name: 'NOZES', found: false },
-        { name: 'COCA', found: false },
-        { name: 'PÃO', found: false },
-        { name: 'FIGO', found: false },
-        { name: 'UVA', found: false },
-      ];
+        { name: 'PAPAI', found: false },
+        { name: 'MAMAE', found: false },
+        { name: 'ANJO', found: false },
+        { name: 'SANTA', found: false },
+        { name: 'CUPIDO', found: false },
+        { name: 'DUENDE', found: false },
+        { name: 'ELFO', found: false },
+        { name: 'REIS', found: false },
+        { name: 'BELA', found: false },
+        { name: 'RENA', found: false },
+        { name: 'NOEL', found: false },
+        { name: 'FADA', found: false },
+        { name: 'GRINCH', found: false },
+        { name: 'LILY', found: false },
+        { name: 'JACK', found: false },
+        { name: 'BONECO', found: false },
+    ];
+    
+      
+      // Adicione mais palavras conforme necessário
+      
 
     if (isMountedRef.current) {
-      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 4);
+      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 8);
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(6, 8, palavrasJogo) });
+    setBoard({ game: new createGame(9, 12, palavrasJogo) });
 
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
@@ -203,27 +209,33 @@ export default function Alimentos({ navigation }) {
 
   const reiniciarJogo = () => {
     const palavrasOriginais = [
-      { name: 'PERU', found: false },
-      { name: 'VINHO', found: false },
-      { name: 'CEIA', found: false },
-      { name: 'LEITE', found: false },
-      { name: 'DOCE', found: false },
-      { name: 'GANSO', found: false },
-      { name: 'MESSA', found: false },
-      { name: 'SALSA', found: false },
-      { name: 'TORTA', found: false },
-      { name: 'NOZES', found: false },
-      { name: 'COCA', found: false },
-      { name: 'PÃO', found: false },
-      { name: 'FIGO', found: false },
-      { name: 'UVA', found: false },
-    ];
+      { name: 'PAPAI', found: false },
+      { name: 'MAMAE', found: false },
+      { name: 'ANJO', found: false },
+      { name: 'SANTA', found: false },
+      { name: 'CUPIDO', found: false },
+      { name: 'DUENDE', found: false },
+      { name: 'ELFO', found: false },
+      { name: 'REIS', found: false },
+      { name: 'BELA', found: false },
+      { name: 'RENA', found: false },
+      { name: 'NOEL', found: false },
+      { name: 'FADA', found: false },
+      { name: 'GRINCH', found: false },
+      { name: 'LILY', found: false },
+      { name: 'JACK', found: false },
+      { name: 'BONECO', found: false },
+  ];
+  
+    
+    // Adicione mais palavras conforme necessário
+    
 
-    const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 4);
+    const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 8);
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(6, 8, palavrasJogo) });
+    setBoard({ game: new createGame(9, 12, palavrasJogo) });
 
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
@@ -249,14 +261,14 @@ export default function Alimentos({ navigation }) {
             source={require('./../../../../../assets/chapeu.png')}
             style={styles.Dica}
           >
-            <Text style={styles.dicaNumber}>{2 - numDicasUsadas}</Text>
+            <Text style={styles.dicaNumber}>{4 - numDicasUsadas}</Text>
           </ImageBackground>
         </View>
       </TouchableOpacity>
 
 
           <Ionicons style={styles.button} name="arrow-back" size={scale(40)} color="white"
-            onPress={() => navigation.navigate('NivelFacil')} />
+            onPress={() => navigation.navigate('NivelDificil')} />
 
 
         <View style={styles.palavrasContainer}>
