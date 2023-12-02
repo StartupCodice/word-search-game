@@ -1,12 +1,14 @@
 import React from 'react';
 import { View, Text, TouchableHighlight, ImageBackground, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import styles from './style';
+import styles from '../Home/style'
 import { Ionicons } from '@expo/vector-icons';
+import { scale } from 'react-native-size-matters';
 
 
 export default function NiveisBotoes() {
     const navigation = useNavigation();
+
 
     return (
         <View style={styles.container}>
@@ -15,32 +17,32 @@ export default function NiveisBotoes() {
                     <TouchableOpacity>
                     <Ionicons 
                         name="arrow-back" 
-                        size={45} 
+                        size={scale(45)} 
                         color="black" 
-                        style={styles.buttonNiveis}
+                        style={styles.ButtonBackNiveis}
                         onPress={() => navigation.navigate('Home')}/>
                     </TouchableOpacity>
 
-                        <TouchableHighlight underlayColor="null" onPress={() => navigation.navigate('NivelFacil')} style={styles.buttonRed}>
-                                <Text style={styles.buttonText}>
+                        <TouchableHighlight underlayColor="null" onPress={() => navigation.navigate('NivelFacil')} style={styles.ButtonNiveis}>
+                                <Text style={styles.ButtonTextNiveis}>
                                     Nivel Facil
                                 </Text>
                         </TouchableHighlight>
 
-                        <TouchableHighlight underlayColor="null" onPress={() => navigation.navigate('NivelMedio')} style={styles.buttonRed}>
-                                <Text style={styles.buttonText}>
+                        <TouchableHighlight underlayColor="null" onPress={() => navigation.navigate('NivelMedio')} style={styles.ButtonNiveis}>
+                                <Text style={styles.ButtonTextNiveis}>
                                     Nivel Medio
                                 </Text>
                         </TouchableHighlight>
 
-                        <TouchableHighlight underlayColor="null" onPress={() => navigation.navigate('NivelDificil')} style={styles.buttonRed}>
-                                <Text style={styles.buttonText}>
+                        <TouchableHighlight underlayColor="null" onPress={() => navigation.navigate('NivelDificil')} style={styles.ButtonNiveis}>
+                                <Text style={styles.ButtonTextNiveis}>
                                     Nivel Dificil
                                 </Text>
                         </TouchableHighlight>
 
-                        <TouchableHighlight underlayColor="null" onPress={() => navigation.navigate('NivelPro')} style={styles.buttonRed}>  
-                                <Text style={styles.buttonText}>
+                        <TouchableHighlight underlayColor="null" onPress={() => navigation.navigate('NivelPro')} style={styles.ButtonNiveis}>  
+                                <Text style={styles.ButtonTextNiveis}>
                                     Nivel Pró
                                 </Text>
                         </TouchableHighlight>

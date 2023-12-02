@@ -5,68 +5,72 @@ import {
     Modal,
     TouchableHighlight, 
     Alert,
-    Pressable,    
+    Pressable, 
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import styles from "../pages/Home/style";
-import { JogoFacil } from "../pages/JogoFacil/JogoFacil";
 import { useNavigation } from '@react-navigation/native';
+import { scale } from 'react-native-size-matters';
+
+
 
 export function ModalEvento(){
     const navigation = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
+
     return (
 
-        <View style={styles.centeredView} >
-                            <Modal
-                            animationType="fade"
-                            transparent={true}
-                            visible={modalVisible}
-                            onRequestClose={() => {
-                                Alert.alert('Modal has been closed.');
-                                setModalVisible(!modalVisible);
-                            }}>
-                            <View style={styles.centeredView}>
-                                <View style={styles.modalView}> 
-                                <View style={styles.header}>
-                                    <Text style={styles.textHeader}>
-                                        JOGOS DIARIOS
+        <View style={styles.centeredView} >        
+                                <Modal
+                                animationType="fade"
+                                transparent={true}
+                                visible={modalVisible}
+                                onRequestClose={() => {
+                                    Alert.alert('Modal has been closed.');
+                                    setModalVisible(!modalVisible);
+                                }}>
+                               <View style={styles.modalContainer}>     
+                                <View style={styles.ScreenSnow}>
+                                    <View style={styles.modalView}> 
+                                        <Text style={styles.textHeader}>
+                                            JOGOS DIARIOS
+                                        </Text>                                 
+                                    <TouchableHighlight
+                                            style={styles.buttonInsideEvento}
+                                            underlayColor="null"
+                                            onPress={() => setModalVisible(!modalVisible)}>
+                                            <Ionicons style={styles.buttonSharp} name="close-sharp" size={scale(30)} color="black" />
+                                        </TouchableHighlight>
+                                    <Pressable
+                                        underlayColor="null"            
+                                        style={[styles.buttonRed, styles.buttonClose]}
+                                        onPress={ () => setModalVisible(!modalVisible)}>
                                         
-                                    </Text>
-                                </View>
-                                <TouchableHighlight
-                                        style={styles.buttonInsideEvento}
+                                        <Text style={styles.textStyleJogos}>EM BREVE <Ionicons style={styles.lock} name="md-lock-closed-sharp" size={16} color="black" /></Text>
+                                    </Pressable>
+                                    <Pressable
                                         underlayColor="null"
+                                        style={[styles.buttonRed, styles.buttonClose]}
                                         onPress={() => setModalVisible(!modalVisible)}>
-                                        <Ionicons style={styles.textStyle} name="close-sharp" size={36} color="black" />
-                                    </TouchableHighlight>
-                                <Pressable
-                                    underlayColor="null"            
-                                    style={[styles.button, styles.buttonClose]}
-                                    onPress={ () => setModalVisible(!modalVisible)}>
-                                    
-                                    <Text style={styles.textStyleJogos}>EM BREVE <Ionicons style={styles.lock} name="md-lock-closed-sharp" size={16} color="black" /></Text>
-                                </Pressable>
-                                <Pressable
-                                    underlayColor="null"
-                                    style={[styles.button, styles.buttonClose]}
-                                    onPress={() => setModalVisible(!modalVisible)}>
-                                    <Text style={styles.textStyleJogos}>EM BREVE <Ionicons style={styles.lock} name="md-lock-closed-sharp" size={16} color="black" /></Text>
-                                </Pressable>
-                                <Pressable
-                                    underlayColor="null"            
-                                    style={[styles.button, styles.buttonClose]}
-                                    onPress={() => setModalVisible(!modalVisible)}>
-                                    <Text style={styles.textStyleJogos}>EM BREVE <Ionicons style={styles.lock} name="md-lock-closed-sharp" size={16} color="black" /></Text>
-                                </Pressable>
+                                        <Text style={styles.textStyleJogos}>EM BREVE <Ionicons style={styles.lock} name="md-lock-closed-sharp" size={16} color="black" /></Text>
+                                    </Pressable>
+                                    <Pressable
+                                        underlayColor="null"            
+                                        style={[styles.buttonRed, styles.buttonClose]}
+                                        onPress={() => setModalVisible(!modalVisible)}>
+                                        <Text style={styles.textStyleJogos}>EM BREVE <Ionicons style={styles.lock} name="md-lock-closed-sharp" size={16} color="black" /></Text>
+                                    </Pressable>
+                                    </View>
                                 </View>
-                            </View>
-                            </Modal>
-                            <Pressable
-                            style={[styles.buttonSnow, styles.buttonOpen]}
-                            onPress={() => setModalVisible(true)}>
-                                <Ionicons name="snow" size={24} color="white" style={styles.textStyle} />
-                            </Pressable>
+                              </View>  
+                                </Modal>
+                                <Pressable
+                                style={[styles.ScreenSnow, styles.buttonOpen]}
+                                onPress={() => setModalVisible(true)}>
+                                    <Ionicons name="snow" size={scale(20)} color="white" style={styles.textStyle} />
+                                </Pressable>
+            
+                            
                     </View>
     )
 }

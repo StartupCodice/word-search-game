@@ -5,13 +5,14 @@ const {height, width} = Dimensions.get('window');
 
   const styles = StyleSheet.create({
       palavrasContainer: {
-        top: hp(3),
+        bottom: scale(25),
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'center',
         alignItems: 'center',
         rowGap: 10,
-        columnGap: 10,
+        columnGap: scale(16),
+        paddingHorizontal: scale(10)
       },
       selected: {
         backgroundColor: 'gray',
@@ -45,8 +46,8 @@ const {height, width} = Dimensions.get('window');
         alignItems: 'center',
         textAlign: 'center',
         fontWeight: 'bold',
-        fontSize: wp(6),
-        width: wp(9),
+        fontSize: wp(5),
+        width: wp(8.5),
       },
 
       sendLetter: {
@@ -80,14 +81,14 @@ const {height, width} = Dimensions.get('window');
         alignItems: 'center',
         justifyContent: 'center',
       },
-      retangulo: {
-        width: scale(260),
+        retangulo: {
+        width: scale(285),
         height: scale(320),
         borderColor: 'white',
         borderRadius: 7,
         justifyContent: 'center',
         alignItems: 'center',
-        top: scale(30)
+        top: scale(12)
         },
         button: {
           width: wp(20),
@@ -96,10 +97,10 @@ const {height, width} = Dimensions.get('window');
           right: scale(2),
         },
         palavras: {
-          fontSize: scale(18),
+          fontSize: scale(13),
           color: 'white',
           fontWeight: 'bold',
-          padding: scale(4),
+          padding: scale(5),
           borderRadius: scale(20),
         },
           Dica: {

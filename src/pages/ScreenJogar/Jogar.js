@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, ImageBackground, Image, TouchableOpacity, Animated } from 'react-native';
+import { Text, View, ImageBackground, Image, TouchableOpacity, Animated, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import Modal from 'react-native-modal';
-import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import styles from './style';
 import { createGame } from 'hunting-words';
 import randomcolor from 'randomcolor';
+import { scale } from 'react-native-size-matters';
+
 
 const DIRECTIONS = [
   [1, 0],     // horizontal direita
@@ -20,16 +21,17 @@ const DIRECTIONS = [
 ];
 
 export default function Jogar({ navigation }) {
+
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
-    game: new createGame(8, 8, []),
+    game: new createGame(6, 8, []),
   });
   const [cores, setCores] = useState([]);
   const [startTime, setStartTime] = useState(new Date());
   const [isModalVisible, setModalVisible] = useState(false);
   const [tempoDecorrido, setTempoDecorrido] = useState(0);
-  const [isDicaModalVisible, setDicaModalVisible] = useState(false);
-  const [dicaPalavra, setDicaPalavra] = useState('');
+  const [numDicasUsadas, setNumDicasUsadas] = useState(0);
+  const [hintsExhausted, setHintsExhausted] = useState(false);
 
   const isMountedRef = useRef(true);
 
@@ -45,49 +47,28 @@ export default function Jogar({ navigation }) {
     return selectedWords;
   };
 
-  const mostrarDicaModal = () => {
-    setDicaModalVisible(true);
-  };
+  const mostrarDica = () => {
+    if (numDicasUsadas < 2) {
+      const palavrasNaoEncontradas = palavras.filter((palavra) => !palavra.found);
 
-  const fecharDicaModal = () => {
-    setDicaModalVisible(false);
-  };
+      if (palavrasNaoEncontradas.length > 0) {
+        const palavraAleatoria = palavrasNaoEncontradas[Math.floor(Math.random() * palavrasNaoEncontradas.length)];
 
-  const revelarPalavraDica = () => {
-    const palavrasNaoEncontradas = palavras.filter((palavra) => !palavra.found);
+        // Marcar a palavra como encontrada
+        palavraAleatoria.found = true;
+        setPalavras([...palavras]);
+      }
 
-    if (palavrasNaoEncontradas.length > 0) {
-      const palavraAleatoria = palavrasNaoEncontradas[Math.floor(Math.random() * palavrasNaoEncontradas.length)];
-
-      // Marcar a palavra como encontrada
-      palavraAleatoria.found = true;
-      setPalavras([...palavras]);
-
-      // Destacar a palavra no tabuleiro
-      const palavraNoTabuleiro = palavraAleatoria.name;
-      destacarPalavraNoTabuleiro(palavraNoTabuleiro);
+      setNumDicasUsadas(numDicasUsadas + 1);
+    } else {
+      setHintsExhausted(true);
     }
-
-    // Fechar o modal de dica
-    fecharDicaModal();
   };
 
-  const destacarPalavraNoTabuleiro = (palavra) => {
-    const novoTabuleiro = { ...board.game };
-
-    // Percorrer o tabuleiro e destacar as letras da palavra
-    novoTabuleiro.board.forEach((row) => {
-      row.forEach((cell) => {
-        if (palavra.includes(cell.letter)) {
-          cell.isSelected = true; // Marcar como selecionada
-        } else {
-          cell.isSelected = false; // Deselecionar as letras que não fazem parte da palavra
-        }
-      });
-    });
-
-    setBoard({ game: novoTabuleiro });
+  const fecharModalDicasEsgotadas = () => {
+    setHintsExhausted(false);
   };
+
 
   const verificarPalavraSelecionada = () => {
     const novoTabuleiro = { ...board.game };
@@ -105,20 +86,6 @@ export default function Jogar({ navigation }) {
           }
         });
       });
-  
-      // Verificar se as letras selecionadas formam a palavra completa
-      const palavraCompleta = letrasSelecionadas.join('') === palavraNoTabuleiro;
-  
-      // Deselecionar as letras que não formam a palavra completa
-      if (!palavraCompleta) {
-        novoTabuleiro.board.forEach((row) => {
-          row.forEach((cell) => {
-            if (palavraNoTabuleiro.includes(cell.letter) && cell.isSelected) {
-              cell.isSelected = false;
-            }
-          });
-        });
-      }
     });
   
     setPalavras(novasPalavras);
@@ -129,35 +96,29 @@ export default function Jogar({ navigation }) {
 
   const fetchData = async () => {
     try {
-    const palavrasOriginais = [
-      { name: 'NATAL', found: false },
-      { name: 'FLOCO', found: false },
-      { name: 'ALEGRIA', found: false },
-      { name: 'PAZ', found: false },
-      { name: 'AMOR', found: false },
-      { name: 'TRADIÇAO', found: false },
-      { name: 'GRATIDAO', found: false },
-      { name: 'REUNIAO', found: false },
-      { name: 'BRILHO', found: false },
-      { name: 'LUZES', found: false },
-      { name: 'PRESENTE', found: false },
-      { name: 'CEIA', found: false },
-      { name: 'ARVORE', found: false },
-      { name: 'CANÇAO', found: false },
-      { name: 'PAPAI', found: false },
-      { name: 'MAGIA', found: false },
-      { name: 'RENOS', found: false },
-      { name: 'BISCOITO', found: false },
-      { name: 'DOCES', found: false },
-      { name: 'FITAS', found: false },
-    ];
+      const palavrasOriginais = [
+        { name: 'PERU', found: false },
+        { name: 'VINHO', found: false },
+        { name: 'CEIA', found: false },
+        { name: 'LEITE', found: false },
+        { name: 'DOCE', found: false },
+        { name: 'GANSO', found: false },
+        { name: 'MESSA', found: false },
+        { name: 'SALSA', found: false },
+        { name: 'TORTA', found: false },
+        { name: 'NOZES', found: false },
+        { name: 'COCA', found: false },
+        { name: 'PÃO', found: false },
+        { name: 'FIGO', found: false },
+        { name: 'UVA', found: false },
+      ];
 
     if (isMountedRef.current) {
       const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 4);
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(8, 8, palavrasJogo) });
+    setBoard({ game: new createGame(6, 8, palavrasJogo) });
 
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
@@ -242,33 +203,27 @@ export default function Jogar({ navigation }) {
 
   const reiniciarJogo = () => {
     const palavrasOriginais = [
-      { name: 'NATAL', found: false },
-      { name: 'FLOCO', found: false },
-      { name: 'ALEGRIA', found: false },
-      { name: 'PAZ', found: false },
-      { name: 'AMOR', found: false },
-      { name: 'TRADIÇAO', found: false },
-      { name: 'GRATIDAO', found: false },
-      { name: 'REUNIAO', found: false },
-      { name: 'BRILHO', found: false },
-      { name: 'LUZES', found: false },
-      { name: 'PRESENTE', found: false },
+      { name: 'PERU', found: false },
+      { name: 'VINHO', found: false },
       { name: 'CEIA', found: false },
-      { name: 'ARVORE', found: false },
-      { name: 'CANÇAO', found: false },
-      { name: 'PAPAI', found: false },
-      { name: 'MAGIA', found: false },
-      { name: 'RENOS', found: false },
-      { name: 'BISCOITO', found: false },
-      { name: 'DOCES', found: false },
-      { name: 'FITAS', found: false },
+      { name: 'LEITE', found: false },
+      { name: 'DOCE', found: false },
+      { name: 'GANSO', found: false },
+      { name: 'MESSA', found: false },
+      { name: 'SALSA', found: false },
+      { name: 'TORTA', found: false },
+      { name: 'NOZES', found: false },
+      { name: 'COCA', found: false },
+      { name: 'PÃO', found: false },
+      { name: 'FIGO', found: false },
+      { name: 'UVA', found: false },
     ];
 
     const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 4);
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(8, 8, palavrasJogo) });
+    setBoard({ game: new createGame(6, 8, palavrasJogo) });
 
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
@@ -287,52 +242,50 @@ export default function Jogar({ navigation }) {
   return (
     <View style={styles.container}>
       <ImageBackground source={require('./../../assets/templatejogo.jpg')} style={styles.imageBackground}>
-        <Image
-          source={require('./../../assets/telaingameretangulo.png')}
-          style={styles.retangulo}
-        />
+        
+      <TouchableOpacity onPress={mostrarDica}>
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <ImageBackground
+            source={require('./../../assets/chapeu.png')}
+            style={styles.Dica}
+          >
+            <Text style={styles.dicaNumber}>{2 - numDicasUsadas}</Text>
+          </ImageBackground>
+        </View>
+      </TouchableOpacity>
 
-        <Image
-          source={require('./../../assets/chapeu.png')}
-          style={styles.chapeu}
-        />
 
-        <TouchableOpacity onPress={mostrarDicaModal}>
-          <Image
-            source={require('./../../assets/lampada.png')}
-            style={styles.dica}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.button}>
-          <Ionicons name="arrow-back" size={45} color="white"
+          <Ionicons style={styles.button} name="arrow-back" size={scale(40)} color="white"
             onPress={() => navigation.navigate('Home')} />
-        </TouchableOpacity>
+
 
         <View style={styles.palavrasContainer}>
           {
             palavras.map((palavra, index) => (
-              <Text key={index} style={
-                [
-                  styles.palavras,
-                  (palavra.found) ? { backgroundColor: cores[index] } : null,
-                  (palavra.found) ? styles.wordFound : null,
-                ]
-              }>
+              <Text key={index} style={[
+                styles.palavras,
+                (palavra.found) ? { backgroundColor: cores[index] } : null,
+                (palavra.found) ? styles.wordFound : null,
+              ]}>
                 {palavra.name}
               </Text>
             ))
           }
         </View>
-
-        <View style={styles.lettersContainer}>
+        <View style={styles.cacaContainer}>
+          <ImageBackground
+          source={require('./../../assets/telaingameretangulo.png')}
+          style={styles.retangulo}
+        >
+          
+          <View style={styles.LetterContainer}>
           {
             board.game.board.map((row, indexRow) => (
               <View key={indexRow}>
                 {
                   row.map((column, indexColumn) => (
                     <Text
-                      style={[styles.letter, (column.isSelected) ? styles.selected : null]}
+                      style={[styles.Letter, (column.isSelected) ? styles.selected : null]}
                       key={indexColumn}
                       onPress={() => selectLetter(column)}
                     >
@@ -344,19 +297,15 @@ export default function Jogar({ navigation }) {
             ))
           }
         </View>
+        </ImageBackground>
+        </View>
 
-        <Modal isVisible={isDicaModalVisible} onBackdropPress={fecharDicaModal} style={styles.modalContainer2}>
+        <Modal isVisible={hintsExhausted} onBackdropPress={fecharModalDicasEsgotadas} style={styles.modalContainer2}>
         <View style={styles.modalContainer}>
           <Text style={styles.modalText}>
-            Dica:
+            As dicas acabaram!
           </Text>
-          <Text style={styles.textDica}>
-            {dicaPalavra}
-          </Text>
-          <TouchableOpacity style={styles.modalButton} onPress={revelarPalavraDica}>
-            <Text style={styles.modalButtonText}>Revelar Palavra</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.modalButton} onPress={fecharDicaModal}>
+          <TouchableOpacity style={styles.modalButton} onPress={fecharModalDicasEsgotadas}>
             <Text style={styles.modalButtonText}>Fechar</Text>
           </TouchableOpacity>
         </View>
