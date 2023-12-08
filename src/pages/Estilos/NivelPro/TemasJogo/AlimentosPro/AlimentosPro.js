@@ -20,11 +20,11 @@ const DIRECTIONS = [
   [1, -1],    // diagonal superior direita
 ];
 
-export default function AlimentosMedio({ navigation }) {
+export default function AlimentosPro({ navigation }) {
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
-    game: new createGame(12, 12, []),
+    game: new createGame(10, 12, []),
   });
   const [cores, setCores] = useState([]);
   const [startTime, setStartTime] = useState(new Date());
@@ -32,6 +32,8 @@ export default function AlimentosMedio({ navigation }) {
   const [tempoDecorrido, setTempoDecorrido] = useState(0);
   const [numDicasUsadas, setNumDicasUsadas] = useState(0);
   const [hintsExhausted, setHintsExhausted] = useState(false);
+
+  const [columns, setColumns] = useState([]);
 
   const isMountedRef = useRef(true);
 
@@ -48,18 +50,39 @@ export default function AlimentosMedio({ navigation }) {
   };
 
   const mostrarDica = () => {
-    if (numDicasUsadas < 4) {
+    if (numDicasUsadas < 5) {
       const palavrasNaoEncontradas = palavras.filter((palavra) => !palavra.found);
-
+  
       if (palavrasNaoEncontradas.length > 0) {
-        const palavraAleatoria = palavrasNaoEncontradas[Math.floor(Math.random() * palavrasNaoEncontradas.length)];
-
-        // Marcar a palavra como encontrada
-        palavraAleatoria.found = true;
-        setPalavras([...palavras]);
+        const indiceAleatorio = Math.floor(Math.random() * palavrasNaoEncontradas.length);
+        const palavraAleatoria = palavrasNaoEncontradas[indiceAleatorio];
+        const novoTabuleiro = { ...board.game };
+        const novasPalavras = [...palavras];
+  
+        // seleciona as letras correspondentes à palavra aleatória
+        columns.forEach((column) => {
+          if (column.word[0] === palavraAleatoria.name) {
+            novoTabuleiro.board[column.row][column.column].setIsSelected(true);
+          }
+        });
+  
+        // atualiza a state do board
+        setBoard({ game: novoTabuleiro });
+  
+        // muda o fundo da palavra encontrada
+        novasPalavras.forEach((palavra) => {
+          if (palavra.name === palavraAleatoria.name) {
+            palavra.found = true;
+          }
+        });
+  
+        // atualiza a state de palavras apenas se houve alterações
+        setPalavras([...novasPalavras]);
+  
+        setNumDicasUsadas(numDicasUsadas + 1);
+      } else {
+        setHintsExhausted(true);
       }
-
-      setNumDicasUsadas(numDicasUsadas + 1);
     } else {
       setHintsExhausted(true);
     }
@@ -88,9 +111,25 @@ export default function AlimentosMedio({ navigation }) {
       });
     });
   
-    setPalavras(novasPalavras);
+    // atualiza a state de palavras apenas se houve alterações
+    setPalavras([...novasPalavras]);
     setBoard({ game: novoTabuleiro });
   };
+
+
+  const buildColumnsArray = () => {
+    const columnsArray = [];
+    board.game.board.forEach((row) => {
+      row.forEach((column) => {
+        columnsArray.push(column);
+      });
+    });
+    setColumns(columnsArray);
+  };
+
+  useEffect(() => {
+    buildColumnsArray();
+  }, [board.game]); 
 
   
 
@@ -122,17 +161,14 @@ export default function AlimentosMedio({ navigation }) {
         { name: 'TORTA', found: false },
         { name: 'PASSAS', found: false },
       ];
-    
-      
-      // Adicione mais palavras conforme necessário
-      
+
 
     if (isMountedRef.current) {
-      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 8);
+      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 10);
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(12, 12, palavrasJogo) });
+    setBoard({ game: new createGame(10, 12, palavrasJogo) });
 
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
@@ -242,16 +278,13 @@ export default function AlimentosMedio({ navigation }) {
       { name: 'TORTA', found: false },
       { name: 'PASSAS', found: false },
     ];
-  
-    
-    // Adicione mais palavras conforme necessário
-    
 
-    const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 8);
+
+    const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 10);
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(12, 12, palavrasJogo) });
+    setBoard({ game: new createGame(10, 12, palavrasJogo) });
 
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
@@ -277,14 +310,14 @@ export default function AlimentosMedio({ navigation }) {
             source={require('./../../../../../assets/chapeu.png')}
             style={styles.Dica}
           >
-            <Text style={styles.dicaNumber}>{4 - numDicasUsadas}</Text>
+            <Text style={styles.dicaNumber}>{5 - numDicasUsadas}</Text>
           </ImageBackground>
         </View>
       </TouchableOpacity>
 
 
           <Ionicons style={styles.button} name="arrow-back" size={scale(40)} color="white"
-            onPress={() => navigation.navigate('NivelDificil')} />
+            onPress={() => navigation.navigate('NivelPro')} />
 
 
         <View style={styles.palavrasContainer}>
@@ -307,26 +340,20 @@ export default function AlimentosMedio({ navigation }) {
         >
           
           <View style={styles.LetterContainer}>
-          {
-            board.game.board.map((row, indexRow) => (
-              <View key={indexRow}>
-                {
-                  row.map((column, indexColumn) => (
-                    <Text
-                      style={[styles.Letter, (column.isSelected) ? styles.selected : null]}
-                      key={indexColumn}
-                      onPress={() => selectLetter(column)}
-                    >
-                      {column.letter}
-                    </Text>
-                  ))
-                }
-              </View>
-            ))
-          }
+          {columns.map((column, index) => (
+            <Text
+              style={[styles.Letter, (column.isSelected) ? styles.selected : null]}
+              key={index}
+              onPress={() => selectLetter(column)}
+            >
+              {column.letter}
+            </Text>
+          ))}
         </View>
         </ImageBackground>
         </View>
+        
+        
 
         <Modal isVisible={hintsExhausted} onBackdropPress={fecharModalDicasEsgotadas} style={styles.modalContainer2}>
         <View style={styles.modalContainer}>

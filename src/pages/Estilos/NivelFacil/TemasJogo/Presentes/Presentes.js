@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, ImageBackground, Image, TouchableOpacity, Animated, Dimensions } from 'react-native';
+import { Text, View, ImageBackground, TouchableOpacity} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import Modal from 'react-native-modal';
@@ -7,6 +7,8 @@ import styles from './style';
 import { createGame } from 'hunting-words';
 import randomcolor from 'randomcolor';
 import { scale } from 'react-native-size-matters';
+import MoedasComponent from '../../../../../components/storage';
+
 
 
 const DIRECTIONS = [
@@ -32,6 +34,12 @@ export default function Presentes({ navigation }) {
   const [tempoDecorrido, setTempoDecorrido] = useState(0);
   const [numDicasUsadas, setNumDicasUsadas] = useState(0);
   const [hintsExhausted, setHintsExhausted] = useState(false);
+  const { moedas, adicionarMoedas } = MoedasComponent();
+  const [moedasGanhas, setMoedasGanhas] = useState(0);
+
+
+
+  const [columns, setColumns] = useState([]);
 
   const isMountedRef = useRef(true);
 
@@ -50,16 +58,37 @@ export default function Presentes({ navigation }) {
   const mostrarDica = () => {
     if (numDicasUsadas < 2) {
       const palavrasNaoEncontradas = palavras.filter((palavra) => !palavra.found);
-
+  
       if (palavrasNaoEncontradas.length > 0) {
-        const palavraAleatoria = palavrasNaoEncontradas[Math.floor(Math.random() * palavrasNaoEncontradas.length)];
-
-        // Marcar a palavra como encontrada
-        palavraAleatoria.found = true;
-        setPalavras([...palavras]);
+        const indiceAleatorio = Math.floor(Math.random() * palavrasNaoEncontradas.length);
+        const palavraAleatoria = palavrasNaoEncontradas[indiceAleatorio];
+        const novoTabuleiro = { ...board.game };
+        const novasPalavras = [...palavras];
+  
+        // seleciona as letras correspondentes à palavra aleatória
+        columns.forEach((column) => {
+          if (column.word[0] === palavraAleatoria.name) {
+            novoTabuleiro.board[column.row][column.column].setIsSelected(true);
+          }
+        });
+  
+        // atualiza a state do board
+        setBoard({ game: novoTabuleiro });
+  
+        // muda o fundo da palavra encontrada
+        novasPalavras.forEach((palavra) => {
+          if (palavra.name === palavraAleatoria.name) {
+            palavra.found = true;
+          }
+        });
+  
+        // atualiza a state de palavras apenas se houve alterações
+        setPalavras([...novasPalavras]);
+  
+        setNumDicasUsadas(numDicasUsadas + 1);
+      } else {
+        setHintsExhausted(true);
       }
-
-      setNumDicasUsadas(numDicasUsadas + 1);
     } else {
       setHintsExhausted(true);
     }
@@ -88,9 +117,26 @@ export default function Presentes({ navigation }) {
       });
     });
   
-    setPalavras(novasPalavras);
+    // atualiza a state de palavras apenas se houve alterações
+    setPalavras([...novasPalavras]);
     setBoard({ game: novoTabuleiro });
   };
+
+
+  const buildColumnsArray = () => {
+    const columnsArray = [];
+    board.game.board.forEach((row) => {
+      row.forEach((column) => {
+        columnsArray.push(column);
+      });
+    });
+    setColumns(columnsArray);
+  };
+
+  useEffect(() => {
+    buildColumnsArray();
+  }, [board.game]); 
+
 
   
 
@@ -195,6 +241,7 @@ export default function Presentes({ navigation }) {
     }
   }
 
+
   const mostrarResultado = () => {
     const endTime = new Date();
     const tempoDecorrido = (endTime - startTime) / 1000;  
@@ -203,6 +250,9 @@ export default function Presentes({ navigation }) {
     const segundos = Math.floor(tempoDecorrido % 60);
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
+  
+    adicionarMoedas(6);
+    setMoedasGanhas(6);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);
@@ -268,6 +318,10 @@ export default function Presentes({ navigation }) {
         </View>
       </TouchableOpacity>
 
+      <View style={styles.moedasContainer}>
+        <Text style={styles.moedasText}>{moedas} Moedas</Text>
+      </View>
+
 
           <Ionicons style={styles.button} name="arrow-back" size={scale(40)} color="white"
             onPress={() => navigation.navigate('NivelFacil')} />
@@ -293,23 +347,15 @@ export default function Presentes({ navigation }) {
         >
           
           <View style={styles.LetterContainer}>
-          {
-            board.game.board.map((row, indexRow) => (
-              <View key={indexRow}>
-                {
-                  row.map((column, indexColumn) => (
-                    <Text
-                      style={[styles.Letter, (column.isSelected) ? styles.selected : null]}
-                      key={indexColumn}
-                      onPress={() => selectLetter(column)}
-                    >
-                      {column.letter}
-                    </Text>
-                  ))
-                }
-              </View>
-            ))
-          }
+          {columns.map((column, index) => (
+            <Text
+              style={[styles.Letter, (column.isSelected) ? styles.selected : null]}
+              key={index}
+              onPress={() => selectLetter(column)}
+            >
+              {column.letter}
+            </Text>
+          ))}
         </View>
         </ImageBackground>
         </View>
@@ -325,22 +371,22 @@ export default function Presentes({ navigation }) {
         </View>
       </Modal>
 
-        <Modal isVisible={isModalVisible} onBackdropPress={closeModal} style={styles.modalContainer2}>
-          <View style={styles.modalContainer}>
-            <Text style={styles.modalText}>
-              TEMPO:
-            </Text>
-            <Text style={styles.textTempo}>
-                {tempoDecorrido}s
-            </Text> 
-            <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
-              <Text style={styles.modalButtonText}>Continuar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.modalButton} onPress={() => navigation.navigate('Home')}>
-              <Text style={styles.modalButtonText}>Voltar</Text>
-            </TouchableOpacity>
-          </View>
-        </Modal>
+            <Modal isVisible={isModalVisible} onBackdropPress={closeModal} style={styles.modalContainer2}>
+                <View style={styles.modalContainer}>
+                    <Text style={styles.modalText}>
+                      TEMPO:
+                    </Text>
+                    <Text style={styles.textTempo}>
+                      {tempoDecorrido}s
+                    </Text>
+                    <Text>Moedas ganhas nesta partida: {moedasGanhas}</Text>                      <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
+                      <Text style={styles.modalButtonText}>Continuar</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.modalButton} onPress={() => navigation.navigate('Home')}>
+                      <Text style={styles.modalButtonText}>Voltar</Text>
+                    </TouchableOpacity>
+                </View>
+            </Modal>
 
         <StatusBar style="auto" />
       </ImageBackground>

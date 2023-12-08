@@ -33,6 +33,9 @@ export default function PersonagensMedio({ navigation }) {
   const [numDicasUsadas, setNumDicasUsadas] = useState(0);
   const [hintsExhausted, setHintsExhausted] = useState(false);
 
+  const [columns, setColumns] = useState([]);
+
+
   const isMountedRef = useRef(true);
 
   const selectRandomWords = (totalWords, numWords) => {
@@ -50,16 +53,37 @@ export default function PersonagensMedio({ navigation }) {
   const mostrarDica = () => {
     if (numDicasUsadas < 2) {
       const palavrasNaoEncontradas = palavras.filter((palavra) => !palavra.found);
-
+  
       if (palavrasNaoEncontradas.length > 0) {
-        const palavraAleatoria = palavrasNaoEncontradas[Math.floor(Math.random() * palavrasNaoEncontradas.length)];
-
-        // Marcar a palavra como encontrada
-        palavraAleatoria.found = true;
-        setPalavras([...palavras]);
+        const indiceAleatorio = Math.floor(Math.random() * palavrasNaoEncontradas.length);
+        const palavraAleatoria = palavrasNaoEncontradas[indiceAleatorio];
+        const novoTabuleiro = { ...board.game };
+        const novasPalavras = [...palavras];
+  
+        // seleciona as letras correspondentes à palavra aleatória
+        columns.forEach((column) => {
+          if (column.word[0] === palavraAleatoria.name) {
+            novoTabuleiro.board[column.row][column.column].setIsSelected(true);
+          }
+        });
+  
+        // atualiza a state do board
+        setBoard({ game: novoTabuleiro });
+  
+        // muda o fundo da palavra encontrada
+        novasPalavras.forEach((palavra) => {
+          if (palavra.name === palavraAleatoria.name) {
+            palavra.found = true;
+          }
+        });
+  
+        // atualiza a state de palavras apenas se houve alterações
+        setPalavras([...novasPalavras]);
+  
+        setNumDicasUsadas(numDicasUsadas + 1);
+      } else {
+        setHintsExhausted(true);
       }
-
-      setNumDicasUsadas(numDicasUsadas + 1);
     } else {
       setHintsExhausted(true);
     }
@@ -88,9 +112,26 @@ export default function PersonagensMedio({ navigation }) {
       });
     });
   
-    setPalavras(novasPalavras);
+    // atualiza a state de palavras apenas se houve alterações
+    setPalavras([...novasPalavras]);
     setBoard({ game: novoTabuleiro });
   };
+
+
+  const buildColumnsArray = () => {
+    const columnsArray = [];
+    board.game.board.forEach((row) => {
+      row.forEach((column) => {
+        columnsArray.push(column);
+      });
+    });
+    setColumns(columnsArray);
+  };
+
+  useEffect(() => {
+    buildColumnsArray();
+  }, [board.game]); 
+
 
   
 
@@ -113,11 +154,8 @@ export default function PersonagensMedio({ navigation }) {
         { name: 'LILY', found: false },
         { name: 'JACK', found: false },
         { name: 'BONECO', found: false },
-
-      ];
-      
-      // Adicione mais palavras conforme necessário
-      
+    ];
+    
       
       // Adicione mais palavras conforme necessário
       
@@ -212,23 +250,24 @@ export default function PersonagensMedio({ navigation }) {
 
   const reiniciarJogo = () => {
     const palavrasOriginais = [
-        { name: 'PAPAI', found: false },
-        { name: 'MAMAE', found: false },
-        { name: 'ANJO', found: false },
-        { name: 'SANTA', found: false },
-        { name: 'CUPIDO', found: false },
-        { name: 'DUENDE', found: false },
-        { name: 'ELFO', found: false },
-        { name: 'REIS', found: false },
-        { name: 'BELA', found: false },
-        { name: 'RENA', found: false },
-        { name: 'NOEL', found: false },
-        { name: 'FADA', found: false },
-        { name: 'GRINCH', found: false },
-        { name: 'LILY', found: false },
-        { name: 'JACK', found: false },
-        { name: 'BONECO', found: false },
-    ];
+      { name: 'PAPAI', found: false },
+      { name: 'MAMAE', found: false },
+      { name: 'ANJO', found: false },
+      { name: 'SANTA', found: false },
+      { name: 'CUPIDO', found: false },
+      { name: 'DUENDE', found: false },
+      { name: 'ELFO', found: false },
+      { name: 'REIS', found: false },
+      { name: 'BELA', found: false },
+      { name: 'RENA', found: false },
+      { name: 'NOEL', found: false },
+      { name: 'FADA', found: false },
+      { name: 'GRINCH', found: false },
+      { name: 'LILY', found: false },
+      { name: 'JACK', found: false },
+      { name: 'BONECO', found: false },
+  ];
+  
     
     // Adicione mais palavras conforme necessário
     
@@ -293,23 +332,15 @@ export default function PersonagensMedio({ navigation }) {
         >
           
           <View style={styles.LetterContainer}>
-          {
-            board.game.board.map((row, indexRow) => (
-              <View key={indexRow}>
-                {
-                  row.map((column, indexColumn) => (
-                    <Text
-                      style={[styles.Letter, (column.isSelected) ? styles.selected : null]}
-                      key={indexColumn}
-                      onPress={() => selectLetter(column)}
-                    >
-                      {column.letter}
-                    </Text>
-                  ))
-                }
-              </View>
-            ))
-          }
+          {columns.map((column, index) => (
+            <Text
+              style={[styles.Letter, (column.isSelected) ? styles.selected : null]}
+              key={index}
+              onPress={() => selectLetter(column)}
+            >
+              {column.letter}
+            </Text>
+          ))}
         </View>
         </ImageBackground>
         </View>

@@ -1,11 +1,10 @@
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { StyleSheet, Dimensions } from "react-native";
 import { moderateScale, verticalScale, scale, moderateVerticalScale } from 'react-native-size-matters';
-const {height, width} = Dimensions.get('window');
 
   const styles = StyleSheet.create({
       palavrasContainer: {
-        bottom: scale(25),
+        top: hp(55),
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'center',
@@ -27,6 +26,7 @@ const {height, width} = Dimensions.get('window');
         textAlign: 'center',
         rowGap: 10,
         bottom: moderateVerticalScale(25, 1.5),
+        padding: 10,
       },
       wordFound: {
         color: 'black',
@@ -46,8 +46,8 @@ const {height, width} = Dimensions.get('window');
         alignItems: 'center',
         textAlign: 'center',
         fontWeight: 'bold',
-        fontSize: wp(5),
-        width: wp(8.5),
+        fontSize: wp(4),
+        width: scale(26),
       },
 
       sendLetter: {
@@ -83,12 +83,12 @@ const {height, width} = Dimensions.get('window');
       },
         retangulo: {
         width: scale(285),
-        height: scale(320),
+        height: scale(325),
         borderColor: 'white',
         borderRadius: 7,
         justifyContent: 'center',
         alignItems: 'center',
-        top: scale(12)
+        bottom: scale(60)
         },
         button: {
           width: wp(20),
@@ -106,7 +106,7 @@ const {height, width} = Dimensions.get('window');
           Dica: {
             width: scale(80),
             height: scale(54),
-            top: moderateScale(50, 1),
+            top: moderateScale(50, 0.5),
             left: scale(120),
             justifyContent: 'center',
             alignContent: 'center',
