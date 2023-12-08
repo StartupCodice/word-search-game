@@ -1,17 +1,16 @@
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet} from "react-native";
 import { moderateScale, verticalScale, scale, moderateVerticalScale } from 'react-native-size-matters';
-const {height, width} = Dimensions.get('window');
 
   const styles = StyleSheet.create({
       palavrasContainer: {
-        top: hp(3),
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'center',
         alignItems: 'center',
-        rowGap: 10,
-        columnGap: 10,
+        rowGap: 20,
+        columnGap: 20,
+        top: hp(58),
       },
       selected: {
         backgroundColor: 'gray',
@@ -26,6 +25,7 @@ const {height, width} = Dimensions.get('window');
         textAlign: 'center',
         rowGap: 10,
         bottom: moderateVerticalScale(25, 1.5),
+        padding: 10,
       },
       wordFound: {
         color: 'black',
@@ -45,24 +45,9 @@ const {height, width} = Dimensions.get('window');
         alignItems: 'center',
         textAlign: 'center',
         fontWeight: 'bold',
-        fontSize: wp(6),
-        width: wp(9),
-      },
-
-      sendLetter: {
-        flexDirection: 'row',
-        marginTop: 30,
-        gap: 20,
-        justifyContent: 'center',
-      },
-      inputLetter: {
-        width: 200,
-        height: 40,
-        paddingLeft: 10, 
-        backgroundColor: 'gray',
-        color: 'black',
-      },
-      
+        fontSize: wp(5),
+        width: scale(32),
+      },   
       ScreenText: {
         fontSize: 20,
         color: '#000',
@@ -80,32 +65,32 @@ const {height, width} = Dimensions.get('window');
         alignItems: 'center',
         justifyContent: 'center',
       },
-      retangulo: {
-        width: scale(260),
-        height: scale(320),
+        retangulo: {
+        width: scale(290),
+        height: scale(330),
         borderColor: 'white',
         borderRadius: 7,
         justifyContent: 'center',
         alignItems: 'center',
-        top: scale(30)
+        bottom: scale(40)
         },
         button: {
           width: wp(20),
           padding: scale(20),
-          bottom: moderateVerticalScale(30, 0.6),
+          bottom: moderateVerticalScale(35, 0.6),
           right: scale(2),
         },
         palavras: {
           fontSize: scale(18),
           color: 'white',
           fontWeight: 'bold',
-          padding: scale(4),
-          borderRadius: scale(20),
+          padding: scale(5),
+          borderRadius: scale(20)
         },
           Dica: {
             width: scale(80),
             height: scale(54),
-            top: moderateScale(50, 1),
+            top: moderateScale(50, 0.5),
             left: scale(120),
             justifyContent: 'center',
             alignContent: 'center',
@@ -159,7 +144,23 @@ const {height, width} = Dimensions.get('window');
           textTempo: {
             fontSize: 28,
             fontWeight: 'bold',
-          }
+          },
+          moedasContainer: {
+            position: 'absolute',
+            top: 20,
+            right: 20,
+            backgroundColor: 'rgba(255, 255, 255, 0.7)',
+            padding: 10,
+            borderRadius: 10,
+          },
+          moedasText: {
+            fontSize: 16,
+          },
+          textMoedas: {
+            fontSize: 16,
+            fontWeight: 'bold',
+            color: '#FFD700',  // Cor amarela para moedas
+          },
     });
 
   export default styles

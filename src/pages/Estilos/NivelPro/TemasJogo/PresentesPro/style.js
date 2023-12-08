@@ -5,13 +5,12 @@ const {height, width} = Dimensions.get('window');
 
   const styles = StyleSheet.create({
       palavrasContainer: {
-        bottom: scale(5),
+        top: hp(54),
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'center',
         alignItems: 'center',
-        rowGap: 10,
-        columnGap: scale(14),
+        columnGap: scale(12),
         paddingHorizontal: scale(10),
 
       },
@@ -27,6 +26,9 @@ const {height, width} = Dimensions.get('window');
         alignItems: 'center',
         textAlign: 'center',
         rowGap: 10,
+        bottom: moderateVerticalScale(30, 1.0),
+        padding: scale(5),
+
         
       },
       wordFound: {
@@ -47,10 +49,9 @@ const {height, width} = Dimensions.get('window');
         alignItems: 'center',
         textAlign: 'center',
         fontWeight: 'bold',
-        fontSize: scale(15),
-        width: wp(6.1),
-        height: scale(20),
-        bottom: scale(32),
+        fontSize: scale(11),
+        width: wp(6),
+        height: scale(15),
       },
 
       sendLetter: {
@@ -85,13 +86,13 @@ const {height, width} = Dimensions.get('window');
         justifyContent: 'center',
       },
         retangulo: {
-        width: scale(280),
-        height: scale(340),
+        width: wp(80),
+        height: scale(320),
         borderColor: 'white',
         borderRadius: 7,
         justifyContent: 'center',
         alignItems: 'center',
-        top: scale(34)
+        bottom: hp(13)
         },
         button: {
           width: wp(20),
@@ -100,11 +101,11 @@ const {height, width} = Dimensions.get('window');
           right: scale(2),
         },
         palavras: {
-          fontSize: scale(13),
+          fontSize: scale(11),
           color: 'white',
           fontWeight: 'bold',
-          padding: scale(5),
-          borderRadius: scale(20),
+          marginBottom: scale(12),
+          borderRadius: scale(16),
         },
           Dica: {
             width: scale(80),

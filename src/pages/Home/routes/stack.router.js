@@ -5,7 +5,7 @@ const { Screen, Navigator } = createNativeStackNavigator();
 import { Ionicons } from '@expo/vector-icons';
 
 import Jogar from '../../ScreenJogar/Jogar';
-import { Infinito } from '../../Infinito/Infinito';
+import Infinito from '../../Infinito/Infinito';
 import Home from '../Home';
 import { JogoFacil } from './../../JogoFacil/JogoFacil';
 import NiveisBotoes  from '../../Estilos/NivelBotoes';

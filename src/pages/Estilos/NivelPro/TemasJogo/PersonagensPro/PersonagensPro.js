@@ -3,11 +3,10 @@ import { Text, View, ImageBackground, Image, TouchableOpacity, Animated, Dimensi
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import Modal from 'react-native-modal';
-import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import styles from './style';
 import { createGame } from 'hunting-words';
 import randomcolor from 'randomcolor';
-import { moderateScale, verticalScale, scale } from 'react-native-size-matters';
+import { scale } from 'react-native-size-matters';
 
 
 const DIRECTIONS = [
@@ -25,14 +24,16 @@ export default function PersonagensPro({ navigation }) {
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
-    game: new createGame(10, 10, []),
+    game: new createGame(10, 12, []),
   });
   const [cores, setCores] = useState([]);
   const [startTime, setStartTime] = useState(new Date());
   const [isModalVisible, setModalVisible] = useState(false);
   const [tempoDecorrido, setTempoDecorrido] = useState(0);
-  const [isDicaModalVisible, setDicaModalVisible] = useState(false);
-  const [dicaPalavra, setDicaPalavra] = useState('');
+  const [numDicasUsadas, setNumDicasUsadas] = useState(0);
+  const [hintsExhausted, setHintsExhausted] = useState(false);
+
+  const [columns, setColumns] = useState([]);
 
   const isMountedRef = useRef(true);
 
@@ -48,49 +49,49 @@ export default function PersonagensPro({ navigation }) {
     return selectedWords;
   };
 
-  const mostrarDicaModal = () => {
-    setDicaModalVisible(true);
-  };
-
-  const fecharDicaModal = () => {
-    setDicaModalVisible(false);
-  };
-
-  const revelarPalavraDica = () => {
-    const palavrasNaoEncontradas = palavras.filter((palavra) => !palavra.found);
-
-    if (palavrasNaoEncontradas.length > 0) {
-      const palavraAleatoria = palavrasNaoEncontradas[Math.floor(Math.random() * palavrasNaoEncontradas.length)];
-
-      // Marcar a palavra como encontrada
-      palavraAleatoria.found = true;
-      setPalavras([...palavras]);
-
-      // Destacar a palavra no tabuleiro
-      const palavraNoTabuleiro = palavraAleatoria.name;
-      destacarPalavraNoTabuleiro(palavraNoTabuleiro);
+  const mostrarDica = () => {
+    if (numDicasUsadas < 5) {
+      const palavrasNaoEncontradas = palavras.filter((palavra) => !palavra.found);
+  
+      if (palavrasNaoEncontradas.length > 0) {
+        const indiceAleatorio = Math.floor(Math.random() * palavrasNaoEncontradas.length);
+        const palavraAleatoria = palavrasNaoEncontradas[indiceAleatorio];
+        const novoTabuleiro = { ...board.game };
+        const novasPalavras = [...palavras];
+  
+        // seleciona as letras correspondentes à palavra aleatória
+        columns.forEach((column) => {
+          if (column.word[0] === palavraAleatoria.name) {
+            novoTabuleiro.board[column.row][column.column].setIsSelected(true);
+          }
+        });
+  
+        // atualiza a state do board
+        setBoard({ game: novoTabuleiro });
+  
+        // muda o fundo da palavra encontrada
+        novasPalavras.forEach((palavra) => {
+          if (palavra.name === palavraAleatoria.name) {
+            palavra.found = true;
+          }
+        });
+  
+        // atualiza a state de palavras apenas se houve alterações
+        setPalavras([...novasPalavras]);
+  
+        setNumDicasUsadas(numDicasUsadas + 1);
+      } else {
+        setHintsExhausted(true);
+      }
+    } else {
+      setHintsExhausted(true);
     }
-
-    // Fechar o modal de dica
-    fecharDicaModal();
   };
 
-  const destacarPalavraNoTabuleiro = (palavra) => {
-    const novoTabuleiro = { ...board.game };
-
-    // Percorrer o tabuleiro e destacar as letras da palavra
-    novoTabuleiro.board.forEach((row) => {
-      row.forEach((cell) => {
-        if (palavra.includes(cell.letter)) {
-          cell.isSelected = true; // Marcar como selecionada
-        } else {
-          cell.isSelected = false; // Deselecionar as letras que não fazem parte da palavra
-        }
-      });
-    });
-
-    setBoard({ game: novoTabuleiro });
+  const fecharModalDicasEsgotadas = () => {
+    setHintsExhausted(false);
   };
+
 
   const verificarPalavraSelecionada = () => {
     const novoTabuleiro = { ...board.game };
@@ -108,18 +109,27 @@ export default function PersonagensPro({ navigation }) {
           }
         });
       });
-  
-      // Verificar se as letras selecionadas formam a palavra completa
-      const palavraCompleta = letrasSelecionadas.join('') === palavraNoTabuleiro;
-  
-      // Deselecionar as letras que não formam a palavra completa
-      
-      
     });
   
-    setPalavras(novasPalavras);
+    // atualiza a state de palavras apenas se houve alterações
+    setPalavras([...novasPalavras]);
     setBoard({ game: novoTabuleiro });
   };
+
+
+  const buildColumnsArray = () => {
+    const columnsArray = [];
+    board.game.board.forEach((row) => {
+      row.forEach((column) => {
+        columnsArray.push(column);
+      });
+    });
+    setColumns(columnsArray);
+  };
+
+  useEffect(() => {
+    buildColumnsArray();
+  }, [board.game]); 
 
   
 
@@ -146,12 +156,13 @@ export default function PersonagensPro({ navigation }) {
         { name: 'CUPIDO', found: false },
       ];
 
+
     if (isMountedRef.current) {
-      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 4);
+      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 10);
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(10, 10, palavrasJogo) });
+    setBoard({ game: new createGame(10, 12, palavrasJogo) });
 
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
@@ -256,11 +267,12 @@ export default function PersonagensPro({ navigation }) {
       { name: 'CUPIDO', found: false },
     ];
 
-    const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 4);
+
+    const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 10);
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(10, 10, palavrasJogo) });
+    setBoard({ game: new createGame(10, 12, palavrasJogo) });
 
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
@@ -280,18 +292,20 @@ export default function PersonagensPro({ navigation }) {
     <View style={styles.container}>
       <ImageBackground source={require('./../../../../../assets/templatejogo.jpg')} style={styles.imageBackground}>
         
-        <TouchableOpacity onPress={mostrarDicaModal}>
-          <View style={{ justifyContent: 'center', alignItems: 'center'}}>
-            <ImageBackground
+      <TouchableOpacity onPress={mostrarDica}>
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <ImageBackground
             source={require('./../../../../../assets/chapeu.png')}
             style={styles.Dica}
-          ><Text style={styles.dicaNumber} onPress={mostrarDicaModal}>1</Text></ImageBackground>
-          </View>
-        </TouchableOpacity>
+          >
+            <Text style={styles.dicaNumber}>{5 - numDicasUsadas}</Text>
+          </ImageBackground>
+        </View>
+      </TouchableOpacity>
 
 
           <Ionicons style={styles.button} name="arrow-back" size={scale(40)} color="white"
-            onPress={() => navigation.navigate('NivelFacil')} />
+            onPress={() => navigation.navigate('NivelPro')} />
 
 
         <View style={styles.palavrasContainer}>
@@ -314,41 +328,27 @@ export default function PersonagensPro({ navigation }) {
         >
           
           <View style={styles.LetterContainer}>
-          {
-            board.game.board.map((row, indexRow) => (
-              <View key={indexRow}>
-                {
-                  row.map((column, indexColumn) => (
-                    <Text
-                      style={[styles.Letter, (column.isSelected) ? styles.selected : null]}
-                      key={indexColumn}
-                      onPress={() => selectLetter(column)}
-                    >
-                      {column.letter}
-                    </Text>
-                  ))
-                }
-              </View>
-            ))
-          }
+          {columns.map((column, index) => (
+            <Text
+              style={[styles.Letter, (column.isSelected) ? styles.selected : null]}
+              key={index}
+              onPress={() => selectLetter(column)}
+            >
+              {column.letter}
+            </Text>
+          ))}
         </View>
         </ImageBackground>
         </View>
         
         
 
-        <Modal isVisible={isDicaModalVisible} onBackdropPress={fecharDicaModal} style={styles.modalContainer2}>
+        <Modal isVisible={hintsExhausted} onBackdropPress={fecharModalDicasEsgotadas} style={styles.modalContainer2}>
         <View style={styles.modalContainer}>
           <Text style={styles.modalText}>
-            Dica:
+            As dicas acabaram!
           </Text>
-          <Text style={styles.textDica}>
-            {dicaPalavra}
-          </Text>
-          <TouchableOpacity style={styles.modalButton} onPress={revelarPalavraDica}>
-            <Text style={styles.modalButtonText}>Revelar Palavra</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.modalButton} onPress={fecharDicaModal}>
+          <TouchableOpacity style={styles.modalButton} onPress={fecharModalDicasEsgotadas}>
             <Text style={styles.modalButtonText}>Fechar</Text>
           </TouchableOpacity>
         </View>

@@ -32,6 +32,7 @@ export default function PresentesMedio({ navigation }) {
   const [tempoDecorrido, setTempoDecorrido] = useState(0);
   const [numDicasUsadas, setNumDicasUsadas] = useState(0);
   const [hintsExhausted, setHintsExhausted] = useState(false);
+  const [columns, setColumns] = useState([]);
 
   const isMountedRef = useRef(true);
 
@@ -50,16 +51,37 @@ export default function PresentesMedio({ navigation }) {
   const mostrarDica = () => {
     if (numDicasUsadas < 4) {
       const palavrasNaoEncontradas = palavras.filter((palavra) => !palavra.found);
-
+  
       if (palavrasNaoEncontradas.length > 0) {
-        const palavraAleatoria = palavrasNaoEncontradas[Math.floor(Math.random() * palavrasNaoEncontradas.length)];
-
-        // Marcar a palavra como encontrada
-        palavraAleatoria.found = true;
-        setPalavras([...palavras]);
+        const indiceAleatorio = Math.floor(Math.random() * palavrasNaoEncontradas.length);
+        const palavraAleatoria = palavrasNaoEncontradas[indiceAleatorio];
+        const novoTabuleiro = { ...board.game };
+        const novasPalavras = [...palavras];
+  
+        // seleciona as letras correspondentes à palavra aleatória
+        columns.forEach((column) => {
+          if (column.word[0] === palavraAleatoria.name) {
+            novoTabuleiro.board[column.row][column.column].setIsSelected(true);
+          }
+        });
+  
+        // atualiza a state do board
+        setBoard({ game: novoTabuleiro });
+  
+        // muda o fundo da palavra encontrada
+        novasPalavras.forEach((palavra) => {
+          if (palavra.name === palavraAleatoria.name) {
+            palavra.found = true;
+          }
+        });
+  
+        // atualiza a state de palavras apenas se houve alterações
+        setPalavras([...novasPalavras]);
+  
+        setNumDicasUsadas(numDicasUsadas + 1);
+      } else {
+        setHintsExhausted(true);
       }
-
-      setNumDicasUsadas(numDicasUsadas + 1);
     } else {
       setHintsExhausted(true);
     }
@@ -88,9 +110,26 @@ export default function PresentesMedio({ navigation }) {
       });
     });
   
-    setPalavras(novasPalavras);
+    // atualiza a state de palavras apenas se houve alterações
+    setPalavras([...novasPalavras]);
     setBoard({ game: novoTabuleiro });
   };
+
+
+  const buildColumnsArray = () => {
+    const columnsArray = [];
+    board.game.board.forEach((row) => {
+      row.forEach((column) => {
+        columnsArray.push(column);
+      });
+    });
+    setColumns(columnsArray);
+  };
+
+  useEffect(() => {
+    buildColumnsArray();
+  }, [board.game]); 
+
 
   
 
@@ -323,23 +362,15 @@ export default function PresentesMedio({ navigation }) {
         >
           
           <View style={styles.LetterContainer}>
-          {
-            board.game.board.map((row, indexRow) => (
-              <View key={indexRow}>
-                {
-                  row.map((column, indexColumn) => (
-                    <Text
-                      style={[styles.Letter, (column.isSelected) ? styles.selected : null]}
-                      key={indexColumn}
-                      onPress={() => selectLetter(column)}
-                    >
-                      {column.letter}
-                    </Text>
-                  ))
-                }
-              </View>
-            ))
-          }
+          {columns.map((column, index) => (
+            <Text
+              style={[styles.Letter, (column.isSelected) ? styles.selected : null]}
+              key={index}
+              onPress={() => selectLetter(column)}
+            >
+              {column.letter}
+            </Text>
+          ))}
         </View>
         </ImageBackground>
         </View>
