@@ -20,7 +20,7 @@ const DIRECTIONS = [
   [1, -1],    // diagonal superior direita
 ];
 
-export default function PresentesMedio({ navigation }) {
+export default function PresentesDificil({ navigation }) {
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
