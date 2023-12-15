@@ -9,13 +9,11 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import styles from "../pages/Home/style";
-import { useNavigation } from '@react-navigation/native';
 import { scale } from 'react-native-size-matters';
 
 
 
 export function ModalEvento(){
-    const navigation = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
 
     return (

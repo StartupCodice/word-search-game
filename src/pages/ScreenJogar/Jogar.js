@@ -22,7 +22,7 @@ const Cell = React.memo(({ letter, selected }) => (
 ));
 
 
-export default function Jogar({ navigation, rows = 6, cols = 8 }) {
+export default function Jogar({ navigation, rows = 8, cols = 8 }) {
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
@@ -39,6 +39,8 @@ export default function Jogar({ navigation, rows = 6, cols = 8 }) {
   const [moedasGanhas, setMoedasGanhas] = useState(0);
   const [currentCell, setCurrentCell] = useState(null);
 
+
+
   const isMountedRef = useRef(true);
 
   const selectRandomWords = (totalWords, numWords) => {
@@ -54,7 +56,7 @@ export default function Jogar({ navigation, rows = 6, cols = 8 }) {
   };
 
   const mostrarDica = () => {
-    if (numDicasUsadas < 2) {
+    if (numDicasUsadas < 3) {
       const palavrasNaoEncontradas = palavras.filter((palavra) => !palavra.found);
   
       if (palavrasNaoEncontradas.length > 0) {
@@ -115,6 +117,8 @@ export default function Jogar({ navigation, rows = 6, cols = 8 }) {
   useEffect(() => {
     buildColumnsArray();
   }, [board.game]); 
+
+ 
 
   const fetchData = async () => {
     try {
@@ -304,7 +308,7 @@ const onHandlerStateChange = (event, item) => {
             source={require('./../../assets/chapeu.png')}
             style={styles.Dica}
           >
-            <Text style={styles.dicaNumber}>{2 - numDicasUsadas}</Text>
+            <Text style={styles.dicaNumber}>{3 - numDicasUsadas}</Text>
           </ImageBackground>
         </View>
       </TouchableOpacity>
@@ -314,8 +318,7 @@ const onHandlerStateChange = (event, item) => {
         <Text style={styles.moedasText}>{moedas}</Text>
         
       </View>
-
-
+      
           <Ionicons style={styles.button} name="arrow-back" size={scale(40)} color="white"
             onPress={() => navigation.navigate('Home')} />
 
@@ -334,11 +337,7 @@ const onHandlerStateChange = (event, item) => {
           }
         </View>
         <View style={styles.cacaContainer}>
-          <ImageBackground
-          source={require('./../../assets/telaingameretangulo.png')}
-          style={styles.retangulo}
-        >
-          
+          <View style={styles.retangulo}> 
           <GestureHandlerRootView style={{ flex: 1 }}>
             <PanGestureHandler
               onGestureEvent={onGestureEvent}
@@ -364,7 +363,7 @@ const onHandlerStateChange = (event, item) => {
               </View>
             </PanGestureHandler>
           </GestureHandlerRootView>
-        </ImageBackground>
+        </View>
         </View>
 
         <Modal isVisible={hintsExhausted} onBackdropPress={fecharModalDicasEsgotadas} style={styles.modalContainer2}>
@@ -380,15 +379,23 @@ const onHandlerStateChange = (event, item) => {
 
       <Modal isVisible={isModalVisible} onBackdropPress={closeModal} style={styles.modalContainer2}>
         <View style={styles.modalContainer}>
-          <Text style={styles.modalText}>TEMPO:</Text>
-          <Text style={styles.textTempo}>{tempoDecorrido}s</Text>
-          <Text>Moedas ganhas nesta partida: {moedasGanhas}</Text>
+          <TouchableOpacity style={styles.modalVoltarHome} onPress={() => navigation.navigate('Home')}>
+            <Text style={styles.modalButtonText}>Voltar</Text>
+          </TouchableOpacity>
+          <View style={styles.modalGanhos}>
+              <View>
+                <Text style={styles.modalText}>TEMPO:</Text>
+                <Text style={styles.textTempo}>{tempoDecorrido}</Text>
+              </View>
+              <View>
+                <Text style={styles.modalText}>MOEDAS:</Text>
+                <Text style={styles.textMoeda}>+{moedasGanhas}</Text>
+              </View>
+          </View>   
           <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
             <Text style={styles.modalButtonText}>Continuar</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.modalButton} onPress={() => navigation.navigate('Home')}>
-            <Text style={styles.modalButtonText}>Voltar</Text>
-          </TouchableOpacity>
+          
         </View>
       </Modal>
 
@@ -397,3 +404,4 @@ const onHandlerStateChange = (event, item) => {
     </View>
   );
 }
+

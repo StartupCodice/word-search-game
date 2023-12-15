@@ -1,7 +1,6 @@
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { StyleSheet, Dimensions } from "react-native";
 import { moderateScale, verticalScale, scale, moderateVerticalScale } from 'react-native-size-matters';
-const { height, width } = Dimensions.get('window');
 const CELL_SIZE = Math.floor(Dimensions.get('window').width * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 
@@ -9,8 +8,7 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 const styles = StyleSheet.create({
 
   cell: {
-    width: CELL_SIZE,
-    height: CELL_SIZE,
+    width: scale(35),
     padding: CELL_PADDING,
     justifyContent: 'center',
     alignItems: 'center',
@@ -19,10 +17,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   cellText: {
-    fontSize: CELL_SIZE - CELL_PADDING * 4,
+    fontSize: wp(6),
   },
   palavrasContainer: {
-    top: hp(3),
+    top: hp(1),
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -43,7 +41,7 @@ const styles = StyleSheet.create({
     // textAlign: 'center',
     // rowGap: 10,
     // bottom: moderateVerticalScale(25, 1.5),
-    marginTop: 40,
+    marginTop: scale(10),
   },
   GestureContainer: {
     zIndex: 100
@@ -55,20 +53,11 @@ const styles = StyleSheet.create({
   cacaContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1
+    top: 90
   },
   caca: {
     flexWrap: 'wrap',
     flexDirection: 'row',
-  },
-  Letter: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: wp(6),
-    width: wp(9),
-    zIndex: 1
   },
 
   sendLetter: {
@@ -103,13 +92,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   retangulo: {
-    width: scale(290),
-    height: scale(330),
-    borderColor: 'white',
-    borderRadius: 7,
+    width: scale(300),
+    height: moderateScale(250, 1),
+    borderRadius: scale(7),
     justifyContent: 'center',
     alignItems: 'center',
-    top: scale(36)
+    backgroundColor: 'white',
+    textAlign: 'center',
   },
   button: {
     width: wp(20),
@@ -149,7 +138,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center',
     alignItems: 'center',
-
   },
   modalContainer2: {
     flex: 1,
@@ -162,8 +150,15 @@ const styles = StyleSheet.create({
   },
 
   modalText: {
-    fontSize: 32,
+    fontSize: scale(24),
     margin: 20,
+  },
+  modalGanhos: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
   },
 
   modalButton: {
@@ -172,15 +167,31 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     margin: 20,
+    width: '80%'
   },
 
   modalButtonText: {
     color: 'white',
-    fontSize: 24,
+    fontSize: scale(24),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  modalVoltarHome: {
+    backgroundColor: '#007BFF',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    margin: 20,
+    bottom: 150,
+    right: 100
+    
   },
   textTempo: {
-    fontSize: 28,
+    fontSize: scale(18),
     fontWeight: 'bold',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center'
   },
   moedasContainer: {
     width: scale(80),
@@ -188,21 +199,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#7bdacb',
-    borderWidth: 2,
+    borderWidth: scale(2),
     borderColor: '#1d5950',
     padding: 10,
-    borderRadius: 10,
+    borderRadius: scale(10),
     left: scale(130),
-    top: scale(5),
+    top: scale(60),
     display: 'flex',
     flexDirection: 'row',
     gap: 16,
+    position: 'absolute',
   },
   moedasText: {
-    fontSize: 16,
+    fontSize: scale(15),
+    bottom: 4
   },
   textMoedas: {
-    fontSize: 16,
+    fontSize: scale(18),
     fontWeight: 'bold',
     color: '#FFD700',  // Cor amarela para moedas
   },
@@ -213,6 +226,13 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     borderWidth: 1,
     borderColor: '#b0b912'
+  },
+  textMoeda: {
+    fontSize: scale(20),
+    fontWeight: 'bold',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
   },
 });
 
