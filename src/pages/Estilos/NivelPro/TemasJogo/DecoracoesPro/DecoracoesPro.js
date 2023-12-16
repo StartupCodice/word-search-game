@@ -20,7 +20,8 @@ const DIRECTIONS = [
   [1, -1],    // diagonal superior direita
 ];
 
-export default function DecoracoesPro({ navigation }) {
+
+export default function AlimentosPro({ navigation, rows = 10, cols = 10 }) {
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({

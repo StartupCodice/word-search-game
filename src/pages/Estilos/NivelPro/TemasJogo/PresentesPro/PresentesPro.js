@@ -20,7 +20,8 @@ const DIRECTIONS = [
   [1, -1],    // diagonal superior direita
 ];
 
-export default function PresentesPro({ navigation }) {
+
+export default function PresentesPro({ navigation, rows = 10, cols = 10 }) {
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({

@@ -8,8 +8,8 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 const styles = StyleSheet.create({
 
   cell: {
-    width: scale(28),
-    height: scale(30),
+    width: scale(30),
+    height: scale(29),
     padding: CELL_PADDING,
     justifyContent: 'center',
     alignItems: 'center',
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   cellText: {
-    fontSize: wp(3),
+    fontSize: wp(5),
   },
   palavrasContainer: {
     top: hp(58),
@@ -93,14 +93,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   retangulo: {
-    width: scale(300),
+    width: scale(270),
     height: moderateScale(250, 1),
     borderRadius: scale(7),
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
     textAlign: 'center',
-    bottom: scale(80)
+    bottom: scale(90)
 
   },
   button: {
@@ -110,11 +110,12 @@ const styles = StyleSheet.create({
     right: scale(2),
   },
   palavras: {
-    fontSize: scale(18),
+    fontSize: scale(16),
     color: 'white',
     fontWeight: 'bold',
-    padding: scale(2),
-    borderRadius: scale(20)
+    padding: scale(1),
+    borderRadius: scale(20),
+    margin: scale(2)
   },
   Dica: {
     width: scale(80),
