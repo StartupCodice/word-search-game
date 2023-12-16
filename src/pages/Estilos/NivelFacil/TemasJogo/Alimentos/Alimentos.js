@@ -22,7 +22,7 @@ const Cell = React.memo(({ letter, selected }) => (
 ));
 
 
-export default function Alimentos({ navigation, rows = 8, cols = 8 }) {
+export default function Alimentos({ navigation, rows = 6, cols = 8 }) {
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
