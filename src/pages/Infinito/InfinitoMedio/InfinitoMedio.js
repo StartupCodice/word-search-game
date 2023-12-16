@@ -22,11 +22,11 @@ const Cell = React.memo(({ letter, selected }) => (
 ));
 
 
-export default function InfinitoMedio({ navigation, rows = 8, cols = 10 }) {
+export default function InfinitoMedio({ navigation, rows = 7, cols = 8 }) {
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
-    game: new createGame(8, 10, []),
+    game: new createGame(7, 8, []),
   });
   const [cores, setCores] = useState([]);
   const [startTime, setStartTime] = useState(new Date());
@@ -90,7 +90,7 @@ export default function InfinitoMedio({ navigation, rows = 8, cols = 10 }) {
   
         // atualiza a state de palavras apenas se houve alterações
         setPalavras([...novasPalavras]);
-  
+        userWin();
         setNumDicasUsadas(numDicasUsadas + 1);
       } else {
         setHintsExhausted(true);
@@ -177,11 +177,11 @@ export default function InfinitoMedio({ navigation, rows = 8, cols = 10 }) {
       ];
 
     if (isMountedRef.current) {
-      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 4);
+      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 5);
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(8, 10, palavrasJogo) });
+    setBoard({ game: new createGame(7, 8, palavrasJogo) });
 
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
@@ -283,11 +283,11 @@ export default function InfinitoMedio({ navigation, rows = 8, cols = 10 }) {
       { name: 'CASA', found: false },
     ];
 
-    const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 4);
+    const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 5);
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(8, 10, palavrasJogo) });
+    setBoard({ game: new createGame(7, 8, palavrasJogo) });
 
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
@@ -328,7 +328,7 @@ const onGestureEvent = (event) => {
   }
 };
 
-const onHandlerStateChange = (event) => {
+const onHandlerStateChange = (event, item) => {
   let letterSelected = '';
 
   if (event.nativeEvent.state === State.END) {

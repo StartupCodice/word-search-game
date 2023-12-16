@@ -90,7 +90,7 @@ export default function InfinitoFacil({ navigation, rows = 8, cols = 8 }) {
   
         // atualiza a state de palavras apenas se houve alterações
         setPalavras([...novasPalavras]);
-  
+        userWin();
         setNumDicasUsadas(numDicasUsadas + 1);
       } else {
         setHintsExhausted(true);
