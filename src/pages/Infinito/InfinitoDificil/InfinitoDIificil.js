@@ -1,30 +1,32 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, ImageBackground, Image, TouchableOpacity, Animated, Dimensions } from 'react-native';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Text, View, ImageBackground, Image, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import Modal from 'react-native-modal';
-import styles from './style';
 import { createGame } from 'hunting-words';
 import randomcolor from 'randomcolor';
-import { scale } from 'react-native-size-matters';
+import styles from './style';
+import {scale} from 'react-native-size-matters';
+import MoedasComponent from '../../../components/storage';
+
+import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
+
+const CELL_SIZE = Math.floor(300 * 0.1);
+const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
+
+const Cell = React.memo(({ letter, selected }) => (
+
+  <View style={[styles.cell, letter.isSelected && styles.selected, selected && styles.selected]}>
+    <Text style={styles.cellText}>{letter.letter}</Text>
+  </View>
+));
 
 
-const DIRECTIONS = [
-  [1, 0],     // horizontal direita
-  [1, 1],     // diagonal inferior direita
-  [0, 1],     // vertical para baixo
-  [-1, 1],    // diagonal inferior esquerda
-  [-1, 0],    // horizontal esquerda
-  [-1, -1],   // diagonal superior esquerda
-  [0, -1],    // vertical para cima
-  [1, -1],    // diagonal superior direita
-];
-
-export default function InfinitoDificil({ navigation }) {
+export default function InfinitoDificil({ navigation, rows = 9, cols = 8 }) {
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
-    game: new createGame(9, 12, []),
+    game: new createGame(9, 8, []),
   });
   const [cores, setCores] = useState([]);
   const [startTime, setStartTime] = useState(new Date());
@@ -33,6 +35,11 @@ export default function InfinitoDificil({ navigation }) {
   const [numDicasUsadas, setNumDicasUsadas] = useState(0);
   const [hintsExhausted, setHintsExhausted] = useState(false);
   const [columns, setColumns] = useState([]);
+  const { moedas, adicionarMoedas } = MoedasComponent();
+  const [moedasGanhas, setMoedasGanhas] = useState(0);
+  const [currentCell, setCurrentCell] = useState(null);
+
+
 
   const isMountedRef = useRef(true);
 
@@ -57,11 +64,17 @@ export default function InfinitoDificil({ navigation }) {
         const palavraAleatoria = palavrasNaoEncontradas[indiceAleatorio];
         const novoTabuleiro = { ...board.game };
         const novasPalavras = [...palavras];
-  
+
         // seleciona as letras correspondentes à palavra aleatória
         columns.forEach((column) => {
           if (column.word[0] === palavraAleatoria.name) {
+            let row = column.row;
+            let col = column.column;
+            setCurrentCell({ row, col });
             novoTabuleiro.board[column.row][column.column].setIsSelected(true);
+            if (!isCellSelected(row, col)) {
+              setSelectedCells(prevCells => [...prevCells, { row, col }]);
+            }
           }
         });
   
@@ -77,7 +90,7 @@ export default function InfinitoDificil({ navigation }) {
   
         // atualiza a state de palavras apenas se houve alterações
         setPalavras([...novasPalavras]);
-  
+        userWin();
         setNumDicasUsadas(numDicasUsadas + 1);
       } else {
         setHintsExhausted(true);
@@ -90,31 +103,6 @@ export default function InfinitoDificil({ navigation }) {
   const fecharModalDicasEsgotadas = () => {
     setHintsExhausted(false);
   };
-
-
-  const verificarPalavraSelecionada = () => {
-    const novoTabuleiro = { ...board.game };
-    const novasPalavras = [...palavras];
-  
-    novasPalavras.forEach((palavra) => {
-      const palavraNoTabuleiro = palavra.name;
-      const letrasSelecionadas = [];
-  
-      // Verificar quais letras estão selecionadas para a palavra atual
-      novoTabuleiro.board.forEach((row) => {
-        row.forEach((cell) => {
-          if (palavraNoTabuleiro.includes(cell.letter) && cell.isSelected) {
-            letrasSelecionadas.push(cell.letter);
-          }
-        });
-      });
-    });
-  
-    // atualiza a state de palavras apenas se houve alterações
-    setPalavras([...novasPalavras]);
-    setBoard({ game: novoTabuleiro });
-  };
-
 
   const buildColumnsArray = () => {
     const columnsArray = [];
@@ -130,56 +118,70 @@ export default function InfinitoDificil({ navigation }) {
     buildColumnsArray();
   }, [board.game]); 
 
-
-  
+ 
 
   const fetchData = async () => {
     try {
       const palavrasOriginais = [
-        { name: 'LUZES', found: false },
+        { name: 'PERU', found: false },
+        { name: 'VINHO', found: false },
         { name: 'CEIA', found: false },
-        { name: 'MAGIA', found: false },
-        { name: 'RENOS', found: false },
-        { name: 'DOCES', found: false },
-        { name: 'FITAS', found: false },
-        { name: 'GIFT', found: false },
-        { name: 'LAÇOS', found: false },
-        { name: 'JOIA', found: false },
-        { name: 'CARTA', found: false },
+        { name: 'LEITE', found: false },
         { name: 'DOCE', found: false },
-        { name: 'BOLO', found: false },
-        { name: 'BOLA', found: false },
+        { name: 'GANSO', found: false },
+        { name: 'MESSA', found: false },
+        { name: 'SALSA', found: false },
+        { name: 'TORTA', found: false },
+        { name: 'NOZES', found: false },
+        { name: 'COCA', found: false },
+        { name: 'PAO', found: false },
+        { name: 'FIGO', found: false },
+        { name: 'UVA', found: false },
+        { name: 'RIO', found: false },
         { name: 'FESTA', found: false },
-        { name: 'GORRO', found: false },
-        { name: 'BOLSA', found: false },
-        { name: 'BLUSA', found: false },
-        { name: 'TENIS', found: false },
-        { name: 'MEIA', found: false },
+        { name: 'BIFE', found: false },
+        { name: 'MELAO', found: false },
+        { name: 'MESA', found: false },
+        { name: 'CASA', found: false },
+        { name: 'ABACO', found: false },
+        { name: 'AÇUCAR', found: false },
+        { name: 'FLORA', found: false },
+        { name: 'PESCA', found: false },
+        { name: 'BOLA', found: false },
+        { name: 'VILA', found: false },
+        { name: 'TINTO', found: false },
+        { name: 'TRIGO', found: false },
+        { name: 'LISO', found: false },
+        { name: 'NOME', found: false },
+        { name: 'VELOZ', found: false },
+        { name: 'LOBO', found: false },
         { name: 'CARRO', found: false },
-        { name: 'MOTO', found: false },
-        { name: 'QUEBRA', found: false },
-        { name: 'PIPOCA', found: false },
-        { name: 'BRINCO', found: false },
-        { name: 'BRINDE', found: false },
-        { name: 'RÉPLICA', found: false },
-        { name: 'XADREZ', found: false },
-        { name: 'DOMINO', found: false },
-        { name: 'PIÃO', found: false },
-        { name: 'GIBI', found: false },
-        { name: 'BICHO', found: false },
-        { name: 'JOGO', found: false },
-        { name: 'BAÚ', found: false },
+        { name: 'TOGA', found: false },
+        { name: 'RODA', found: false },
+        { name: 'LAMA', found: false },
+        { name: 'ZOOM', found: false },
+        { name: 'SOL', found: false },
+        { name: 'CÉU', found: false },
+        { name: 'URSO', found: false },
+        { name: 'FITA', found: false },
+        { name: 'MOFO', found: false },
+        { name: 'CALMO', found: false },
+        { name: 'VERDE', found: false },
+        { name: 'ABRIL', found: false },
+        { name: 'FATO', found: false },
+        { name: 'GIZ', found: false },
+        { name: 'FOCA', found: false },
+        { name: 'PESO', found: false },
+        { name: 'ROLAR', found: false },
+        { name: 'CASA', found: false },
       ];
-      
-      // Adicione mais palavras conforme necessário
-      
 
     if (isMountedRef.current) {
-      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 8);
+      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 7);
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(9, 12, palavrasJogo) });
+    setBoard({ game: new createGame(9, 8, palavrasJogo) });
 
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
@@ -201,45 +203,6 @@ export default function InfinitoDificil({ navigation }) {
     } 
   }, []);
 
-  function selectLetter(item) {
-    let game = board.game;
-    game.board[item.row][item.column].setIsSelected(!item.isSelected);
-
-    verificarPalavraSelecionada();
-    setBoard({ game });
-    verifyFindWord(item.word);
-  }
-
-  function getLetterSelectedSameWord(word) {
-    let lettersSelected = 0;
-  
-    board.game.board.filter((row) => {
-      lettersSelected =
-        lettersSelected +
-        row.filter((el) => {
-          return el.word == word && el.isSelected;
-        }).length;
-    });
-  
-    return lettersSelected;
-  }
-
-  function verifyFindWord(words) {
-    for (let word of words) {
-      let lettersSelected = getLetterSelectedSameWord(word);
-
-      if (lettersSelected === word.length) {
-        palavras.forEach((palavra) => {
-          if (palavra.name === word) {
-            palavra.found = true;
-            setPalavras([...palavras]);
-          }
-        });
-      }
-
-      userWin();
-    }
-  }
 
   function userWin() {
     const isWin = palavras.every((palavra) => palavra.found === true);
@@ -257,6 +220,9 @@ export default function InfinitoDificil({ navigation }) {
     const segundos = Math.floor(tempoDecorrido % 60);
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
+
+    adicionarMoedas(12);
+    setMoedasGanhas(12);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);
@@ -264,49 +230,64 @@ export default function InfinitoDificil({ navigation }) {
 
   const reiniciarJogo = () => {
     const palavrasOriginais = [
-      { name: 'LUZES', found: false },
+      { name: 'PERU', found: false },
+      { name: 'VINHO', found: false },
       { name: 'CEIA', found: false },
-      { name: 'MAGIA', found: false },
-      { name: 'RENOS', found: false },
-      { name: 'DOCES', found: false },
-      { name: 'FITAS', found: false },
-      { name: 'GIFT', found: false },
-      { name: 'LAÇOS', found: false },
-      { name: 'JOIA', found: false },
-      { name: 'CARTA', found: false },
+      { name: 'LEITE', found: false },
       { name: 'DOCE', found: false },
-      { name: 'BOLO', found: false },
-      { name: 'BOLA', found: false },
+      { name: 'GANSO', found: false },
+      { name: 'MESSA', found: false },
+      { name: 'SALSA', found: false },
+      { name: 'TORTA', found: false },
+      { name: 'NOZES', found: false },
+      { name: 'COCA', found: false },
+      { name: 'PAO', found: false },
+      { name: 'FIGO', found: false },
+      { name: 'UVA', found: false },
+      { name: 'RIO', found: false },
       { name: 'FESTA', found: false },
-      { name: 'GORRO', found: false },
-      { name: 'BOLSA', found: false },
-      { name: 'BLUSA', found: false },
-      { name: 'TENIS', found: false },
-      { name: 'MEIA', found: false },
+      { name: 'BIFE', found: false },
+      { name: 'MELAO', found: false },
+      { name: 'MESA', found: false },
+      { name: 'CASA', found: false },
+      { name: 'ABACO', found: false },
+      { name: 'AÇUCAR', found: false },
+      { name: 'FLORA', found: false },
+      { name: 'PESCA', found: false },
+      { name: 'BOLA', found: false },
+      { name: 'VILA', found: false },
+      { name: 'TINTO', found: false },
+      { name: 'TRIGO', found: false },
+      { name: 'LISO', found: false },
+      { name: 'NOME', found: false },
+      { name: 'VELOZ', found: false },
+      { name: 'LOBO', found: false },
       { name: 'CARRO', found: false },
-      { name: 'MOTO', found: false },
-      { name: 'QUEBRA', found: false },
-      { name: 'PIPOCA', found: false },
-      { name: 'BRINCO', found: false },
-      { name: 'BRINDE', found: false },
-      { name: 'RÉPLICA', found: false },
-      { name: 'XADREZ', found: false },
-      { name: 'DOMINO', found: false },
-      { name: 'PIÃO', found: false },
-      { name: 'GIBI', found: false },
-      { name: 'BICHO', found: false },
-      { name: 'JOGO', found: false },
-      { name: 'BAÚ', found: false },
+      { name: 'TOGA', found: false },
+      { name: 'RODA', found: false },
+      { name: 'LAMA', found: false },
+      { name: 'ZOOM', found: false },
+      { name: 'SOL', found: false },
+      { name: 'CÉU', found: false },
+      { name: 'URSO', found: false },
+      { name: 'FITA', found: false },
+      { name: 'MOFO', found: false },
+      { name: 'CALMO', found: false },
+      { name: 'VERDE', found: false },
+      { name: 'ABRIL', found: false },
+      { name: 'FATO', found: false },
+      { name: 'GIZ', found: false },
+      { name: 'FOCA', found: false },
+      { name: 'PESO', found: false },
+      { name: 'ROLAR', found: false },
+      { name: 'CASA', found: false },
     ];
-    
-    // Adicione mais palavras conforme necessário
-    
 
-    const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 8);
+    const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 7);
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(9, 12, palavrasJogo) });
+    setBoard({ game: new createGame(9, 8, palavrasJogo) });
 
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
@@ -315,11 +296,80 @@ export default function InfinitoDificil({ navigation }) {
     setStartTime(new Date());
     setModalVisible(false);
     setTempoDecorrido(0);
+    setNumDicasUsadas(0);
+    setHintsExhausted(false);
+    setColumns([]);
+    setCurrentCell(null);
+    setSelectedCells([]);
+
   };
 
   const closeModal = () => {
     reiniciarJogo();
   };
+
+  const [selectedCells, setSelectedCells] = useState([]);
+const panRef = useRef(null);
+
+const isCellSelected = useCallback(
+  (row, col) => selectedCells.some(cell => cell.row === row && cell.col === col),
+  [selectedCells]
+);
+
+const onGestureEvent = (event) => {
+  const { x, y } = event.nativeEvent;
+  const row = Math.floor(y / scale(CELL_SIZE));
+  const col = Math.floor(x / scale(CELL_SIZE));
+  if (row >= 0 && col >= 0 && row < rows && col < cols && (currentCell?.row !== row || currentCell?.col !== col)) {
+    setCurrentCell({ row, col });
+    if (!isCellSelected(row, col)) {
+      setSelectedCells(prevCells => [...prevCells, { row, col }]);
+    }
+  }
+};
+
+const onHandlerStateChange = (event, item) => {
+  let letterSelected = '';
+
+  if (event.nativeEvent.state === State.END) {
+    selectedCells.forEach((cell) => {
+      board.game.board.forEach((row) => {
+        row.forEach((letter) => {
+          if (cell.col === letter.column && cell.row === letter.row) {
+            letterSelected += letter.letter;
+          }
+        })
+      })
+    });
+
+    let game = board.game;
+    game.board.forEach((row) => {
+      row.forEach((column) => {
+        if (!column.isSelected) {
+          if (column.word[0] === letterSelected) {
+            game.board[column.row][column.column].setIsSelected(true);
+          }
+        }
+      });
+    });
+
+    setBoard({ game });
+    setSelectedCells([]);
+    setCurrentCell(null);
+    
+
+    palavras.forEach((palavra) => {
+      if (palavra.name === letterSelected) {
+        palavra.found = true;
+      }
+    });
+
+    setPalavras([...palavras]);
+
+    userWin();
+  }
+};
+
 
 
   return (
@@ -337,7 +387,12 @@ export default function InfinitoDificil({ navigation }) {
         </View>
       </TouchableOpacity>
 
-
+      <View style={styles.moedasContainer}>
+        <View style={styles.IconMoeda}></View>
+        <Text style={styles.moedasText}>{moedas}</Text>
+        
+      </View>
+      
           <Ionicons style={styles.button} name="arrow-back" size={scale(40)} color="white"
             onPress={() => navigation.navigate('Home')} />
 
@@ -356,23 +411,33 @@ export default function InfinitoDificil({ navigation }) {
           }
         </View>
         <View style={styles.cacaContainer}>
-          <ImageBackground
-          source={require('./../../../assets/telaingameretangulo.png')}
-          style={styles.retangulo}
-        >
-          
-          <View style={styles.LetterContainer}>
-          {columns.map((column, index) => (
-            <Text
-              style={[styles.Letter, (column.isSelected) ? styles.selected : null]}
-              key={index}
-              onPress={() => selectLetter(column)}
+          <View style={styles.retangulo}> 
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <PanGestureHandler
+              onGestureEvent={onGestureEvent}
+              onHandlerStateChange={onHandlerStateChange}
+              ref={panRef}
             >
-              {column.letter}
-            </Text>
-          ))}
+              <View style={styles.LetterContainer}>
+              {
+                board.game.board.map((row, indexRow) => (
+                  <View key={indexRow} style={styles.row}>
+                    {
+                      row.map((letter, colIndex) => (
+                        <Cell 
+                          key={`cell-${indexRow}-${colIndex}`} 
+                          letter={letter} 
+                          selected={isCellSelected(indexRow, colIndex)} 
+                        />
+                      ))
+                    }
+                  </View>
+                ))
+              }
+              </View>
+            </PanGestureHandler>
+          </GestureHandlerRootView>
         </View>
-        </ImageBackground>
         </View>
 
         <Modal isVisible={hintsExhausted} onBackdropPress={fecharModalDicasEsgotadas} style={styles.modalContainer2}>
@@ -386,25 +451,31 @@ export default function InfinitoDificil({ navigation }) {
         </View>
       </Modal>
 
-        <Modal isVisible={isModalVisible} onBackdropPress={closeModal} style={styles.modalContainer2}>
-          <View style={styles.modalContainer}>
-            <Text style={styles.modalText}>
-              TEMPO:
-            </Text>
-            <Text style={styles.textTempo}>
-                {tempoDecorrido}s
-            </Text> 
-            <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
-              <Text style={styles.modalButtonText}>Continuar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.modalButton} onPress={() => navigation.navigate('Home')}>
-              <Text style={styles.modalButtonText}>Voltar</Text>
-            </TouchableOpacity>
-          </View>
-        </Modal>
+      <Modal isVisible={isModalVisible} onBackdropPress={closeModal} style={styles.modalContainer2}>
+        <View style={styles.modalContainer}>
+          <TouchableOpacity style={styles.modalVoltarHome} onPress={() => navigation.navigate('Home')}>
+            <Text style={styles.modalButtonText}>Voltar</Text>
+          </TouchableOpacity>
+          <View style={styles.modalGanhos}>
+              <View>
+                <Text style={styles.modalText}>TEMPO:</Text>
+                <Text style={styles.textTempo}>{tempoDecorrido}</Text>
+              </View>
+              <View>
+                <Text style={styles.modalText}>MOEDAS:</Text>
+                <Text style={styles.textMoeda}>+{moedasGanhas}</Text>
+              </View>
+          </View>   
+          <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
+            <Text style={styles.modalButtonText}>Continuar</Text>
+          </TouchableOpacity>
+          
+        </View>
+      </Modal>
 
         <StatusBar style="auto" />
       </ImageBackground>
     </View>
   );
 }
+
