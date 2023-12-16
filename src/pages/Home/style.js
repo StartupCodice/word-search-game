@@ -45,68 +45,36 @@ const styles = StyleSheet.create({
         top: 60,
         right: 30,
     },
-    
-      modalView: {
-        backgroundColor: '#C3DFE0',
-        borderRadius: 20,
-        padding: 35,
-        top: 50,
-        left: 74,
-        width: 260,
-        height: 300,
-        borderWidth: 3,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
+
+      IconStyle: {
+        margin: scale(14),
+        
       },
-      modalViewVolume: {
-        backgroundColor: '#C3DFE0',
-        borderRadius: 20,
-        padding: 35,
-        top: 50,
-        left: 108,
-        width: 200,
-        height: 200,
-        borderWidth: 3,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-      },
-      header: {
-        backgroundColor: '#2196F3',
-        width: 256,
-        height: 50,
-        position: 'absolute',
-        margin: -1,
-        padding: 2,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-      },
-      textHeader: {
-        fontWeight: 'bold',
-        textAlign: 'center',
-        fontSize: 18.5,
-        top: 12
-      },
-      button: {
-        borderRadius: 20,
-        width: 200,
-        padding: 10,
-        elevation: 2,
-        margin: 16,
-        bottom: 46,
-        right: 24
-      },
-      buttonVolume: {
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2,
-        margin: 16,
-        bottom: 36
+      volumeCenter: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
       },
       buttonInside: {
-        borderRadius: 20,
-        margin: 16,
-        bottom: 40,
-        left: 58,
+        alignItems: 'center',
+        justifyContent: 'center',
+        left: scale(70),
+        bottom: scale(26),
+      },
+      slider: {
+        width: scale(130),
+        flex: 1,
+        backgroundColor: 'transparent',
+        borderRadius: 10,
+        borderWidth: 2,
+        borderColor: 'purple',
+      },
+      containerSlider: {
+        width: scale(130),
+        height: scale(25),
+        borderRadius: scale(30),
+        backgroundColor: 'purple',
+        overflow: 'hidden',
       },
       buttonInsideEvento: {
         borderRadius: 20,
@@ -114,28 +82,15 @@ const styles = StyleSheet.create({
         bottom: hp(9.5),
         left: moderateScale(92, 1.1)
       },
-      buttonOpen: {
-        backgroundColor: '#2196F3',
-      },
       buttonClose: {
         backgroundColor: 'red',
         color: 'white'
-      },
-      buttonCloseVolume: {
-        backgroundColor: '#2196F3',
-        borderWidth: 2,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
       },
       textStyle: {
         fontWeight: 'bold',
         textAlign: 'center',
       },
-      textStyleJogos: {
-        fontWeight: 'bold',
-        textAlign: 'center',
-        color: 'white'
-      },
+      
       modalText: {
         marginBottom: 15,
         textAlign: 'center',
@@ -149,8 +104,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 22,
-        top: 40,
-        right: 108,
+        top: scale(40),
         textAlign: 'center',
     },
       modalView: {
@@ -171,15 +125,16 @@ const styles = StyleSheet.create({
       },
       modalViewVolume: {
         backgroundColor: '#C3DFE0',
-        borderRadius: 20,
-        padding: 35,
-        top: 50,
-        left: 108,
-        width: 200,
-        height: 200,
-        borderWidth: 3,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
+        borderRadius: scale(20),
+        padding: scale(20),
+        top: scale(50),
+        width: scale(200),
+        height: moderateScale(200),
+        borderWidth: scale(2),
+        justifyContent: 'center',
+        alignContent: 'center',
+        alignItems: 'center',
+
       },
       header: {
         position: 'absolute',
@@ -268,13 +223,6 @@ const styles = StyleSheet.create({
         margin: 16,
         bottom: 36
       },
-      
-      buttonInside: {
-        borderRadius: 20,
-        margin: 16,
-        bottom: 40,
-        left: 58,
-      },
       buttonOpen: {
         backgroundColor: '#2196F3',
       },
@@ -287,10 +235,6 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
-      },
-      textStyle: {
-        fontWeight: 'bold',
-        textAlign: 'center',
       },
       buttonSharp: {
         left: scale(-10),

@@ -5,9 +5,7 @@ const { Screen, Navigator } = createNativeStackNavigator();
 import { Ionicons } from '@expo/vector-icons';
 
 import Jogar from '../../ScreenJogar/Jogar';
-import { Infinito } from '../../Infinito/Infinito';
 import Home from '../Home';
-import { JogoFacil } from './../../JogoFacil/JogoFacil';
 import NiveisBotoes  from '../../Estilos/NivelBotoes';
 import  { NivelFacil }  from '../../Estilos/NivelFacil/NivelFacil';
 import  { NivelMedio }  from '../../Estilos/NivelMedio/NivelMedio';
@@ -29,6 +27,10 @@ import AlimentosPro from '../../Estilos/NivelPro/TemasJogo/AlimentosPro/Alimento
 import DecoracoesPro from '../../Estilos/NivelPro/TemasJogo/DecoracoesPro/DecoracoesPro';
 import PersonagensPro from '../../Estilos/NivelPro/TemasJogo/PersonagensPro/PersonagensPro';
 import PresentesPro from '../../Estilos/NivelPro/TemasJogo/PresentesPro/PresentesPro';
+import InfinitoFacil from '../../Infinito/InfinitoFacil/InfinitoFacil';
+import InfinitoMedio from '../../Infinito/InfinitoMedio/InfinitoMedio';
+import InfinitoDificil from '../../Infinito/InfinitoDificil/InfinitoDIificil';
+import InfinitoPro from '../../Infinito/InfinitoPro/InfinitoPro';
 
 export function StackRoutes() {
     return (
@@ -49,14 +51,6 @@ export function StackRoutes() {
                 headerShown: false   
             }}
              />   
-             <Screen 
-              name="JogoFacil"
-              component={JogoFacil}  
-              options={{ 
-                title: '',
-                headerShown: false      
-            }}
-             /> 
 
              <Screen 
              name="Estilos"
@@ -244,16 +238,41 @@ export function StackRoutes() {
             }}
              />
 
-
-             <Screen 
-             name="Infinito"
-             component={Infinito}
+            <Screen 
+             name="InfinitoFacil"
+             component={InfinitoFacil}
              options={{ 
                 title: '',
                 headerShown: false       
-            }}  
+            }}
              />
-          
+
+            <Screen 
+             name="InfinitoMedio"
+             component={InfinitoMedio}
+             options={{ 
+                title: '',
+                headerShown: false       
+            }}
+             />
+             
+             <Screen 
+             name="InfinitoDificil"
+             component={InfinitoDificil}
+             options={{ 
+                title: '',
+                headerShown: false       
+            }}
+             />
+
+            <Screen 
+             name="InfinitoPro"
+             component={InfinitoPro}
+             options={{ 
+                title: '',
+                headerShown: false       
+            }}
+             /> 
         </Navigator>
     )
 }
