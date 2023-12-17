@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { 
     Text, 
     View, 
@@ -10,13 +10,62 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import styles from "../pages/Home/style";
 import { scale } from 'react-native-size-matters';
+import { useNavigation } from '@react-navigation/native';
+import ThemeStorage from './storageTheme';
+const moment = require('moment');
 
-
+const themes = ['Presentes', 'Decorações', 'Alimentos', 'Personagens'];
 
 export function ModalEvento(){
+    const navigation = useNavigation();
+
     const [modalVisible, setModalVisible] = useState(false);
+    const [newTheme, setNewTheme] = useState(false);
+    const [hours, setHours] = useState('');
+    const { getTheme, addTheme } = ThemeStorage();
+    const [theme, setTheme] = useState('');
+
+    const calculateTimeUntilMidnight = () => {
+        const now = moment();
+        const midnight = moment().endOf('day');
+    
+        const duration = moment.duration(midnight.diff(now));
+        duration.add(3, 'hours');
+        
+        const hours = Math.floor(duration.asHours());
+        const minutes = Math.floor(duration.minutes());
+        const seconds = Math.floor(duration.seconds());
+    
+        return `${hours}h ${minutes}m ${seconds}s`;
+    };
+
+    const chooseRandomTheme = () => {
+        const randomIndex = Math.floor(Math.random() * themes.length);
+        const theme = themes[randomIndex];
+        addTheme(theme);
+    };
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setHours(calculateTimeUntilMidnight());
+        }, 1000);
+
+        const midnightIntervalId = setInterval(() => {
+            chooseRandomTheme();
+        }, 24 * 60 * 60 * 1000);
+
+        getTheme().then((theme) => {
+            setTheme(theme);
+        });
+
+        return () => {
+            clearInterval(intervalId);
+            clearInterval(midnightIntervalId);
+        }
+    }, []);
 
     return (
+        
 
         <View style={styles.centeredView} >        
                                 <Modal
@@ -33,31 +82,37 @@ export function ModalEvento(){
                                         <Text style={styles.textHeader}>
                                             JOGOS DIARIOS
                                         </Text>                                 
-                                    <TouchableHighlight
+                                        <TouchableHighlight
                                             style={styles.buttonInsideEvento}
                                             underlayColor="null"
                                             onPress={() => setModalVisible(!modalVisible)}>
                                             <Ionicons style={styles.buttonSharp} name="close-sharp" size={scale(30)} color="black" />
                                         </TouchableHighlight>
+                                        <View style={styles.theme}>
+                                            <Text style={{ fontSize: 17 }}>Tema de hoje: {theme}</Text>
+                                        </View>
                                     <Pressable
                                         underlayColor="null"            
                                         style={[styles.buttonRed, styles.buttonClose]}
-                                        onPress={ () => setModalVisible(!modalVisible)}>
+                                        onPress={() => navigation.navigate('EventoFacil') ?? setModalVisible(!modalVisible)}>
                                         
-                                        <Text style={styles.textStyleJogos}>EM BREVE <Ionicons style={styles.lock} name="md-lock-closed-sharp" size={16} color="black" /></Text>
+                                        <Text style={styles.textStyleJogos}>FÁCIL</Text>
                                     </Pressable>
                                     <Pressable
                                         underlayColor="null"
                                         style={[styles.buttonRed, styles.buttonClose]}
                                         onPress={() => setModalVisible(!modalVisible)}>
-                                        <Text style={styles.textStyleJogos}>EM BREVE <Ionicons style={styles.lock} name="md-lock-closed-sharp" size={16} color="black" /></Text>
+                                        <Text style={styles.textStyleJogos}>MÉDIO</Text>
                                     </Pressable>
                                     <Pressable
                                         underlayColor="null"            
                                         style={[styles.buttonRed, styles.buttonClose]}
                                         onPress={() => setModalVisible(!modalVisible)}>
-                                        <Text style={styles.textStyleJogos}>EM BREVE <Ionicons style={styles.lock} name="md-lock-closed-sharp" size={16} color="black" /></Text>
+                                        <Text style={styles.textStyleJogos}>PRÓ</Text>
                                     </Pressable>
+                                    </View>
+                                    <View style={{ justifyContent: 'center', alignItems: 'center', top: scale(10) }}>
+                                        <Text style={{ fontSize: 18 }}>{hours}</Text>
                                     </View>
                                 </View>
                               </View>  
@@ -67,8 +122,6 @@ export function ModalEvento(){
                                 onPress={() => setModalVisible(true)}>
                                     <Ionicons name="snow" size={scale(20)} color="white" style={styles.textStyle} />
                                 </Pressable>
-            
-                            
                     </View>
     )
 }

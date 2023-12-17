@@ -148,8 +148,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         fontSize: wp(5),
-        top: moderateScale(70, 0.2),
+        top: moderateScale(30, 0.2),
         position: 'absolute'
+      },
+      theme: {
+        top: scale(-20),
       },
       buttonRed: {
         borderRadius: scale(20),
@@ -237,7 +240,6 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 20,
       },
       buttonSharp: {
-        left: scale(-10),
         top: moderateVerticalScale(22, 1.8),
       },
       textStyleJogos: {
