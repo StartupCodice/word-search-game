@@ -11,7 +11,7 @@ import MoedasComponent from '../../../components/storage';
 
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
-const CELL_SIZE = Math.floor(Dimensions.get('window').width * 0.1);
+const CELL_SIZE = Math.floor(300 * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 
 const Cell = React.memo(({ letter, selected }) => (
@@ -177,7 +177,7 @@ export default function InfinitoDificil({ navigation, rows = 9, cols = 8 }) {
       ];
 
     if (isMountedRef.current) {
-      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 6);
+      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 7);
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
@@ -221,8 +221,8 @@ export default function InfinitoDificil({ navigation, rows = 9, cols = 8 }) {
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
 
-    adicionarMoedas(6);
-    setMoedasGanhas(6);
+    adicionarMoedas(12);
+    setMoedasGanhas(12);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);
@@ -283,6 +283,7 @@ export default function InfinitoDificil({ navigation, rows = 9, cols = 8 }) {
       { name: 'CASA', found: false },
     ];
 
+    const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 7);
     const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 6);
     setPalavras(palavrasEscolhidas);
 
@@ -318,8 +319,8 @@ const isCellSelected = useCallback(
 
 const onGestureEvent = (event) => {
   const { x, y } = event.nativeEvent;
-  const row = Math.floor(y / CELL_SIZE);
-  const col = Math.floor(x / CELL_SIZE);
+  const row = Math.floor(y / scale(CELL_SIZE));
+  const col = Math.floor(x / scale(CELL_SIZE));
   if (row >= 0 && col >= 0 && row < rows && col < cols && (currentCell?.row !== row || currentCell?.col !== col)) {
     setCurrentCell({ row, col });
     if (!isCellSelected(row, col)) {

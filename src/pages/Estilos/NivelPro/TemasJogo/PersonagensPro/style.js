@@ -1,8 +1,8 @@
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { StyleSheet, Dimensions } from "react-native";
 import { moderateScale, verticalScale, scale, moderateVerticalScale } from 'react-native-size-matters';
-const { height, width } = Dimensions.get('window');
-const CELL_SIZE = Math.floor(280 * 0.1);
+const {height, width} = Dimensions.get('window');
+const CELL_SIZE = Math.floor(scale(280) * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 
 

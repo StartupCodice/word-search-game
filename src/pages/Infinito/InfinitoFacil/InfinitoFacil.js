@@ -22,7 +22,7 @@ const Cell = React.memo(({ letter, selected }) => (
 ));
 
 
-export default function InfinitoFacil({ navigation, rows = 8, cols = 8 }) {
+export default function InfinitoFacil({ navigation, rows = 6, cols = 8 }) {
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
@@ -56,7 +56,7 @@ export default function InfinitoFacil({ navigation, rows = 8, cols = 8 }) {
   };
 
   const mostrarDica = () => {
-    if (numDicasUsadas < 3) {
+    if (numDicasUsadas < 2) {
       const palavrasNaoEncontradas = palavras.filter((palavra) => !palavra.found);
   
       if (palavrasNaoEncontradas.length > 0) {
@@ -382,7 +382,7 @@ const onHandlerStateChange = (event, item) => {
             source={require('./../../../assets/chapeu.png')}
             style={styles.Dica}
           >
-            <Text style={styles.dicaNumber}>{3 - numDicasUsadas}</Text>
+            <Text style={styles.dicaNumber}>{2 - numDicasUsadas}</Text>
           </ImageBackground>
         </View>
       </TouchableOpacity>

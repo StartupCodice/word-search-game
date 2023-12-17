@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Text, View, ImageBackground, Image, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+
 import { StatusBar } from 'expo-status-bar';
 import Modal from 'react-native-modal';
 import { createGame } from 'hunting-words';
@@ -21,8 +22,7 @@ const Cell = React.memo(({ letter, selected }) => (
 ));
 
 
-export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
-
+export default function AlimentosPro({ navigation, rows = 10, cols = 10 }) {
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
     game: new createGame(10, 10, []),

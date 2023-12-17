@@ -11,7 +11,7 @@ import MoedasComponent from '../../../components/storage';
 
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
-const CELL_SIZE = Math.floor(Dimensions.get('window').width * 0.1);
+const CELL_SIZE = Math.floor(260 * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 
 const Cell = React.memo(({ letter, selected }) => (
@@ -22,11 +22,11 @@ const Cell = React.memo(({ letter, selected }) => (
 ));
 
 
-export default function InfinitoPro({ navigation, rows = 10, cols = 8 }) {
+export default function InfinitoDificil({ navigation, rows = 10, cols = 9 }) {
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
-    game: new createGame(10, 8, []),
+    game: new createGame(10, 9, []),
   });
   const [cores, setCores] = useState([]);
   const [startTime, setStartTime] = useState(new Date());
@@ -177,11 +177,11 @@ export default function InfinitoPro({ navigation, rows = 10, cols = 8 }) {
       ];
 
     if (isMountedRef.current) {
-      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 8);
+      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 9);
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(10, 8, palavrasJogo) });
+    setBoard({ game: new createGame(10, 9, palavrasJogo) });
 
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
@@ -221,8 +221,8 @@ export default function InfinitoPro({ navigation, rows = 10, cols = 8 }) {
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
 
-    adicionarMoedas(6);
-    setMoedasGanhas(6);
+    adicionarMoedas(16);
+    setMoedasGanhas(16);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);
@@ -283,11 +283,11 @@ export default function InfinitoPro({ navigation, rows = 10, cols = 8 }) {
       { name: 'CASA', found: false },
     ];
 
-    const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 8);
+    const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 9);
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(10, 8, palavrasJogo) });
+    setBoard({ game: new createGame(10, 9, palavrasJogo) });
 
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
@@ -318,8 +318,8 @@ const isCellSelected = useCallback(
 
 const onGestureEvent = (event) => {
   const { x, y } = event.nativeEvent;
-  const row = Math.floor(y / CELL_SIZE);
-  const col = Math.floor(x / CELL_SIZE);
+  const row = Math.floor(y / scale(CELL_SIZE));
+  const col = Math.floor(x / scale(CELL_SIZE));
   if (row >= 0 && col >= 0 && row < rows && col < cols && (currentCell?.row !== row || currentCell?.col !== col)) {
     setCurrentCell({ row, col });
     if (!isCellSelected(row, col)) {

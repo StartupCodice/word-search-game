@@ -1,14 +1,15 @@
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { StyleSheet, Dimensions } from "react-native";
 import { moderateScale, verticalScale, scale, moderateVerticalScale } from 'react-native-size-matters';
-const CELL_SIZE = Math.floor(Dimensions.get('window').width * 0.1);
+const {height, width} = Dimensions.get('window');
+const CELL_SIZE = Math.floor(scale(280) * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 
-
-const styles = StyleSheet.create({
+  const styles = StyleSheet.create({
 
   cell: {
-    width: scale(35),
+    width: scale(28),
+    height: scale(26),
     padding: CELL_PADDING,
     justifyContent: 'center',
     alignItems: 'center',
@@ -17,10 +18,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   cellText: {
-    fontSize: wp(6),
+    fontSize: wp(4),
   },
   palavrasContainer: {
-    top: hp(58),
+    top: hp(56),
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -31,48 +32,115 @@ const styles = StyleSheet.create({
   selected: {
     backgroundColor: 'gray',
     color: 'white',
-    borderRadius: 10,
+    borderRadius: scale(5),
   },
   LetterContainer: {
-    // flexDirection: 'row',
-    // flexWrap: 'wrap',
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // textAlign: 'center',
-    // rowGap: 10,
-    // bottom: moderateVerticalScale(25, 1.5),
-    marginTop: scale(10),
+    marginTop: scale(2),
   },
   GestureContainer: {
     zIndex: 100
   },
   wordFound: {
     color: 'black',
-    padding: 10,
+    padding: scale(3),
   },
   cacaContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    top: 90
   },
   caca: {
     flexWrap: 'wrap',
     flexDirection: 'row',
   },
 
-  sendLetter: {
-    flexDirection: 'row',
-    marginTop: 30,
-    gap: 20,
-    justifyContent: 'center',
-  },
-  inputLetter: {
-    width: 200,
-    height: 40,
-    paddingLeft: 10,
-    backgroundColor: 'gray',
-    color: 'black',
-  },
+      sendLetter: {
+        flexDirection: 'row',
+        marginTop: 30,
+        gap: 20,
+        justifyContent: 'center',
+      },
+      inputLetter: {
+        width: 200,
+        height: 40,
+        paddingLeft: 10, 
+        backgroundColor: 'gray',
+        color: 'black',
+      },
+      
+      ScreenText: {
+        fontSize: 20,
+        color: '#000',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        top: 48
+      },
+      imageBackground: {
+        flex: 1,
+        resizeMode: "cover",
+        width: "100%",
+      },
+      container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+        retangulo: {
+        width: wp(80),
+        height: scale(320),
+        borderColor: 'white',
+        borderRadius: 7,
+        justifyContent: 'center',
+        alignItems: 'center',
+        bottom: hp(13)
+        },
+        button: {
+          width: wp(20),
+          padding: scale(20),
+          bottom: moderateVerticalScale(30, 0.6),
+          right: scale(2),
+        },
+        palavras: {
+          fontSize: scale(11),
+          color: 'white',
+          fontWeight: 'bold',
+          marginBottom: scale(12),
+          borderRadius: scale(16),
+        },
+          Dica: {
+            width: scale(80),
+            height: scale(54),
+            top: moderateScale(50, 1),
+            left: scale(120),
+            justifyContent: 'center',
+            alignContent: 'center',
+            alignItems: 'center',
+          },
+          dicaNumber: {
+            backgroundColor: 'yellow',
+            borderRadius: 50,
+            width: scale(20),
+            height: scale(20),
+            textAlign: 'center',
+            fontSize: scale(12),
+          },
+          modalContainer: {
+            backgroundColor: 'white',
+            borderRadius: 10,
+            width: '100%',
+            height: '100%',
+            justifyContent: 'center',
+            alignContent: 'center',
+            alignItems: 'center',
+            
+          },
+          modalContainer2: {
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderWidth: 5,
+            borderColor: '#007BFF',
+            borderRadius: 18,
+          },
 
   ScreenText: {
     fontSize: 20,
@@ -92,15 +160,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   retangulo: {
-    width: scale(300),
-    height: moderateScale(350, 1),
+    width: scale(270),
+    height: moderateScale(260, 1),
     borderRadius: scale(7),
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
     textAlign: 'center',
-    bottom: scale(170)
-
+    bottom: moderateVerticalScale(20, 15.5),
   },
   button: {
     width: wp(20),
@@ -109,11 +176,12 @@ const styles = StyleSheet.create({
     right: scale(2),
   },
   palavras: {
-    fontSize: scale(18),
+    fontSize: scale(12),
     color: 'white',
     fontWeight: 'bold',
-    padding: scale(2),
-    borderRadius: scale(20)
+    padding: scale(1),
+    borderRadius: scale(20),
+    margin: scale(2)
   },
   Dica: {
     width: scale(80),
@@ -203,6 +271,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#7bdacb',
     borderWidth: scale(2),
     borderColor: '#1d5950',
+    padding: 10,
     borderRadius: scale(10),
     left: scale(130),
     top: scale(60),

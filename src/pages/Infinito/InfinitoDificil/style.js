@@ -8,7 +8,8 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 const styles = StyleSheet.create({
 
   cell: {
-    width: scale(35),
+    width: scale(32),
+    height: scale(28),
     padding: CELL_PADDING,
     justifyContent: 'center',
     alignItems: 'center',
@@ -17,10 +18,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   cellText: {
-    fontSize: wp(6),
+    fontSize: wp(4),
   },
   palavrasContainer: {
-    top: hp(58),
+    top: hp(56),
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -31,29 +32,21 @@ const styles = StyleSheet.create({
   selected: {
     backgroundColor: 'gray',
     color: 'white',
-    borderRadius: 10,
+    borderRadius: scale(5),
   },
   LetterContainer: {
-    // flexDirection: 'row',
-    // flexWrap: 'wrap',
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // textAlign: 'center',
-    // rowGap: 10,
-    // bottom: moderateVerticalScale(25, 1.5),
-    marginTop: scale(10),
+    marginTop: scale(2),
   },
   GestureContainer: {
     zIndex: 100
   },
   wordFound: {
     color: 'black',
-    padding: 10,
+    padding: scale(3),
   },
   cacaContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    top: 90
   },
   caca: {
     flexWrap: 'wrap',
@@ -92,15 +85,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   retangulo: {
-    width: scale(300),
-    height: moderateScale(330, 1),
+    width: scale(270),
+    height: moderateScale(270, 0.9),
     borderRadius: scale(7),
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
     textAlign: 'center',
-    bottom: scale(140)
-
+    bottom: scale(40),
   },
   button: {
     width: wp(20),
@@ -109,11 +101,12 @@ const styles = StyleSheet.create({
     right: scale(2),
   },
   palavras: {
-    fontSize: scale(18),
+    fontSize: scale(11),
     color: 'white',
     fontWeight: 'bold',
-    padding: scale(2),
-    borderRadius: scale(20)
+    padding: scale(1),
+    borderRadius: scale(20),
+    margin: scale(2)
   },
   Dica: {
     width: scale(80),
