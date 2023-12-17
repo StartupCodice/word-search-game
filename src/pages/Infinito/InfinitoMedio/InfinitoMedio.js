@@ -90,7 +90,7 @@ export default function InfinitoMedio({ navigation, rows = 8, cols = 8 }) {
   
         // atualiza a state de palavras apenas se houve alterações
         setPalavras([...novasPalavras]);
-  
+        userWin();
         setNumDicasUsadas(numDicasUsadas + 1);
       } else {
         setHintsExhausted(true);
@@ -328,7 +328,7 @@ const onGestureEvent = (event) => {
   }
 };
 
-const onHandlerStateChange = (event) => {
+const onHandlerStateChange = (event, item) => {
   let letterSelected = '';
 
   if (event.nativeEvent.state === State.END) {

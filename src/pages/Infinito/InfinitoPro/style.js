@@ -1,4 +1,4 @@
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { StyleSheet, Dimensions } from "react-native";
 import { moderateScale, verticalScale, scale, moderateVerticalScale } from 'react-native-size-matters';
 const {height, width} = Dimensions.get('window');
@@ -47,7 +47,6 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
   cacaContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-
   },
   caca: {
     flexWrap: 'wrap',
@@ -169,7 +168,6 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
     backgroundColor: 'white',
     textAlign: 'center',
     bottom: moderateVerticalScale(20, 15.5),
-
   },
   button: {
     width: wp(20),

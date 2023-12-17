@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
   cacaContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-
   },
   caca: {
     flexWrap: 'wrap',
@@ -94,7 +93,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     textAlign: 'center',
     bottom: scale(40),
-
   },
   button: {
     width: wp(20),

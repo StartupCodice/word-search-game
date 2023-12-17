@@ -56,7 +56,7 @@ export default function InfinitoDificil({ navigation, rows = 9, cols = 8 }) {
   };
 
   const mostrarDica = () => {
-    if (numDicasUsadas < 4) {
+    if (numDicasUsadas < 5) {
       const palavrasNaoEncontradas = palavras.filter((palavra) => !palavra.found);
   
       if (palavrasNaoEncontradas.length > 0) {
@@ -284,6 +284,7 @@ export default function InfinitoDificil({ navigation, rows = 9, cols = 8 }) {
     ];
 
     const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 7);
+    const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 6);
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
@@ -382,7 +383,7 @@ const onHandlerStateChange = (event, item) => {
             source={require('./../../../assets/chapeu.png')}
             style={styles.Dica}
           >
-            <Text style={styles.dicaNumber}>{4 - numDicasUsadas}</Text>
+            <Text style={styles.dicaNumber}>{5 - numDicasUsadas}</Text>
           </ImageBackground>
         </View>
       </TouchableOpacity>
