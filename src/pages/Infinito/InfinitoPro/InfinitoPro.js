@@ -22,7 +22,7 @@ const Cell = React.memo(({ letter, selected }) => (
 ));
 
 
-export default function InfinitoDificil({ navigation, rows = 10, cols = 9 }) {
+export default function InfinitoPro({ navigation, rows = 10, cols = 9 }) {
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({

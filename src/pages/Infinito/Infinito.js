@@ -89,7 +89,7 @@ export function Infinito({ modalVisible, setModalVisible }) {
                     fontSize: scale(12),
                   }}
                 >
-                  Médio 7x8
+                  Médio 8x8
                 </Text>
               </Pressable>
               <Pressable
