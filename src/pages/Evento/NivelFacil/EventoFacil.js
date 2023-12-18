@@ -35,12 +35,10 @@ export default function EventoFacil({ navigation, rows = 6, cols = 8 }) {
   const [numDicasUsadas, setNumDicasUsadas] = useState(0);
   const [hintsExhausted, setHintsExhausted] = useState(false);
   const [columns, setColumns] = useState([]);
-  const [moedasGanhas, setMoedasGanhas] = useState(0);
   const [currentCell, setCurrentCell] = useState(null);
   const [timeRemaining, setTimeRemaining] = useState(90); 
   const [tempoAcabou, setTempoAcabou] = useState(false);
   const { getTheme, addTheme } = ThemeStorage();
-  const [theme, setTheme] = useState('theme');
 
   const isMountedRef = useRef(true);
 
@@ -338,9 +336,6 @@ export default function EventoFacil({ navigation, rows = 6, cols = 8 }) {
     const segundos = Math.floor(tempoDecorrido % 60);
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
-
-    adicionarMoedas(6);
-    setMoedasGanhas(6);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);
@@ -506,10 +501,6 @@ const onHandlerStateChange = (event, item) => {
               <View>
                 <Text style={styles.modalText}>TEMPO:</Text>
                 <Text style={styles.textTempo}>{tempoDecorrido}</Text>
-              </View>
-              <View>
-                <Text style={styles.modalText}>MOEDAS:</Text>
-                <Text style={styles.textMoeda}>+{moedasGanhas}</Text>
               </View>
           </View>   
           

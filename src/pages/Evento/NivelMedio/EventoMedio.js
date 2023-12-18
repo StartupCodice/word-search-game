@@ -11,7 +11,7 @@ import ThemeStorage from '../../../components/storageTheme';
 
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
-const CELL_SIZE = Math.floor(Dimensions.get('window').width * 0.1);
+const CELL_SIZE = Math.floor(300 * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 
 const Cell = React.memo(({ letter, selected }) => (
@@ -22,11 +22,11 @@ const Cell = React.memo(({ letter, selected }) => (
 ));
 
 
-export default function EventoFacil({ navigation, rows = 6, cols = 8 }) {
+export default function InfinitoMedio({ navigation, rows = 8, cols = 8 }) {
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
-    game: new createGame(6, 8, []),
+    game: new createGame(8, 8, []),
   });
   const [cores, setCores] = useState([]);
   const [startTime, setStartTime] = useState(new Date());
@@ -35,12 +35,11 @@ export default function EventoFacil({ navigation, rows = 6, cols = 8 }) {
   const [numDicasUsadas, setNumDicasUsadas] = useState(0);
   const [hintsExhausted, setHintsExhausted] = useState(false);
   const [columns, setColumns] = useState([]);
-  const [moedasGanhas, setMoedasGanhas] = useState(0);
   const [currentCell, setCurrentCell] = useState(null);
-  const [timeRemaining, setTimeRemaining] = useState(90); 
+  const [timeRemaining, setTimeRemaining] = useState(120); 
   const [tempoAcabou, setTempoAcabou] = useState(false);
   const { getTheme, addTheme } = ThemeStorage();
-  const [theme, setTheme] = useState('theme');
+
 
   const isMountedRef = useRef(true);
 
@@ -56,30 +55,8 @@ export default function EventoFacil({ navigation, rows = 6, cols = 8 }) {
     return selectedWords;
   };
 
-  const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
-  };
-
-  const startTimer = () => {
-      const intervalId = setInterval(() => {
-          setTimeRemaining(prevTime => {
-              if (prevTime > 0) {
-                  return prevTime - 1;
-              } else {
-                  clearInterval(intervalId);
-                  setTempoAcabou(true);
-                  return 0;
-              }
-          });
-      }, 1000);
-
-      return intervalId;
-  };
-
   const mostrarDica = () => {
-    if (numDicasUsadas < 2) {
+    if (numDicasUsadas < 3) {
       const palavrasNaoEncontradas = palavras.filter((palavra) => !palavra.found);
   
       if (palavrasNaoEncontradas.length > 0) {
@@ -113,7 +90,7 @@ export default function EventoFacil({ navigation, rows = 6, cols = 8 }) {
   
         // atualiza a state de palavras apenas se houve alterações
         setPalavras([...novasPalavras]);
-  
+        userWin();
         setNumDicasUsadas(numDicasUsadas + 1);
       } else {
         setHintsExhausted(true);
@@ -140,6 +117,28 @@ export default function EventoFacil({ navigation, rows = 6, cols = 8 }) {
   useEffect(() => {
     buildColumnsArray();
   }, [board.game]); 
+
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  };
+
+  const startTimer = () => {
+      const intervalId = setInterval(() => {
+          setTimeRemaining(prevTime => {
+              if (prevTime > 0) {
+                  return prevTime - 1;
+              } else {
+                  clearInterval(intervalId);
+                  setTempoAcabou(true);
+                  return 0;
+              }
+          });
+      }, 1000);
+
+      return intervalId;
+  };
 
   const getWordsToTheme = (th) => {
     switch (th) {
@@ -272,24 +271,26 @@ export default function EventoFacil({ navigation, rows = 6, cols = 8 }) {
         ];
     }
   }
+ 
 
   const fetchData = async (th) => {
     try {
       const palavrasOriginais = getWordsToTheme(th);
 
-      if (isMountedRef.current && palavrasOriginais != undefined) {
-        const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 4);
-        setPalavras(palavrasEscolhidas);
+    if (isMountedRef.current) {
+      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 6);
+    setPalavras(palavrasEscolhidas);
 
-        const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-        setBoard({ game: new createGame(6, 8, palavrasJogo) });
-        const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
-        setCores(coresAleatorias);
+    const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
+    setBoard({ game: new createGame(8, 8, palavrasJogo) });
 
-        setStartTime(new Date());
-        setModalVisible(false);
-        setTempoDecorrido(0);
-      }
+    const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
+    setCores(coresAleatorias);
+
+    setStartTime(new Date());
+    setModalVisible(false);
+    setTempoDecorrido(0);
+    }
     } catch (error) {
       console.error('Erro ao buscar dados: ', error);
     }
@@ -306,7 +307,7 @@ export default function EventoFacil({ navigation, rows = 6, cols = 8 }) {
           
         fetchData(th);
   
-        setTimeRemaining(90);
+        setTimeRemaining(120);
         intervalId = startTimer();
       } catch (error) {
         console.error('Erro ao obter o tema:', error);
@@ -338,9 +339,6 @@ export default function EventoFacil({ navigation, rows = 6, cols = 8 }) {
     const segundos = Math.floor(tempoDecorrido % 60);
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
-
-    adicionarMoedas(6);
-    setMoedasGanhas(6);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);
@@ -356,8 +354,8 @@ const isCellSelected = useCallback(
 
 const onGestureEvent = (event) => {
   const { x, y } = event.nativeEvent;
-  const row = Math.floor(y / CELL_SIZE);
-  const col = Math.floor(x / CELL_SIZE);
+  const row = Math.floor(y / scale(CELL_SIZE));
+  const col = Math.floor(x / scale(CELL_SIZE));
   if (row >= 0 && col >= 0 && row < rows && col < cols && (currentCell?.row !== row || currentCell?.col !== col)) {
     setCurrentCell({ row, col });
     if (!isCellSelected(row, col)) {
@@ -420,7 +418,7 @@ const onHandlerStateChange = (event, item) => {
             source={require('./../../../assets/chapeu.png')}
             style={styles.Dica}
           >
-            <Text style={styles.dicaNumber}>{2 - numDicasUsadas}</Text>
+            <Text style={styles.dicaNumber}>{3 - numDicasUsadas}</Text>
           </ImageBackground>
         </View>
       </TouchableOpacity>
@@ -476,26 +474,15 @@ const onHandlerStateChange = (event, item) => {
         </View>
 
         <Modal isVisible={hintsExhausted} onBackdropPress={fecharModalDicasEsgotadas} style={styles.modalContainer2}>
-          <View style={styles.modalContainer}>
-            <Text style={styles.modalText}>
-              As dicas acabaram!
-            </Text>
-            <TouchableOpacity style={styles.modalButton} onPress={fecharModalDicasEsgotadas}>
-              <Text style={styles.modalButtonText}>Fechar</Text>
-            </TouchableOpacity>
-          </View>
-        </Modal>
-
-        <Modal isVisible={tempoAcabou} onBackdropPress={fecharModalDicasEsgotadas} style={styles.modalContainer2}>
-          <View style={styles.modalContainer}>
-            <Text style={styles.modalText}>
-              O tempo acabou!
-            </Text>
-            <TouchableOpacity style={styles.modalButton} onPress={() => navigation.navigate('Home')}>
-              <Text style={styles.modalButtonText}>Voltar</Text>
-            </TouchableOpacity>
-          </View>
-        </Modal>
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalText}>
+            As dicas acabaram!
+          </Text>
+          <TouchableOpacity style={styles.modalButton} onPress={fecharModalDicasEsgotadas}>
+            <Text style={styles.modalButtonText}>Fechar</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
 
       <Modal isVisible={isModalVisible} style={styles.modalContainer2}>
         <View style={styles.modalContainer}>
@@ -507,12 +494,7 @@ const onHandlerStateChange = (event, item) => {
                 <Text style={styles.modalText}>TEMPO:</Text>
                 <Text style={styles.textTempo}>{tempoDecorrido}</Text>
               </View>
-              <View>
-                <Text style={styles.modalText}>MOEDAS:</Text>
-                <Text style={styles.textMoeda}>+{moedasGanhas}</Text>
-              </View>
           </View>   
-          
         </View>
       </Modal>
 

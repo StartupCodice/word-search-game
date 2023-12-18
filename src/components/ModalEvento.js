@@ -101,13 +101,13 @@ export function ModalEvento(){
                                     <Pressable
                                         underlayColor="null"
                                         style={[styles.buttonRed, styles.buttonClose]}
-                                        onPress={() => setModalVisible(!modalVisible)}>
+                                        onPress={() =>navigation.navigate('EventoMedio') ?? setModalVisible(!modalVisible)}>
                                         <Text style={styles.textStyleJogos}>MÉDIO</Text>
                                     </Pressable>
                                     <Pressable
                                         underlayColor="null"            
                                         style={[styles.buttonRed, styles.buttonClose]}
-                                        onPress={() => setModalVisible(!modalVisible)}>
+                                        onPress={() =>navigation.navigate('EventoPro') ?? setModalVisible(!modalVisible)}>
                                         <Text style={styles.textStyleJogos}>PRÓ</Text>
                                     </Pressable>
                                     </View>
