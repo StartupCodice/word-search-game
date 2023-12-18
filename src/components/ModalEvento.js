@@ -28,10 +28,8 @@ export function ModalEvento(){
     const calculateTimeUntilMidnight = () => {
         const now = moment();
         const midnight = moment().endOf('day');
-    
         const duration = moment.duration(midnight.diff(now));
-        duration.add(3, 'hours');
-        
+    
         const hours = Math.floor(duration.asHours());
         const minutes = Math.floor(duration.minutes());
         const seconds = Math.floor(duration.seconds());
@@ -46,6 +44,8 @@ export function ModalEvento(){
     };
 
     useEffect(() => {
+        if (theme == null) chooseRandomTheme();
+        
         const intervalId = setInterval(() => {
             setHours(calculateTimeUntilMidnight());
         }, 1000);
