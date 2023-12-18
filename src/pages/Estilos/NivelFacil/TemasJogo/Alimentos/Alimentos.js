@@ -8,6 +8,7 @@ import randomcolor from 'randomcolor';
 import styles from './style';
 import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../../../../components/storage';
+import NiveisFaceis from '../../../../../components/storageNiveiFacil';
 
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -23,6 +24,10 @@ const Cell = React.memo(({ letter, selected }) => (
 
 
 export default function Alimentos({ navigation, rows = 6, cols = 8 }) {
+  const { 
+    alimentos, 
+    addAlimento,
+  } = NiveisFaceis();
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
@@ -90,7 +95,7 @@ export default function Alimentos({ navigation, rows = 6, cols = 8 }) {
   
         // atualiza a state de palavras apenas se houve alterações
         setPalavras([...novasPalavras]);
-  
+        userWin();
         setNumDicasUsadas(numDicasUsadas + 1);
       } else {
         setHintsExhausted(true);
@@ -186,6 +191,9 @@ export default function Alimentos({ navigation, rows = 6, cols = 8 }) {
 
     adicionarMoedas(6);
     setMoedasGanhas(6);
+
+    let level = parseInt(alimentos) + 1;
+    if (alimentos < 30) addAlimento(level.toString());
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

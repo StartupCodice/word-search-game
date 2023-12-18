@@ -114,7 +114,6 @@ const styles = StyleSheet.create({
         top: 50,
         left: moderateScale(1, 0),
         width: wp(64.5),
-        height: hp(50),
         borderWidth: 3,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
@@ -153,6 +152,7 @@ const styles = StyleSheet.create({
       },
       theme: {
         top: scale(-20),
+        marginVertical: scale(10),
       },
       buttonRed: {
         borderRadius: scale(20),
@@ -172,7 +172,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignContent: 'center',
         alignItems: 'center',
-        
       },
       modalContainer2: {
         flex: 1,

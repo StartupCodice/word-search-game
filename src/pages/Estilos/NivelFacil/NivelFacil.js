@@ -1,13 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Text, View, Image, TouchableOpacity, TouchableHighlight, ImageBackground, ScrollView} from 'react-native';
 import styles from '../../Home/style';
 import { Ionicons } from '@expo/vector-icons';
 import { scale } from 'react-native-size-matters';
-
+import NiveisFaceis from '../../../components/storageNiveiFacil';
 
 export function NivelFacil({ navigation }){
+  const { 
+    presentes, 
+    addPresentes,
+    decoracoes,
+    addDecoracoes,
+    alimentos,
+    addAlimento,
+    personagens,
+    addPersonagens 
+  } = NiveisFaceis();
+
+  useEffect(() => {
+    if (presentes == null) addPresentes(0);
+    if (decoracoes == null) addDecoracoes(0);
+    if (alimentos == null) addAlimento(0);
+    if (personagens == null) addPersonagens(0);
+  })
+
   return(
-    
       <View style={styles.container}>   
       <ImageBackground source={require('../../../assets/temanatal.jpg')} style={styles.imageBackground}> 
               <View>
@@ -25,7 +42,7 @@ export function NivelFacil({ navigation }){
               <View >
                 <TouchableOpacity style={styles.ButtonEstilo} onPress={() => navigation.navigate("Presentes")}>
                 <ImageBackground source={require('./../../../assets/arvoresNatal.png')} style={styles.ImagemEstilo}  >
-                <Text style={styles.ZeroTrinta}>0/30</Text>
+                <Text style={styles.ZeroTrinta}>{presentes}/30</Text>
                 </ImageBackground>
               </TouchableOpacity>
               <Text style={styles.TextCenterEstilo} >Presentes</Text>
@@ -33,7 +50,7 @@ export function NivelFacil({ navigation }){
               <View >
                 <TouchableOpacity style={styles.ButtonEstilo} onPress={() => navigation.navigate("Decoracoes")}>
                 <ImageBackground source={require('./../../../assets/presenteNatal.png')} style={styles.ImagemEstilo}  >
-                <Text style={styles.ZeroTrinta}>0/30</Text>
+                <Text style={styles.ZeroTrinta}>{decoracoes}/30</Text>
                 </ImageBackground>
               </TouchableOpacity>
               <Text style={styles.TextCenterEstilo} >Decorações</Text>
@@ -41,7 +58,7 @@ export function NivelFacil({ navigation }){
               <View >
                 <TouchableOpacity style={styles.ButtonEstilo} onPress={() => navigation.navigate("Alimentos")}>
                 <ImageBackground source={require('./../../../assets/ComidasNatal.png')} style={styles.ImagemEstilo}  >
-                <Text style={styles.ZeroTrinta}>0/30</Text>
+                <Text style={styles.ZeroTrinta}>{alimentos}/30</Text>
                 </ImageBackground>
               </TouchableOpacity>
               <Text style={styles.TextCenterEstilo} >Alimentos</Text>
@@ -49,7 +66,7 @@ export function NivelFacil({ navigation }){
               <View >
                 <TouchableOpacity style={styles.ButtonEstilo} onPress={() => navigation.navigate("Personagens")}>
                 <ImageBackground source={require('./../../../assets/papai-noel.png')} style={styles.ImagemEstilo}  >
-                <Text style={styles.ZeroTrinta}>0/30</Text>
+                <Text style={styles.ZeroTrinta}>{personagens}/30</Text>
                 </ImageBackground>
               </TouchableOpacity>
               <Text style={styles.TextCenterEstilo} >Personagens</Text>
