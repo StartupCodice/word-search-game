@@ -3,7 +3,7 @@ import { Text, View, Image, TouchableOpacity, TouchableHighlight, ImageBackgroun
 import styles from '../../Home/style';
 import { Ionicons } from '@expo/vector-icons';
 import { scale } from 'react-native-size-matters';
-import NiveisFaceis from '../../../components/storageNiveiFacil';
+import NiveisFaceis from '../../../components/storageNivelFacil';
 
 export function NivelFacil({ navigation }){
   const { 
