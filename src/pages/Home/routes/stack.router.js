@@ -31,6 +31,9 @@ import InfinitoFacil from '../../Infinito/InfinitoFacil/InfinitoFacil';
 import InfinitoMedio from '../../Infinito/InfinitoMedio/InfinitoMedio';
 import InfinitoDificil from '../../Infinito/InfinitoDificil/InfinitoDIificil';
 import InfinitoPro from '../../Infinito/InfinitoPro/InfinitoPro';
+import EventoFacil from '../../Evento/NivelFacil/EventoFacil';
+import EventoMedio from '../../Evento/NivelMedio/EventoMedio';
+import EventoPro from '../../Evento/NivelPro/EventoPro';
 
 export function StackRoutes() {
     return (
@@ -42,6 +45,33 @@ export function StackRoutes() {
                     headerShown: false      
             }}
              />
+            
+            <Screen 
+              name="EventoFacil"
+              component={EventoFacil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+             />  
+
+            <Screen 
+              name="EventoMedio"
+              component={EventoMedio}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="EventoPro"
+              component={EventoPro}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
                 
             <Screen 
               name="ScreenJogar"

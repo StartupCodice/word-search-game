@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
       lock: {
         marginTop: 10,
         color: 'white',
-        fontSize: scale(12)
+        fontSize: scale(12),
       },  
     CenteredViewSettings: {
         justifyContent: 'center',
@@ -148,15 +148,18 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         fontSize: wp(5),
-        top: moderateScale(70, 0.2),
+        top: moderateScale(30, 0.2),
         position: 'absolute'
+      },
+      theme: {
+        top: scale(-20),
       },
       buttonRed: {
         borderRadius: scale(20),
         width: scale(200),
         padding: scale(8),
         margin: scale(8),
-
+        top: scale(-15)
       },
       button: {
         width: wp(20),
@@ -238,7 +241,7 @@ const styles = StyleSheet.create({
       },
       buttonSharp: {
         left: scale(-10),
-        top: moderateVerticalScale(22, 1.8),
+        top: moderateVerticalScale(40, 1.8),
       },
       textStyleJogos: {
         fontWeight: 'bold',

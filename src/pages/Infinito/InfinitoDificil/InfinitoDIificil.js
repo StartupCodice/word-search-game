@@ -284,7 +284,6 @@ export default function InfinitoDificil({ navigation, rows = 9, cols = 8 }) {
     ];
 
     const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 7);
-    const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 6);
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
