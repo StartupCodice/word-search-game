@@ -8,6 +8,7 @@ import randomcolor from 'randomcolor';
 import styles from './style';
 import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../components/storage';
+import LevelComponent from '../../components/storageLevel';
 
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -36,10 +37,9 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
   const [hintsExhausted, setHintsExhausted] = useState(false);
   const [columns, setColumns] = useState([]);
   const { moedas, adicionarMoedas } = MoedasComponent();
+  const { level, addLevel } = LevelComponent();
   const [moedasGanhas, setMoedasGanhas] = useState(0);
   const [currentCell, setCurrentCell] = useState(null);
-
-
 
   const isMountedRef = useRef(true);
 
@@ -90,7 +90,7 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
   
         // atualiza a state de palavras apenas se houve alterações
         setPalavras([...novasPalavras]);
-  
+        userWin();
         setNumDicasUsadas(numDicasUsadas + 1);
       } else {
         setHintsExhausted(true);
@@ -158,7 +158,7 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
     }
   };
 
-  useEffect(() => {
+  useEffect(() => {    
     fetchData();
 
     return () => {
@@ -172,6 +172,7 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
 
     if (isWin) {
       mostrarResultado();
+      setModalVisible(true);
     }
   }
 
@@ -187,8 +188,10 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
     adicionarMoedas(6);
     setMoedasGanhas(6);
   
-    setModalVisible(true);
     setTempoDecorrido(tempoFormatado);
+
+    let nextLevel = parseInt(level) + 1;
+    addLevel(nextLevel.toString());
   };
 
   const reiniciarJogo = () => {
@@ -336,6 +339,7 @@ const onHandlerStateChange = (event, item) => {
             ))
           }
         </View>
+
         <View style={styles.cacaContainer}>
           <View style={styles.retangulo}> 
           <GestureHandlerRootView style={{ flex: 1 }}>
@@ -364,6 +368,10 @@ const onHandlerStateChange = (event, item) => {
             </PanGestureHandler>
           </GestureHandlerRootView>
         </View>
+        </View>
+
+        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: scale(110) }}>
+          <Text style={styles.palavras}>Nível: {level}</Text>
         </View>
 
         <Modal isVisible={hintsExhausted} onBackdropPress={fecharModalDicasEsgotadas} style={styles.modalContainer2}>
@@ -398,7 +406,7 @@ const onHandlerStateChange = (event, item) => {
           
         </View>
       </Modal>
-
+      
         <StatusBar style="auto" />
       </ImageBackground>
     </View>
