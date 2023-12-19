@@ -8,6 +8,7 @@ import randomcolor from 'randomcolor';
 import styles from './style';
 import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../../../../components/storage';
+import NiveisPro from '../../../../../components/storageNivelPro';
 
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -22,6 +23,10 @@ const Cell = React.memo(({ letter, selected }) => (
 
 
 export default function PresentesPro({ navigation, rows = 10, cols = 10 }) {
+  const { 
+    presentes, 
+    addPresentes,
+  } = NiveisPro();
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
@@ -182,6 +187,9 @@ export default function PresentesPro({ navigation, rows = 10, cols = 10 }) {
 
     adicionarMoedas(6);
     setMoedasGanhas(6);
+
+    let level = parseInt(presentes) + 1;
+    if (presentes < 30) addPresentes(level.toString());
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);
