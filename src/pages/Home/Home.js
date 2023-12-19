@@ -5,12 +5,18 @@ import { ModalEvento } from '../../components/ModalEvento';
 import { ModalSettings } from './../../components/ModalSettings';
 import Botoes from '../../components/Botoes';
 import LevelComponent from '../../components/storageLevel';
+import ThemeComponent from '../../components/storageTheme';
 
 export default function Home({ navigation }) {
     const { level, addLevel } = LevelComponent();
+    const { getTheme, addTheme } = ThemeComponent();
 
     useEffect(() => {
         if (level == null) addLevel(1);
+
+        getTheme().then((theme) => {
+            if (theme == null) addTheme('Decorações');
+        });
     }, ); 
     
     return (

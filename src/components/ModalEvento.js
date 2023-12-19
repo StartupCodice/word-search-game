@@ -13,7 +13,9 @@ import { scale } from 'react-native-size-matters';
 import { useNavigation } from '@react-navigation/native';
 import ThemeStorage from './storageTheme';
 import LevelStorage from './storageLevel';
+
 const moment = require('moment');
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 const themes = ['Presentes', 'Decorações', 'Alimentos', 'Personagens'];
 
@@ -43,6 +45,7 @@ export function ModalEvento(){
         const randomIndex = Math.floor(Math.random() * themes.length);
         const theme = themes[randomIndex];
         addTheme(theme);
+        setTheme(theme);
     };
 
     useEffect(() => {
@@ -90,42 +93,42 @@ export function ModalEvento(){
                                             <Ionicons style={styles.buttonSharp} name="close-sharp" size={scale(30)} color="black" />
                                         </TouchableHighlight>
                                         <View style={styles.theme}>
-                                            <Text style={{ fontSize: 17 }}>Tema de hoje: {theme}</Text>
+                                            <Text style={{ fontSize: wp(4), }}>Tema de hoje: {theme}</Text>
                                         </View>
-                                    <Pressable
-                                        underlayColor="null"            
-                                        style={[styles.buttonRed, styles.buttonClose]}
-                                        onPress={() => navigation.navigate('EventoFacil') ?? setModalVisible(!modalVisible)}>
-                                        
-                                        <Text style={styles.textStyleJogos}>FÁCIL</Text>
-                                    </Pressable>
-                                    <Pressable
-                                        disabled={level < 24}
-                                        underlayColor="null"
-                                        style={[styles.buttonRed, styles.buttonClose]}
-                                        onPress={() => navigation.navigate('EventoMedio') ?? setModalVisible(!modalVisible)}>
-                                        <Text style={styles.textStyleJogos}>MÉDIO</Text>
-                                        {
-                                            level < 24 ? 
-                                                <Text style={[styles.textStyleJogos, { marginTop: scale(3) }]}>Desbloqueado no Nível 25</Text>
-                                            : null
-                                        }
-                                    </Pressable>
-                                    <Pressable
-                                        disabled={level < 49}
-                                        underlayColor="null"            
-                                        style={[styles.buttonRed, styles.buttonClose]}
-                                        onPress={() =>navigation.navigate('EventoPro') ?? setModalVisible(!modalVisible)}>
-                                        <Text style={styles.textStyleJogos}>PRÓ</Text>
-                                        {
-                                            level < 49 ? 
-                                                <Text style={[styles.textStyleJogos, { marginTop: scale(3) }]}>Desbloqueado no Nível 50</Text>
-                                            : null
-                                        }
-                                    </Pressable>
-                                    </View>
-                                    <View style={{ justifyContent: 'center', alignItems: 'center', top: scale(10) }}>
-                                        <Text style={{ fontSize: 18 }}>{hours}</Text>
+                                        <Pressable
+                                            underlayColor="null"            
+                                            style={[styles.buttonRed, styles.buttonClose]}
+                                            onPress={() => navigation.navigate('EventoFacil') ?? setModalVisible(!modalVisible)}>
+                                            
+                                            <Text style={styles.textStyleJogos}>FÁCIL</Text>
+                                        </Pressable>
+                                        <Pressable
+                                            disabled={level < 24}
+                                            underlayColor="null"
+                                            style={[styles.buttonRed, styles.buttonClose]}
+                                            onPress={() => navigation.navigate('EventoMedio') ?? setModalVisible(!modalVisible)}>
+                                            <Text style={styles.textStyleJogos}>MÉDIO</Text>
+                                            {
+                                                level < 24 ? 
+                                                    <Text style={[styles.textStyleJogos, { marginTop: scale(3) }]}>Desbloqueado no Nível 25</Text>
+                                                : null
+                                            }
+                                        </Pressable>
+                                        <Pressable
+                                            disabled={level < 49}
+                                            underlayColor="null"            
+                                            style={[styles.buttonRed, styles.buttonClose]}
+                                            onPress={() =>navigation.navigate('EventoPro') ?? setModalVisible(!modalVisible)}>
+                                            <Text style={styles.textStyleJogos}>PRÓ</Text>
+                                            {
+                                                level < 49 ? 
+                                                    <Text style={[styles.textStyleJogos, { marginTop: scale(3) }]}>Desbloqueado no Nível 50</Text>
+                                                : null
+                                            }
+                                        </Pressable>
+                                        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                            <Text style={{ fontSize: wp(4) }}>{hours}</Text>
+                                        </View>
                                     </View>
                                 </View>
                               </View>  
