@@ -8,6 +8,7 @@ import randomcolor from 'randomcolor';
 import styles from './style';
 import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../../../../components/storage';
+import NiveisFaceis from '../../../../../components/storageNivelFacil';
 
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -23,6 +24,10 @@ const Cell = React.memo(({ letter, selected }) => (
 
 
 export default function Decoracoes({ navigation, rows = 8, cols = 8 }) {
+  const { 
+    decoracoes, 
+    addDecoracoes,
+  } = NiveisFaceis();
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
@@ -90,7 +95,7 @@ export default function Decoracoes({ navigation, rows = 8, cols = 8 }) {
   
         // atualiza a state de palavras apenas se houve alterações
         setPalavras([...novasPalavras]);
-  
+        userWin();
         setNumDicasUsadas(numDicasUsadas + 1);
       } else {
         setHintsExhausted(true);
@@ -185,6 +190,9 @@ export default function Decoracoes({ navigation, rows = 8, cols = 8 }) {
 
     adicionarMoedas(6);
     setMoedasGanhas(6);
+
+    let level = parseInt(decoracoes) + 1;
+    if (decoracoes < 30) addDecoracoes(level.toString());
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);
