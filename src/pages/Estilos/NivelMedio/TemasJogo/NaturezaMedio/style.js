@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
     textAlign: 'center',
-    bottom: scale(120)
+    bottom: scale(90)
 
   },
   button: {
