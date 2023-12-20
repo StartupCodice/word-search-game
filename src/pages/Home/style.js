@@ -40,6 +40,9 @@ const styles = StyleSheet.create({
         resizeMode: "cover",
         width: "100%",
     },
+    scrollContainer: {
+      flex: 1,
+    },
     settingsIcon: {
         position: 'absolute',
         top: 60,
@@ -166,6 +169,7 @@ const styles = StyleSheet.create({
         padding: scale(10),
         top: moderateVerticalScale(50, 0.2),
         left: scale(15),
+        marginBottom: scale(30),
       },
       modalContainer: {
         borderRadius: 10,
@@ -368,6 +372,7 @@ const styles = StyleSheet.create({
       flexWrap: 'wrap',
       margin: 10,
       maxWidth: wp(80),
+      gap: scale(25),
   },
       Retangulo: {
         position: 'absolute',
