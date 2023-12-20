@@ -73,34 +73,34 @@ export function NivelFacil({ navigation }) {
 
             <ThemeButton
               navigation={navigation}
-              themeName="Presentes"
-              imagePath={require('./../../../assets/arvoresNatal.png')}
-              count={presentes}
-              screenName="Presentes"
+              themeName="Esportes"
+              imagePath={require('./../../../assets/esportes.png')}
+              count={0}
+              screenName="EsportesFacil"
             />
 
             <ThemeButton
               navigation={navigation}
-              themeName="Decoracoes"
-              imagePath={require('./../../../assets/presenteNatal.png')}
-              count={decoracoes}
-              screenName="Decoracoes"
+              themeName="Cores"
+              imagePath={require('./../../../assets/cores.png')}
+              count={0}
+              screenName="CoresFacil"
             />
 
             <ThemeButton
               navigation={navigation}
-              themeName="Alimentos"
-              imagePath={require('./../../../assets/ComidasNatal.png')}
-              count={alimentos}
-              screenName="Alimentos"
+              themeName="Empregos"
+              imagePath={require('./../../../assets/empregos.png')}
+              count={0}
+              screenName="EmpregosFacil"
             />
 
             <ThemeButton
               navigation={navigation}
-              themeName="Personagens"
-              imagePath={require('./../../../assets/papai-noel.png')}
-              count={personagens}
-              screenName="Personagens"
+              themeName="Países"
+              imagePath={require('./../../../assets/paises.png')}
+              count={0}
+              screenName="PaisesFacil"
             />
           </View>
         </View>

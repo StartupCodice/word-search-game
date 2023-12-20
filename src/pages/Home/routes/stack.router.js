@@ -15,6 +15,10 @@ import Alimentos from '../../Estilos/NivelFacil/TemasJogo/Alimentos/Alimentos';
 import Decoracoes from '../../Estilos/NivelFacil/TemasJogo/Decoracoes/Decoracoes';
 import Personagens from '../../Estilos/NivelFacil/TemasJogo/Personagens/Personagens';
 import Presentes from '../../Estilos/NivelFacil/TemasJogo/Presentes/Presentes';
+import EsportesFacil from '../../Estilos/NivelFacil/TemasJogo/Esportes/Esportes';
+import CoresFacil from '../../Estilos/NivelFacil/TemasJogo/Cores/Cores';
+import EmpregosFacil from '../../Estilos/NivelFacil/TemasJogo/Empregos/Empregos';
+import PaisesFacil from '../../Estilos/NivelFacil/TemasJogo/Paises/Paises';
 import AlimentosMedio from '../../Estilos/NivelMedio/TemasJogo/AlimentosMedio/AlimentosMedio';
 import DecoracoesMedio from '../../Estilos/NivelMedio/TemasJogo/DecoracoesMedio/DecoracoesMedio';
 import PresentesMedio from '../../Estilos/NivelMedio/TemasJogo/PresentesMedio/PresentesMedio';
@@ -54,6 +58,42 @@ export function StackRoutes() {
                 headerShown: false   
             }}
              />  
+
+            <Screen 
+              name="EsportesFacil"
+              component={EsportesFacil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="CoresFacil"
+              component={CoresFacil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="EmpregosFacil"
+              component={EmpregosFacil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="PaisesFacil"
+              component={PaisesFacil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
 
             <Screen 
               name="EventoMedio"
