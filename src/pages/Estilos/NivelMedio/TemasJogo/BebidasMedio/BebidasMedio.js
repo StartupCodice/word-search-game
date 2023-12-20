@@ -8,11 +8,10 @@ import randomcolor from 'randomcolor';
 import styles from './style';
 import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../../../../components/storage';
-import NiveisFaceis from '../../../../../components/storageNivelFacil';
 
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
-const CELL_SIZE = Math.floor(Dimensions.get('window').width * 0.1);
+const CELL_SIZE = Math.floor(300 * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 
 const Cell = React.memo(({ letter, selected }) => (
@@ -22,16 +21,11 @@ const Cell = React.memo(({ letter, selected }) => (
   </View>
 ));
 
-
 export default function BebidasMedio({ navigation, rows = 8, cols = 8 }) {
-  const { 
-    presentes, 
-    addPresentes,
-  } = NiveisFaceis();
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
-    game: new createGame(6, 8, []),
+    game: new createGame(8, 8, []),
   });
   const [cores, setCores] = useState([]);
   const [startTime, setStartTime] = useState(new Date());
@@ -151,11 +145,11 @@ export default function BebidasMedio({ navigation, rows = 8, cols = 8 }) {
       ];
 
     if (isMountedRef.current) {
-      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 4);
+      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 6);
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(6, 8, palavrasJogo) });
+    setBoard({ game: new createGame(8, 8, palavrasJogo) });
 
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
@@ -194,13 +188,11 @@ export default function BebidasMedio({ navigation, rows = 8, cols = 8 }) {
     const segundos = Math.floor(tempoDecorrido % 60);
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
+    
 
-    adicionarMoedas(6);
-    setMoedasGanhas(6);
-
-    let level = parseInt(presentes) + 1;
-    if (presentes < 30) addPresentes(level.toString());
-
+    adicionarMoedas(8);
+    setMoedasGanhas(8);
+  
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);
   };
@@ -229,11 +221,11 @@ export default function BebidasMedio({ navigation, rows = 8, cols = 8 }) {
       { name: 'LICOR', found: false },
     ];
 
-    const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 4);
+    const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 6);
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(6, 8, palavrasJogo) });
+    setBoard({ game: new createGame(8, 8, palavrasJogo) });
 
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
@@ -264,8 +256,8 @@ const isCellSelected = useCallback(
 
 const onGestureEvent = (event) => {
   const { x, y } = event.nativeEvent;
-  const row = Math.floor(y / CELL_SIZE);
-  const col = Math.floor(x / CELL_SIZE);
+  const row = Math.floor(y / scale(CELL_SIZE));
+  const col = Math.floor(x / scale(CELL_SIZE));
   if (row >= 0 && col >= 0 && row < rows && col < cols && (currentCell?.row !== row || currentCell?.col !== col)) {
     setCurrentCell({ row, col });
     if (!isCellSelected(row, col)) {
@@ -340,7 +332,7 @@ const onHandlerStateChange = (event, item) => {
       </View>
       
           <Ionicons style={styles.button} name="arrow-back" size={scale(40)} color="white"
-            onPress={() => navigation.navigate('NivelFacil')} />
+            onPress={() => navigation.navigate('NivelMedio')} />
 
 
         <View style={styles.palavrasContainer}>

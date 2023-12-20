@@ -200,8 +200,6 @@ export default function AnimaisMedio({ navigation, rows = 8, cols = 8 }) {
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
     
-    let level = parseInt(alimentos) + 1;
-    if (alimentos < 30) addAlimentos(level.toString());
 
     adicionarMoedas(8);
     setMoedasGanhas(8);
