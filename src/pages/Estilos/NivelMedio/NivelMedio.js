@@ -73,34 +73,34 @@ export function NivelMedio({ navigation }) {
 
             <ThemeButton
               navigation={navigation}
-              themeName="Presentes"
-              imagePath={require('./../../../assets/arvoresNatal.png')}
-              count={presentes}
-              screenName="PresentesMedio"
+              themeName="Esportes"
+              imagePath={require('./../../../assets/esportes.png')}
+              count={0}
+              screenName="EsportesMedio"
             />
 
             <ThemeButton
               navigation={navigation}
-              themeName="Decoracoes"
-              imagePath={require('./../../../assets/presenteNatal.png')}
-              count={decoracoes}
-              screenName="DecoracoesMedio"
+              themeName="Cores"
+              imagePath={require('./../../../assets/cores.png')}
+              count={0}
+              screenName="CoresMedio"
             />
 
             <ThemeButton
               navigation={navigation}
-              themeName="Alimentos"
-              imagePath={require('./../../../assets/ComidasNatal.png')}
-              count={alimentos}
-              screenName="AlimentosMedio"
+              themeName="Empregos"
+              imagePath={require('./../../../assets/empregos.png')}
+              count={0}
+              screenName="EmpregosMedio"
             />
 
             <ThemeButton
               navigation={navigation}
-              themeName="Personagens"
-              imagePath={require('./../../../assets/papai-noel.png')}
-              count={personagens}
-              screenName="PersonagensMedio"
+              themeName="Países"
+              imagePath={require('./../../../assets/paises.png')}
+              count={0}
+              screenName="PaisesMedio"
             />
           </View>
         </View>

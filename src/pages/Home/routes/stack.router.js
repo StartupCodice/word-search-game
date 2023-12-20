@@ -23,6 +23,10 @@ import AlimentosMedio from '../../Estilos/NivelMedio/TemasJogo/AlimentosMedio/Al
 import DecoracoesMedio from '../../Estilos/NivelMedio/TemasJogo/DecoracoesMedio/DecoracoesMedio';
 import PresentesMedio from '../../Estilos/NivelMedio/TemasJogo/PresentesMedio/PresentesMedio';
 import PersonagensMedio from '../../Estilos/NivelMedio/TemasJogo/PersonagensMedio/PersonagensMedio';
+import PaisesMedio from '../../Estilos/NivelMedio/TemasJogo/PaisesMedio/PaisesMedio';
+import EmpregosMedio from '../../Estilos/NivelMedio/TemasJogo/EmpregosMedio/EmpregosMedio';
+import CoresMedio from '../../Estilos/NivelMedio/TemasJogo/CoresMedio/CoresMedio';
+import EsportesMedio from '../../Estilos/NivelMedio/TemasJogo/EsportesMedio/EsportesMedio';
 import AlimentosDificil from '../../Estilos/NivelDificil/TemasJogo/AlimentosDIificil/AlimentosDIificil';
 import DecoracoesDificil from '../../Estilos/NivelDificil/TemasJogo/DecoracoesDIificil/DecoracoesDIificil';
 import PersonagensDificil from '../../Estilos/NivelDificil/TemasJogo/PersonagensDIificil/PersonagensDIificil';
@@ -96,8 +100,35 @@ export function StackRoutes() {
             />  
 
             <Screen 
-              name="EventoMedio"
-              component={EventoMedio}  
+              name="EmpregosMedio"
+              component={EmpregosMedio}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            /> 
+
+            <Screen 
+              name="CoresMedio"
+              component={CoresMedio}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            /> 
+
+            <Screen 
+              name="PaisesMedio"
+              component={PaisesMedio}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            /> 
+
+            <Screen 
+              name="EsportesMedio"
+              component={EsportesMedio}  
               options={{ 
                 title: '',
                 headerShown: false   
