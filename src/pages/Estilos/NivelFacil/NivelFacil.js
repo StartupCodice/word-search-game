@@ -1,20 +1,23 @@
-import React, { useEffect } from 'react'
-import { Text, View, Image, TouchableOpacity, TouchableHighlight, ImageBackground, ScrollView} from 'react-native';
+import React, { useEffect } from 'react';
+import { Text, View, Image, TouchableOpacity, ImageBackground, ScrollView } from 'react-native';
 import styles from '../../Home/style';
 import { Ionicons } from '@expo/vector-icons';
 import { scale } from 'react-native-size-matters';
 import NiveisFaceis from '../../../components/storageNivelFacil';
+import MoedasComponent from '../../../components/storage';
 
-export function NivelFacil({ navigation }){
-  const { 
-    presentes, 
+
+export function NivelFacil({ navigation }) {
+  const { moedas } = MoedasComponent();
+  const {
+    presentes,
     addPresentes,
     decoracoes,
     addDecoracoes,
     alimentos,
     addAlimento,
     personagens,
-    addPersonagens 
+    addPersonagens,
   } = NiveisFaceis();
 
   useEffect(() => {
@@ -22,64 +25,247 @@ export function NivelFacil({ navigation }){
     if (decoracoes == null) addDecoracoes(0);
     if (alimentos == null) addAlimento(0);
     if (personagens == null) addPersonagens(0);
-  })
+  }, []);
 
-  return(
-      <View style={styles.container}>   
-      <ImageBackground source={require('../../../assets/temanatal.jpg')} style={styles.imageBackground}> 
-              <View>
-                <Ionicons 
-                name="arrow-back" 
-                size={scale(46)} 
-                color="white" 
-                style={styles.button}
-                onPress={() => navigation.navigate('Estilos')}/>
-              </View>
-              
-  
-          <View style={styles.container}>
-            <View style={styles.containerMode}>
-              <View >
-                <TouchableOpacity style={styles.ButtonEstilo} onPress={() => navigation.navigate("Presentes")}>
-                <ImageBackground source={require('./../../../assets/arvoresNatal.png')} style={styles.ImagemEstilo}  >
-                <Text style={styles.ZeroTrinta}>{presentes}/30</Text>
-                </ImageBackground>
-              </TouchableOpacity>
-              <Text style={styles.TextCenterEstilo} >Presentes</Text>
-              </View>
-              <View >
-                <TouchableOpacity style={styles.ButtonEstilo} onPress={() => navigation.navigate("Decoracoes")}>
-                <ImageBackground source={require('./../../../assets/presenteNatal.png')} style={styles.ImagemEstilo}  >
-                <Text style={styles.ZeroTrinta}>{decoracoes}/30</Text>
-                </ImageBackground>
-              </TouchableOpacity>
-              <Text style={styles.TextCenterEstilo} >Decorações</Text>
-              </View>
-              <View >
-                <TouchableOpacity style={styles.ButtonEstilo} onPress={() => navigation.navigate("Alimentos")}>
-                <ImageBackground source={require('./../../../assets/ComidasNatal.png')} style={styles.ImagemEstilo}  >
-                <Text style={styles.ZeroTrinta}>{alimentos}/30</Text>
-                </ImageBackground>
-              </TouchableOpacity>
-              <Text style={styles.TextCenterEstilo} >Alimentos</Text>
-              </View>
-              <View >
-                <TouchableOpacity style={styles.ButtonEstilo} onPress={() => navigation.navigate("Personagens")}>
-                <ImageBackground source={require('./../../../assets/papai-noel.png')} style={styles.ImagemEstilo}  >
-                <Text style={styles.ZeroTrinta}>{personagens}/30</Text>
-                </ImageBackground>
-              </TouchableOpacity>
-              <Text style={styles.TextCenterEstilo} >Personagens</Text>
-              </View>
-            </View>
+  return (
+    <ScrollView style={styles.scrollContainer}>   
+      <ImageBackground source={require('../../../assets/temanatal.jpg')} style={styles.imageBackground}>
+        <View style={styles.moedasContainer}>
+        <View style={styles.IconMoeda}></View>
+        <Text style={styles.moedasText}>{moedas}</Text>
+        
       </View>
+        <View>
+          <Ionicons
+            name="arrow-back"
+            size={scale(46)}
+            color="white"
+            style={styles.button}
+            onPress={() => navigation.navigate('Estilos')}
+          />
+        </View>
+
+        <View style={styles.container}>
+          <View style={styles.containerMode}>
+            <ThemeButton
+              navigation={navigation}
+              themeName="Presentes"
+              imagePath={require('./../../../assets/arvoresNatal.png')}
+              count={presentes}
+              screenName="Presentes"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Decoracoes"
+              imagePath={require('./../../../assets/presenteNatal.png')}
+              count={decoracoes}
+              screenName="Decoracoes"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Alimentos"
+              imagePath={require('./../../../assets/ComidasNatal.png')}
+              count={alimentos}
+              screenName="Alimentos"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Personagens"
+              imagePath={require('./../../../assets/papai-noel.png')}
+              count={personagens}
+              screenName="Personagens"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Esportes"
+              imagePath={require('./../../../assets/esportes.png')}
+              count={0}
+              screenName="EsportesFacil"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Cores"
+              imagePath={require('./../../../assets/cores.png')}
+              count={0}
+              screenName="CoresFacil"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Empregos"
+              imagePath={require('./../../../assets/empregos.png')}
+              count={0}
+              screenName="EmpregosFacil"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Países"
+              imagePath={require('./../../../assets/paises.png')}
+              count={0}
+              screenName="PaisesFacil"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Animais"
+              imagePath={require('./../../../assets/Animais.png')}
+              count={0}
+              screenName="Animais"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Doces"
+              imagePath={require('./../../../assets/Doces.png')}
+              count={0}
+              screenName="Doces"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Arvores"
+              imagePath={require('./../../../assets/arvore.png')}
+              count={0}
+              screenName="Arvores"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Atores"
+              imagePath={require('./../../../assets/ator.png')}
+              count={0}
+              screenName="Atores"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Transportes"
+              imagePath={require('./../../../assets/Transportes.png')}
+              count={0}
+              screenName="Transportes"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Bebidas"
+              imagePath={require('./../../../assets/bebida.png')}
+              count={0}
+              screenName="Bebidas"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Amizade"
+              imagePath={require('./../../../assets/amizade.png')}
+              count={0}
+              screenName="Amizade"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Musica"
+              imagePath={require('./../../../assets/Musicas.png')}
+              count={0}
+              screenName="Musicas"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Nomes"
+              imagePath={require('./../../../assets/nomes.png')}
+              count={0}
+              screenName="Nomes"
+            />
+            <ThemeButton
+              navigation={navigation}
+              themeName="Roupas"
+              imagePath={require('./../../../assets/roupas.png')}
+              count={0}
+              screenName="Roupas"
+            />
+            <ThemeButton
+              navigation={navigation}
+              themeName="Natureza"
+              imagePath={require('./../../../assets/natureza.png')}
+              count={0}
+              screenName="Natureza"
+            />
+            <ThemeButton
+              navigation={navigation}
+              themeName="Pintores"
+              imagePath={require('./../../../assets/pintores.png')}
+              count={0}
+              screenName="Pintores"
+            />
+            <ThemeButton
+              navigation={navigation}
+              themeName="Casa"
+              imagePath={require('./../../../assets/casa.png')}
+              count={0}
+              screenName="Casa"
+            />
+            <ThemeButton
+              navigation={navigation}
+              themeName="Carros"
+              imagePath={require('./../../../assets/carros.png')}
+              count={0}
+              screenName="Carros"
+            />
+            <ThemeButton
+              navigation={navigation}
+              themeName="Filmes"
+              imagePath={require('./../../../assets/filme.png')}
+              count={0}
+              screenName="Filmes"
+            />
+            <ThemeButton
+              navigation={navigation}
+              themeName="Espaço"
+              imagePath={require('./../../../assets/foguete.png')}
+              count={0}
+              screenName="Espaço"
+            />
+            <ThemeButton
+              navigation={navigation}
+              themeName="Musicos"
+              imagePath={require('./../../../assets/musicos.png')}
+              count={0}
+              screenName="Musicos"
+            />
+            <ThemeButton
+              navigation={navigation}
+              themeName="Marcas"
+              imagePath={require('./../../../assets/marcas.png')}
+              count={0}
+              screenName="Marcas"
+            />
+            <ThemeButton
+              navigation={navigation}
+              themeName="Escritoras"
+              imagePath={require('./../../../assets/escritor.png')}
+              count={0}
+              screenName="Escritoras"
+            />
+          </View>
+        </View>
       </ImageBackground>
-        
-                
-        
-      </View>
-    
-
-    
-  )
+    </ScrollView>
+  );
 }
+
+const ThemeButton = ({ navigation, themeName, imagePath, count, screenName }) => (
+  <View>
+    <TouchableOpacity style={styles.ButtonEstilo} onPress={() => navigation.navigate(screenName)}>
+      <ImageBackground source={imagePath} style={styles.ImagemEstilo}>
+        <Text style={styles.ZeroTrinta}>{count}/30</Text>
+      </ImageBackground>
+    </TouchableOpacity>
+    <Text style={styles.TextCenterEstilo}>{themeName}</Text>
+  </View>
+);
