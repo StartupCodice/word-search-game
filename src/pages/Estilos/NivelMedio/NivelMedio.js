@@ -4,8 +4,12 @@ import styles from '../../Home/style';
 import { Ionicons } from '@expo/vector-icons';
 import { scale } from 'react-native-size-matters';
 import NiveisMedio from '../../../components/storageNivelMedio';
+import MoedasComponent from '../../../components/storage';
+
 
 export function NivelMedio({ navigation }) {
+  const { moedas } = MoedasComponent();
+
   const {
     presentes,
     addPresentes,
@@ -27,6 +31,11 @@ export function NivelMedio({ navigation }) {
   return (
     <ScrollView style={styles.scrollContainer}>
       <ImageBackground source={require('../../../assets/temanatal.jpg')} style={styles.imageBackground}>
+      <View style={styles.moedasContainer}>
+        <View style={styles.IconMoeda}></View>
+        <Text style={styles.moedasText}>{moedas}</Text>
+        
+      </View>
         <View>
           <Ionicons
             name="arrow-back"
@@ -101,6 +110,147 @@ export function NivelMedio({ navigation }) {
               imagePath={require('./../../../assets/paises.png')}
               count={0}
               screenName="PaisesMedio"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Animais"
+              imagePath={require('./../../../assets/Animais.png')}
+              count={0}
+              screenName="AnimaisMedio"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Doces"
+              imagePath={require('./../../../assets/Doces.png')}
+              count={0}
+              screenName="DocesMedio"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Arvores"
+              imagePath={require('./../../../assets/arvore.png')}
+              count={0}
+              screenName="ArvoresMedio"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Atores"
+              imagePath={require('./../../../assets/ator.png')}
+              count={0}
+              screenName="AtoresMedio"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Transportes"
+              imagePath={require('./../../../assets/Transportes.png')}
+              count={0}
+              screenName="TransportesMedio"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Bebidas"
+              imagePath={require('./../../../assets/bebida.png')}
+              count={0}
+              screenName="BebidasMedio"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Amizade"
+              imagePath={require('./../../../assets/amizade.png')}
+              count={0}
+              screenName="AmizadeMedio"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Nomes"
+              imagePath={require('./../../../assets/nomes.png')}
+              count={0}
+              screenName="NomesMedio"
+            />
+            <ThemeButton
+              navigation={navigation}
+              themeName="Roupas"
+              imagePath={require('./../../../assets/roupas.png')}
+              count={0}
+              screenName="RoupasMedio"
+            />
+            <ThemeButton
+              navigation={navigation}
+              themeName="Natureza"
+              imagePath={require('./../../../assets/natureza.png')}
+              count={0}
+              screenName="NaturezaMedio"
+            />
+            <ThemeButton
+              navigation={navigation}
+              themeName="Pintores"
+              imagePath={require('./../../../assets/pintores.png')}
+              count={0}
+              screenName="PintoresMedio"
+            />
+            <ThemeButton
+              navigation={navigation}
+              themeName="Casa"
+              imagePath={require('./../../../assets/casa.png')}
+              count={0}
+              screenName="CasaMedio"
+            />
+            <ThemeButton
+              navigation={navigation}
+              themeName="Monumentos"
+              imagePath={require('./../../../assets/monumentos.png')}
+              count={0}
+              screenName="MonumentosMedio"
+            />
+            <ThemeButton
+              navigation={navigation}
+              themeName="Carros"
+              imagePath={require('./../../../assets/carros.png')}
+              count={0}
+              screenName="CarrosMedio"
+            />
+            <ThemeButton
+              navigation={navigation}
+              themeName="Filmes"
+              imagePath={require('./../../../assets/filme.png')}
+              count={0}
+              screenName="FilmesMedio"
+            />
+            <ThemeButton
+              navigation={navigation}
+              themeName="Espaço"
+              imagePath={require('./../../../assets/foguete.png')}
+              count={0}
+              screenName="EspaçoMedio"
+            />
+            <ThemeButton
+              navigation={navigation}
+              themeName="Musicos"
+              imagePath={require('./../../../assets/musicos.png')}
+              count={0}
+              screenName="MusicosMedio"
+            />
+            <ThemeButton
+              navigation={navigation}
+              themeName="Marcas"
+              imagePath={require('./../../../assets/marcas.png')}
+              count={0}
+              screenName="MarcasMedio"
+            />
+            <ThemeButton
+              navigation={navigation}
+              themeName="Escritoras"
+              imagePath={require('./../../../assets/escritor.png')}
+              count={0}
+              screenName="EscritorasMedio"
             />
           </View>
         </View>

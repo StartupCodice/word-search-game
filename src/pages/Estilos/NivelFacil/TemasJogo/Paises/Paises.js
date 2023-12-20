@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Text, View, ImageBackground, Image, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
+import { Text, View, ImageBackground, TouchableOpacity, Dimensions} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import Modal from 'react-native-modal';
@@ -128,27 +128,26 @@ export default function Paises({ navigation, rows = 8, cols = 8 }) {
   const fetchData = async () => {
     try {
       const palavrasOriginais = [
-        { name: 'LUZES', found: false },
-        { name: 'CEIA', found: false },
-        { name: 'MAGIA', found: false },
-        { name: 'RENOS', found: false },
-        { name: 'DOCES', found: false },
-        { name: 'FITAS', found: false },
-        { name: 'GIFT', found: false },
-        { name: 'LAÇOS', found: false },
-        { name: 'JOIA', found: false },
-        { name: 'CARTA', found: false },
-        { name: 'DOCE', found: false },
-        { name: 'BOLO', found: false },
-        { name: 'BOLA', found: false },
-        { name: 'FESTA', found: false },
-        { name: 'GORRO', found: false },
-        { name: 'BOLSA', found: false },
-        { name: 'BLUSA', found: false },
-        { name: 'TENIS', found: false },
-        { name: 'MEIA', found: false },
-        { name: 'CARRO', found: false },
-        { name: 'MOTO', found: false },
+        { name: 'CHINA', found: false },
+        { name: 'EGITO', found: false },
+        { name: 'CUBA', found: false },
+        { name: 'HOLDA', found: false },
+        { name: 'JAPAO', found: false },
+        { name: 'MEXICO', found: false },
+        { name: 'NEPAL', found: false },
+        { name: 'PERU', found: false },
+        { name: 'GANA', found: false },
+        { name: 'CUBA', found: false },
+        { name: 'IRAQ', found: false },
+        { name: 'IRA', found: false },
+        { name: 'LAOS', found: false },
+        { name: 'LIBIA', found: false },
+        { name: 'MALI', found: false },
+        { name: 'MALTA', found: false },
+        { name: 'OMA', found: false },
+        { name: 'CHILE', found: false },
+        { name: 'TOGO', found: false },
+        { name: 'FIJI', found: false },
       ];
 
     if (isMountedRef.current) {
@@ -208,27 +207,26 @@ export default function Paises({ navigation, rows = 8, cols = 8 }) {
 
   const reiniciarJogo = () => {
     const palavrasOriginais = [
-      { name: 'LUZES', found: false },
-      { name: 'CEIA', found: false },
-      { name: 'MAGIA', found: false },
-      { name: 'RENOS', found: false },
-      { name: 'DOCES', found: false },
-      { name: 'FITAS', found: false },
-      { name: 'GIFT', found: false },
-      { name: 'LAÇOS', found: false },
-      { name: 'JOIA', found: false },
-      { name: 'CARTA', found: false },
-      { name: 'DOCE', found: false },
-      { name: 'BOLO', found: false },
-      { name: 'BOLA', found: false },
-      { name: 'FESTA', found: false },
-      { name: 'GORRO', found: false },
-      { name: 'BOLSA', found: false },
-      { name: 'BLUSA', found: false },
-      { name: 'TENIS', found: false },
-      { name: 'MEIA', found: false },
-      { name: 'CARRO', found: false },
-      { name: 'MOTO', found: false },
+      { name: 'CHINA', found: false },
+      { name: 'EGITO', found: false },
+      { name: 'CUBA', found: false },
+      { name: 'HOLDA', found: false },
+      { name: 'JAPAO', found: false },
+      { name: 'MEXICO', found: false },
+      { name: 'NEPAL', found: false },
+      { name: 'PERU', found: false },
+      { name: 'GANA', found: false },
+      { name: 'CUBA', found: false },
+      { name: 'IRAQ', found: false },
+      { name: 'IRA', found: false },
+      { name: 'LAOS', found: false },
+      { name: 'LIBIA', found: false },
+      { name: 'MALI', found: false },
+      { name: 'MALTA', found: false },
+      { name: 'OMA', found: false },
+      { name: 'CHILE', found: false },
+      { name: 'TOGO', found: false },
+      { name: 'FIJI', found: false },
     ];
 
     const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 4);

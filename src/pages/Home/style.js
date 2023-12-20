@@ -351,8 +351,8 @@ const styles = StyleSheet.create({
     },
     ButtonEstilo: {
         backgroundColor: '#0081AF',
-        width: scale(120),
-        height: scale(120),
+        width: scale(90),
+        height: scale(90),
         marginTop: scale(8),
         marginLeft: scale(4),
         marginRight: scale(2),
@@ -370,9 +370,9 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       flexDirection: 'row',
       flexWrap: 'wrap',
-      margin: 10,
-      maxWidth: wp(80),
-      gap: scale(25),
+      margin: scale(2),
+      maxWidth: wp(90),
+      gap: scale(2),
   },
       Retangulo: {
         position: 'absolute',
@@ -420,22 +420,63 @@ const styles = StyleSheet.create({
           left: 320,
         },
     ImagemEstilo: {
-        width: scale(65),
-        height: scale(65),
+        width: scale(35),
+        height: scale(35),
     },
     TextCenterEstilo: {
         textAlign: 'center',
         color: 'white',
         margin: scale(5),
         fontWeight: 'bold',
-        fontSize: scale(16),
+        fontSize: scale(10),
     },
     ZeroTrinta: {
         color: 'white',
         fontWeight: 'bold',
         textAlign: 'center',
-        top: scale(65),
-        fontSize: scale(14)
+        top: scale(38),
+        fontSize: scale(10)
+    },
+    moedasContainer: {
+      width: scale(80),
+      height: scale(40),
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: '#7bdacb',
+      borderWidth: scale(2),
+      borderColor: '#1d5950',
+      padding: 10,
+      borderRadius: scale(10),
+      left: scale(130),
+      top: scale(60),
+      display: 'flex',
+      flexDirection: 'row',
+      gap: 16,
+      position: 'absolute',
+    },
+    moedasText: {
+      fontSize: scale(15),
+      bottom: 4
+    },
+    textMoedas: {
+      fontSize: scale(18),
+      fontWeight: 'bold',
+      color: '#FFD700',  // Cor amarela para moedas
+    },
+    IconMoeda: {
+      width: scale(20),
+      height: scale(20),
+      backgroundColor: 'yellow',
+      borderRadius: 50,
+      borderWidth: 1,
+      borderColor: '#b0b912'
+    },
+    textMoeda: {
+      fontSize: scale(20),
+      fontWeight: 'bold',
+      alignItems: 'center',
+      justifyContent: 'center',
+      textAlign: 'center',
     },
 
   });
