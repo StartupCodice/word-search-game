@@ -8,7 +8,6 @@ import randomcolor from 'randomcolor';
 import styles from './style';
 import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../../../../components/storage';
-import NiveisDificil from '../../../../../components/storageNivelDificil';
 
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -16,17 +15,13 @@ const CELL_SIZE = Math.floor(250 * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 
 const Cell = React.memo(({ letter, selected }) => (
+
   <View style={[styles.cell, letter.isSelected && styles.selected, selected && styles.selected]}>
     <Text style={styles.cellText}>{letter.letter}</Text>
   </View>
 ));
 
-
-export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
-  const { 
-    presentes, 
-    addPresentes,
-  } = NiveisDificil();
+export default function AmizadeDificil({ navigation, rows = 10, cols = 10 }) {
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
@@ -43,6 +38,8 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
   const [moedasGanhas, setMoedasGanhas] = useState(0);
   const [currentCell, setCurrentCell] = useState(null);
 
+
+
   const isMountedRef = useRef(true);
 
   const selectRandomWords = (totalWords, numWords) => {
@@ -58,7 +55,7 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
   };
 
   const mostrarDica = () => {
-    if (numDicasUsadas < 4) {
+    if (numDicasUsadas < 3) {
       const palavrasNaoEncontradas = palavras.filter((palavra) => !palavra.found);
   
       if (palavrasNaoEncontradas.length > 0) {
@@ -120,35 +117,27 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
     buildColumnsArray();
   }, [board.game]); 
 
-  const fetchData = () => {
+ 
+
+  const fetchData = async () => {
     try {
       const palavrasOriginais = [
-        { name: 'MONTANHA', found: false },
-        { name: 'NOTEBOOK', found: false },
-        { name: 'OCEANO', found: false },
-        { name: 'QUÍMICA', found: false },
-        { name: 'RAIO', found: false },
-        { name: 'SAPO', found: false },
-        { name: 'MESSA', found: false },
-        { name: 'XÍCARA', found: false },
-        { name: 'TORTA', found: false },
-        { name: 'NOZES', found: false },
-        { name: 'PÊSSEGO', found: false },
-        { name: 'FUTEBOL', found: false },
-        { name: 'ESPAÇO', found: false },
-        { name: 'ABACAXI', found: false },
-        { name: 'RAP', found: false },
-        { name: 'KIWI', found: false },
-        { name: 'JAZZ', found: false },
-        { name: 'SAMBA', found: false },
-        { name: 'NIKE', found: false },
-        { name: 'FLORESTA', found: false },
-        { name: 'SOLUÇÃO', found: false },
-        { name: 'RATO', found: false },
-        { name: 'QUEIJO', found: false },
-        { name: 'ÓCULOS', found: false },
-        { name: 'JARDIM', found: false },
-        { name: 'LIMÃO', found: false },
+        { name: 'APOIO', found: false },
+        { name: 'BOM', found: false },
+        { name: 'AFETO', found: false },
+        { name: 'LEAL', found: false },
+        { name: 'AMIGO', found: false },
+        { name: 'CIUMES', found: false },
+        { name: 'SORRIR', found: false },
+        { name: 'CONFIA', found: false },
+        { name: 'ESCUTA', found: false },
+        { name: 'AMIGO', found: false },
+        { name: 'FIEL', found: false },
+        { name: 'GRATO', found: false },
+        { name: 'PAZ', found: false },
+        { name: 'SORTE', found: false },
+        { name: 'TROCA', found: false },
+        { name: 'UNIÃO', found: false },
       ];
 
     if (isMountedRef.current) {
@@ -195,12 +184,10 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
     const segundos = Math.floor(tempoDecorrido % 60);
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
+    
 
-    adicionarMoedas(6);
-    setMoedasGanhas(6);
-
-    let level = parseInt(presentes) + 1;
-    if (presentes < 30) addPresentes(level.toString());
+    adicionarMoedas(8);
+    setMoedasGanhas(8);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);
@@ -208,32 +195,22 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
 
   const reiniciarJogo = () => {
     const palavrasOriginais = [
-      { name: 'MONTANHA', found: false },
-      { name: 'NOTEBOOK', found: false },
-      { name: 'OCEANO', found: false },
-      { name: 'QUÍMICA', found: false },
-      { name: 'RAIO', found: false },
-      { name: 'SAPO', found: false },
-      { name: 'MESSA', found: false },
-      { name: 'XÍCARA', found: false },
-      { name: 'TORTA', found: false },
-      { name: 'NOZES', found: false },
-      { name: 'PÊSSEGO', found: false },
-      { name: 'FUTEBOL', found: false },
-      { name: 'ESPAÇO', found: false },
-      { name: 'ABACAXI', found: false },
-      { name: 'RAP', found: false },
-      { name: 'KIWI', found: false },
-      { name: 'JAZZ', found: false },
-      { name: 'SAMBA', found: false },
-      { name: 'NIKE', found: false },
-      { name: 'FLORESTA', found: false },
-      { name: 'SOLUÇÃO', found: false },
-      { name: 'RATO', found: false },
-      { name: 'QUEIJO', found: false },
-      { name: 'ÓCULOS', found: false },
-      { name: 'JARDIM', found: false },
-      { name: 'LIMÃO', found: false },
+      { name: 'APOIO', found: false },
+      { name: 'BOM', found: false },
+      { name: 'AFETO', found: false },
+      { name: 'LEAL', found: false },
+      { name: 'AMIGO', found: false },
+      { name: 'CIUMES', found: false },
+      { name: 'SORRIR', found: false },
+      { name: 'CONFIA', found: false },
+      { name: 'ESCUTA', found: false },
+      { name: 'AMIGO', found: false },
+      { name: 'FIEL', found: false },
+      { name: 'GRATO', found: false },
+      { name: 'PAZ', found: false },
+      { name: 'SORTE', found: false },
+      { name: 'TROCA', found: false },
+      { name: 'UNIÃO', found: false },
     ];
 
     const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 8);
@@ -335,7 +312,7 @@ const onHandlerStateChange = (event, item) => {
             source={require('./../../../../../assets/chapeu.png')}
             style={styles.Dica}
           >
-            <Text style={styles.dicaNumber}>{4 - numDicasUsadas}</Text>
+            <Text style={styles.dicaNumber}>{3 - numDicasUsadas}</Text>
           </ImageBackground>
         </View>
       </TouchableOpacity>
@@ -343,11 +320,12 @@ const onHandlerStateChange = (event, item) => {
       <View style={styles.moedasContainer}>
         <View style={styles.IconMoeda}></View>
         <Text style={styles.moedasText}>{moedas}</Text>
+        
       </View>
-
-
+      
           <Ionicons style={styles.button} name="arrow-back" size={scale(40)} color="white"
             onPress={() => navigation.navigate('NivelDificil')} />
+
 
         <View style={styles.palavrasContainer}>
           {
@@ -363,11 +341,7 @@ const onHandlerStateChange = (event, item) => {
           }
         </View>
         <View style={styles.cacaContainer}>
-          <ImageBackground
-          source={require('./../../../../../assets/telaingameretangulo.png')}
-          style={styles.retangulo}
-        >
-          
+          <View style={styles.retangulo}> 
           <GestureHandlerRootView style={{ flex: 1 }}>
             <PanGestureHandler
               onGestureEvent={onGestureEvent}
@@ -393,7 +367,7 @@ const onHandlerStateChange = (event, item) => {
               </View>
             </PanGestureHandler>
           </GestureHandlerRootView>
-        </ImageBackground>
+        </View>
         </View>
 
         <Modal isVisible={hintsExhausted} onBackdropPress={fecharModalDicasEsgotadas} style={styles.modalContainer2}>
@@ -409,15 +383,23 @@ const onHandlerStateChange = (event, item) => {
 
       <Modal isVisible={isModalVisible} onBackdropPress={closeModal} style={styles.modalContainer2}>
         <View style={styles.modalContainer}>
-          <Text style={styles.modalText}>TEMPO:</Text>
-          <Text style={styles.textTempo}>{tempoDecorrido}s</Text>
-          <Text>Moedas ganhas nesta partida: {moedasGanhas}</Text>
+          <TouchableOpacity style={styles.modalVoltarHome} onPress={() => navigation.navigate('Home')}>
+            <Text style={styles.modalButtonText}>Voltar</Text>
+          </TouchableOpacity>
+          <View style={styles.modalGanhos}>
+              <View>
+                <Text style={styles.modalText}>TEMPO:</Text>
+                <Text style={styles.textTempo}>{tempoDecorrido}</Text>
+              </View>
+              <View>
+                <Text style={styles.modalText}>MOEDAS:</Text>
+                <Text style={styles.textMoeda}>+{moedasGanhas}</Text>
+              </View>
+          </View>   
           <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
             <Text style={styles.modalButtonText}>Continuar</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.modalButton} onPress={() => navigation.navigate('Home')}>
-            <Text style={styles.modalButtonText}>Voltar</Text>
-          </TouchableOpacity>
+          
         </View>
       </Modal>
 
@@ -426,3 +408,4 @@ const onHandlerStateChange = (event, item) => {
     </View>
   );
 }
+
