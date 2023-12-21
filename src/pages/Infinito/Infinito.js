@@ -112,7 +112,7 @@ export function Infinito({ modalVisible, setModalVisible }) {
                     fontSize: scale(12),
                   }}
                 >
-                  Difícil 9x8
+                  Difícil 10x10
                 </Text>
               </Pressable>
               <Pressable
@@ -135,7 +135,7 @@ export function Infinito({ modalVisible, setModalVisible }) {
                     fontSize: scale(12),
                   }}
                 >
-                  Pró 10x8
+                  Pró 12x12
                 </Text>
               </Pressable>
             </View>

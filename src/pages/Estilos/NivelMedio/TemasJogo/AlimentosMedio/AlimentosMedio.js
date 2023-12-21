@@ -129,15 +129,11 @@ export default function AlimentosMedio({ navigation, rows = 8, cols = 8 }) {
     try {
       const palavrasOriginais = [
         {name: 'PERU', found: false },
-        {name: 'PANETONE', found: false },
         {name: 'CHESTER', found: false },
-        {name: 'RABANADA', found: false },
-        {name: 'BACALHAU', found: false },
         {name: 'VINHO', found: false },
         {name: 'FAROFA', found: false },
         {name: 'CEIA', found: false },
         {name: 'FRUTAS', found: false },
-        { name: 'BOLINHO', found: false },
         { name: 'NOZES', found: false },
         { name: 'GELEIA', found: false },
         { name: 'LEITE', found: false },
@@ -149,7 +145,6 @@ export default function AlimentosMedio({ navigation, rows = 8, cols = 8 }) {
         { name: 'MINGAU', found: false },
         { name: 'PUDIM', found: false },
         { name: 'SALSA', found: false },
-        { name: 'SORVETE', found: false },
         { name: 'TORTA', found: false },
         { name: 'PASSAS', found: false },
       ];
@@ -212,15 +207,11 @@ export default function AlimentosMedio({ navigation, rows = 8, cols = 8 }) {
   const reiniciarJogo = () => {
     const palavrasOriginais = [
       {name: 'PERU', found: false },
-      {name: 'PANETONE', found: false },
       {name: 'CHESTER', found: false },
-      {name: 'RABANADA', found: false },
-      {name: 'BACALHAU', found: false },
       {name: 'VINHO', found: false },
       {name: 'FAROFA', found: false },
       {name: 'CEIA', found: false },
       {name: 'FRUTAS', found: false },
-      { name: 'BOLINHO', found: false },
       { name: 'NOZES', found: false },
       { name: 'GELEIA', found: false },
       { name: 'LEITE', found: false },
@@ -232,7 +223,6 @@ export default function AlimentosMedio({ navigation, rows = 8, cols = 8 }) {
       { name: 'MINGAU', found: false },
       { name: 'PUDIM', found: false },
       { name: 'SALSA', found: false },
-      { name: 'SORVETE', found: false },
       { name: 'TORTA', found: false },
       { name: 'PASSAS', found: false },
     ];

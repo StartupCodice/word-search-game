@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     fontSize: wp(6),
   },
   palavrasContainer: {
-    top: hp(58),
+    top: hp(54),
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -93,13 +93,13 @@ const styles = StyleSheet.create({
   },
   retangulo: {
     width: scale(300),
-    height: moderateScale(250, 1),
+    height: moderateScale(244, 1),
     borderRadius: scale(7),
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
     textAlign: 'center',
-    bottom: scale(80)
+    bottom: scale(100)
 
   },
   button: {
