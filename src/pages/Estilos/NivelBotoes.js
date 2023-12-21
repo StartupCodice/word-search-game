@@ -25,25 +25,25 @@ export default function NiveisBotoes() {
 
                         <TouchableHighlight underlayColor="null" onPress={() => navigation.navigate('NivelFacil')} style={styles.ButtonNiveis}>
                                 <Text style={styles.ButtonTextNiveis}>
-                                    Nivel Facil
+                                    Nível Fácil
                                 </Text>
                         </TouchableHighlight>
 
                         <TouchableHighlight underlayColor="null" onPress={() => navigation.navigate('NivelMedio')} style={styles.ButtonNiveis}>
                                 <Text style={styles.ButtonTextNiveis}>
-                                    Nivel Medio
+                                    Nível Médio
                                 </Text>
                         </TouchableHighlight>
 
                         <TouchableHighlight underlayColor="null" onPress={() => navigation.navigate('NivelDificil')} style={styles.ButtonNiveis}>
                                 <Text style={styles.ButtonTextNiveis}>
-                                    Nivel Dificil
+                                    Nível Difícil
                                 </Text>
                         </TouchableHighlight>
 
                         <TouchableHighlight underlayColor="null" onPress={() => navigation.navigate('NivelPro')} style={styles.ButtonNiveis}>  
                                 <Text style={styles.ButtonTextNiveis}>
-                                    Nivel Pró
+                                    Nível Pró
                                 </Text>
                         </TouchableHighlight>
 

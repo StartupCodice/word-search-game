@@ -1,79 +1,121 @@
-import React, { useEffect } from 'react'
-import { Text, View, Image, TouchableOpacity, TouchableHighlight, ImageBackground, ScrollView} from 'react-native';
+import React, { useEffect } from 'react';
+import { Text, View, Image, TouchableOpacity, ImageBackground, ScrollView } from 'react-native';
 import styles from '../../Home/style';
 import { Ionicons } from '@expo/vector-icons';
 import { scale } from 'react-native-size-matters';
-import NiveisDificl from '../../../components/storageNivelDificil';
+import NiveisDificil from '../../../components/storageNivelDificil';
 
-export function NivelDificil({ navigation }){
-  const { 
-    presentes, 
+export function NivelDificil({ navigation }) {
+  const {
+    presentes,
     addPresentes,
     decoracoes,
     addDecoracoes,
     alimentos,
     addAlimento,
     personagens,
-    addPersonagens 
-  } = NiveisDificl();
+    addPersonagens,
+  } = NiveisDificil();
 
   useEffect(() => {
     if (presentes == null) addPresentes(0);
     if (decoracoes == null) addDecoracoes(0);
     if (alimentos == null) addAlimento(0);
     if (personagens == null) addPersonagens(0);
-  })
+  }, []);
 
-  return(
-      <View style={styles.container}>   
-      <ImageBackground source={require('../../../assets/temanatal.jpg')} style={styles.imageBackground}> 
-              <View>
-                <Ionicons 
-                name="arrow-back" 
-                size={scale(46)} 
-                color="white" 
-                style={styles.button}
-                onPress={() => navigation.navigate('Estilos')}/>
-              </View>
-              
-  
-          <View style={styles.container}>
-            <View style={styles.containerMode}>
-              <View >
-                <TouchableOpacity style={styles.ButtonEstilo} onPress={() => navigation.navigate("PresentesDificil")}>
-                <ImageBackground source={require('./../../../assets/arvoresNatal.png')} style={styles.ImagemEstilo}  >
-                <Text style={styles.ZeroTrinta}>{presentes}/30</Text>
-                </ImageBackground>
-              </TouchableOpacity>
-              <Text style={styles.TextCenterEstilo} >Presentes</Text>
-              </View>
-              <View >
-                <TouchableOpacity style={styles.ButtonEstilo} onPress={() => navigation.navigate("DecoracoesDificil")}>
-                <ImageBackground source={require('./../../../assets/presenteNatal.png')} style={styles.ImagemEstilo}  >
-                <Text style={styles.ZeroTrinta}>{decoracoes}/30</Text>
-                </ImageBackground>
-              </TouchableOpacity>
-              <Text style={styles.TextCenterEstilo} >Decorações</Text>
-              </View>
-              <View >
-                <TouchableOpacity style={styles.ButtonEstilo} onPress={() => navigation.navigate("AlimentosDificil")}>
-                <ImageBackground source={require('./../../../assets/ComidasNatal.png')} style={styles.ImagemEstilo}  >
-                <Text style={styles.ZeroTrinta}>{alimentos}/30</Text>
-                </ImageBackground>
-              </TouchableOpacity>
-              <Text style={styles.TextCenterEstilo} >Alimentos</Text>
-              </View>
-              <View >
-                <TouchableOpacity style={styles.ButtonEstilo} onPress={() => navigation.navigate("PersonagensDificil")}>
-                <ImageBackground source={require('./../../../assets/papai-noel.png')} style={styles.ImagemEstilo}  >
-                <Text style={styles.ZeroTrinta}>{personagens}/30</Text>
-                </ImageBackground>
-              </TouchableOpacity>
-              <Text style={styles.TextCenterEstilo} >Personagens</Text>
-              </View>
-            </View>
-      </View>
+  return (
+    <ScrollView style={styles.scrollContainer}>
+      <ImageBackground source={require('../../../assets/temanatal.jpg')} style={styles.imageBackground}>
+        <View>
+          <Ionicons
+            name="arrow-back"
+            size={scale(46)}
+            color="white"
+            style={styles.button}
+            onPress={() => navigation.navigate('Estilos')}
+          />
+        </View>
+
+        <View style={styles.container}>
+          <View style={styles.containerMode}>
+            <ThemeButton
+              navigation={navigation}
+              themeName="Presentes"
+              imagePath={require('./../../../assets/arvoresNatal.png')}
+              count={presentes}
+              screenName="PresentesDificil"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Decoracoes"
+              imagePath={require('./../../../assets/presenteNatal.png')}
+              count={decoracoes}
+              screenName="DecoracoesDificil"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Alimentos"
+              imagePath={require('./../../../assets/ComidasNatal.png')}
+              count={alimentos}
+              screenName="AlimentosDificil"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Personagens"
+              imagePath={require('./../../../assets/papai-noel.png')}
+              count={personagens}
+              screenName="PersonagensDificil"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Presentes"
+              imagePath={require('./../../../assets/arvoresNatal.png')}
+              count={presentes}
+              screenName="PresentesMedio"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Decoracoes"
+              imagePath={require('./../../../assets/presenteNatal.png')}
+              count={decoracoes}
+              screenName="DecoracoesMedio"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Alimentos"
+              imagePath={require('./../../../assets/ComidasNatal.png')}
+              count={alimentos}
+              screenName="AlimentosMedio"
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Personagens"
+              imagePath={require('./../../../assets/papai-noel.png')}
+              count={personagens}
+              screenName="PersonagensMedio"
+            />
+          </View>
+        </View>
       </ImageBackground>
-      </View>
-  )
+    </ScrollView>
+  );
 }
+
+const ThemeButton = ({ navigation, themeName, imagePath, count, screenName }) => (
+  <View>
+    <TouchableOpacity style={styles.ButtonEstilo} onPress={() => navigation.navigate(screenName)}>
+      <ImageBackground source={imagePath} style={styles.ImagemEstilo}>
+        <Text style={styles.ZeroTrinta}>{count}/30</Text>
+      </ImageBackground>
+    </TouchableOpacity>
+    <Text style={styles.TextCenterEstilo}>{themeName}</Text>
+  </View>
+);
