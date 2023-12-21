@@ -11,7 +11,6 @@ import MoedasComponent from '../../../../../components/storage';
 import NiveisMedio from '../../../../../components/storageNivelMedio';
 
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
-import Decoracoes from '../../../NivelFacil/TemasJogo/Decoracoes/Decoracoes';
 
 const CELL_SIZE = Math.floor(300 * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
