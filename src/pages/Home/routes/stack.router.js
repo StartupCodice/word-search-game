@@ -67,10 +67,56 @@ import AlimentosDificil from '../../Estilos/NivelDificil/TemasJogo/AlimentosDIif
 import DecoracoesDificil from '../../Estilos/NivelDificil/TemasJogo/DecoracoesDIificil/DecoracoesDIificil';
 import PersonagensDificil from '../../Estilos/NivelDificil/TemasJogo/PersonagensDIificil/PersonagensDIificil';
 import PresentesDificil from '../../Estilos/NivelDificil/TemasJogo/PresentesDIificil/PresentesDIificil';
+import PaisesDificil from '../../Estilos/NivelDificil/TemasJogo/PaisesDificil/PaisesDificil';
+import EmpregosDificil from '../../Estilos/NivelDificil/TemasJogo/EmpregosDificil/EmpregosDificil';
+import CoresDificil from '../../Estilos/NivelDificil/TemasJogo/CoresDificil/CoresDificil';
+import EsportesDificil from '../../Estilos/NivelDificil/TemasJogo/EsportesDificil/EsportesDificil';
+import AnimaisDificil from '../../Estilos/NivelDificil/TemasJogo/AnimaisDificil/AnimaisDificil';
+import DocesDificil from '../../Estilos/NivelDificil/TemasJogo/DocesDificil/DocesDificil';
+import ArvoresDificil from '../../Estilos/NivelDificil/TemasJogo/ArvoresDificil/ArvoresDificil';
+import AtoresDificil from '../../Estilos/NivelDificil/TemasJogo/AtoresDificil/AtoresDificil';
+import TransportesDificil from '../../Estilos/NivelDificil/TemasJogo/TransportesDificil/TransportesDificil';
+import BebidasDificil from '../../Estilos/NivelDificil/TemasJogo/BebidasDificil/BebidasDificil';
+import AmizadeDificil from '../../Estilos/NivelDificil/TemasJogo/AmizadeDificil/AmizadeDificil';
+import NomesDificil from '../../Estilos/NivelDificil/TemasJogo/NomesDificil/NomesDificil';
+import RoupasDificil from '../../Estilos/NivelDificil/TemasJogo/RoupasDificil/RoupasDificil';
+import NaturezaDificil from '../../Estilos/NivelDificil/TemasJogo/NaturezaDificil/NaturezaDificil';
+import PintoresDificil from '../../Estilos/NivelDificil/TemasJogo/PintoresDificil/PintoresDificil';
+import CasaDificil from '../../Estilos/NivelDificil/TemasJogo/CasaDificil/CasaDificil';
+import CarrosDificil from '../../Estilos/NivelDificil/TemasJogo/CarrosDificil/CarrosDificil';
+import FilmesDificil from '../../Estilos/NivelDificil/TemasJogo/FilmesDificil/FilmesDificil';
+import EspaçoDificil from '../../Estilos/NivelDificil/TemasJogo/EspaçoDificil/EspaçoDificil';
+import MarcasDificil from '../../Estilos/NivelDificil/TemasJogo/MarcasDificil/MarcasDificil';
+import MusicasDificil from '../../Estilos/NivelDificil/TemasJogo/MusicasDificil/MusicasDificil';
+import MusicosDificil from '../../Estilos/NivelDificil/TemasJogo/MusicosDificil/MusicosDificil';
+import EscritorasDificil from '../../Estilos/NivelDificil/TemasJogo/EscritorasDificil/EscritorasDificil';
 import AlimentosPro from '../../Estilos/NivelPro/TemasJogo/AlimentosPro/AlimentosPro';
 import DecoracoesPro from '../../Estilos/NivelPro/TemasJogo/DecoracoesPro/DecoracoesPro';
 import PersonagensPro from '../../Estilos/NivelPro/TemasJogo/PersonagensPro/PersonagensPro';
 import PresentesPro from '../../Estilos/NivelPro/TemasJogo/PresentesPro/PresentesPro';
+import PaisesPro from '../../Estilos/NivelPro/TemasJogo/PaisesPro/PaisesPro';
+import EmpregosPro from '../../Estilos/NivelPro/TemasJogo/EmpregosPro/EmpregosPro';
+import CoresPro from '../../Estilos/NivelPro/TemasJogo/CoresPro/CoresPro';
+import EsportesPro from '../../Estilos/NivelPro/TemasJogo/EsportesPro/EsportesPro';
+import AnimaisPro from '../../Estilos/NivelPro/TemasJogo/AnimaisPro/AnimaisPro';
+import DocesPro from '../../Estilos/NivelPro/TemasJogo/DocesPro/DocesPro';
+import ArvoresPro from '../../Estilos/NivelPro/TemasJogo/ArvoresPro/ArvoresPro';
+import AtoresPro from '../../Estilos/NivelPro/TemasJogo/AtoresPro/AtoresPro';
+import TransportesPro from '../../Estilos/NivelPro/TemasJogo/TransportesPro/TransportesPro';
+import BebidasPro from '../../Estilos/NivelPro/TemasJogo/BebidasPro/BebidasPro';
+import AmizadePro from '../../Estilos/NivelPro/TemasJogo/AmizadePro/AmizadePro';
+import NomesPro from '../../Estilos/NivelPro/TemasJogo/NomesPro/NomesPro';
+import RoupasPro from '../../Estilos/NivelPro/TemasJogo/RoupasPro/RoupasPro';
+import NaturezaPro from '../../Estilos/NivelPro/TemasJogo/NaturezaPro/NaturezaPro';
+import PintoresPro from '../../Estilos/NivelPro/TemasJogo/PintoresPro/PintoresPro';
+import CasaPro from '../../Estilos/NivelPro/TemasJogo/CasaPro/CasaPro';
+import CarrosPro from '../../Estilos/NivelPro/TemasJogo/CarrosPro/CarrosPro';
+import FilmesPro from '../../Estilos/NivelPro/TemasJogo/FilmesPro/FilmesPro';
+import EspaçoPro from '../../Estilos/NivelPro/TemasJogo/EspaçoPro/EspaçoPro';
+import MarcasPro from '../../Estilos/NivelPro/TemasJogo/MarcasPro/MarcasPro';
+import MusicasPro from '../../Estilos/NivelPro/TemasJogo/MusicasPro/MusicasPro';
+import MusicosPro from '../../Estilos/NivelPro/TemasJogo/MusicosPro/MusicosPro';
+import EscritorasPro from '../../Estilos/NivelPro/TemasJogo/EscritorasPro/EscritorasPro';
 import InfinitoFacil from '../../Infinito/InfinitoFacil/InfinitoFacil';
 import InfinitoMedio from '../../Infinito/InfinitoMedio/InfinitoMedio';
 import InfinitoDificil from '../../Infinito/InfinitoDificil/InfinitoDIificil';
@@ -671,6 +717,213 @@ export function StackRoutes() {
             }}
              />
 
+             
+            <Screen 
+              name="AnimaisDificil"
+              component={AnimaisDificil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="DocesDificil"
+              component={DocesDificil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="ArvoresDificil"
+              component={ArvoresDificil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="AtoresDificil"
+              component={AtoresDificil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="TransportesDificil"
+              component={TransportesDificil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="BebidasDificil"
+              component={BebidasDificil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="AmizadeDificil"
+              component={AmizadeDificil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="NomesDificil"
+              component={NomesDificil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="RoupasDificil"
+              component={RoupasDificil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="NaturezaDificil"
+              component={NaturezaDificil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="PintoresDificil"
+              component={PintoresDificil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="CasaDificil"
+              component={CasaDificil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+            <Screen 
+              name="CarrosDificil"
+              component={CarrosDificil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="FilmesDificil"
+              component={FilmesDificil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="EspaçoDificil"
+              component={EspaçoDificil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="MusicosDificil"
+              component={MusicosDificil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="MarcasDificil"
+              component={MarcasDificil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="MusicasDificil"
+              component={MusicasDificil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />
+
+            <Screen 
+            name="EscritorasDificil"
+            component={EscritorasDificil}  
+            options={{ 
+              title: '',
+              headerShown: false   
+            }}
+            />       
+
+            <Screen 
+              name="EmpregosDificil"
+              component={EmpregosDificil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            /> 
+
+            <Screen 
+              name="CoresDificil"
+              component={CoresDificil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            /> 
+
+            <Screen 
+              name="PaisesDificil"
+              component={PaisesDificil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            /> 
+
+            <Screen 
+              name="EsportesDificil"
+              component={EsportesDificil}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />
+
             <Screen 
              name="NivelPro"
              component={NivelPro}
@@ -714,6 +967,212 @@ export function StackRoutes() {
                 headerShown: false       
             }}
              />
+
+            <Screen 
+              name="AnimaisPro"
+              component={AnimaisPro}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="DocesPro"
+              component={DocesPro}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="ArvoresPro"
+              component={ArvoresPro}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="AtoresPro"
+              component={AtoresPro}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="TransportesPro"
+              component={TransportesPro}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="BebidasPro"
+              component={BebidasPro}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="AmizadePro"
+              component={AmizadePro}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="NomesPro"
+              component={NomesPro}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="RoupasPro"
+              component={RoupasPro}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="NaturezaPro"
+              component={NaturezaPro}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="PintoresPro"
+              component={PintoresPro}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="CasaPro"
+              component={CasaPro}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+            <Screen 
+              name="CarrosPro"
+              component={CarrosPro}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="FilmesPro"
+              component={FilmesPro}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="EspaçoPro"
+              component={EspaçoPro}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="MusicosPro"
+              component={MusicosPro}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="MarcasPro"
+              component={MarcasPro}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />  
+
+            <Screen 
+              name="MusicasPro"
+              component={MusicasPro}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />
+
+            <Screen 
+            name="EscritorasPro"
+            component={EscritorasPro}  
+            options={{ 
+              title: '',
+              headerShown: false   
+            }}
+            />       
+
+            <Screen 
+              name="EmpregosPro"
+              component={EmpregosPro}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            /> 
+
+            <Screen 
+              name="CoresPro"
+              component={CoresPro}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            /> 
+
+            <Screen 
+              name="PaisesPro"
+              component={PaisesPro}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            /> 
+
+            <Screen 
+              name="EsportesPro"
+              component={EsportesPro}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+            />
 
             <Screen 
              name="InfinitoFacil"
