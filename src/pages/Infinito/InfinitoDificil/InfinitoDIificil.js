@@ -11,7 +11,7 @@ import MoedasComponent from '../../../components/storage';
 
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
-const CELL_SIZE = Math.floor(300 * 0.1);
+const CELL_SIZE = Math.floor(250 * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 
 const Cell = React.memo(({ letter, selected }) => (
@@ -22,11 +22,11 @@ const Cell = React.memo(({ letter, selected }) => (
 ));
 
 
-export default function InfinitoDificil({ navigation, rows = 9, cols = 8 }) {
+export default function InfinitoDificil({ navigation, rows = 10, cols = 10 }) {
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
-    game: new createGame(9, 8, []),
+    game: new createGame(10, 10, []),
   });
   const [cores, setCores] = useState([]);
   const [startTime, setStartTime] = useState(new Date());
@@ -181,7 +181,7 @@ export default function InfinitoDificil({ navigation, rows = 9, cols = 8 }) {
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(9, 8, palavrasJogo) });
+    setBoard({ game: new createGame(10, 10, palavrasJogo) });
 
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
@@ -287,7 +287,7 @@ export default function InfinitoDificil({ navigation, rows = 9, cols = 8 }) {
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(9, 8, palavrasJogo) });
+    setBoard({ game: new createGame(10, 10, palavrasJogo) });
 
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
