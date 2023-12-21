@@ -3,10 +3,12 @@ import { View, Text, TouchableHighlight, ImageBackground, Dimensions } from 'rea
 import { useNavigation } from '@react-navigation/native';
 import styles from '../pages/Home/style';
 import { Infinito } from '../pages/Infinito/Infinito';
+import LevelComponent from './storageLevel';
 
 export default function Botoes() {
     const navigation = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
+    const { level } = LevelComponent();
 
     const openInfinitoModal = () => {
         setModalVisible(true);
@@ -20,8 +22,11 @@ export default function Botoes() {
                     source={require('./../assets/presenteVermelho.png')}
                     style={styles.ScreenButton}
                 >
-                    <Text style={styles.ScreenText}>
+                    <Text style={styles.ScreenTextJogar}>
                         JOGAR
+                    </Text>
+                    <Text style={styles.ScreenTextNivel}>
+                        Nível {level}
                     </Text>
                 </ImageBackground>
             </TouchableHighlight>
