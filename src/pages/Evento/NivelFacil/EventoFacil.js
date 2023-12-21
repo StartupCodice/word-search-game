@@ -8,6 +8,7 @@ import randomcolor from 'randomcolor';
 import styles from './style';
 import {scale} from 'react-native-size-matters';
 import ThemeStorage from '../../../components/storageTheme';
+import MoedasComponent from '../../../components/storage';
 
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -35,6 +36,8 @@ export default function EventoFacil({ navigation, rows = 6, cols = 8 }) {
   const [numDicasUsadas, setNumDicasUsadas] = useState(0);
   const [hintsExhausted, setHintsExhausted] = useState(false);
   const [columns, setColumns] = useState([]);
+  const { moedas, adicionarMoedas } = MoedasComponent();
+  const [moedasGanhas, setMoedasGanhas] = useState(0);
   const [currentCell, setCurrentCell] = useState(null);
   const [timeRemaining, setTimeRemaining] = useState(90); 
   const [tempoAcabou, setTempoAcabou] = useState(false);
@@ -336,6 +339,9 @@ export default function EventoFacil({ navigation, rows = 6, cols = 8 }) {
     const segundos = Math.floor(tempoDecorrido % 60);
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
+
+    adicionarMoedas(26);
+    setMoedasGanhas(26);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);
@@ -501,6 +507,10 @@ const onHandlerStateChange = (event, item) => {
               <View>
                 <Text style={styles.modalText}>TEMPO:</Text>
                 <Text style={styles.textTempo}>{tempoDecorrido}</Text>
+                <View>
+                <Text style={styles.modalText}>MOEDAS:</Text>
+                <Text style={styles.textMoeda}>+{moedasGanhas}</Text>
+                </View>
               </View>
           </View>   
           
