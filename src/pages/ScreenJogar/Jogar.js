@@ -316,6 +316,10 @@ const onHandlerStateChange = (event, item) => {
         </View>
       </TouchableOpacity>
 
+      <View style={styles.nivelContainer}>
+          <Text style={styles.palavras}>Nível: {level}</Text>
+        </View>
+
       <View style={styles.moedasContainer}>
         <View style={styles.IconMoeda}></View>
         <Text style={styles.moedasText}>{moedas}</Text>
@@ -370,9 +374,7 @@ const onHandlerStateChange = (event, item) => {
         </View>
         </View>
 
-        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: scale(110) }}>
-          <Text style={styles.palavras}>Nível: {level}</Text>
-        </View>
+        
 
         <Modal isVisible={hintsExhausted} onBackdropPress={fecharModalDicasEsgotadas} style={styles.modalContainer2}>
         <View style={styles.modalContainer}>

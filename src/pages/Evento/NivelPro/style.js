@@ -8,8 +8,8 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
   const styles = StyleSheet.create({
 
   cell: {
-    width: scale(28),
-    height: scale(26),
+    width: scale(22),
+    height: scale(21),
     padding: CELL_PADDING,
     justifyContent: 'center',
     alignItems: 'center',
@@ -18,7 +18,7 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
     flexDirection: 'row',
   },
   cellText: {
-    fontSize: wp(4),
+    fontSize: wp(3.8),
   },
   palavrasContainer: {
     top: hp(56),

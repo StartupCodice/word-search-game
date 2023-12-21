@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     fontSize: wp(6),
   },
   palavrasContainer: {
-    top: hp(1),
+    top: hp(55),
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -93,12 +93,14 @@ const styles = StyleSheet.create({
   },
   retangulo: {
     width: scale(300),
-    height: moderateScale(250, 1),
+    height: moderateScale(244, 1),
     borderRadius: scale(7),
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
     textAlign: 'center',
+    bottom: scale(80)
+
   },
   button: {
     width: wp(20),
@@ -110,7 +112,7 @@ const styles = StyleSheet.create({
     fontSize: scale(18),
     color: 'white',
     fontWeight: 'bold',
-    padding: scale(5),
+    padding: scale(2),
     borderRadius: scale(20)
   },
   Dica: {
@@ -194,7 +196,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   moedasContainer: {
-    width: scale(80),
+    width: scale(100),
     height: scale(40),
     alignItems: 'center',
     justifyContent: 'center',
@@ -203,8 +205,8 @@ const styles = StyleSheet.create({
     borderColor: '#1d5950',
     padding: 10,
     borderRadius: scale(10),
-    left: scale(130),
-    top: scale(60),
+    right: scale(124),
+    top: scale(105),
     display: 'flex',
     flexDirection: 'row',
     gap: 16,
@@ -233,6 +235,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     textAlign: 'center',
+  },
+  nivelContainer: {
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    top: scale(18) 
   },
 });
 

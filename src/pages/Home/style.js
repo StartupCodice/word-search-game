@@ -156,6 +156,7 @@ const styles = StyleSheet.create({
       theme: {
         top: scale(-20),
         marginVertical: scale(10),
+        textAlign: 'center'
       },
       buttonRed: {
         borderRadius: scale(20),
@@ -222,6 +223,12 @@ const styles = StyleSheet.create({
         top: scale(28),
         fontSize: scale(40),
       },
+      ScreenSnowButton: {
+        padding: 8,
+        borderRadius: 50,
+        top: moderateVerticalScale(128, 0.2),
+        left: moderateScale(122, 1.4)
+      },
       buttonVolume: {
         borderRadius: 20,
         padding: 10,
@@ -269,6 +276,20 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         top: moderateScale(60, 0.90),
       },   
+      ScreenTextNivel: {
+        fontSize: wp(3.5),
+        color: '#000',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        top: moderateScale(50, 0.90),
+      },
+      ScreenTextJogar: {
+        fontSize: wp(5),
+        color: '#000',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        top: moderateScale(50, 0.90),
+      },
     selected: {
       backgroundColor: 'gray',
       color: 'white',

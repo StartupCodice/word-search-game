@@ -12,7 +12,7 @@ import NiveisPro from '../../../../../components/storageNivelPro';
 
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
-const CELL_SIZE = Math.floor(280 * 0.1);
+const CELL_SIZE = Math.floor(218 * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 
 const Cell = React.memo(({ letter, selected }) => (
@@ -22,7 +22,7 @@ const Cell = React.memo(({ letter, selected }) => (
 ));
 
 
-export default function PresentesPro({ navigation, rows = 10, cols = 10 }) {
+export default function PresentesPro({ navigation, rows = 12, cols = 12 }) {
   const { 
     presentes, 
     addPresentes,
@@ -30,7 +30,7 @@ export default function PresentesPro({ navigation, rows = 10, cols = 10 }) {
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
-    game: new createGame(10, 10, []),
+    game: new createGame(12, 12, []),
   });
   const [cores, setCores] = useState([]);
   const [startTime, setStartTime] = useState(new Date());
@@ -148,7 +148,7 @@ export default function PresentesPro({ navigation, rows = 10, cols = 10 }) {
   setPalavras(palavrasEscolhidas);
 
   const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-  setBoard({ game: new createGame(10, 10, palavrasJogo) });
+  setBoard({ game: new createGame(12, 12, palavrasJogo) });
 
   const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
   setCores(coresAleatorias);
@@ -185,8 +185,8 @@ export default function PresentesPro({ navigation, rows = 10, cols = 10 }) {
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
 
-    adicionarMoedas(6);
-    setMoedasGanhas(6);
+    adicionarMoedas(16);
+    setMoedasGanhas(16);
 
     let level = parseInt(presentes) + 1;
     if (presentes < 30) addPresentes(level.toString());
@@ -222,7 +222,7 @@ export default function PresentesPro({ navigation, rows = 10, cols = 10 }) {
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(10, 10, palavrasJogo) });
+    setBoard({ game: new createGame(12, 12, palavrasJogo) });
 
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
@@ -253,8 +253,8 @@ const isCellSelected = useCallback(
 
 const onGestureEvent = (event) => {
   const { x, y } = event.nativeEvent;
-  const row = Math.floor(y / CELL_SIZE);
-  const col = Math.floor(x / CELL_SIZE);
+  const row = Math.floor(y / scale(CELL_SIZE));
+  const col = Math.floor(x / scale(CELL_SIZE));
   if (row >= 0 && col >= 0 && row < rows && col < cols && (currentCell?.row !== row || currentCell?.col !== col)) {
     setCurrentCell({ row, col });
     if (!isCellSelected(row, col)) {
