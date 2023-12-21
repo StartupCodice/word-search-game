@@ -1,15 +1,15 @@
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { StyleSheet, Dimensions } from "react-native";
 import { moderateScale, verticalScale, scale, moderateVerticalScale } from 'react-native-size-matters';
-const {height, width} = Dimensions.get('window');
-const CELL_SIZE = Math.floor(scale(280) * 0.1);
+const CELL_SIZE = Math.floor(Dimensions.get('window').width * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 
-  const styles = StyleSheet.create({
+
+const styles = StyleSheet.create({
 
   cell: {
-    width: scale(22),
-    height: scale(21),
+    width: scale(26),
+    height: scale(25),
     padding: CELL_PADDING,
     justifyContent: 'center',
     alignItems: 'center',
@@ -18,7 +18,7 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
     flexDirection: 'row',
   },
   cellText: {
-    fontSize: wp(3.8),
+    fontSize: wp(4),
   },
   palavrasContainer: {
     top: hp(56),
@@ -53,94 +53,19 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
     flexDirection: 'row',
   },
 
-      sendLetter: {
-        flexDirection: 'row',
-        marginTop: 30,
-        gap: 20,
-        justifyContent: 'center',
-      },
-      inputLetter: {
-        width: 200,
-        height: 40,
-        paddingLeft: 10, 
-        backgroundColor: 'gray',
-        color: 'black',
-      },
-      
-      ScreenText: {
-        fontSize: 20,
-        color: '#000',
-        textAlign: 'center',
-        fontWeight: 'bold',
-        top: 48
-      },
-      imageBackground: {
-        flex: 1,
-        resizeMode: "cover",
-        width: "100%",
-      },
-      container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
-        retangulo: {
-        width: wp(80),
-        height: scale(320),
-        borderColor: 'white',
-        borderRadius: 7,
-        justifyContent: 'center',
-        alignItems: 'center',
-        bottom: hp(13)
-        },
-        button: {
-          width: wp(20),
-          padding: scale(20),
-          bottom: moderateVerticalScale(30, 0.6),
-          right: scale(2),
-        },
-        palavras: {
-          fontSize: scale(11),
-          color: 'white',
-          fontWeight: 'bold',
-          marginBottom: scale(12),
-          borderRadius: scale(16),
-        },
-          Dica: {
-            width: scale(80),
-            height: scale(54),
-            top: moderateScale(50, 1),
-            left: scale(120),
-            justifyContent: 'center',
-            alignContent: 'center',
-            alignItems: 'center',
-          },
-          dicaNumber: {
-            backgroundColor: 'yellow',
-            borderRadius: 50,
-            width: scale(20),
-            height: scale(20),
-            textAlign: 'center',
-            fontSize: scale(12),
-          },
-          modalContainer: {
-            backgroundColor: 'white',
-            borderRadius: 10,
-            width: '100%',
-            height: '100%',
-            justifyContent: 'center',
-            alignContent: 'center',
-            alignItems: 'center',
-            
-          },
-          modalContainer2: {
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderWidth: 5,
-            borderColor: '#007BFF',
-            borderRadius: 18,
-          },
+  sendLetter: {
+    flexDirection: 'row',
+    marginTop: 30,
+    gap: 20,
+    justifyContent: 'center',
+  },
+  inputLetter: {
+    width: 200,
+    height: 40,
+    paddingLeft: 10,
+    backgroundColor: 'gray',
+    color: 'black',
+  },
 
   ScreenText: {
     fontSize: 20,
@@ -161,13 +86,13 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
   },
   retangulo: {
     width: scale(270),
-    height: moderateScale(260, 1),
+    height: moderateScale(270, 0.9),
     borderRadius: scale(7),
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
     textAlign: 'center',
-    bottom: moderateVerticalScale(24, 15.5),
+    bottom: scale(65),
   },
   button: {
     width: wp(20),
@@ -176,7 +101,7 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
     right: scale(2),
   },
   palavras: {
-    fontSize: scale(12),
+    fontSize: scale(11),
     color: 'white',
     fontWeight: 'bold',
     padding: scale(1),

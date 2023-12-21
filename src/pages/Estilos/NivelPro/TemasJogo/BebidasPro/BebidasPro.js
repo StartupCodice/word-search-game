@@ -8,7 +8,6 @@ import randomcolor from 'randomcolor';
 import styles from './style';
 import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../../../../components/storage';
-import NiveisPro from '../../../../../components/storageNivelPro';
 
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -16,16 +15,13 @@ const CELL_SIZE = Math.floor(218 * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 
 const Cell = React.memo(({ letter, selected }) => (
+
   <View style={[styles.cell, letter.isSelected && styles.selected, selected && styles.selected]}>
     <Text style={styles.cellText}>{letter.letter}</Text>
   </View>
 ));
 
-export default function DecoracoesPro({ navigation, rows = 12, cols = 12 }) {
-  const { 
-    decoracoes, 
-    addDecoracoes,
-  } = NiveisPro();
+export default function BebidasPro({ navigation, rows = 12, cols = 12 }) {
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
@@ -41,6 +37,8 @@ export default function DecoracoesPro({ navigation, rows = 12, cols = 12 }) {
   const { moedas, adicionarMoedas } = MoedasComponent();
   const [moedasGanhas, setMoedasGanhas] = useState(0);
   const [currentCell, setCurrentCell] = useState(null);
+
+
 
   const isMountedRef = useRef(true);
 
@@ -119,56 +117,50 @@ export default function DecoracoesPro({ navigation, rows = 12, cols = 12 }) {
     buildColumnsArray();
   }, [board.game]); 
 
-  const fetchData = () => {
-    const palavrasOriginais = [
-      { name: 'VISCO', found: false },
-      { name: 'COROA', found: false },
-      { name: 'LUZES', found: false },
-      { name: 'RENAS', found: false },
-      { name: 'VELAS', found: false },
-      { name: 'LAÇOS', found: false },
-      { name: 'BOLA', found: false },
-      { name: 'LIGHT', found: false },
-      { name: 'GIFT', found: false },
-      { name: 'TREE', found: false },
-      { name: 'STAR', found: false },
-      { name: 'BELL', found: false },
-      { name: 'SNOW', found: false },
-      { name: 'FITA', found: false },
-      { name: 'CENA', found: false },
-      { name: 'NOEL', found: false },
-      { name: 'NEVE', found: false },
-      { name: 'FELIZ', found: false },
-      { name: 'MEIAS', found: false },
-      { name: 'GLOBO', found: false },
-      { name: 'TETO', found: false },
-      { name: 'CASA', found: false },
-      { name: 'FLOCO', found: false },
-      { name: 'ESTRELA', found: false },
-      { name: 'CRIANÇA', found: false },
-      { name: 'NEON', found: false },
-      { name: 'PLACA', found: false },
-      { name: 'ARCO', found: false },
-      { name: 'CORDA', found: false },
-      { name: 'RIBBON', found: false },
-      { name: 'ARVORE', found: false },
-      { name: 'PISCA', found: false },
-    ];
+ 
 
-  if (isMountedRef.current) {
-    const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 9);
-  setPalavras(palavrasEscolhidas);
+  const fetchData = async () => {
+    try {
+      const palavrasOriginais = [
+        { name: 'ÁGUA', found: false },
+        { name: 'CHÁ', found: false },
+        { name: 'CAFÉ', found: false },
+        { name: 'LEITE', found: false },
+        { name: 'COCO', found: false },
+        { name: 'VINHO', found: false },
+        { name: 'SUCO', found: false },
+        { name: 'CERVE', found: false },
+        { name: 'VODKA', found: false },
+        { name: 'RUM', found: false },
+        { name: 'TEQUILA', found: false },
+        { name: 'COCA', found: false },
+        { name: 'SPRITE', found: false },
+        { name: 'FROZEN', found: false },
+        { name: 'GIM', found: false },
+        { name: 'SODA', found: false },
+        { name: 'WHISKY', found: false },
+        { name: 'CIDRA', found: false },
+        { name: 'MATE', found: false },
+        { name: 'LICOR', found: false },
+      ];
 
-  const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-  setBoard({ game: new createGame(12, 12, palavrasJogo) });
+    if (isMountedRef.current) {
+      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 9);
+    setPalavras(palavrasEscolhidas);
 
-  const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
-  setCores(coresAleatorias);
+    const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
+    setBoard({ game: new createGame(12, 12, palavrasJogo) });
 
-  setStartTime(new Date());
-  setModalVisible(false);
-  setTempoDecorrido(0);
-  }
+    const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
+    setCores(coresAleatorias);
+
+    setStartTime(new Date());
+    setModalVisible(false);
+    setTempoDecorrido(0);
+    }
+    } catch (error) {
+      console.error('Erro ao buscar dados: ', error);
+    }
   };
 
   useEffect(() => {
@@ -196,12 +188,10 @@ export default function DecoracoesPro({ navigation, rows = 12, cols = 12 }) {
     const segundos = Math.floor(tempoDecorrido % 60);
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
+    
 
     adicionarMoedas(16);
     setMoedasGanhas(16);
-
-    let level = parseInt(decoracoes) + 1;
-    if (decoracoes < 30) addDecoracoes(level.toString());
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);
@@ -209,38 +199,26 @@ export default function DecoracoesPro({ navigation, rows = 12, cols = 12 }) {
 
   const reiniciarJogo = () => {
     const palavrasOriginais = [
-      { name: 'VISCO', found: false },
-      { name: 'COROA', found: false },
-      { name: 'LUZES', found: false },
-      { name: 'RENAS', found: false },
-      { name: 'VELAS', found: false },
-      { name: 'LAÇOS', found: false },
-      { name: 'BOLA', found: false },
-      { name: 'LIGHT', found: false },
-      { name: 'GIFT', found: false },
-      { name: 'TREE', found: false },
-      { name: 'STAR', found: false },
-      { name: 'BELL', found: false },
-      { name: 'SNOW', found: false },
-      { name: 'FITA', found: false },
-      { name: 'CENA', found: false },
-      { name: 'NOEL', found: false },
-      { name: 'NEVE', found: false },
-      { name: 'FELIZ', found: false },
-      { name: 'MEIAS', found: false },
-      { name: 'GLOBO', found: false },
-      { name: 'TETO', found: false },
-      { name: 'CASA', found: false },
-      { name: 'FLOCO', found: false },
-      { name: 'ESTRELA', found: false },
-      { name: 'CRIANÇA', found: false },
-      { name: 'NEON', found: false },
-      { name: 'PLACA', found: false },
-      { name: 'ARCO', found: false },
-      { name: 'CORDA', found: false },
-      { name: 'RIBBON', found: false },
-      { name: 'ARVORE', found: false },
-      { name: 'PISCA', found: false },
+      { name: 'ÁGUA', found: false },
+      { name: 'CHÁ', found: false },
+      { name: 'CAFÉ', found: false },
+      { name: 'LEITE', found: false },
+      { name: 'COCO', found: false },
+      { name: 'VINHO', found: false },
+      { name: 'SUCO', found: false },
+      { name: 'CERVE', found: false },
+      { name: 'VODKA', found: false },
+      { name: 'RUM', found: false },
+      { name: 'TEQUILA', found: false },
+      { name: 'COCA', found: false },
+      { name: 'SPRITE', found: false },
+      { name: 'FROZEN', found: false },
+      { name: 'GIM', found: false },
+      { name: 'SODA', found: false },
+      { name: 'WHISKY', found: false },
+      { name: 'CIDRA', found: false },
+      { name: 'MATE', found: false },
+      { name: 'LICOR', found: false },
     ];
 
     const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 9);
@@ -350,11 +328,12 @@ const onHandlerStateChange = (event, item) => {
       <View style={styles.moedasContainer}>
         <View style={styles.IconMoeda}></View>
         <Text style={styles.moedasText}>{moedas}</Text>
+        
       </View>
-
-
+      
           <Ionicons style={styles.button} name="arrow-back" size={scale(40)} color="white"
             onPress={() => navigation.navigate('NivelPro')} />
+
 
         <View style={styles.palavrasContainer}>
           {
@@ -370,11 +349,7 @@ const onHandlerStateChange = (event, item) => {
           }
         </View>
         <View style={styles.cacaContainer}>
-          <ImageBackground
-          source={require('./../../../../../assets/telaingameretangulo.png')}
-          style={styles.retangulo}
-        >
-          
+          <View style={styles.retangulo}> 
           <GestureHandlerRootView style={{ flex: 1 }}>
             <PanGestureHandler
               onGestureEvent={onGestureEvent}
@@ -400,7 +375,7 @@ const onHandlerStateChange = (event, item) => {
               </View>
             </PanGestureHandler>
           </GestureHandlerRootView>
-        </ImageBackground>
+        </View>
         </View>
 
         <Modal isVisible={hintsExhausted} onBackdropPress={fecharModalDicasEsgotadas} style={styles.modalContainer2}>
@@ -416,15 +391,23 @@ const onHandlerStateChange = (event, item) => {
 
       <Modal isVisible={isModalVisible} onBackdropPress={closeModal} style={styles.modalContainer2}>
         <View style={styles.modalContainer}>
-          <Text style={styles.modalText}>TEMPO:</Text>
-          <Text style={styles.textTempo}>{tempoDecorrido}s</Text>
-          <Text>Moedas ganhas nesta partida: {moedasGanhas}</Text>
+          <TouchableOpacity style={styles.modalVoltarHome} onPress={() => navigation.navigate('Home')}>
+            <Text style={styles.modalButtonText}>Voltar</Text>
+          </TouchableOpacity>
+          <View style={styles.modalGanhos}>
+              <View>
+                <Text style={styles.modalText}>TEMPO:</Text>
+                <Text style={styles.textTempo}>{tempoDecorrido}</Text>
+              </View>
+              <View>
+                <Text style={styles.modalText}>MOEDAS:</Text>
+                <Text style={styles.textMoeda}>+{moedasGanhas}</Text>
+              </View>
+          </View>   
           <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
             <Text style={styles.modalButtonText}>Continuar</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.modalButton} onPress={() => navigation.navigate('Home')}>
-            <Text style={styles.modalButtonText}>Voltar</Text>
-          </TouchableOpacity>
+          
         </View>
       </Modal>
 
@@ -433,3 +416,4 @@ const onHandlerStateChange = (event, item) => {
     </View>
   );
 }
+
