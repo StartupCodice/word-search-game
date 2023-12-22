@@ -25,8 +25,8 @@ const Cell = React.memo(({ letter, selected }) => (
 
 export default function Casa({ navigation, rows = 8, cols = 8 }) {
   const { 
-    presentes, 
-    addPresentes,
+    casa, 
+    addCasa,
   } = NiveisFaceis();
 
   const [palavras, setPalavras] = useState([]);
@@ -198,8 +198,8 @@ export default function Casa({ navigation, rows = 8, cols = 8 }) {
     adicionarMoedas(6);
     setMoedasGanhas(6);
 
-    let level = parseInt(presentes) + 1;
-    if (presentes < 30) addPresentes(level.toString());
+    let level = parseInt(casa) + 1;
+    if (casa < 30) addCasa(level.toString());
 
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

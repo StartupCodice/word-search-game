@@ -416,7 +416,7 @@ const NivelFacilComponent = () => {
     saveNivelAtores(nivel);
   };
 
-  const getNivelTransportes = async () => {
+  const getTransportes = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelTransportesFacil');
       return nivel;
@@ -572,7 +572,7 @@ const NivelFacilComponent = () => {
   };
   
   const addNatureza = (nivel) => {
-    setNivelNatureza(nivel);
+    setNatureza(nivel);
     saveNivelNatureza(nivel);
   };
   

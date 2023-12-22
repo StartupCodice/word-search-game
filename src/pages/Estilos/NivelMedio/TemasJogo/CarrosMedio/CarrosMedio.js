@@ -8,6 +8,7 @@ import randomcolor from 'randomcolor';
 import styles from './style';
 import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../../../../components/storage';
+import NiveisMedio from '../../../../../components/storageNivelMedio';
 
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -22,6 +23,10 @@ const Cell = React.memo(({ letter, selected }) => (
 ));
 
 export default function CarrosMedio({ navigation, rows = 8, cols = 8 }) {
+  const { 
+    carros, 
+    addCarros,
+  } = NiveisMedio();
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
@@ -207,6 +212,8 @@ export default function CarrosMedio({ navigation, rows = 8, cols = 8 }) {
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
     
+    let level = parseInt(carros) + 1;
+    if (carros < 30) addCarros(level.toString());
 
     adicionarMoedas(8);
     setMoedasGanhas(8);

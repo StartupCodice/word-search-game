@@ -29,6 +29,7 @@ const NivelMedioComponent = () => {
   const [musicos, setMusicos] = useState(0);
   const [marcas, setMarcas] = useState(0);
   const [escritoras, setEscritoras] = useState(0);
+  const [monumentos, setMonumentos] = useState(0);
 
   useEffect(() => {
     getPresentes().then((nivel) => {
@@ -137,6 +138,10 @@ const NivelMedioComponent = () => {
 
     getEscritoras().then((nivel) => {
       setEscritoras(nivel);
+    });
+
+    getMonumentos().then((nivel) => {
+      setMonumentos(nivel);
     });
   }, []);
 
@@ -416,7 +421,7 @@ const NivelMedioComponent = () => {
     saveNivelAtores(nivel);
   };
 
-  const getNivelTransportes = async () => {
+  const getTransportes = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelTransportesMedio');
       return nivel;
@@ -572,7 +577,7 @@ const NivelMedioComponent = () => {
   };
   
   const addNatureza = (nivel) => {
-    setNivelNatureza(nivel);
+    setNatureza(nivel);
     saveNivelNatureza(nivel);
   };
   
@@ -760,7 +765,32 @@ const NivelMedioComponent = () => {
     saveNivelEscritoras(nivel);
   };
 
+  const getMonumentos = async () => {
+    try {
+      const nivel = await AsyncStorage.getItem('nivelMonumentosMedio');
+      return nivel;
+    } catch (error) {
+      console.error('Erro ao pegar o nível de monumentos:', error);
+      return 0;
+    }
+  };
+  
+  const saveNivelMonumentos = async (nivel) => {
+    try {
+      await AsyncStorage.setItem('nivelMonumentosMedio', nivel.toString());
+    } catch (error) {
+      console.error('Erro ao salvar o nível de monumentos:', error);
+    }
+  };
+  
+  const addMonumentos = (nivel) => {
+    setMonumentos(nivel);
+    saveNivelMonumentos(nivel);
+  };
+
   return {
+    monumentos, 
+    addMonumentos,
     presentes,
     addPresentes,
     decoracoes,

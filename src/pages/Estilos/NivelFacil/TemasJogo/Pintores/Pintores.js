@@ -25,8 +25,8 @@ const Cell = React.memo(({ letter, selected }) => (
 
 export default function Pintores({ navigation, rows = 8, cols = 8 }) {
   const { 
-    presentes, 
-    addPresentes,
+    pintores, 
+    addPintores,
   } = NiveisFaceis();
 
   const [palavras, setPalavras] = useState([]);
@@ -198,8 +198,8 @@ export default function Pintores({ navigation, rows = 8, cols = 8 }) {
     adicionarMoedas(6);
     setMoedasGanhas(6);
 
-    let level = parseInt(presentes) + 1;
-    if (presentes < 30) addPresentes(level.toString());
+    let level = parseInt(pintores) + 1;
+    if (pintores < 30) addPintores(level.toString());
 
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

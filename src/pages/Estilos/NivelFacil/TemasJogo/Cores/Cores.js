@@ -25,15 +25,15 @@ const Cell = React.memo(({ letter, selected }) => (
 
 export default function Cores({ navigation, rows = 8, cols = 8 }) {
   const { 
-    presentes, 
-    addPresentes,
+    cores, 
+    addCores,
   } = NiveisFaceis();
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
     game: new createGame(6, 8, []),
   });
-  const [cores, setCores] = useState([]);
+  const [coresAleatorias, setCores] = useState([]);
   const [startTime, setStartTime] = useState(new Date());
   const [isModalVisible, setModalVisible] = useState(false);
   const [tempoDecorrido, setTempoDecorrido] = useState(0);
@@ -198,8 +198,8 @@ export default function Cores({ navigation, rows = 8, cols = 8 }) {
     adicionarMoedas(6);
     setMoedasGanhas(6);
 
-    let level = parseInt(presentes) + 1;
-    if (presentes < 30) addPresentes(level.toString());
+    let level = parseInt(cores) + 1;
+    if (cores < 30) addCores(level.toString());
 
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);
@@ -348,7 +348,7 @@ const onHandlerStateChange = (event, item) => {
             palavras.map((palavra, index) => (
               <Text key={index} style={[
                 styles.palavras,
-                (palavra.found) ? { backgroundColor: cores[index] } : null,
+                (palavra.found) ? { backgroundColor: coresAleatorias[index] } : null,
                 (palavra.found) ? styles.wordFound : null,
               ]}>
                 {palavra.name}

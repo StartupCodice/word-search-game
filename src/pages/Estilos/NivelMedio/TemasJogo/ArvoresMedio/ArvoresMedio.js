@@ -8,6 +8,7 @@ import randomcolor from 'randomcolor';
 import styles from './style';
 import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../../../../components/storage';
+import NiveisMedio from '../../../../../components/storageNivelMedio';
 
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -22,7 +23,11 @@ const Cell = React.memo(({ letter, selected }) => (
 ));
 
 export default function ArvoresMedio({ navigation, rows = 8, cols = 8 }) {
-
+  const { 
+    arvores, 
+    addArvores,
+  } = NiveisMedio();
+  
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
     game: new createGame(8, 8, []),
@@ -182,6 +187,8 @@ export default function ArvoresMedio({ navigation, rows = 8, cols = 8 }) {
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
     
+    let level = parseInt(arvores) + 1;
+    if (arvores < 30) addArvores(level.toString());
 
     adicionarMoedas(8);
     setMoedasGanhas(8);

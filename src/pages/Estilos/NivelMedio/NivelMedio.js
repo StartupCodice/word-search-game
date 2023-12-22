@@ -11,6 +11,8 @@ export function NivelMedio({ navigation }) {
   const { moedas } = MoedasComponent();
 
   const {
+    monumentos,
+    addMonumentos,
     presentes,
     addPresentes,
     decoracoes,
@@ -68,6 +70,7 @@ export function NivelMedio({ navigation }) {
   } = NiveisMedio();
 
   useEffect(() => {
+    if (monumentos == null) addMonumentos(0);
     if (presentes == null) addPresentes(0);
     if (decoracoes == null) addDecoracoes(0);
     if (alimentos == null) addAlimento(0);
@@ -153,7 +156,7 @@ export function NivelMedio({ navigation }) {
               navigation={navigation}
               themeName="Esportes"
               imagePath={require('./../../../assets/esportes.png')}
-              count={0}
+              count={esportes}
               screenName="EsportesMedio"
             />
 
@@ -161,7 +164,7 @@ export function NivelMedio({ navigation }) {
               navigation={navigation}
               themeName="Cores"
               imagePath={require('./../../../assets/cores.png')}
-              count={0}
+              count={cores}
               screenName="CoresMedio"
             />
 
@@ -169,7 +172,7 @@ export function NivelMedio({ navigation }) {
               navigation={navigation}
               themeName="Empregos"
               imagePath={require('./../../../assets/empregos.png')}
-              count={0}
+              count={empregos}
               screenName="EmpregosMedio"
             />
 
@@ -177,7 +180,7 @@ export function NivelMedio({ navigation }) {
               navigation={navigation}
               themeName="Países"
               imagePath={require('./../../../assets/paises.png')}
-              count={0}
+              count={paises}
               screenName="PaisesMedio"
             />
 
@@ -185,7 +188,7 @@ export function NivelMedio({ navigation }) {
               navigation={navigation}
               themeName="Animais"
               imagePath={require('./../../../assets/Animais.png')}
-              count={0}
+              count={animais}
               screenName="AnimaisMedio"
             />
 
@@ -193,7 +196,7 @@ export function NivelMedio({ navigation }) {
               navigation={navigation}
               themeName="Doces"
               imagePath={require('./../../../assets/Doces.png')}
-              count={0}
+              count={doces}
               screenName="DocesMedio"
             />
 
@@ -201,7 +204,7 @@ export function NivelMedio({ navigation }) {
               navigation={navigation}
               themeName="Arvores"
               imagePath={require('./../../../assets/arvore.png')}
-              count={0}
+              count={arvores}
               screenName="ArvoresMedio"
             />
 
@@ -209,7 +212,7 @@ export function NivelMedio({ navigation }) {
               navigation={navigation}
               themeName="Atores"
               imagePath={require('./../../../assets/ator.png')}
-              count={0}
+              count={atores}
               screenName="AtoresMedio"
             />
 
@@ -217,7 +220,7 @@ export function NivelMedio({ navigation }) {
               navigation={navigation}
               themeName="Transportes"
               imagePath={require('./../../../assets/Transportes.png')}
-              count={0}
+              count={transportes}
               screenName="TransportesMedio"
             />
 
@@ -225,7 +228,7 @@ export function NivelMedio({ navigation }) {
               navigation={navigation}
               themeName="Bebidas"
               imagePath={require('./../../../assets/bebida.png')}
-              count={0}
+              count={bebidas}
               screenName="BebidasMedio"
             />
 
@@ -233,7 +236,7 @@ export function NivelMedio({ navigation }) {
               navigation={navigation}
               themeName="Amizade"
               imagePath={require('./../../../assets/amizade.png')}
-              count={0}
+              count={amizade}
               screenName="AmizadeMedio"
             />
 
@@ -241,84 +244,84 @@ export function NivelMedio({ navigation }) {
               navigation={navigation}
               themeName="Nomes"
               imagePath={require('./../../../assets/nomes.png')}
-              count={0}
+              count={nomes}
               screenName="NomesMedio"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Roupas"
               imagePath={require('./../../../assets/roupas.png')}
-              count={0}
+              count={roupas}
               screenName="RoupasMedio"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Natureza"
               imagePath={require('./../../../assets/natureza.png')}
-              count={0}
+              count={natureza}
               screenName="NaturezaMedio"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Pintores"
               imagePath={require('./../../../assets/pintores.png')}
-              count={0}
+              count={pintores}
               screenName="PintoresMedio"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Casa"
               imagePath={require('./../../../assets/casa.png')}
-              count={0}
+              count={casa}
               screenName="CasaMedio"
             />
             <ThemeButton
               navigation={navigation}
-              themeName="Monumentos"
-              imagePath={require('./../../../assets/monumentos.png')}
-              count={0}
-              screenName="MonumentosMedio"
+              themeName="Musica"
+              imagePath={require('./../../../assets/Musicas.png')}
+              count={musicas}
+              screenName="MusicasMedio"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Carros"
               imagePath={require('./../../../assets/carros.png')}
-              count={0}
+              count={carros}
               screenName="CarrosMedio"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Filmes"
               imagePath={require('./../../../assets/filme.png')}
-              count={0}
+              count={filmes}
               screenName="FilmesMedio"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Espaço"
               imagePath={require('./../../../assets/foguete.png')}
-              count={0}
+              count={espaco}
               screenName="EspaçoMedio"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Musicos"
               imagePath={require('./../../../assets/musicos.png')}
-              count={0}
+              count={musicos}
               screenName="MusicosMedio"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Marcas"
               imagePath={require('./../../../assets/marcas.png')}
-              count={0}
+              count={marcas}
               screenName="MarcasMedio"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Escritoras"
               imagePath={require('./../../../assets/escritor.png')}
-              count={0}
+              count={escritoras}
               screenName="EscritorasMedio"
             />
           </View>

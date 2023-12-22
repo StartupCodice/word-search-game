@@ -8,6 +8,7 @@ import randomcolor from 'randomcolor';
 import styles from './style';
 import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../../../../components/storage';
+import NiveisMedio from '../../../../../components/storageNivelMedio';
 
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -22,6 +23,10 @@ const Cell = React.memo(({ letter, selected }) => (
 ));
 
 export default function BebidasMedio({ navigation, rows = 8, cols = 8 }) {
+  const { 
+    bebidas, 
+    addBebidas,
+  } = NiveisMedio();
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
@@ -189,6 +194,8 @@ export default function BebidasMedio({ navigation, rows = 8, cols = 8 }) {
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
     
+    let level = parseInt(bebidas) + 1;
+    if (bebidas < 30) addBebidas(level.toString());
 
     adicionarMoedas(8);
     setMoedasGanhas(8);
