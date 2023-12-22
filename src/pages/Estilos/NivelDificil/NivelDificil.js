@@ -19,6 +19,52 @@ export function NivelDificil({ navigation }) {
     addAlimento,
     personagens,
     addPersonagens,
+    esportes,
+    addEsportes,
+    cores,
+    addCores,
+    empregos,
+    addEmpregos,
+    paises,
+    addPaises,
+    animais,
+    addAnimais,
+    doces,
+    addDoces,
+    arvores,
+    addArvores,
+    atores,
+    addAtores,
+    transportes,
+    addTransportes,
+    bebidas,
+    addBebidas,
+    amizade,
+    addAmizade,
+    musicas,
+    addMusicas,
+    nomes,
+    addNomes,
+    roupas,
+    addRoupas,
+    natureza,
+    addNatureza,
+    pintores,
+    addPintores,
+    casa,
+    addCasa,
+    carros,
+    addCarros,
+    filmes,
+    addFilmes,
+    espaco,
+    addEspaco,
+    musicos,
+    addMusicos,
+    marcas,
+    addMarcas,
+    escritoras,
+    addEscritoras,
   } = NiveisDificil();
 
   useEffect(() => {
@@ -26,6 +72,29 @@ export function NivelDificil({ navigation }) {
     if (decoracoes == null) addDecoracoes(0);
     if (alimentos == null) addAlimento(0);
     if (personagens == null) addPersonagens(0);
+    if (esportes == null) addEsportes(0);
+    if (cores == null) addCores(0);
+    if (empregos == null) addEmpregos(0);
+    if (paises == null) addPaises(0);
+    if (animais == null) addAnimais(0);
+    if (doces == null) addDoces(0);
+    if (arvores == null) addArvores(0);
+    if (atores == null) addAtores(0);
+    if (transportes == null) addTransportes(0);
+    if (bebidas == null) addBebidas(0);
+    if (amizade == null) addAmizade(0);
+    if (musicas == null) addMusicas(0);
+    if (nomes == null) addNomes(0);
+    if (roupas == null) addRoupas(0);
+    if (natureza == null) addNatureza(0);
+    if (pintores == null) addPintores(0);
+    if (casa == null) addCasa(0);
+    if (carros == null) addCarros(0);
+    if (filmes == null) addFilmes(0);
+    if (espaco == null) addEspaco(0);
+    if (musicos == null) addMusicos(0);
+    if (marcas == null) addMarcas(0);
+    if (escritoras == null) addEscritoras(0);
   }, []);
 
   return (
@@ -84,7 +153,7 @@ export function NivelDificil({ navigation }) {
               navigation={navigation}
               themeName="Esportes"
               imagePath={require('./../../../assets/esportes.png')}
-              count={0}
+              count={esportes}
               screenName="EsportesDificil"
             />
 
@@ -92,7 +161,7 @@ export function NivelDificil({ navigation }) {
               navigation={navigation}
               themeName="Cores"
               imagePath={require('./../../../assets/cores.png')}
-              count={0}
+              count={cores}
               screenName="CoresDificil"
             />
 
@@ -100,7 +169,7 @@ export function NivelDificil({ navigation }) {
               navigation={navigation}
               themeName="Empregos"
               imagePath={require('./../../../assets/empregos.png')}
-              count={0}
+              count={empregos}
               screenName="EmpregosDificil"
             />
 
@@ -108,7 +177,7 @@ export function NivelDificil({ navigation }) {
               navigation={navigation}
               themeName="Países"
               imagePath={require('./../../../assets/paises.png')}
-              count={0}
+              count={paises}
               screenName="PaisesDificil"
             />
 
@@ -116,7 +185,7 @@ export function NivelDificil({ navigation }) {
               navigation={navigation}
               themeName="Animais"
               imagePath={require('./../../../assets/Animais.png')}
-              count={0}
+              count={animais}
               screenName="AnimaisDificil"
             />
 
@@ -124,7 +193,7 @@ export function NivelDificil({ navigation }) {
               navigation={navigation}
               themeName="Doces"
               imagePath={require('./../../../assets/Doces.png')}
-              count={0}
+              count={doces}
               screenName="DocesDificil"
             />
 
@@ -132,7 +201,7 @@ export function NivelDificil({ navigation }) {
               navigation={navigation}
               themeName="Arvores"
               imagePath={require('./../../../assets/arvore.png')}
-              count={0}
+              count={arvores}
               screenName="ArvoresDificil"
             />
 
@@ -140,7 +209,7 @@ export function NivelDificil({ navigation }) {
               navigation={navigation}
               themeName="Atores"
               imagePath={require('./../../../assets/ator.png')}
-              count={0}
+              count={atores}
               screenName="AtoresDificil"
             />
 
@@ -148,7 +217,7 @@ export function NivelDificil({ navigation }) {
               navigation={navigation}
               themeName="Transportes"
               imagePath={require('./../../../assets/Transportes.png')}
-              count={0}
+              count={transportes}
               screenName="TransportesDificil"
             />
 
@@ -156,7 +225,7 @@ export function NivelDificil({ navigation }) {
               navigation={navigation}
               themeName="Bebidas"
               imagePath={require('./../../../assets/bebida.png')}
-              count={0}
+              count={bebidas}
               screenName="BebidasDificil"
             />
 
@@ -164,7 +233,7 @@ export function NivelDificil({ navigation }) {
               navigation={navigation}
               themeName="Amizade"
               imagePath={require('./../../../assets/amizade.png')}
-              count={0}
+              count={amizade}
               screenName="AmizadeDificil"
             />
 
@@ -172,84 +241,84 @@ export function NivelDificil({ navigation }) {
               navigation={navigation}
               themeName="Nomes"
               imagePath={require('./../../../assets/nomes.png')}
-              count={0}
+              count={nomes}
               screenName="NomesDificil"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Roupas"
               imagePath={require('./../../../assets/roupas.png')}
-              count={0}
+              count={roupas}
               screenName="RoupasDificil"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Natureza"
               imagePath={require('./../../../assets/natureza.png')}
-              count={0}
+              count={natureza}
               screenName="NaturezaDificil"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Pintores"
               imagePath={require('./../../../assets/pintores.png')}
-              count={0}
+              count={pintores}
               screenName="PintoresDificil"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Casa"
               imagePath={require('./../../../assets/casa.png')}
-              count={0}
+              count={casa}
               screenName="CasaDificil"
             />
             <ThemeButton
               navigation={navigation}
-              themeName="Monumentos"
-              imagePath={require('./../../../assets/monumentos.png')}
-              count={0}
-              screenName="MonumentosDificil"
+              themeName="Musicas"
+              imagePath={require('./../../../assets/Musicas.png')}
+              count={musicas}
+              screenName="MusicasDificil"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Carros"
               imagePath={require('./../../../assets/carros.png')}
-              count={0}
+              count={carros}
               screenName="CarrosDificil"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Filmes"
               imagePath={require('./../../../assets/filme.png')}
-              count={0}
+              count={filmes}
               screenName="FilmesDificil"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Espaço"
               imagePath={require('./../../../assets/foguete.png')}
-              count={0}
+              count={espaco}
               screenName="EspaçoDificil"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Musicos"
               imagePath={require('./../../../assets/musicos.png')}
-              count={0}
+              count={musicos}
               screenName="MusicosDificil"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Marcas"
               imagePath={require('./../../../assets/marcas.png')}
-              count={0}
+              count={marcas}
               screenName="MarcasDificil"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Escritoras"
               imagePath={require('./../../../assets/escritor.png')}
-              count={0}
+              count={escritoras}
               screenName="EscritorasDificil"
             />
           </View>
