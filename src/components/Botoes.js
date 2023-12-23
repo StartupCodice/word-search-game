@@ -9,7 +9,7 @@ import NiveisDificil from './storageNivelDificil';
 export default function Botoes() {
     const navigation = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
-    const { level } = LevelComponent();
+    const { level, addLevel } = LevelComponent();
 
     const {
         presentes,
@@ -74,7 +74,7 @@ export default function Botoes() {
         if (alimentos == null) addAlimento(0);
         if (personagens == null) addPersonagens(0);
         if (esportes == null) addEsportes(0);
-        if (cores == null) addCores(0);
+        if (cores == null) addCores("0");
         if (empregos == null) addEmpregos(0);
         if (paises == null) addPaises(0);
         if (animais == null) addAnimais(0);
@@ -113,7 +113,7 @@ export default function Botoes() {
                         JOGAR
                     </Text>
                     <Text style={styles.ScreenTextNivel}>
-                        Nível {level}
+                        Nível {level ? level : "1"}
                     </Text>
                 </ImageBackground>
             </TouchableHighlight>
