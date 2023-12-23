@@ -67,36 +67,6 @@ export function NivelDificil({ navigation }) {
     addEscritoras,
   } = NiveisDificil();
 
-  useEffect(() => {
-    if (presentes == null) addPresentes(0);
-    if (decoracoes == null) addDecoracoes(0);
-    if (alimentos == null) addAlimento(0);
-    if (personagens == null) addPersonagens(0);
-    if (esportes == null) addEsportes(0);
-    if (cores == null) addCores(0);
-    if (empregos == null) addEmpregos(0);
-    if (paises == null) addPaises(0);
-    if (animais == null) addAnimais(0);
-    if (doces == null) addDoces(0);
-    if (arvores == null) addArvores(0);
-    if (atores == null) addAtores(0);
-    if (transportes == null) addTransportes(0);
-    if (bebidas == null) addBebidas(0);
-    if (amizade == null) addAmizade(0);
-    if (musicas == null) addMusicas(0);
-    if (nomes == null) addNomes(0);
-    if (roupas == null) addRoupas(0);
-    if (natureza == null) addNatureza(0);
-    if (pintores == null) addPintores(0);
-    if (casa == null) addCasa(0);
-    if (carros == null) addCarros(0);
-    if (filmes == null) addFilmes(0);
-    if (espaco == null) addEspaco(0);
-    if (musicos == null) addMusicos(0);
-    if (marcas == null) addMarcas(0);
-    if (escritoras == null) addEscritoras(0);
-  }, []);
-
   return (
     <ScrollView style={styles.scrollContainer}>
       <ImageBackground source={require('../../../assets/temanatal.jpg')} style={styles.imageBackground}>
@@ -328,13 +298,15 @@ export function NivelDificil({ navigation }) {
   );
 }
 
-const ThemeButton = ({ navigation, themeName, imagePath, count, screenName }) => (
-  <View>
-    <TouchableOpacity style={styles.ButtonEstilo} onPress={() => navigation.navigate(screenName)}>
-      <ImageBackground source={imagePath} style={styles.ImagemEstilo}>
-        <Text style={styles.ZeroTrinta}>{count}/30</Text>
-      </ImageBackground>
-    </TouchableOpacity>
-    <Text style={styles.TextCenterEstilo}>{themeName}</Text>
-  </View>
-);
+const ThemeButton = ({ navigation, themeName, imagePath, count, screenName }) => {
+  return (
+    <View>
+      <TouchableOpacity style={styles.ButtonEstilo} onPress={() => navigation.navigate(screenName)}>
+        <ImageBackground source={imagePath} style={styles.ImagemEstilo}>
+          <Text style={styles.ZeroTrinta}>{count ? count : 0}/30</Text>
+        </ImageBackground>
+      </TouchableOpacity>
+      <Text style={styles.TextCenterEstilo}>{themeName}</Text>
+    </View>
+  )
+};
