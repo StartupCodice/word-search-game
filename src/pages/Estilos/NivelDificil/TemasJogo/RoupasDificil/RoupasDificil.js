@@ -192,8 +192,8 @@ export default function RoupasDificil({ navigation, rows = 10, cols = 10 }) {
     let level = parseInt(roupas) + 1;
     if (roupas < 30) addRoupas(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(62);
+    setMoedasGanhas(62);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

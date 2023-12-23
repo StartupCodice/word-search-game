@@ -193,8 +193,8 @@ export default function PaisesDificil({ navigation, rows = 10, cols = 10 }) {
     let level = parseInt(paises) + 1;
     if (paises < 30) addPaises(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(62);
+    setMoedasGanhas(62);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

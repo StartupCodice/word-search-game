@@ -191,8 +191,8 @@ export default function DocesDificil({ navigation, rows = 10, cols = 10 }) {
     let level = parseInt(doces) + 1;
     if (doces < 30) addDoces(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(62);
+    setMoedasGanhas(62);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

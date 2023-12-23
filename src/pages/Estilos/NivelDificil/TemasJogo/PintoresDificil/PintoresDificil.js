@@ -193,8 +193,8 @@ export default function PintoresDificil({ navigation, rows = 10, cols = 10 }) {
     let level = parseInt(pintores) + 1;
     if (pintores < 30) addPintores(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(62);
+    setMoedasGanhas(62);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);
