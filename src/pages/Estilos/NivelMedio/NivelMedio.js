@@ -119,7 +119,7 @@ export function NivelMedio({ navigation }) {
 
             <ThemeButton
               navigation={navigation}
-              themeName="Decoracoes"
+              themeName="Decorações"
               imagePath={require('./../../../assets/presenteNatal.png')}
               count={decoracoes}
               screenName="DecoracoesMedio"
@@ -318,7 +318,7 @@ export function NivelMedio({ navigation }) {
             />
             <ThemeButton
               navigation={navigation}
-              themeName="Musicos"
+              themeName="Músicos"
               imagePath={require('./../../../assets/musicos.png')}
               count={musicos}
               screenName="MusicosMedio"

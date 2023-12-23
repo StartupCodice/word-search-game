@@ -93,7 +93,7 @@ export function NivelFacil({ navigation }) {
 
             <ThemeButton
               navigation={navigation}
-              themeName="Decoracoes"
+              themeName="Decorações"
               imagePath={require('./../../../assets/presenteNatal.png')}
               count={decoracoes}
               screenName="Decoracoes"
@@ -294,7 +294,7 @@ export function NivelFacil({ navigation }) {
             />
             <ThemeButton
               navigation={navigation}
-              themeName="Musicos"
+              themeName="Decorações"
               imagePath={require('./../../../assets/musicos.png')}
               count={musicos}
               screenName="Musicos"
