@@ -16,16 +16,16 @@ const CELL_SIZE = Math.floor(250 * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 
 const Cell = React.memo(({ letter, selected }) => (
-
   <View style={[styles.cell, letter.isSelected && styles.selected, selected && styles.selected]}>
     <Text style={styles.cellText}>{letter.letter}</Text>
   </View>
 ));
 
-export default function ArvoresDificil({ navigation, rows = 10, cols = 10 }) {
+
+export default function MonumentosDificil({ navigation, rows = 10, cols = 10 }) {
   const { 
-    arvores, 
-    addArvores,
+    personagens, 
+    addPersonagens,
   } = NiveisDificil();
 
   const [palavras, setPalavras] = useState([]);
@@ -42,8 +42,6 @@ export default function ArvoresDificil({ navigation, rows = 10, cols = 10 }) {
   const { moedas, adicionarMoedas } = MoedasComponent();
   const [moedasGanhas, setMoedasGanhas] = useState(0);
   const [currentCell, setCurrentCell] = useState(null);
-
-
 
   const isMountedRef = useRef(true);
 
@@ -122,24 +120,30 @@ export default function ArvoresDificil({ navigation, rows = 10, cols = 10 }) {
     buildColumnsArray();
   }, [board.game]); 
 
- 
-
-  const fetchData = async () => {
+  const fetchData = () => {
     try {
       const palavrasOriginais = [
-        { name: 'IPE', found: false },
-        { name: 'MOGNO', found: false },
-        { name: 'OITI', found: false },
-        { name: 'CAMBU', found: false },
-        { name: 'ABIL', found: false },
-        { name: 'ARAÇA', found: false },
-        { name: 'ABETO', found: false },
-        { name: 'ROSA', found: false },
-        { name: 'LIRIO', found: false },
-        { name: 'GIESTA', found: false },
-        { name: 'BONSAI', found: false },
-        { name: 'CEDRO', found: false },
-        { name: 'HERA', found: false },
+        { name: 'COLISEU', found: false },
+        { name: 'BIG-BEN', found: false },
+        { name: 'BASILICA', found: false },
+        { name: 'TAJ-MAHAL', found: false },
+        { name: 'DUOMO', found: false },
+        { name: 'CRISTO', found: false },
+        { name: 'PIRAMIDE', found: false },
+        { name: 'MURALHA', found: false },
+        { name: 'MOSTEIRO', found: false },
+        { name: 'PISA', found: false },
+        { name: 'CASTELO', found: false },
+        { name: 'KREMLIN', found: false },
+        { name: 'CAIRO', found: false },
+        { name: 'PETRA', found: false },
+        { name: 'CHICHEN', found: false },
+        { name: 'MOAI', found: false },
+        { name: 'PATAN', found: false },
+        { name: 'OPERA', found: false },
+        { name: 'PALACIO', found: false },
+        { name: 'TEMPLO', found: false },
+        { name: 'TIKAL', found: false }, 
       ];
 
     if (isMountedRef.current) {
@@ -186,12 +190,12 @@ export default function ArvoresDificil({ navigation, rows = 10, cols = 10 }) {
     const segundos = Math.floor(tempoDecorrido % 60);
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
-    
-    let level = parseInt(arvores) + 1;
-    if (arvores < 30) addArvores(level.toString());
 
     adicionarMoedas(62);
     setMoedasGanhas(62);
+
+    let level = parseInt(personagens) + 1;
+    if (personagens < 30) addPersonagens(level.toString());
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);
@@ -199,19 +203,27 @@ export default function ArvoresDificil({ navigation, rows = 10, cols = 10 }) {
 
   const reiniciarJogo = () => {
     const palavrasOriginais = [
-      { name: 'IPE', found: false },
-      { name: 'MOGNO', found: false },
-      { name: 'OITI', found: false },
-      { name: 'CAMBU', found: false },
-      { name: 'ABIL', found: false },
-      { name: 'ARAÇA', found: false },
-      { name: 'ABETO', found: false },
-      { name: 'ROSA', found: false },
-      { name: 'LIRIO', found: false },
-      { name: 'GIESTA', found: false },
-      { name: 'BONSAI', found: false },
-      { name: 'CEDRO', found: false },
-      { name: 'HERA', found: false },
+      { name: 'COLISEU', found: false },
+      { name: 'BIG-BEN', found: false },
+      { name: 'BASILICA', found: false },
+      { name: 'TAJ-MAHAL', found: false },
+      { name: 'DUOMO', found: false },
+      { name: 'CRISTO', found: false },
+      { name: 'PIRAMIDE', found: false },
+      { name: 'MURALHA', found: false },
+      { name: 'MOSTEIRO', found: false },
+      { name: 'PISA', found: false },
+      { name: 'CASTELO', found: false },
+      { name: 'KREMLIN', found: false },
+      { name: 'CAIRO', found: false },
+      { name: 'PETRA', found: false },
+      { name: 'CHICHEN', found: false },
+      { name: 'MOAI', found: false },
+      { name: 'PATAN', found: false },
+      { name: 'OPERA', found: false },
+      { name: 'PALACIO', found: false },
+      { name: 'TEMPLO', found: false },
+      { name: 'TIKAL', found: false }, 
     ];
 
     const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 8);
@@ -321,12 +333,11 @@ const onHandlerStateChange = (event, item) => {
       <View style={styles.moedasContainer}>
         <View style={styles.IconMoeda}></View>
         <Text style={styles.moedasText}>{moedas}</Text>
-        
       </View>
-      
+
+
           <Ionicons style={styles.button} name="arrow-back" size={scale(40)} color="white"
             onPress={() => navigation.navigate('NivelDificil')} />
-
 
         <View style={styles.palavrasContainer}>
           {
@@ -342,7 +353,11 @@ const onHandlerStateChange = (event, item) => {
           }
         </View>
         <View style={styles.cacaContainer}>
-          <View style={styles.retangulo}> 
+          <ImageBackground
+          source={require('./../../../../../assets/telaingameretangulo.png')}
+          style={styles.retangulo}
+        >
+          
           <GestureHandlerRootView style={{ flex: 1 }}>
             <PanGestureHandler
               onGestureEvent={onGestureEvent}
@@ -368,7 +383,7 @@ const onHandlerStateChange = (event, item) => {
               </View>
             </PanGestureHandler>
           </GestureHandlerRootView>
-        </View>
+        </ImageBackground>
         </View>
 
         <Modal isVisible={hintsExhausted} onBackdropPress={fecharModalDicasEsgotadas} style={styles.modalContainer2}>
@@ -384,23 +399,15 @@ const onHandlerStateChange = (event, item) => {
 
       <Modal isVisible={isModalVisible} onBackdropPress={closeModal} style={styles.modalContainer2}>
         <View style={styles.modalContainer}>
-          <TouchableOpacity style={styles.modalVoltarHome} onPress={() => navigation.navigate('Home')}>
-            <Text style={styles.modalButtonText}>Voltar</Text>
-          </TouchableOpacity>
-          <View style={styles.modalGanhos}>
-              <View>
-                <Text style={styles.modalText}>TEMPO:</Text>
-                <Text style={styles.textTempo}>{tempoDecorrido}</Text>
-              </View>
-              <View>
-                <Text style={styles.modalText}>MOEDAS:</Text>
-                <Text style={styles.textMoeda}>+{moedasGanhas}</Text>
-              </View>
-          </View>   
+          <Text style={styles.modalText}>TEMPO:</Text>
+          <Text style={styles.textTempo}>{tempoDecorrido}s</Text>
+          <Text>Moedas ganhas nesta partida: {moedasGanhas}</Text>
           <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
             <Text style={styles.modalButtonText}>Continuar</Text>
           </TouchableOpacity>
-          
+          <TouchableOpacity style={styles.modalButton} onPress={() => navigation.navigate('Home')}>
+            <Text style={styles.modalButtonText}>Voltar</Text>
+          </TouchableOpacity>
         </View>
       </Modal>
 
@@ -409,4 +416,3 @@ const onHandlerStateChange = (event, item) => {
     </View>
   );
 }
-

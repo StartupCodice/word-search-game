@@ -184,8 +184,8 @@ export default function PersonagensPro({ navigation, rows = 12, cols = 12 }) {
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
 
-    adicionarMoedas(16);
-    setMoedasGanhas(16);
+    adicionarMoedas(86);
+    setMoedasGanhas(86);
 
     let level = parseInt(personagens) + 1;
     if (personagens < 30) addPersonagens(level.toString());

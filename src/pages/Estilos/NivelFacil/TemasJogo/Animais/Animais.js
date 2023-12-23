@@ -206,8 +206,8 @@ export default function Animais({ navigation, rows = 8, cols = 8 }) {
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
 
-    adicionarMoedas(6);
-    setMoedasGanhas(6);
+    adicionarMoedas(28);
+    setMoedasGanhas(28);
 
     let level = parseInt(animais) + 1;
     if (animais < 30) addAnimais(level.toString());

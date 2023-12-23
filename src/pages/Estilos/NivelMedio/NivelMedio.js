@@ -147,12 +147,7 @@ export function NivelMedio({ navigation }) {
               imagePath={require('./../../../assets/esportes.png')}
               count={esportes}
               screenName="EsportesMedio"
-              buyLevel={getBuyLevel("Esportes")}
-              setShowModalTheme={setShowModalTheme}
-              setComprarTema={setComprarTema}
-              setPriceTheme={setPriceTheme}
-              moedas={moedas}
-              setShowModalSemSaldo={setShowModalSemSaldo}
+              
             />
 
             <ThemeButton
@@ -177,6 +172,13 @@ export function NivelMedio({ navigation }) {
               imagePath={require('./../../../assets/paises.png')}
               count={paises}
               screenName="PaisesMedio"
+              buyLevel={getBuyLevel("PaisesFacil")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
+              
             />
 
             <ThemeButton
@@ -191,6 +193,7 @@ export function NivelMedio({ navigation }) {
               setPriceTheme={setPriceTheme}
               moedas={moedas}
               setShowModalSemSaldo={setShowModalSemSaldo}
+              
             />
 
             <ThemeButton
@@ -199,6 +202,12 @@ export function NivelMedio({ navigation }) {
               imagePath={require('./../../../assets/Doces.png')}
               count={doces}
               screenName="DocesMedio"
+              buyLevel={getBuyLevel("Doces")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
 
             <ThemeButton
@@ -207,6 +216,12 @@ export function NivelMedio({ navigation }) {
               imagePath={require('./../../../assets/arvore.png')}
               count={arvores}
               screenName="ArvoresMedio"
+              buyLevel={getBuyLevel("Arvores")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
 
             <ThemeButton
@@ -215,6 +230,12 @@ export function NivelMedio({ navigation }) {
               imagePath={require('./../../../assets/ator.png')}
               count={atores}
               screenName="AtoresMedio"
+              buyLevel={getBuyLevel("Atores")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
 
             <ThemeButton
@@ -237,6 +258,12 @@ export function NivelMedio({ navigation }) {
               imagePath={require('./../../../assets/bebida.png')}
               count={bebidas}
               screenName="BebidasMedio"
+              buyLevel={getBuyLevel("Bebidas")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
 
             <ThemeButton
@@ -255,10 +282,30 @@ export function NivelMedio({ navigation }) {
 
             <ThemeButton
               navigation={navigation}
+              themeName="Musica"
+              imagePath={require('./../../../assets/Musicas.png')}
+              count={musicas}
+              screenName="MusicasMedio"
+              buyLevel={getBuyLevel("Musicas")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
+            />
+
+            <ThemeButton
+              navigation={navigation}
               themeName="Nomes"
               imagePath={require('./../../../assets/nomes.png')}
               count={nomes}
               screenName="NomesMedio"
+              buyLevel={getBuyLevel("Nomes")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
             <ThemeButton
               navigation={navigation}
@@ -266,6 +313,12 @@ export function NivelMedio({ navigation }) {
               imagePath={require('./../../../assets/roupas.png')}
               count={roupas}
               screenName="RoupasMedio"
+              buyLevel={getBuyLevel("Roupas")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
             <ThemeButton
               navigation={navigation}
@@ -273,6 +326,12 @@ export function NivelMedio({ navigation }) {
               imagePath={require('./../../../assets/natureza.png')}
               count={natureza}
               screenName="NaturezaMedio"
+              buyLevel={getBuyLevel("Natureza")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
             <ThemeButton
               navigation={navigation}
@@ -280,6 +339,12 @@ export function NivelMedio({ navigation }) {
               imagePath={require('./../../../assets/pintores.png')}
               count={pintores}
               screenName="PintoresMedio"
+              buyLevel={getBuyLevel("Pintores")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
             <ThemeButton
               navigation={navigation}
@@ -287,13 +352,12 @@ export function NivelMedio({ navigation }) {
               imagePath={require('./../../../assets/casa.png')}
               count={casa}
               screenName="CasaMedio"
-            />
-            <ThemeButton
-              navigation={navigation}
-              themeName="Musica"
-              imagePath={require('./../../../assets/Musicas.png')}
-              count={musicas}
-              screenName="MusicasMedio"
+              buyLevel={getBuyLevel("Casa")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
             <ThemeButton
               navigation={navigation}
@@ -301,6 +365,13 @@ export function NivelMedio({ navigation }) {
               imagePath={require('./../../../assets/carros.png')}
               count={carros}
               screenName="CarrosMedio"
+              buyLevel={getBuyLevel("Carros")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
+              
             />
             <ThemeButton
               navigation={navigation}
@@ -308,6 +379,12 @@ export function NivelMedio({ navigation }) {
               imagePath={require('./../../../assets/filme.png')}
               count={filmes}
               screenName="FilmesMedio"
+              buyLevel={getBuyLevel("Filmes")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
             <ThemeButton
               navigation={navigation}
@@ -315,13 +392,25 @@ export function NivelMedio({ navigation }) {
               imagePath={require('./../../../assets/foguete.png')}
               count={espaco}
               screenName="EspaçoMedio"
+              buyLevel={getBuyLevel("Espaço")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
             <ThemeButton
               navigation={navigation}
-              themeName="Músicos"
+              themeName="Musicos"
               imagePath={require('./../../../assets/musicos.png')}
               count={musicos}
               screenName="MusicosMedio"
+              buyLevel={getBuyLevel("Musicos")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
             <ThemeButton
               navigation={navigation}
@@ -342,6 +431,12 @@ export function NivelMedio({ navigation }) {
               imagePath={require('./../../../assets/escritor.png')}
               count={escritoras}
               screenName="EscritorasMedio"
+              buyLevel={getBuyLevel("Escritoras")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
           </View>
         </View>

@@ -192,8 +192,8 @@ export default function TransportesMedio({ navigation, rows = 8, cols = 8 }) {
     let level = parseInt(transportes) + 1;
     if (transportes < 30) addTransportes(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(44);
+    setMoedasGanhas(44);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

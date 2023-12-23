@@ -82,6 +82,7 @@ import NomesDificil from '../../Estilos/NivelDificil/TemasJogo/NomesDificil/Nome
 import RoupasDificil from '../../Estilos/NivelDificil/TemasJogo/RoupasDificil/RoupasDificil';
 import NaturezaDificil from '../../Estilos/NivelDificil/TemasJogo/NaturezaDificil/NaturezaDificil';
 import PintoresDificil from '../../Estilos/NivelDificil/TemasJogo/PintoresDificil/PintoresDificil';
+import MonumentosDificil from '../../Estilos/NivelDificil/TemasJogo/MonumentosDificil/MonumentosDificil';
 import CasaDificil from '../../Estilos/NivelDificil/TemasJogo/CasaDificil/CasaDificil';
 import CarrosDificil from '../../Estilos/NivelDificil/TemasJogo/CarrosDificil/CarrosDificil';
 import FilmesDificil from '../../Estilos/NivelDificil/TemasJogo/FilmesDificil/FilmesDificil';
@@ -113,6 +114,7 @@ import CasaPro from '../../Estilos/NivelPro/TemasJogo/CasaPro/CasaPro';
 import CarrosPro from '../../Estilos/NivelPro/TemasJogo/CarrosPro/CarrosPro';
 import FilmesPro from '../../Estilos/NivelPro/TemasJogo/FilmesPro/FilmesPro';
 import EspaçoPro from '../../Estilos/NivelPro/TemasJogo/EspaçoPro/EspaçoPro';
+import MonumentosPro from '../../Estilos/NivelPro/TemasJogo/MonumentosPro/MonumentosPro';
 import MarcasPro from '../../Estilos/NivelPro/TemasJogo/MarcasPro/MarcasPro';
 import MusicasPro from '../../Estilos/NivelPro/TemasJogo/MusicasPro/MusicasPro';
 import MusicosPro from '../../Estilos/NivelPro/TemasJogo/MusicosPro/MusicosPro';
@@ -708,6 +710,15 @@ export function StackRoutes() {
             }}
              />
 
+            <Screen 
+             name="MonumentosDificil"
+             component={MonumentosDificil}
+             options={{ 
+                title: '',
+                headerShown: false       
+            }}
+             />
+
              <Screen 
              name="PresentesDificil"
              component={PresentesDificil}
@@ -994,6 +1005,15 @@ export function StackRoutes() {
                 headerShown: false   
             }}
             />  
+
+            <Screen 
+             name="MonumentosPro"
+             component={MonumentosPro}
+             options={{ 
+                title: '',
+                headerShown: false       
+            }}
+             />
 
             <Screen 
               name="AtoresPro"

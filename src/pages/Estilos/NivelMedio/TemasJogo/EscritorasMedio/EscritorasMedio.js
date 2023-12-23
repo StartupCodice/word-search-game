@@ -196,8 +196,8 @@ export default function EscritorasMedio({ navigation, rows = 8, cols = 8 }) {
     let level = parseInt(escritoras) + 1;
     if (escritoras < 30) addEscritoras(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(44);
+    setMoedasGanhas(44);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

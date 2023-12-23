@@ -213,8 +213,8 @@ export default function NomesMedio({ navigation, rows = 8, cols = 8 }) {
     let level = parseInt(nomes) + 1;
     if (nomes < 30) addNomes(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(44);
+    setMoedasGanhas(44);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

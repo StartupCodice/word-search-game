@@ -195,8 +195,8 @@ export default function Cores({ navigation, rows = 8, cols = 8 }) {
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
 
-    adicionarMoedas(6);
-    setMoedasGanhas(6);
+    adicionarMoedas(28);
+    setMoedasGanhas(28);
 
     let level = parseInt(cores) + 1;
     if (cores < 30) addCores(level.toString());

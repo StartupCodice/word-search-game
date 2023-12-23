@@ -213,8 +213,8 @@ export default function Filmes({ navigation, rows = 8, cols = 8 }) {
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
 
-    adicionarMoedas(6);
-    setMoedasGanhas(6);
+    adicionarMoedas(28);
+    setMoedasGanhas(28);
 
     let level = parseInt(filmes) + 1;
     if (filmes < 30) addFilmes(level.toString());

@@ -192,8 +192,8 @@ export default function RoupasMedio({ navigation, rows = 8, cols = 8 }) {
     let level = parseInt(roupas) + 1;
     if (roupas < 30) addRoupas(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(44);
+    setMoedasGanhas(44);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

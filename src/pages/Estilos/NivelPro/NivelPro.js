@@ -129,12 +129,6 @@ export function NivelPro({ navigation }){
               imagePath={require('./../../../assets/ComidasNatal.png')}
               count={alimentos}
               screenName="AlimentosPro"
-              buyLevel={getBuyLevel("Alimentos")}
-              setShowModalTheme={setShowModalTheme}
-              setComprarTema={setComprarTema}
-              setPriceTheme={setPriceTheme}
-              moedas={moedas}
-              setShowModalSemSaldo={setShowModalSemSaldo}
             />
 
             <ThemeButton
@@ -175,6 +169,13 @@ export function NivelPro({ navigation }){
               imagePath={require('./../../../assets/paises.png')}
               count={paises}
               screenName="PaisesPro"
+              buyLevel={getBuyLevel("PaisesFacil")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
+              
             />
 
             <ThemeButton
@@ -183,6 +184,13 @@ export function NivelPro({ navigation }){
               imagePath={require('./../../../assets/Animais.png')}
               count={animais}
               screenName="AnimaisPro"
+              buyLevel={getBuyLevel("Animais")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
+              
             />
 
             <ThemeButton
@@ -205,6 +213,12 @@ export function NivelPro({ navigation }){
               imagePath={require('./../../../assets/arvore.png')}
               count={arvores}
               screenName="ArvoresPro"
+              buyLevel={getBuyLevel("Arvores")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
 
             <ThemeButton
@@ -213,6 +227,12 @@ export function NivelPro({ navigation }){
               imagePath={require('./../../../assets/ator.png')}
               count={atores}
               screenName="AtoresPro"
+              buyLevel={getBuyLevel("Atores")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
 
             <ThemeButton
@@ -221,6 +241,12 @@ export function NivelPro({ navigation }){
               imagePath={require('./../../../assets/Transportes.png')}
               count={transportes}
               screenName="TransportesPro"
+              buyLevel={getBuyLevel("Transportes")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
 
             <ThemeButton
@@ -229,6 +255,12 @@ export function NivelPro({ navigation }){
               imagePath={require('./../../../assets/bebida.png')}
               count={bebidas}
               screenName="BebidasPro"
+              buyLevel={getBuyLevel("Bebidas")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
 
             <ThemeButton
@@ -237,6 +269,26 @@ export function NivelPro({ navigation }){
               imagePath={require('./../../../assets/amizade.png')}
               count={amizade}
               screenName="AmizadePro"
+              buyLevel={getBuyLevel("Amizade")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
+            />
+
+            <ThemeButton
+              navigation={navigation}
+              themeName="Musica"
+              imagePath={require('./../../../assets/Musicas.png')}
+              count={musicas}
+              screenName="MusicasPro"
+              buyLevel={getBuyLevel("Musicas")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
 
             <ThemeButton
@@ -245,6 +297,12 @@ export function NivelPro({ navigation }){
               imagePath={require('./../../../assets/nomes.png')}
               count={nomes}
               screenName="NomesPro"
+              buyLevel={getBuyLevel("Nomes")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
             <ThemeButton
               navigation={navigation}
@@ -265,35 +323,7 @@ export function NivelPro({ navigation }){
               imagePath={require('./../../../assets/natureza.png')}
               count={natureza}
               screenName="NaturezaPro"
-            />
-            <ThemeButton
-              navigation={navigation}
-              themeName="Pintores"
-              imagePath={require('./../../../assets/pintores.png')}
-              count={pintores}
-              screenName="PintoresPro"
-            />
-            <ThemeButton
-              navigation={navigation}
-              themeName="Casa"
-              imagePath={require('./../../../assets/casa.png')}
-              count={casa}
-              screenName="CasaPro"
-            />
-            <ThemeButton
-              navigation={navigation}
-              themeName="Musicas"
-              imagePath={require('./../../../assets/Musicas.png')}
-              count={musicas}
-              screenName="MusicasPro"
-            />
-            <ThemeButton
-              navigation={navigation}
-              themeName="Carros"
-              imagePath={require('./../../../assets/carros.png')}
-              count={carros}
-              screenName="CarrosPro"
-              buyLevel={getBuyLevel("Carro")}
+              buyLevel={getBuyLevel("Natureza")}
               setShowModalTheme={setShowModalTheme}
               setComprarTema={setComprarTema}
               setPriceTheme={setPriceTheme}
@@ -302,10 +332,56 @@ export function NivelPro({ navigation }){
             />
             <ThemeButton
               navigation={navigation}
+              themeName="Pintores"
+              imagePath={require('./../../../assets/pintores.png')}
+              count={pintores}
+              screenName="PintoresPro"
+              buyLevel={getBuyLevel("Pintores")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
+            />
+            <ThemeButton
+              navigation={navigation}
+              themeName="Casa"
+              imagePath={require('./../../../assets/casa.png')}
+              count={casa}
+              screenName="CasaPro"
+              buyLevel={getBuyLevel("Casa")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
+            />
+            <ThemeButton
+              navigation={navigation}
+              themeName="Carros"
+              imagePath={require('./../../../assets/carros.png')}
+              count={carros}
+              screenName="CarrosPro"
+              buyLevel={getBuyLevel("Carros")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
+              
+            />
+            <ThemeButton
+              navigation={navigation}
               themeName="Filmes"
               imagePath={require('./../../../assets/filme.png')}
               count={filmes}
               screenName="FilmesPro"
+              buyLevel={getBuyLevel("Filmes")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
             <ThemeButton
               navigation={navigation}
@@ -313,10 +389,16 @@ export function NivelPro({ navigation }){
               imagePath={require('./../../../assets/foguete.png')}
               count={espaco}
               screenName="EspaçoPro"
+              buyLevel={getBuyLevel("Espaço")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
             <ThemeButton
               navigation={navigation}
-              themeName="Músicos"
+              themeName="Musicos"
               imagePath={require('./../../../assets/musicos.png')}
               count={musicos}
               screenName="MusicosPro"
@@ -333,6 +415,12 @@ export function NivelPro({ navigation }){
               imagePath={require('./../../../assets/marcas.png')}
               count={marcas}
               screenName="MarcasPro"
+              buyLevel={getBuyLevel("Marcas")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
             <ThemeButton
               navigation={navigation}
@@ -340,6 +428,12 @@ export function NivelPro({ navigation }){
               imagePath={require('./../../../assets/escritor.png')}
               count={escritoras}
               screenName="EscritorasPro"
+              buyLevel={getBuyLevel("Escritoras")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
             </View>
       </View>
@@ -394,7 +488,7 @@ const ThemeButton = ({ navigation, themeName, imagePath, count, screenName, buyL
         <ImageBackground source={imagePath} style={styles.ImagemEstilo}>
           { 
             buyLevel ? 
-              <View>
+              <View >
                 <View style={styles.moeda}></View>
                 <Text style={styles.moedasParaCompra}>{buyLevel}</Text>
               </View> :

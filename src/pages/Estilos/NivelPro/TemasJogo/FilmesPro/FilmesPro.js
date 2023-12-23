@@ -211,8 +211,8 @@ export default function FilmesPro({ navigation, rows = 12, cols = 12 }) {
     let level = parseInt(filmes) + 1;
     if (filmes < 30) addFilmes(level.toString());
 
-    adicionarMoedas(16);
-    setMoedasGanhas(16);
+    adicionarMoedas(86);
+    setMoedasGanhas(86);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

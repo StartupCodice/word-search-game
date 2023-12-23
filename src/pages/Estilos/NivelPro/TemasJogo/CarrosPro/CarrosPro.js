@@ -215,8 +215,8 @@ export default function CarrosPro({ navigation, rows = 12, cols = 12 }) {
     let level = parseInt(carros) + 1;
     if (carros < 30) addCarros(level.toString());
 
-    adicionarMoedas(16);
-    setMoedasGanhas(16);
+    adicionarMoedas(86);
+    setMoedasGanhas(86);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

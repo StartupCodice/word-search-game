@@ -189,8 +189,8 @@ export default function EmpregosMedio({ navigation, rows = 8, cols = 8 }) {
     let level = parseInt(empregos) + 1;
     if (empregos < 30) addEmpregos(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(44);
+    setMoedasGanhas(44);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

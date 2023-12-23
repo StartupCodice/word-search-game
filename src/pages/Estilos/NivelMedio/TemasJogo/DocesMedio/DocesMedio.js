@@ -191,8 +191,8 @@ export default function DocesMedio({ navigation, rows = 8, cols = 8 }) {
     let level = parseInt(doces) + 1;
     if (doces < 30) addDoces(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(44);
+    setMoedasGanhas(44);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

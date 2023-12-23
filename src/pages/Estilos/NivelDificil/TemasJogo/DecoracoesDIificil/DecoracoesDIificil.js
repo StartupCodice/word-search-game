@@ -202,8 +202,8 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
 
-    adicionarMoedas(6);
-    setMoedasGanhas(6);
+    adicionarMoedas(62);
+    setMoedasGanhas(62);
 
     let level = parseInt(decoracoes) + 1;
     if (decoracoes < 30) addDecoracoes(level.toString());

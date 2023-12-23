@@ -197,8 +197,8 @@ export default function CoresDificil({ navigation, rows = 10, cols = 10 }) {
     let level = parseInt(cores) + 1;
     if (cores < 30) addCores(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(62);
+    setMoedasGanhas(62);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

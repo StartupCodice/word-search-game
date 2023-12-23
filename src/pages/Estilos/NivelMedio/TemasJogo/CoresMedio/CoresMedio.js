@@ -196,8 +196,8 @@ export default function CoresMedio({ navigation, rows = 8, cols = 8 }) {
     let level = parseInt(cores) + 1;
     if (cores < 30) addCores(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(44);
+    setMoedasGanhas(44);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

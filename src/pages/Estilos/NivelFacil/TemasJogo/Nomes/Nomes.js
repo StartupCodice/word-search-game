@@ -215,8 +215,8 @@ export default function Nomes({ navigation, rows = 8, cols = 8 }) {
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
 
-    adicionarMoedas(6);
-    setMoedasGanhas(6);
+    adicionarMoedas(28);
+    setMoedasGanhas(28);
 
     let level = parseInt(nomes) + 1;
     if (nomes < 30) addNomes(level.toString());
