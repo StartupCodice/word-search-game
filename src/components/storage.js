@@ -186,7 +186,7 @@ const MoedasComponent = () => {
     adicionarTemasPagosNivelFacil,
     temasPagosNivelMedio,
     adicionarTemasPagosNivelMedio,
-    temasPagosNivelPro,
+    temasPagosNivelDificil,
     adicionarTemasPagosNivelDificil,
     temasPagosNivelPro,
     adicionarTemasPagosNivelPro,
