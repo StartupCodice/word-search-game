@@ -191,8 +191,8 @@ export default function DocesPro({ navigation, rows = 12, cols = 12 }) {
     let level = parseInt(doces) + 1;
     if (doces < 30) addDoces(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(86);
+    setMoedasGanhas(86);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

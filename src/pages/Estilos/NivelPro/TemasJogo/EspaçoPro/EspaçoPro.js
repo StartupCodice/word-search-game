@@ -197,8 +197,8 @@ export default function EspaçoPro({ navigation, rows = 12, cols = 12 }) {
     let level = parseInt(espaco) + 1;
     if (espaco < 30) addEspaco(level.toString());
 
-    adicionarMoedas(16);
-    setMoedasGanhas(16);
+    adicionarMoedas(86);
+    setMoedasGanhas(86);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

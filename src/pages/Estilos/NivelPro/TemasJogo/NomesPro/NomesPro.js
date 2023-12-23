@@ -213,8 +213,8 @@ export default function NomesPro({ navigation, rows = 12, cols = 12 }) {
     let level = parseInt(nomes) + 1;
     if (nomes < 30) addNomes(level.toString());
 
-    adicionarMoedas(16);
-    setMoedasGanhas(16);
+    adicionarMoedas(86);
+    setMoedasGanhas(86);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

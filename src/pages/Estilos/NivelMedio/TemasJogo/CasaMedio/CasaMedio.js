@@ -197,8 +197,8 @@ export default function CasaMedio({ navigation, rows = 8, cols = 8 }) {
     let level = parseInt(casa) + 1;
     if (casa < 30) addCasa(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(44);
+    setMoedasGanhas(44);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

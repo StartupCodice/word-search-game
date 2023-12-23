@@ -197,8 +197,8 @@ export default function DecoracoesPro({ navigation, rows = 12, cols = 12 }) {
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
 
-    adicionarMoedas(16);
-    setMoedasGanhas(16);
+    adicionarMoedas(86);
+    setMoedasGanhas(86);
 
     let level = parseInt(decoracoes) + 1;
     if (decoracoes < 30) addDecoracoes(level.toString());

@@ -8,23 +8,24 @@ import randomcolor from 'randomcolor';
 import styles from './style';
 import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../../../../components/storage';
-import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 import NiveisPro from '../../../../../components/storageNivelPro';
+
+import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const CELL_SIZE = Math.floor(218 * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 
 const Cell = React.memo(({ letter, selected }) => (
-
   <View style={[styles.cell, letter.isSelected && styles.selected, selected && styles.selected]}>
     <Text style={styles.cellText}>{letter.letter}</Text>
   </View>
 ));
 
-export default function MarcasPro({ navigation, rows = 12, cols = 12 }) {
+
+export default function MonumentosPro({ navigation, rows = 12, cols = 12 }) {
   const { 
-    marcas, 
-    addMarcas,
+    personagens, 
+    addPersonagens,
   } = NiveisPro();
 
   const [palavras, setPalavras] = useState([]);
@@ -41,6 +42,7 @@ export default function MarcasPro({ navigation, rows = 12, cols = 12 }) {
   const { moedas, adicionarMoedas } = MoedasComponent();
   const [moedasGanhas, setMoedasGanhas] = useState(0);
   const [currentCell, setCurrentCell] = useState(null);
+
   const isMountedRef = useRef(true);
 
   const selectRandomWords = (totalWords, numWords) => {
@@ -118,31 +120,32 @@ export default function MarcasPro({ navigation, rows = 12, cols = 12 }) {
     buildColumnsArray();
   }, [board.game]); 
 
- 
-
-  const fetchData = async () => {
+  const fetchData = () => {
     try {
       const palavrasOriginais = [
-        { name: 'APPLE', found: false },
-        { name: 'NIKE', found: false },
-        { name: 'SONY', found: false },
-        { name: 'ADIDAS', found: false },
-        { name: 'COCA', found: false },
-        { name: 'PEPSI', found: false },
-        { name: 'VANS', found: false },
-        { name: 'REEBOK', found: false },
-        { name: 'LEVIS', found: false },
-        { name: 'PUMA', found: false },
-        { name: 'BOSE', found: false },
-        { name: 'FILA', found: false },
-        { name: 'JBL', found: false },
-        { name: 'H&M', found: false },
-        { name: 'ZARA', found: false },
-        { name: 'IBM', found: false },
-        { name: 'LACOS', found: false },
-        { name: 'OAKLY', found: false },
-        { name: 'SEIKO', found: false },
-        { name: 'TOYOT', found: false },
+        { name: 'TORRE-EIFFEL', found: false },
+        { name: 'COLISEU', found: false },
+        { name: 'BIG-BEN', found: false },
+        { name: 'GOLDEN-GATE', found: false },
+        { name: 'BASILICA', found: false },
+        { name: 'TAJ-MAHAL', found: false },
+        { name: 'DUOMO', found: false },
+        { name: 'CRISTO', found: false },
+        { name: 'PIRAMIDE', found: false },
+        { name: 'MURALHA', found: false },
+        { name: 'MOSTEIRO', found: false },
+        { name: 'PISA', found: false },
+        { name: 'CASTELO', found: false },
+        { name: 'KREMLIN', found: false },
+        { name: 'CAIRO', found: false },
+        { name: 'PETRA', found: false },
+        { name: 'CHICHEN', found: false },
+        { name: 'MOAI', found: false },
+        { name: 'PATAN', found: false },
+        { name: 'OPERA', found: false },
+        { name: 'PALACIO', found: false },
+        { name: 'TEMPLO', found: false },
+        { name: 'TIKAL', found: false }, 
       ];
 
     if (isMountedRef.current) {
@@ -189,12 +192,12 @@ export default function MarcasPro({ navigation, rows = 12, cols = 12 }) {
     const segundos = Math.floor(tempoDecorrido % 60);
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
-    
-    let level = parseInt(marcas) + 1;
-    if (marcas < 30) addMarcas(level.toString());
 
     adicionarMoedas(86);
     setMoedasGanhas(86);
+
+    let level = parseInt(personagens) + 1;
+    if (personagens < 30) addPersonagens(level.toString());
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);
@@ -202,26 +205,29 @@ export default function MarcasPro({ navigation, rows = 12, cols = 12 }) {
 
   const reiniciarJogo = () => {
     const palavrasOriginais = [
-      { name: 'APPLE', found: false },
-      { name: 'NIKE', found: false },
-      { name: 'SONY', found: false },
-      { name: 'ADIDAS', found: false },
-      { name: 'COCA', found: false },
-      { name: 'PEPSI', found: false },
-      { name: 'VANS', found: false },
-      { name: 'REEBOK', found: false },
-      { name: 'LEVIS', found: false },
-      { name: 'PUMA', found: false },
-      { name: 'BOSE', found: false },
-      { name: 'FILA', found: false },
-      { name: 'JBL', found: false },
-      { name: 'H&M', found: false },
-      { name: 'ZARA', found: false },
-      { name: 'IBM', found: false },
-      { name: 'LACOS', found: false },
-      { name: 'OAKLY', found: false },
-      { name: 'SEIKO', found: false },
-      { name: 'TOYOT', found: false },
+      { name: 'TORRE-EIFFEL', found: false },
+      { name: 'COLISEU', found: false },
+      { name: 'BIG BEN', found: false },
+      { name: 'GOLDEN-GATE', found: false },
+      { name: 'BASILICA', found: false },
+      { name: 'TAJ-MAHAL', found: false },
+      { name: 'DUOMO', found: false },
+      { name: 'CRISTO', found: false },
+      { name: 'PIRAMIDE', found: false },
+      { name: 'MURALHA', found: false },
+      { name: 'MOSTEIRO', found: false },
+      { name: 'PISA', found: false },
+      { name: 'CASTELO', found: false },
+      { name: 'KREMLIN', found: false },
+      { name: 'CAIRO', found: false },
+      { name: 'PETRA', found: false },
+      { name: 'CHICHEN', found: false },
+      { name: 'MOAI', found: false },
+      { name: 'PATAN', found: false },
+      { name: 'OPERA', found: false },
+      { name: 'PALACIO', found: false },
+      { name: 'TEMPLO', found: false },
+      { name: 'TIKAL', found: false },    
     ];
 
     const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 9);
@@ -331,12 +337,11 @@ const onHandlerStateChange = (event, item) => {
       <View style={styles.moedasContainer}>
         <View style={styles.IconMoeda}></View>
         <Text style={styles.moedasText}>{moedas}</Text>
-        
       </View>
-      
+
+
           <Ionicons style={styles.button} name="arrow-back" size={scale(40)} color="white"
             onPress={() => navigation.navigate('NivelPro')} />
-
 
         <View style={styles.palavrasContainer}>
           {
@@ -352,7 +357,11 @@ const onHandlerStateChange = (event, item) => {
           }
         </View>
         <View style={styles.cacaContainer}>
-          <View style={styles.retangulo}> 
+          <ImageBackground
+          source={require('./../../../../../assets/telaingameretangulo.png')}
+          style={styles.retangulo}
+        >
+          
           <GestureHandlerRootView style={{ flex: 1 }}>
             <PanGestureHandler
               onGestureEvent={onGestureEvent}
@@ -378,7 +387,7 @@ const onHandlerStateChange = (event, item) => {
               </View>
             </PanGestureHandler>
           </GestureHandlerRootView>
-        </View>
+        </ImageBackground>
         </View>
 
         <Modal isVisible={hintsExhausted} onBackdropPress={fecharModalDicasEsgotadas} style={styles.modalContainer2}>
@@ -394,23 +403,15 @@ const onHandlerStateChange = (event, item) => {
 
       <Modal isVisible={isModalVisible} onBackdropPress={closeModal} style={styles.modalContainer2}>
         <View style={styles.modalContainer}>
-          <TouchableOpacity style={styles.modalVoltarHome} onPress={() => navigation.navigate('Home')}>
-            <Text style={styles.modalButtonText}>Voltar</Text>
-          </TouchableOpacity>
-          <View style={styles.modalGanhos}>
-              <View>
-                <Text style={styles.modalText}>TEMPO:</Text>
-                <Text style={styles.textTempo}>{tempoDecorrido}</Text>
-              </View>
-              <View>
-                <Text style={styles.modalText}>MOEDAS:</Text>
-                <Text style={styles.textMoeda}>+{moedasGanhas}</Text>
-              </View>
-          </View>   
+          <Text style={styles.modalText}>TEMPO:</Text>
+          <Text style={styles.textTempo}>{tempoDecorrido}s</Text>
+          <Text>Moedas ganhas nesta partida: {moedasGanhas}</Text>
           <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
             <Text style={styles.modalButtonText}>Continuar</Text>
           </TouchableOpacity>
-          
+          <TouchableOpacity style={styles.modalButton} onPress={() => navigation.navigate('Home')}>
+            <Text style={styles.modalButtonText}>Voltar</Text>
+          </TouchableOpacity>
         </View>
       </Modal>
 
@@ -419,4 +420,3 @@ const onHandlerStateChange = (event, item) => {
     </View>
   );
 }
-

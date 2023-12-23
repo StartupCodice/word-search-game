@@ -197,8 +197,8 @@ export default function BebidasMedio({ navigation, rows = 8, cols = 8 }) {
     let level = parseInt(bebidas) + 1;
     if (bebidas < 30) addBebidas(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(44);
+    setMoedasGanhas(44);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

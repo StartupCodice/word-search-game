@@ -196,8 +196,8 @@ export default function Presentes({ navigation, rows = 8, cols = 8 }) {
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
 
-    adicionarMoedas(6);
-    setMoedasGanhas(6);
+    adicionarMoedas(28);
+    setMoedasGanhas(28);
 
     let level = parseInt(presentes) + 1;
     if (presentes < 30) addPresentes(level.toString());

@@ -198,8 +198,8 @@ export default function AtoresMedio({ navigation, rows = 8, cols = 8 }) {
     let level = parseInt(atores) + 1;
     if (atores < 30) addAtores(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(44);
+    setMoedasGanhas(44);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

@@ -198,8 +198,8 @@ export default function AtoresPro({ navigation, rows = 12, cols = 12 }) {
     let level = parseInt(atores) + 1;
     if (atores < 30) addAtores(level.toString());
 
-    adicionarMoedas(16);
-    setMoedasGanhas(16);
+    adicionarMoedas(86);
+    setMoedasGanhas(86);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

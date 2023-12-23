@@ -193,8 +193,8 @@ export default function PaisesMedio({ navigation, rows = 8, cols = 8 }) {
     let level = parseInt(paises) + 1;
     if (paises < 30) addPaises(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(44);
+    setMoedasGanhas(44);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

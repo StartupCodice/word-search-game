@@ -188,8 +188,8 @@ export default function Arvores({ navigation, rows = 8, cols = 8 }) {
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
 
-    adicionarMoedas(6);
-    setMoedasGanhas(6);
+    adicionarMoedas(28);
+    setMoedasGanhas(28);
 
     let level = parseInt(arvores) + 1;
     if (arvores < 30) addArvores(level.toString());
