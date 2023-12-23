@@ -13,7 +13,7 @@ const LevelComponent = () => {
   const getLevel = async () => {
     try {
       const level = await AsyncStorage.getItem('level');
-      return level;
+      return level ? level : 1;
     } catch (error) {
       console.error('Erro ao o level:', error);
       return 0;

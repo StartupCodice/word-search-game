@@ -143,7 +143,7 @@ const NivelFacilComponent = () => {
   const getPresentes = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelPresentesFacil');
-      return nivel;
+      return nivel ? nivel : 0;
     } catch (error) {
       console.error('Erro ao pegar o nivel de presentes:', error);
       return 0;
@@ -166,7 +166,7 @@ const NivelFacilComponent = () => {
   const getDecoracoes = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelDecoracoesFacil');
-      return nivel;
+      return nivel ? nivel : 0;
     } catch (error) {
       console.error('Erro ao pegar o nivel de decoracoes:', error);
       return 0;
@@ -189,7 +189,7 @@ const NivelFacilComponent = () => {
   const getAlimentos = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelAlimentosFacil');
-      return nivel;
+      return nivel ? nivel : 0;
     } catch (error) {
       console.error('Erro ao pegar o nivel de alimentos:', error);
       return 0;
@@ -212,7 +212,7 @@ const NivelFacilComponent = () => {
   const getPersonagens = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelPersonagensFacil');
-      return nivel;
+      return nivel ? nivel : 0;
     } catch (error) {
       console.error('Erro ao pegar o nivel de personagens:', error);
       return 0;
@@ -235,7 +235,7 @@ const NivelFacilComponent = () => {
   const getEsportes = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelEsportesFacil');
-      return nivel;
+      return nivel ? nivel : 0;
     } catch (error) {
       console.error('Erro ao pegar o nível de esportes:', error);
       return 0;
@@ -281,7 +281,7 @@ const NivelFacilComponent = () => {
   const getEmpregos = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelEmpregosFacil');
-      return nivel;
+      return nivel ? nivel : 0;
     } catch (error) {
       console.error('Erro ao pegar o nível de empregos:', error);
       return 0;
@@ -304,7 +304,7 @@ const NivelFacilComponent = () => {
   const getPaises = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelPaisesFacil');
-      return nivel;
+      return nivel ? nivel : 0;
     } catch (error) {
       console.error('Erro ao pegar o nível de países:', error);
       return 0;
@@ -327,7 +327,7 @@ const NivelFacilComponent = () => {
   const getAnimais = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelAnimaisFacil');
-      return nivel;
+      return nivel ? nivel : 0;
     } catch (error) {
       console.error('Erro ao pegar o nível de animais:', error);
       return 0;
@@ -350,7 +350,7 @@ const NivelFacilComponent = () => {
   const getDoces = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelDocesFacil');
-      return nivel;
+      return nivel ? nivel : 0;
     } catch (error) {
       console.error('Erro ao pegar o nível de doces:', error);
       return 0;
@@ -373,7 +373,7 @@ const NivelFacilComponent = () => {
   const getArvores = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelArvoresFacil');
-      return nivel;
+      return nivel ? nivel : 0;
     } catch (error) {
       console.error('Erro ao pegar o nível de árvores:', error);
       return 0;
@@ -396,7 +396,7 @@ const NivelFacilComponent = () => {
   const getAtores = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelAtoresFacil');
-      return nivel;
+      return nivel ? nivel : 0;
     } catch (error) {
       console.error('Erro ao pegar o nível de atores:', error);
       return 0;
@@ -419,7 +419,7 @@ const NivelFacilComponent = () => {
   const getTransportes = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelTransportesFacil');
-      return nivel;
+      return nivel ? nivel : 0;
     } catch (error) {
       console.error('Erro ao pegar o nível de transportes:', error);
       return 0;
@@ -442,7 +442,7 @@ const NivelFacilComponent = () => {
   const getBebidas = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelBebidasFacil');
-      return nivel;
+      return nivel ? nivel : 0;
     } catch (error) {
       console.error('Erro ao pegar o nível de bebidas:', error);
       return 0;
@@ -465,7 +465,7 @@ const NivelFacilComponent = () => {
   const getAmizade = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelAmizadeFacil');
-      return nivel;
+      return nivel ? nivel : 0;
     } catch (error) {
       console.error('Erro ao pegar o nível de amizade:', error);
       return 0;
@@ -488,7 +488,7 @@ const NivelFacilComponent = () => {
   const getMusicas = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelMusicasFacil');
-      return nivel;
+      return nivel ? nivel : 0;
     } catch (error) {
       console.error('Erro ao pegar o nível de músicas:', error);
       return 0;    }
@@ -510,7 +510,7 @@ const NivelFacilComponent = () => {
   const getNomes = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelNomesFacil');
-      return nivel;
+      return nivel ? nivel : 0;
     } catch (error) {
       console.error('Erro ao pegar o nível de nomes:', error);
       return 0;
@@ -533,7 +533,7 @@ const NivelFacilComponent = () => {
   const getRoupas = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelRoupasFacil');
-      return nivel;
+      return nivel ? nivel : 0;
     } catch (error) {
       console.error('Erro ao pegar o nível de roupas:', error);
       return 0;
@@ -556,7 +556,7 @@ const NivelFacilComponent = () => {
   const getNatureza = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelNaturezaFacil');
-      return nivel;
+      return nivel ? nivel : 0;
     } catch (error) {
       console.error('Erro ao pegar o nível de natureza:', error);
       return 0;
@@ -579,7 +579,7 @@ const NivelFacilComponent = () => {
   const getPintores = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelPintoresFacil');
-      return nivel;
+      return nivel ? nivel : 0;
     } catch (error) {
       console.error('Erro ao pegar o nível de pintores:', error);
       return 0;
@@ -602,7 +602,7 @@ const NivelFacilComponent = () => {
   const getCasa = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelCasaFacil');
-      return nivel;
+      return nivel ? nivel : 0;
     } catch (error) {
       console.error('Erro ao pegar o nível de casa:', error);
       return 0;
@@ -625,7 +625,7 @@ const NivelFacilComponent = () => {
   const getCarros = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelCarrosFacil');
-      return nivel;
+      return nivel ? nivel : 0;
     } catch (error) {
       console.error('Erro ao pegar o nível de carros:', error);
       return 0;
@@ -648,7 +648,7 @@ const NivelFacilComponent = () => {
   const getFilmes = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelFilmesFacil');
-      return nivel;
+      return nivel ? nivel : 0;
     } catch (error) {
       console.error('Erro ao pegar o nível de filmes:', error);
       return 0;
@@ -671,7 +671,7 @@ const NivelFacilComponent = () => {
   const getEspaco = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelEspacoFacil');
-      return nivel;
+      return nivel ? nivel : 0;
     } catch (error) {
       console.error('Erro ao pegar o nível de espaço:', error);
       return 0;
@@ -694,7 +694,7 @@ const NivelFacilComponent = () => {
   const getMusicos = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelMusicosFacil');
-      return nivel;
+      return nivel ? nivel : 0;
     } catch (error) {
       console.error('Erro ao pegar o nível de músicos:', error);
       return 0;
@@ -717,7 +717,7 @@ const NivelFacilComponent = () => {
   const getMarcas = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelMarcasFacil');
-      return nivel;
+      return nivel ? nivel : 0;
     } catch (error) {
       console.error('Erro ao pegar o nível de marcas:', error);
       return 0;
@@ -740,7 +740,7 @@ const NivelFacilComponent = () => {
   const getEscritoras = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelEscritorasFacil');
-      return nivel;
+      return nivel ? nivel : 0;
     } catch (error) {
       console.error('Erro ao pegar o nível de escritoras:', error);
       return 0;
