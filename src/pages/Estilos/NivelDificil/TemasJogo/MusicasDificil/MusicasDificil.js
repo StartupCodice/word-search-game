@@ -192,8 +192,8 @@ export default function MusicasDificil({ navigation, rows = 10, cols = 10 }) {
     let level = parseInt(musicas) + 1;
     if (musicas < 30) addMusicas(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(62);
+    setMoedasGanhas(62);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

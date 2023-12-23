@@ -211,8 +211,8 @@ export default function FilmesMedio({ navigation, rows = 8, cols = 8 }) {
     let level = parseInt(filmes) + 1;
     if (filmes < 30) addFilmes(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(44);
+    setMoedasGanhas(44);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

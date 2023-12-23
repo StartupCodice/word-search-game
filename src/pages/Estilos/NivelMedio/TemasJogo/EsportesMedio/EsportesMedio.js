@@ -195,8 +195,8 @@ export default function EsportesMedio({ navigation, rows = 8, cols = 8 }) {
     let level = parseInt(esportes) + 1;
     if (esportes < 30) addEsportes(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(44);
+    setMoedasGanhas(44);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

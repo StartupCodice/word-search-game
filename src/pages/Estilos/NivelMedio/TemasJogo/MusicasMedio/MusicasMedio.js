@@ -192,8 +192,8 @@ export default function MusicasMedio({ navigation, rows = 8, cols = 8 }) {
     let level = parseInt(musicas) + 1;
     if (musicas < 30) addMusicas(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(44);
+    setMoedasGanhas(44);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

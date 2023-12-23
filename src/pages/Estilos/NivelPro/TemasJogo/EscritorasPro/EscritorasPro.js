@@ -196,8 +196,8 @@ export default function EscritorasPro({ navigation, rows = 12, cols = 12 }) {
     let level = parseInt(escritoras) + 1;
     if (escritoras < 30) addEscritoras(level.toString());
 
-    adicionarMoedas(16);
-    setMoedasGanhas(16);
+    adicionarMoedas(86);
+    setMoedasGanhas(86);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

@@ -196,8 +196,8 @@ export default function EscritorasDificil({ navigation, rows = 10, cols = 10 }) 
     let level = parseInt(escritoras) + 1;
     if (escritoras < 30) addEscritoras(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(62);
+    setMoedasGanhas(62);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

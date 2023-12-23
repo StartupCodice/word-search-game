@@ -190,8 +190,8 @@ export default function ArvoresMedio({ navigation, rows = 8, cols = 8 }) {
     let level = parseInt(arvores) + 1;
     if (arvores < 30) addArvores(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(44);
+    setMoedasGanhas(44);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

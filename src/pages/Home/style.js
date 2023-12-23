@@ -497,24 +497,27 @@ const styles = StyleSheet.create({
       backgroundColor: 'yellow',
       borderRadius: 50,
       borderWidth: 1,
-      borderColor: '#b0b912'
+      borderColor: '#b0b912',
     },
     moeda: {
-      width: scale(15),
-      height: scale(15),
+      width: scale(12),
+      height: scale(12),
       backgroundColor: 'yellow',
       borderRadius: 50,
       borderWidth: 1,
       borderColor: '#b0b912',
       top: scale(38),
+      right: scale(6)
     },
     moedasParaCompra: {
       color: 'white',
       fontWeight: 'bold',
       textAlign: 'center',
+      alignItems: 'center',
+      justifyContent: 'center',
       top: scale(25),
       fontSize: scale(10),
-      marginLeft: scale(20),
+      width: scale(40),
     },
     modalContainer2: {
       flex: 1,

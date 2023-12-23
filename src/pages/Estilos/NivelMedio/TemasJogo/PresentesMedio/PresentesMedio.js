@@ -197,8 +197,8 @@ export default function PresentesMedio({ navigation, rows = 8, cols = 8 }) {
     if (presentes < 30) addPresentes(level.toString());
     
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(44);
+    setMoedasGanhas(44);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

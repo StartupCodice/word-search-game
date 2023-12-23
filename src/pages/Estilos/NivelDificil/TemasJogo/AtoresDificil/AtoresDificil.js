@@ -198,8 +198,8 @@ export default function AtoresDificil({ navigation, rows = 10, cols = 10 }) {
     let level = parseInt(atores) + 1;
     if (atores < 30) addAtores(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(62);
+    setMoedasGanhas(62);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

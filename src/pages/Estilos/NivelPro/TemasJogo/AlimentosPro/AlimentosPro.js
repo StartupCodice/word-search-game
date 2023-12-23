@@ -191,8 +191,8 @@ export default function AlimentosPro({ navigation, rows = 12, cols = 12 }) {
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
 
-    adicionarMoedas(16);
-    setMoedasGanhas(16);
+    adicionarMoedas(86);
+    setMoedasGanhas(86);
 
     let level = parseInt(alimentos) + 1;
     if (alimentos < 30) addAlimento(level.toString());

@@ -197,8 +197,8 @@ export default function EspaçoMedio({ navigation, rows = 8, cols = 8 }) {
     let level = parseInt(espaco) + 1;
     if (espaco < 30) addEspaco(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(44);
+    setMoedasGanhas(44);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

@@ -193,8 +193,8 @@ export default function MusicosPro({ navigation, rows = 12, cols = 12 }) {
     let level = parseInt(musicos) + 1;
     if (musicos < 30) addMusicos(level.toString());
 
-    adicionarMoedas(16);
-    setMoedasGanhas(16);
+    adicionarMoedas(86);
+    setMoedasGanhas(86);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

@@ -8,29 +8,29 @@ import randomcolor from 'randomcolor';
 import styles from './style';
 import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../../../../components/storage';
-import NiveisDificil from '../../../../../components/storageNivelDificil';
+import NiveisPro from '../../../../../components/storageNivelPro';
 
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
-const CELL_SIZE = Math.floor(250 * 0.1);
+const CELL_SIZE = Math.floor(218 * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 
 const Cell = React.memo(({ letter, selected }) => (
-
   <View style={[styles.cell, letter.isSelected && styles.selected, selected && styles.selected]}>
     <Text style={styles.cellText}>{letter.letter}</Text>
   </View>
 ));
 
-export default function ArvoresDificil({ navigation, rows = 10, cols = 10 }) {
+
+export default function MonumentosPro({ navigation, rows = 12, cols = 12 }) {
   const { 
-    arvores, 
-    addArvores,
-  } = NiveisDificil();
+    personagens, 
+    addPersonagens,
+  } = NiveisPro();
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
-    game: new createGame(10, 10, []),
+    game: new createGame(12, 12, []),
   });
   const [cores, setCores] = useState([]);
   const [startTime, setStartTime] = useState(new Date());
@@ -42,8 +42,6 @@ export default function ArvoresDificil({ navigation, rows = 10, cols = 10 }) {
   const { moedas, adicionarMoedas } = MoedasComponent();
   const [moedasGanhas, setMoedasGanhas] = useState(0);
   const [currentCell, setCurrentCell] = useState(null);
-
-
 
   const isMountedRef = useRef(true);
 
@@ -60,7 +58,7 @@ export default function ArvoresDificil({ navigation, rows = 10, cols = 10 }) {
   };
 
   const mostrarDica = () => {
-    if (numDicasUsadas < 4) {
+    if (numDicasUsadas < 5) {
       const palavrasNaoEncontradas = palavras.filter((palavra) => !palavra.found);
   
       if (palavrasNaoEncontradas.length > 0) {
@@ -122,32 +120,40 @@ export default function ArvoresDificil({ navigation, rows = 10, cols = 10 }) {
     buildColumnsArray();
   }, [board.game]); 
 
- 
-
-  const fetchData = async () => {
+  const fetchData = () => {
     try {
       const palavrasOriginais = [
-        { name: 'IPE', found: false },
-        { name: 'MOGNO', found: false },
-        { name: 'OITI', found: false },
-        { name: 'CAMBU', found: false },
-        { name: 'ABIL', found: false },
-        { name: 'ARAÇA', found: false },
-        { name: 'ABETO', found: false },
-        { name: 'ROSA', found: false },
-        { name: 'LIRIO', found: false },
-        { name: 'GIESTA', found: false },
-        { name: 'BONSAI', found: false },
-        { name: 'CEDRO', found: false },
-        { name: 'HERA', found: false },
+        { name: 'TORRE-EIFFEL', found: false },
+        { name: 'COLISEU', found: false },
+        { name: 'BIG-BEN', found: false },
+        { name: 'GOLDEN-GATE', found: false },
+        { name: 'BASILICA', found: false },
+        { name: 'TAJ-MAHAL', found: false },
+        { name: 'DUOMO', found: false },
+        { name: 'CRISTO', found: false },
+        { name: 'PIRAMIDE', found: false },
+        { name: 'MURALHA', found: false },
+        { name: 'MOSTEIRO', found: false },
+        { name: 'PISA', found: false },
+        { name: 'CASTELO', found: false },
+        { name: 'KREMLIN', found: false },
+        { name: 'CAIRO', found: false },
+        { name: 'PETRA', found: false },
+        { name: 'CHICHEN', found: false },
+        { name: 'MOAI', found: false },
+        { name: 'PATAN', found: false },
+        { name: 'OPERA', found: false },
+        { name: 'PALACIO', found: false },
+        { name: 'TEMPLO', found: false },
+        { name: 'TIKAL', found: false }, 
       ];
 
     if (isMountedRef.current) {
-      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 8);
+      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 9);
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(10, 10, palavrasJogo) });
+    setBoard({ game: new createGame(12, 12, palavrasJogo) });
 
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
@@ -186,12 +192,12 @@ export default function ArvoresDificil({ navigation, rows = 10, cols = 10 }) {
     const segundos = Math.floor(tempoDecorrido % 60);
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
-    
-    let level = parseInt(arvores) + 1;
-    if (arvores < 30) addArvores(level.toString());
 
-    adicionarMoedas(62);
-    setMoedasGanhas(62);
+    adicionarMoedas(86);
+    setMoedasGanhas(86);
+
+    let level = parseInt(personagens) + 1;
+    if (personagens < 30) addPersonagens(level.toString());
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);
@@ -199,26 +205,36 @@ export default function ArvoresDificil({ navigation, rows = 10, cols = 10 }) {
 
   const reiniciarJogo = () => {
     const palavrasOriginais = [
-      { name: 'IPE', found: false },
-      { name: 'MOGNO', found: false },
-      { name: 'OITI', found: false },
-      { name: 'CAMBU', found: false },
-      { name: 'ABIL', found: false },
-      { name: 'ARAÇA', found: false },
-      { name: 'ABETO', found: false },
-      { name: 'ROSA', found: false },
-      { name: 'LIRIO', found: false },
-      { name: 'GIESTA', found: false },
-      { name: 'BONSAI', found: false },
-      { name: 'CEDRO', found: false },
-      { name: 'HERA', found: false },
+      { name: 'TORRE-EIFFEL', found: false },
+      { name: 'COLISEU', found: false },
+      { name: 'BIG BEN', found: false },
+      { name: 'GOLDEN-GATE', found: false },
+      { name: 'BASILICA', found: false },
+      { name: 'TAJ-MAHAL', found: false },
+      { name: 'DUOMO', found: false },
+      { name: 'CRISTO', found: false },
+      { name: 'PIRAMIDE', found: false },
+      { name: 'MURALHA', found: false },
+      { name: 'MOSTEIRO', found: false },
+      { name: 'PISA', found: false },
+      { name: 'CASTELO', found: false },
+      { name: 'KREMLIN', found: false },
+      { name: 'CAIRO', found: false },
+      { name: 'PETRA', found: false },
+      { name: 'CHICHEN', found: false },
+      { name: 'MOAI', found: false },
+      { name: 'PATAN', found: false },
+      { name: 'OPERA', found: false },
+      { name: 'PALACIO', found: false },
+      { name: 'TEMPLO', found: false },
+      { name: 'TIKAL', found: false },    
     ];
 
-    const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 8);
+    const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 9);
     setPalavras(palavrasEscolhidas);
 
     const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(10, 10, palavrasJogo) });
+    setBoard({ game: new createGame(12, 12, palavrasJogo) });
 
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
@@ -313,7 +329,7 @@ const onHandlerStateChange = (event, item) => {
             source={require('./../../../../../assets/chapeu.png')}
             style={styles.Dica}
           >
-            <Text style={styles.dicaNumber}>{4 - numDicasUsadas}</Text>
+            <Text style={styles.dicaNumber}>{5 - numDicasUsadas}</Text>
           </ImageBackground>
         </View>
       </TouchableOpacity>
@@ -321,12 +337,11 @@ const onHandlerStateChange = (event, item) => {
       <View style={styles.moedasContainer}>
         <View style={styles.IconMoeda}></View>
         <Text style={styles.moedasText}>{moedas}</Text>
-        
       </View>
-      
-          <Ionicons style={styles.button} name="arrow-back" size={scale(40)} color="white"
-            onPress={() => navigation.navigate('NivelDificil')} />
 
+
+          <Ionicons style={styles.button} name="arrow-back" size={scale(40)} color="white"
+            onPress={() => navigation.navigate('NivelPro')} />
 
         <View style={styles.palavrasContainer}>
           {
@@ -342,7 +357,11 @@ const onHandlerStateChange = (event, item) => {
           }
         </View>
         <View style={styles.cacaContainer}>
-          <View style={styles.retangulo}> 
+          <ImageBackground
+          source={require('./../../../../../assets/telaingameretangulo.png')}
+          style={styles.retangulo}
+        >
+          
           <GestureHandlerRootView style={{ flex: 1 }}>
             <PanGestureHandler
               onGestureEvent={onGestureEvent}
@@ -368,7 +387,7 @@ const onHandlerStateChange = (event, item) => {
               </View>
             </PanGestureHandler>
           </GestureHandlerRootView>
-        </View>
+        </ImageBackground>
         </View>
 
         <Modal isVisible={hintsExhausted} onBackdropPress={fecharModalDicasEsgotadas} style={styles.modalContainer2}>
@@ -384,23 +403,15 @@ const onHandlerStateChange = (event, item) => {
 
       <Modal isVisible={isModalVisible} onBackdropPress={closeModal} style={styles.modalContainer2}>
         <View style={styles.modalContainer}>
-          <TouchableOpacity style={styles.modalVoltarHome} onPress={() => navigation.navigate('Home')}>
-            <Text style={styles.modalButtonText}>Voltar</Text>
-          </TouchableOpacity>
-          <View style={styles.modalGanhos}>
-              <View>
-                <Text style={styles.modalText}>TEMPO:</Text>
-                <Text style={styles.textTempo}>{tempoDecorrido}</Text>
-              </View>
-              <View>
-                <Text style={styles.modalText}>MOEDAS:</Text>
-                <Text style={styles.textMoeda}>+{moedasGanhas}</Text>
-              </View>
-          </View>   
+          <Text style={styles.modalText}>TEMPO:</Text>
+          <Text style={styles.textTempo}>{tempoDecorrido}s</Text>
+          <Text>Moedas ganhas nesta partida: {moedasGanhas}</Text>
           <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
             <Text style={styles.modalButtonText}>Continuar</Text>
           </TouchableOpacity>
-          
+          <TouchableOpacity style={styles.modalButton} onPress={() => navigation.navigate('Home')}>
+            <Text style={styles.modalButtonText}>Voltar</Text>
+          </TouchableOpacity>
         </View>
       </Modal>
 
@@ -409,4 +420,3 @@ const onHandlerStateChange = (event, item) => {
     </View>
   );
 }
-

@@ -210,8 +210,8 @@ export default function DecoracoesMedio({ navigation, rows = 8, cols = 8 }) {
     let level = parseInt(decoracoes) + 1;
     if (decoracoes < 30) addDecoracoes(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(44);
+    setMoedasGanhas(44);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);
