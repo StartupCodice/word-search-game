@@ -10,7 +10,6 @@ import MoedasComponent from '../../../components/storage';
 export function NivelPro({ navigation }){
   const { moedas } = MoedasComponent();
 
-
   const {
     presentes,
     addPresentes,
@@ -153,7 +152,7 @@ export function NivelPro({ navigation }){
               navigation={navigation}
               themeName="Esportes"
               imagePath={require('./../../../assets/esportes.png')}
-              count={0}
+              count={esportes}
               screenName="EsportesPro"
             />
 
@@ -161,7 +160,7 @@ export function NivelPro({ navigation }){
               navigation={navigation}
               themeName="Cores"
               imagePath={require('./../../../assets/cores.png')}
-              count={0}
+              count={cores}
               screenName="CoresPro"
             />
 
@@ -169,7 +168,7 @@ export function NivelPro({ navigation }){
               navigation={navigation}
               themeName="Empregos"
               imagePath={require('./../../../assets/empregos.png')}
-              count={0}
+              count={empregos}
               screenName="EmpregosPro"
             />
 
@@ -177,7 +176,7 @@ export function NivelPro({ navigation }){
               navigation={navigation}
               themeName="Países"
               imagePath={require('./../../../assets/paises.png')}
-              count={0}
+              count={paises}
               screenName="PaisesPro"
             />
 
@@ -185,7 +184,7 @@ export function NivelPro({ navigation }){
               navigation={navigation}
               themeName="Animais"
               imagePath={require('./../../../assets/Animais.png')}
-              count={0}
+              count={animais}
               screenName="AnimaisPro"
             />
 
@@ -193,7 +192,7 @@ export function NivelPro({ navigation }){
               navigation={navigation}
               themeName="Doces"
               imagePath={require('./../../../assets/Doces.png')}
-              count={0}
+              count={doces}
               screenName="DocesPro"
             />
 
@@ -201,7 +200,7 @@ export function NivelPro({ navigation }){
               navigation={navigation}
               themeName="Arvores"
               imagePath={require('./../../../assets/arvore.png')}
-              count={0}
+              count={arvores}
               screenName="ArvoresPro"
             />
 
@@ -209,7 +208,7 @@ export function NivelPro({ navigation }){
               navigation={navigation}
               themeName="Atores"
               imagePath={require('./../../../assets/ator.png')}
-              count={0}
+              count={atores}
               screenName="AtoresPro"
             />
 
@@ -217,7 +216,7 @@ export function NivelPro({ navigation }){
               navigation={navigation}
               themeName="Transportes"
               imagePath={require('./../../../assets/Transportes.png')}
-              count={0}
+              count={transportes}
               screenName="TransportesPro"
             />
 
@@ -225,7 +224,7 @@ export function NivelPro({ navigation }){
               navigation={navigation}
               themeName="Bebidas"
               imagePath={require('./../../../assets/bebida.png')}
-              count={0}
+              count={bebidas}
               screenName="BebidasPro"
             />
 
@@ -233,7 +232,7 @@ export function NivelPro({ navigation }){
               navigation={navigation}
               themeName="Amizade"
               imagePath={require('./../../../assets/amizade.png')}
-              count={0}
+              count={amizade}
               screenName="AmizadePro"
             />
 
@@ -241,84 +240,84 @@ export function NivelPro({ navigation }){
               navigation={navigation}
               themeName="Nomes"
               imagePath={require('./../../../assets/nomes.png')}
-              count={0}
+              count={nomes}
               screenName="NomesPro"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Roupas"
               imagePath={require('./../../../assets/roupas.png')}
-              count={0}
+              count={roupas}
               screenName="RoupasPro"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Natureza"
               imagePath={require('./../../../assets/natureza.png')}
-              count={0}
+              count={natureza}
               screenName="NaturezaPro"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Pintores"
               imagePath={require('./../../../assets/pintores.png')}
-              count={0}
+              count={pintores}
               screenName="PintoresPro"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Casa"
               imagePath={require('./../../../assets/casa.png')}
-              count={0}
+              count={casa}
               screenName="CasaPro"
             />
             <ThemeButton
               navigation={navigation}
-              themeName="Monumentos"
-              imagePath={require('./../../../assets/monumentos.png')}
-              count={0}
-              screenName="MonumentosPro"
+              themeName="Musicas"
+              imagePath={require('./../../../assets/Musicas.png')}
+              count={musicas}
+              screenName="MusicasPro"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Carros"
               imagePath={require('./../../../assets/carros.png')}
-              count={0}
+              count={carros}
               screenName="CarrosPro"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Filmes"
               imagePath={require('./../../../assets/filme.png')}
-              count={0}
+              count={filmes}
               screenName="FilmesPro"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Espaço"
               imagePath={require('./../../../assets/foguete.png')}
-              count={0}
+              count={espaco}
               screenName="EspaçoPro"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Musicos"
               imagePath={require('./../../../assets/musicos.png')}
-              count={0}
+              count={musicos}
               screenName="MusicosPro"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Marcas"
               imagePath={require('./../../../assets/marcas.png')}
-              count={0}
+              count={marcas}
               screenName="MarcasPro"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Escritoras"
               imagePath={require('./../../../assets/escritor.png')}
-              count={0}
+              count={escritoras}
               screenName="EscritorasPro"
             />
             </View>

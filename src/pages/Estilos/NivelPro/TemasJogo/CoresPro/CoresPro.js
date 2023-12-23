@@ -8,6 +8,7 @@ import randomcolor from 'randomcolor';
 import styles from './style';
 import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../../../../components/storage';
+import NiveisPro from '../../../../../components/storageNivelPro';
 
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -22,12 +23,16 @@ const Cell = React.memo(({ letter, selected }) => (
 ));
 
 export default function CoresPro({ navigation, rows = 12, cols = 12 }) {
+  const { 
+    cores, 
+    addCores,
+  } = NiveisPro();
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
     game: new createGame(12, 12, []),
   });
-  const [cores, setCores] = useState([]);
+  const [coresAleatorias, setCores] = useState([]);
   const [startTime, setStartTime] = useState(new Date());
   const [isModalVisible, setModalVisible] = useState(false);
   const [tempoDecorrido, setTempoDecorrido] = useState(0);
@@ -189,6 +194,8 @@ export default function CoresPro({ navigation, rows = 12, cols = 12 }) {
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
     
+    let level = parseInt(cores) + 1;
+    if (cores < 30) addCores(level.toString());
 
     adicionarMoedas(16);
     setMoedasGanhas(16);
@@ -340,7 +347,7 @@ const onHandlerStateChange = (event, item) => {
             palavras.map((palavra, index) => (
               <Text key={index} style={[
                 styles.palavras,
-                (palavra.found) ? { backgroundColor: cores[index] } : null,
+                (palavra.found) ? { backgroundColor: coresAleatorias[index] } : null,
                 (palavra.found) ? styles.wordFound : null,
               ]}>
                 {palavra.name}

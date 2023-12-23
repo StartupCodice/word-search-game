@@ -8,6 +8,7 @@ import randomcolor from 'randomcolor';
 import styles from './style';
 import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../../../../components/storage';
+import NiveisPro from '../../../../../components/storageNivelPro';
 
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -22,6 +23,10 @@ const Cell = React.memo(({ letter, selected }) => (
 ));
 
 export default function CarrosPro({ navigation, rows = 12, cols = 12 }) {
+  const { 
+    carros, 
+    addCarros,
+  } = NiveisPro();
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
@@ -206,7 +211,9 @@ export default function CarrosPro({ navigation, rows = 12, cols = 12 }) {
     const segundos = Math.floor(tempoDecorrido % 60);
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
-    
+
+    let level = parseInt(carros) + 1;
+    if (carros < 30) addCarros(level.toString());
 
     adicionarMoedas(16);
     setMoedasGanhas(16);

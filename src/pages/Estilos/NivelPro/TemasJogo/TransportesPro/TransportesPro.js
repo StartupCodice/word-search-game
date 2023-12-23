@@ -9,6 +9,7 @@ import styles from './style';
 import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../../../../components/storage';
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
+import NiveisPro from '../../../../../components/storageNivelPro';
 
 const CELL_SIZE = Math.floor(218 * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
@@ -21,6 +22,10 @@ const Cell = React.memo(({ letter, selected }) => (
 ));
 
 export default function TransportesPro({ navigation, rows = 12, cols = 12 }) {
+  const { 
+    transportes, 
+    addTransportes,
+  } = NiveisPro();
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
@@ -184,6 +189,8 @@ export default function TransportesPro({ navigation, rows = 12, cols = 12 }) {
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
     
+    let level = parseInt(transportes) + 1;
+    if (transportes < 30) addTransportes(level.toString());
 
     adicionarMoedas(16);
     setMoedasGanhas(16);

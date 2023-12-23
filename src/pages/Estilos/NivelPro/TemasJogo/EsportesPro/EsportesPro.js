@@ -9,6 +9,7 @@ import styles from './style';
 import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../../../../components/storage';
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
+import NiveisPro from '../../../../../components/storageNivelPro';
 
 const CELL_SIZE = Math.floor(218 * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
@@ -21,6 +22,10 @@ const Cell = React.memo(({ letter, selected }) => (
 ));
 
 export default function EsportesPro({ navigation, rows = 12, cols = 12 }) {
+  const { 
+    esportes, 
+    addEsportes,
+  } = NiveisPro();
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
@@ -186,7 +191,9 @@ export default function EsportesPro({ navigation, rows = 12, cols = 12 }) {
     const segundos = Math.floor(tempoDecorrido % 60);
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
-    
+
+    let level = parseInt(esportes) + 1;
+    if (esportes < 30) addEsportes(level.toString());
 
     adicionarMoedas(16);
     setMoedasGanhas(16);
