@@ -9,6 +9,7 @@ import styles from './style';
 import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../../../../components/storage';
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
+import NiveisPro from '../../../../../components/storageNivelPro';
 
 const CELL_SIZE = Math.floor(218 * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
@@ -21,6 +22,10 @@ const Cell = React.memo(({ letter, selected }) => (
 ));
 
 export default function EscritorasPro({ navigation, rows = 12, cols = 12 }) {
+  const { 
+    escritoras, 
+    addEscritoras,
+  } = NiveisPro();
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
@@ -188,6 +193,8 @@ export default function EscritorasPro({ navigation, rows = 12, cols = 12 }) {
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
     
+    let level = parseInt(escritoras) + 1;
+    if (escritoras < 30) addEscritoras(level.toString());
 
     adicionarMoedas(16);
     setMoedasGanhas(16);

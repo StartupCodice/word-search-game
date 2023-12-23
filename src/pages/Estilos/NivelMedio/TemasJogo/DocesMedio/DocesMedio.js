@@ -9,6 +9,7 @@ import styles from './style';
 import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../../../../components/storage';
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
+import NiveisMedio from '../../../../../components/storageNivelMedio';
 
 const CELL_SIZE = Math.floor(300 * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
@@ -21,6 +22,10 @@ const Cell = React.memo(({ letter, selected }) => (
 ));
 
 export default function DocesMedio({ navigation, rows = 8, cols = 8 }) {
+  const { 
+    doces, 
+    addDoces,
+  } = NiveisMedio();
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
@@ -183,6 +188,8 @@ export default function DocesMedio({ navigation, rows = 8, cols = 8 }) {
   
     const tempoFormatado = `${minutos} min ${segundos} seg`;
     
+    let level = parseInt(doces) + 1;
+    if (doces < 30) addDoces(level.toString());
 
     adicionarMoedas(8);
     setMoedasGanhas(8);

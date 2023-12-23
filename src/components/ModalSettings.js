@@ -17,11 +17,12 @@ export function ModalSettings(){
     const {playMusic, handleVolumeChange} = useMusicGlobal();
     const [volume] = useState(1.0);
 
-      useEffect(() => {
-        if (settingsVisible) {
-          playMusic();
-        }
-      }, [settingsVisible]);
+    useEffect(() => {
+    if (settingsVisible) {
+        playMusic();
+    }
+    }, [settingsVisible]);
+    
     return (
     
         <TouchableOpacity style={styles.settingsIcon} onPress={() => setSettingsVisible(true)}>

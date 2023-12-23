@@ -25,8 +25,8 @@ const Cell = React.memo(({ letter, selected }) => (
 
 export default function Animais({ navigation, rows = 8, cols = 8 }) {
   const { 
-    presentes, 
-    addPresentes,
+    animais, 
+    addAnimais,
   } = NiveisFaceis();
 
   const [palavras, setPalavras] = useState([]);
@@ -209,8 +209,8 @@ export default function Animais({ navigation, rows = 8, cols = 8 }) {
     adicionarMoedas(6);
     setMoedasGanhas(6);
 
-    let level = parseInt(presentes) + 1;
-    if (presentes < 30) addPresentes(level.toString());
+    let level = parseInt(animais) + 1;
+    if (animais < 30) addAnimais(level.toString());
 
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

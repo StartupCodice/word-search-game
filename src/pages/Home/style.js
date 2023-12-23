@@ -458,6 +458,13 @@ const styles = StyleSheet.create({
         top: scale(38),
         fontSize: scale(10)
     },
+    textMoeda: {
+      color: 'white',
+      fontWeight: 'bold',
+      textAlign: 'center',
+      top: scale(38),
+      fontSize: scale(10)
+    },
     moedasContainer: {
       width: scale(80),
       height: scale(40),
@@ -492,14 +499,58 @@ const styles = StyleSheet.create({
       borderWidth: 1,
       borderColor: '#b0b912'
     },
-    textMoeda: {
-      fontSize: scale(20),
+    moeda: {
+      width: scale(15),
+      height: scale(15),
+      backgroundColor: 'yellow',
+      borderRadius: 50,
+      borderWidth: 1,
+      borderColor: '#b0b912',
+      top: scale(38),
+    },
+    moedasParaCompra: {
+      color: 'white',
       fontWeight: 'bold',
+      textAlign: 'center',
+      top: scale(25),
+      fontSize: scale(10),
+      marginLeft: scale(20),
+    },
+    modalContainer2: {
+      flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-      textAlign: 'center',
+      borderWidth: 5,
+      borderColor: '#007BFF',
+      borderRadius: 18,
     },
-
+    modalContainer: {
+      backgroundColor: 'white',
+      borderRadius: 10,
+      width: '100%',
+      height: '100%',
+      justifyContent: 'center',
+      alignContent: 'center',
+      alignItems: 'center',
+    },
+    modalText: {
+      fontSize: scale(24),
+      margin: 20,
+    },
+    modalButton: {
+      backgroundColor: '#007BFF',
+      padding: 10,
+      borderRadius: 5,
+      alignItems: 'center',
+      margin: 20,
+      width: '80%'
+    },
+    modalButtonText: {
+      color: 'white',
+      fontSize: scale(24),
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
   });
 
 export default styles

@@ -13,7 +13,7 @@ const Theme = () => {
   const getTheme = async () => {
     try {
       const theme = await AsyncStorage.getItem('theme');
-      return theme;
+      return theme ? theme : 'Decorações';
     } catch (error) {
       console.error('Erro ao obter o tema:', error);
       return 'theme';

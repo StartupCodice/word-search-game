@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableHighlight, ImageBackground, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styles from '../pages/Home/style';
@@ -8,12 +8,11 @@ import LevelComponent from './storageLevel';
 export default function Botoes() {
     const navigation = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
-    const { level } = LevelComponent();
+    const { level, addLevel } = LevelComponent();
 
     const openInfinitoModal = () => {
         setModalVisible(true);
     };
-
 
     return (
         <View style={styles.ScreenContainer}>
@@ -26,7 +25,7 @@ export default function Botoes() {
                         JOGAR
                     </Text>
                     <Text style={styles.ScreenTextNivel}>
-                        Nível {level}
+                        Nível {level ? level : "1"}
                     </Text>
                 </ImageBackground>
             </TouchableHighlight>

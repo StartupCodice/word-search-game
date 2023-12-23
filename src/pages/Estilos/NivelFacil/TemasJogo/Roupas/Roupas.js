@@ -25,8 +25,8 @@ const Cell = React.memo(({ letter, selected }) => (
 
 export default function Roupas({ navigation, rows = 8, cols = 8 }) {
   const { 
-    presentes, 
-    addPresentes,
+    roupas, 
+    addRoupas,
   } = NiveisFaceis();
 
   const [palavras, setPalavras] = useState([]);
@@ -197,8 +197,8 @@ export default function Roupas({ navigation, rows = 8, cols = 8 }) {
     adicionarMoedas(6);
     setMoedasGanhas(6);
 
-    let level = parseInt(presentes) + 1;
-    if (presentes < 30) addPresentes(level.toString());
+    let level = parseInt(roupas) + 1;
+    if (roupas < 30) addRoupas(level.toString());
 
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

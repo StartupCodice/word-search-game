@@ -59,7 +59,12 @@ export function ModalEvento(){
         }, 24 * 60 * 60 * 1000);
 
         getTheme().then((theme) => {
-            setTheme(theme);
+            if (theme == null) {
+                setTheme('Decorações');
+                addTheme('Decorações');
+            } else {
+                setTheme(theme);
+            }
         });
 
         return () => {

@@ -1,16 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { Text, View, Image, TouchableOpacity, ImageBackground, ScrollView } from 'react-native';
 import styles from '../../Home/style';
 import { Ionicons } from '@expo/vector-icons';
 import { scale } from 'react-native-size-matters';
 import NiveisMedio from '../../../components/storageNivelMedio';
 import MoedasComponent from '../../../components/storage';
-
+import Modal from 'react-native-modal';
 
 export function NivelMedio({ navigation }) {
-  const { moedas } = MoedasComponent();
+  const { moedas, buyTheme, temasPagosNivelMedio, adicionarTemasPagosNivelMedio } = MoedasComponent();
 
   const {
+    monumentos,
+    addMonumentos,
     presentes,
     addPresentes,
     decoracoes,
@@ -19,14 +21,73 @@ export function NivelMedio({ navigation }) {
     addAlimento,
     personagens,
     addPersonagens,
+    esportes,
+    addEsportes,
+    cores,
+    addCores,
+    empregos,
+    addEmpregos,
+    paises,
+    addPaises,
+    animais,
+    addAnimais,
+    doces,
+    addDoces,
+    arvores,
+    addArvores,
+    atores,
+    addAtores,
+    transportes,
+    addTransportes,
+    bebidas,
+    addBebidas,
+    amizade,
+    addAmizade,
+    musicas,
+    addMusicas,
+    nomes,
+    addNomes,
+    roupas,
+    addRoupas,
+    natureza,
+    addNatureza,
+    pintores,
+    addPintores,
+    casa,
+    addCasa,
+    carros,
+    addCarros,
+    filmes,
+    addFilmes,
+    espaco,
+    addEspaco,
+    musicos,
+    addMusicos,
+    marcas,
+    addMarcas,
+    escritoras,
+    addEscritoras,
   } = NiveisMedio();
+  const [showModalTheme, setShowModalTheme] = useState(false);
+  const [showModalSemSaldo, setShowModalSemSaldo] = useState(false);
+  const [comprarTema, setComprarTema] = useState('');
+  const [priceTheme, setPriceTheme] = useState(0);
 
-  useEffect(() => {
-    if (presentes == null) addPresentes(0);
-    if (decoracoes == null) addDecoracoes(0);
-    if (alimentos == null) addAlimento(0);
-    if (personagens == null) addPersonagens(0);
-  }, []);
+  const buy = () => {
+    setShowModalTheme(false);
+    buyTheme(priceTheme);
+
+    temasPagosNivelMedio.forEach((tema) => {
+      if (tema.name == comprarTema) tema.moedas = null;
+    })
+
+    adicionarTemasPagosNivelMedio(temasPagosNivelMedio);
+  }
+
+  const getBuyLevel = (name) => {
+    const tema = temasPagosNivelMedio.find((tema) => tema.name === name);
+    return tema ? tema.moedas : 0;
+  }
 
   return (
     <ScrollView style={styles.scrollContainer}>
@@ -84,15 +145,21 @@ export function NivelMedio({ navigation }) {
               navigation={navigation}
               themeName="Esportes"
               imagePath={require('./../../../assets/esportes.png')}
-              count={0}
+              count={esportes}
               screenName="EsportesMedio"
+              buyLevel={getBuyLevel("Esportes")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
 
             <ThemeButton
               navigation={navigation}
               themeName="Cores"
               imagePath={require('./../../../assets/cores.png')}
-              count={0}
+              count={cores}
               screenName="CoresMedio"
             />
 
@@ -100,7 +167,7 @@ export function NivelMedio({ navigation }) {
               navigation={navigation}
               themeName="Empregos"
               imagePath={require('./../../../assets/empregos.png')}
-              count={0}
+              count={empregos}
               screenName="EmpregosMedio"
             />
 
@@ -108,7 +175,7 @@ export function NivelMedio({ navigation }) {
               navigation={navigation}
               themeName="Países"
               imagePath={require('./../../../assets/paises.png')}
-              count={0}
+              count={paises}
               screenName="PaisesMedio"
             />
 
@@ -116,15 +183,21 @@ export function NivelMedio({ navigation }) {
               navigation={navigation}
               themeName="Animais"
               imagePath={require('./../../../assets/Animais.png')}
-              count={0}
+              count={animais}
               screenName="AnimaisMedio"
+              buyLevel={getBuyLevel("Animais")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
 
             <ThemeButton
               navigation={navigation}
               themeName="Doces"
               imagePath={require('./../../../assets/Doces.png')}
-              count={0}
+              count={doces}
               screenName="DocesMedio"
             />
 
@@ -132,7 +205,7 @@ export function NivelMedio({ navigation }) {
               navigation={navigation}
               themeName="Arvores"
               imagePath={require('./../../../assets/arvore.png')}
-              count={0}
+              count={arvores}
               screenName="ArvoresMedio"
             />
 
@@ -140,7 +213,7 @@ export function NivelMedio({ navigation }) {
               navigation={navigation}
               themeName="Atores"
               imagePath={require('./../../../assets/ator.png')}
-              count={0}
+              count={atores}
               screenName="AtoresMedio"
             />
 
@@ -148,15 +221,21 @@ export function NivelMedio({ navigation }) {
               navigation={navigation}
               themeName="Transportes"
               imagePath={require('./../../../assets/Transportes.png')}
-              count={0}
+              count={transportes}
               screenName="TransportesMedio"
+              buyLevel={getBuyLevel("Transportes")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
 
             <ThemeButton
               navigation={navigation}
               themeName="Bebidas"
               imagePath={require('./../../../assets/bebida.png')}
-              count={0}
+              count={bebidas}
               screenName="BebidasMedio"
             />
 
@@ -164,108 +243,168 @@ export function NivelMedio({ navigation }) {
               navigation={navigation}
               themeName="Amizade"
               imagePath={require('./../../../assets/amizade.png')}
-              count={0}
+              count={amizade}
               screenName="AmizadeMedio"
+              buyLevel={getBuyLevel("Amizade")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
 
             <ThemeButton
               navigation={navigation}
               themeName="Nomes"
               imagePath={require('./../../../assets/nomes.png')}
-              count={0}
+              count={nomes}
               screenName="NomesMedio"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Roupas"
               imagePath={require('./../../../assets/roupas.png')}
-              count={0}
+              count={roupas}
               screenName="RoupasMedio"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Natureza"
               imagePath={require('./../../../assets/natureza.png')}
-              count={0}
+              count={natureza}
               screenName="NaturezaMedio"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Pintores"
               imagePath={require('./../../../assets/pintores.png')}
-              count={0}
+              count={pintores}
               screenName="PintoresMedio"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Casa"
               imagePath={require('./../../../assets/casa.png')}
-              count={0}
+              count={casa}
               screenName="CasaMedio"
             />
             <ThemeButton
               navigation={navigation}
-              themeName="Monumentos"
-              imagePath={require('./../../../assets/monumentos.png')}
-              count={0}
-              screenName="MonumentosMedio"
+              themeName="Musica"
+              imagePath={require('./../../../assets/Musicas.png')}
+              count={musicas}
+              screenName="MusicasMedio"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Carros"
               imagePath={require('./../../../assets/carros.png')}
-              count={0}
+              count={carros}
               screenName="CarrosMedio"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Filmes"
               imagePath={require('./../../../assets/filme.png')}
-              count={0}
+              count={filmes}
               screenName="FilmesMedio"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Espaço"
               imagePath={require('./../../../assets/foguete.png')}
-              count={0}
+              count={espaco}
               screenName="EspaçoMedio"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Musicos"
               imagePath={require('./../../../assets/musicos.png')}
-              count={0}
+              count={musicos}
               screenName="MusicosMedio"
             />
             <ThemeButton
               navigation={navigation}
               themeName="Marcas"
               imagePath={require('./../../../assets/marcas.png')}
-              count={0}
+              count={marcas}
               screenName="MarcasMedio"
+              buyLevel={getBuyLevel("Marcas")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
             <ThemeButton
               navigation={navigation}
               themeName="Escritoras"
               imagePath={require('./../../../assets/escritor.png')}
-              count={0}
+              count={escritoras}
               screenName="EscritorasMedio"
             />
           </View>
         </View>
+
+        <Modal isVisible={showModalTheme} style={styles.modalContainer2}>
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalText}>
+              Você realmente quer comprar o tema: {comprarTema}?
+            </Text>
+            <TouchableOpacity style={styles.modalButton} onPress={() => setShowModalTheme(false)}>
+              <Text style={styles.modalButtonText}>Voltar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.modalButton} onPress={buy}>
+              <Text style={styles.modalButtonText}>Confirmar</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+
+        <Modal isVisible={showModalSemSaldo} style={styles.modalContainer2}>
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalText}>
+              Você não tem moedas sufientes para comprar esse tema!
+            </Text>
+            <TouchableOpacity style={styles.modalButton} onPress={() => setShowModalSemSaldo(false)}>
+              <Text style={styles.modalButtonText}>Voltar</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
       </ImageBackground>
     </ScrollView>
   );
 }
 
-const ThemeButton = ({ navigation, themeName, imagePath, count, screenName }) => (
-  <View>
-    <TouchableOpacity style={styles.ButtonEstilo} onPress={() => navigation.navigate(screenName)}>
-      <ImageBackground source={imagePath} style={styles.ImagemEstilo}>
-        <Text style={styles.ZeroTrinta}>{count}/30</Text>
-      </ImageBackground>
-    </TouchableOpacity>
-    <Text style={styles.TextCenterEstilo}>{themeName}</Text>
-  </View>
-);
+const ThemeButton = ({ navigation, themeName, imagePath, count, screenName, buyLevel, setShowModalTheme, setComprarTema, setPriceTheme, moedas, setShowModalSemSaldo }) => {
+  const buy = () => {
+    setComprarTema(themeName);
+    setPriceTheme(buyLevel);
+    setShowModalTheme(true);
+  }
+
+  return (
+    <View>
+      <TouchableOpacity style={styles.ButtonEstilo} onPress={() => {
+        if (buyLevel) {
+          if (moedas >= buyLevel) buy(); 
+          else setShowModalSemSaldo(true);
+          return;
+        }
+
+        navigation.navigate(screenName);
+      }}>
+        <ImageBackground source={imagePath} style={styles.ImagemEstilo}>
+          { 
+            buyLevel ? 
+              <View>
+                <View style={styles.moeda}></View>
+                <Text style={styles.moedasParaCompra}>{buyLevel}</Text>
+              </View> :
+              <Text style={styles.ZeroTrinta}>{count ? count : 0}/30</Text>
+          }
+        </ImageBackground>
+      </TouchableOpacity>
+      <Text style={styles.TextCenterEstilo}>{themeName}</Text>
+    </View>
+  )
+};

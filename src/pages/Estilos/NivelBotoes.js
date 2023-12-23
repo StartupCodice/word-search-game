@@ -5,10 +5,8 @@ import styles from '../Home/style'
 import { Ionicons } from '@expo/vector-icons';
 import { scale } from 'react-native-size-matters';
 
-
 export default function NiveisBotoes() {
     const navigation = useNavigation();
-
 
     return (
         <View style={styles.container}>
