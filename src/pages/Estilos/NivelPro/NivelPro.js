@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import { Text, View, TouchableOpacity, ImageBackground, ScrollView} from 'react-native';
 import styles from '../../Home/style';
 import { Ionicons } from '@expo/vector-icons';
 import { scale } from 'react-native-size-matters';
 import NiveisPro from '../../../components/storageNivelPro';
 import MoedasComponent from '../../../components/storage';
-
+import Modal from 'react-native-modal';
 
 export function NivelPro({ navigation }){
-  const { moedas } = MoedasComponent();
+  const { moedas, buyTheme, temasPagosNivelPro, adicionarTemasPagosNivelPro } = MoedasComponent();
 
   const {
     presentes,
@@ -67,6 +67,27 @@ export function NivelPro({ navigation }){
     addEscritoras,
   } = NiveisPro();
 
+  const [showModalTheme, setShowModalTheme] = useState(false);
+  const [showModalSemSaldo, setShowModalSemSaldo] = useState(false);
+  const [comprarTema, setComprarTema] = useState('');
+  const [priceTheme, setPriceTheme] = useState(0);
+
+  const buy = () => {
+    setShowModalTheme(false);
+    buyTheme(priceTheme);
+
+    temasPagosNivelPro.forEach((tema) => {
+      if (tema.name == comprarTema) tema.moedas = null;
+    })
+
+    adicionarTemasPagosNivelPro(temasPagosNivelPro);
+  }
+
+  const getBuyLevel = (name) => {
+    const tema = temasPagosNivelPro.find((tema) => tema.name === name);
+    return tema ? tema.moedas : 0;
+  }
+
   return(
 
       <ScrollView style={styles.scrollContainer}>   
@@ -108,6 +129,12 @@ export function NivelPro({ navigation }){
               imagePath={require('./../../../assets/ComidasNatal.png')}
               count={alimentos}
               screenName="AlimentosPro"
+              buyLevel={getBuyLevel("Alimentos")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
 
             <ThemeButton
@@ -164,6 +191,12 @@ export function NivelPro({ navigation }){
               imagePath={require('./../../../assets/Doces.png')}
               count={doces}
               screenName="DocesPro"
+              buyLevel={getBuyLevel("Doces")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
 
             <ThemeButton
@@ -219,6 +252,12 @@ export function NivelPro({ navigation }){
               imagePath={require('./../../../assets/roupas.png')}
               count={roupas}
               screenName="RoupasPro"
+              buyLevel={getBuyLevel("Roupas")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
             <ThemeButton
               navigation={navigation}
@@ -254,6 +293,12 @@ export function NivelPro({ navigation }){
               imagePath={require('./../../../assets/carros.png')}
               count={carros}
               screenName="CarrosPro"
+              buyLevel={getBuyLevel("Carro")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
             <ThemeButton
               navigation={navigation}
@@ -275,6 +320,12 @@ export function NivelPro({ navigation }){
               imagePath={require('./../../../assets/musicos.png')}
               count={musicos}
               screenName="MusicosPro"
+              buyLevel={getBuyLevel("Musicos")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
             <ThemeButton
               navigation={navigation}
@@ -292,18 +343,66 @@ export function NivelPro({ navigation }){
             />
             </View>
       </View>
+
+        <Modal isVisible={showModalTheme} style={styles.modalContainer2}>
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalText}>
+              Você realmente quer comprar o tema: {comprarTema}?
+            </Text>
+            <TouchableOpacity style={styles.modalButton} onPress={() => setShowModalTheme(false)}>
+              <Text style={styles.modalButtonText}>Voltar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.modalButton} onPress={buy}>
+              <Text style={styles.modalButtonText}>Confirmar</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+
+        <Modal isVisible={showModalSemSaldo} style={styles.modalContainer2}>
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalText}>
+              Você não tem moedas sufientes para comprar esse tema!
+            </Text>
+            <TouchableOpacity style={styles.modalButton} onPress={() => setShowModalSemSaldo(false)}>
+              <Text style={styles.modalButtonText}>Voltar</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
       </ImageBackground> 
       </ScrollView>
   );
 }
 
-const ThemeButton = ({ navigation, themeName, imagePath, count, screenName }) => (
-  <View>
-    <TouchableOpacity style={styles.ButtonEstilo} onPress={() => navigation.navigate(screenName)}>
-      <ImageBackground source={imagePath} style={styles.ImagemEstilo}>
-        <Text style={styles.ZeroTrinta}>{count ? count : 0}/30</Text>
-      </ImageBackground>
-    </TouchableOpacity>
-    <Text style={styles.TextCenterEstilo}>{themeName}</Text>
-  </View>
-);
+const ThemeButton = ({ navigation, themeName, imagePath, count, screenName, buyLevel, setShowModalTheme, setComprarTema, setPriceTheme, moedas, setShowModalSemSaldo }) => {
+  const buy = () => {
+    setComprarTema(themeName);
+    setPriceTheme(buyLevel);
+    setShowModalTheme(true);
+  }
+
+  return (
+    <View>
+      <TouchableOpacity style={styles.ButtonEstilo} onPress={() => {
+        if (buyLevel) {
+          if (moedas >= buyLevel) buy(); 
+          else setShowModalSemSaldo(true);
+          return;
+        }
+
+        navigation.navigate(screenName);
+      }}>
+        <ImageBackground source={imagePath} style={styles.ImagemEstilo}>
+          { 
+            buyLevel ? 
+              <View>
+                <View style={styles.moeda}></View>
+                <Text style={styles.moedasParaCompra}>{buyLevel}</Text>
+              </View> :
+              <Text style={styles.ZeroTrinta}>{count ? count : 0}/30</Text>
+          }
+        </ImageBackground>
+      </TouchableOpacity>
+      <Text style={styles.TextCenterEstilo}>{themeName}</Text>
+    </View>
+  )
+};
