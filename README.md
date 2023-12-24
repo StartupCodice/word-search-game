@@ -45,6 +45,8 @@
 * **JAVASCRIPT**
 * **TYPESCRIPT**
 
+## Licença
 
+Licença garantida pelo [LICENSE MIT](https://choosealicense.com/licenses/mit/)
 
 
