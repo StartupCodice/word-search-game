@@ -2,23 +2,15 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { StyleSheet, Dimensions } from "react-native";
 import { moderateScale, verticalScale, scale, moderateVerticalScale } from 'react-native-size-matters';
 const CELL_SIZE = Math.floor(Dimensions.get('window').width * 0.1);
-const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
+const CELL_PADDING = Math.floor(25 * 0.1);
 
 
 const styles = StyleSheet.create({
 
-  cell: {
-    width: scale(35),
-    padding: CELL_PADDING,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   row: {
     flexDirection: 'row',
   },
-  cellText: {
-    fontSize: wp(6),
-  },
+  
   palavrasContainer: {
     top: hp(55),
     flexDirection: 'row',
@@ -28,11 +20,7 @@ const styles = StyleSheet.create({
     rowGap: 20,
     columnGap: 20,
   },
-  selected: {
-    backgroundColor: 'gray',
-    color: 'white',
-    borderRadius: 10,
-  },
+
   LetterContainer: {
     // flexDirection: 'row',
     // flexWrap: 'wrap',
@@ -240,6 +228,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center', 
     alignItems: 'center', 
     top: scale(18) 
+  },
+  cell: {
+    width: CELL_SIZE,  
+    height: CELL_SIZE,  
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: CELL_PADDING,   
+  },
+  cellText: {
+    fontSize: wp(6),
+  },
+  selected: {
+    backgroundColor: 'gray',
+    color: 'white',
+    borderRadius: 10,
   },
 });
 
