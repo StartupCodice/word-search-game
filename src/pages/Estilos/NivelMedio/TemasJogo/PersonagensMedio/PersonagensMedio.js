@@ -192,8 +192,8 @@ export default function PersonagensMedio({ navigation, rows = 8, cols = 8 }) {
     if (personagens < 30) addPersonagens(level.toString());
     
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(44);
+    setMoedasGanhas(44);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

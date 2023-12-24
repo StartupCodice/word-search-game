@@ -129,12 +129,7 @@ export function NivelDificil({ navigation }) {
               imagePath={require('./../../../assets/ComidasNatal.png')}
               count={alimentos}
               screenName="AlimentosDificil"
-              buyLevel={getBuyLevel("Alimentos")}
-              setShowModalTheme={setShowModalTheme}
-              setComprarTema={setComprarTema}
-              setPriceTheme={setPriceTheme}
-              moedas={moedas}
-              setShowModalSemSaldo={setShowModalSemSaldo}
+             
             />
 
             <ThemeButton
@@ -175,6 +170,13 @@ export function NivelDificil({ navigation }) {
               imagePath={require('./../../../assets/paises.png')}
               count={paises}
               screenName="PaisesDificil"
+              buyLevel={getBuyLevel("PaisesFacil")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
+              
             />
 
             <ThemeButton
@@ -183,6 +185,13 @@ export function NivelDificil({ navigation }) {
               imagePath={require('./../../../assets/Animais.png')}
               count={animais}
               screenName="AnimaisDificil"
+              buyLevel={getBuyLevel("Animais")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
+              
             />
 
             <ThemeButton
@@ -191,6 +200,12 @@ export function NivelDificil({ navigation }) {
               imagePath={require('./../../../assets/Doces.png')}
               count={doces}
               screenName="DocesDificil"
+              buyLevel={getBuyLevel("Doces")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
 
             <ThemeButton
@@ -199,6 +214,12 @@ export function NivelDificil({ navigation }) {
               imagePath={require('./../../../assets/arvore.png')}
               count={arvores}
               screenName="ArvoresDificil"
+              buyLevel={getBuyLevel("Arvores")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
 
             <ThemeButton
@@ -221,6 +242,12 @@ export function NivelDificil({ navigation }) {
               imagePath={require('./../../../assets/Transportes.png')}
               count={transportes}
               screenName="TransportesDificil"
+              buyLevel={getBuyLevel("Transportes")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
 
             <ThemeButton
@@ -229,6 +256,12 @@ export function NivelDificil({ navigation }) {
               imagePath={require('./../../../assets/bebida.png')}
               count={bebidas}
               screenName="BebidasDificil"
+              buyLevel={getBuyLevel("Bebidas")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
 
             <ThemeButton
@@ -247,10 +280,30 @@ export function NivelDificil({ navigation }) {
 
             <ThemeButton
               navigation={navigation}
+              themeName="Musica"
+              imagePath={require('./../../../assets/Musicas.png')}
+              count={musicas}
+              screenName="MusicasDificil"
+              buyLevel={getBuyLevel("Musicas")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
+            />
+
+            <ThemeButton
+              navigation={navigation}
               themeName="Nomes"
               imagePath={require('./../../../assets/nomes.png')}
               count={nomes}
               screenName="NomesDificil"
+              buyLevel={getBuyLevel("Nomes")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
             <ThemeButton
               navigation={navigation}
@@ -258,6 +311,12 @@ export function NivelDificil({ navigation }) {
               imagePath={require('./../../../assets/roupas.png')}
               count={roupas}
               screenName="RoupasDificil"
+              buyLevel={getBuyLevel("Roupas")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
             <ThemeButton
               navigation={navigation}
@@ -265,6 +324,12 @@ export function NivelDificil({ navigation }) {
               imagePath={require('./../../../assets/natureza.png')}
               count={natureza}
               screenName="NaturezaDificil"
+              buyLevel={getBuyLevel("Natureza")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
             <ThemeButton
               navigation={navigation}
@@ -285,13 +350,12 @@ export function NivelDificil({ navigation }) {
               imagePath={require('./../../../assets/casa.png')}
               count={casa}
               screenName="CasaDificil"
-            />
-            <ThemeButton
-              navigation={navigation}
-              themeName="Musicas"
-              imagePath={require('./../../../assets/Musicas.png')}
-              count={musicas}
-              screenName="MusicasDificil"
+              buyLevel={getBuyLevel("Casa")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
             <ThemeButton
               navigation={navigation}
@@ -299,6 +363,13 @@ export function NivelDificil({ navigation }) {
               imagePath={require('./../../../assets/carros.png')}
               count={carros}
               screenName="CarrosDificil"
+              buyLevel={getBuyLevel("Carros")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
+              
             />
             <ThemeButton
               navigation={navigation}
@@ -306,6 +377,12 @@ export function NivelDificil({ navigation }) {
               imagePath={require('./../../../assets/filme.png')}
               count={filmes}
               screenName="FilmesDificil"
+              buyLevel={getBuyLevel("Filmes")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
             <ThemeButton
               navigation={navigation}
@@ -322,10 +399,16 @@ export function NivelDificil({ navigation }) {
             />
             <ThemeButton
               navigation={navigation}
-              themeName="Músicos"
+              themeName="Musicos"
               imagePath={require('./../../../assets/musicos.png')}
               count={musicos}
               screenName="MusicosDificil"
+              buyLevel={getBuyLevel("Musicos")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
             <ThemeButton
               navigation={navigation}
@@ -333,6 +416,12 @@ export function NivelDificil({ navigation }) {
               imagePath={require('./../../../assets/marcas.png')}
               count={marcas}
               screenName="MarcasDificil"
+              buyLevel={getBuyLevel("Marcas")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
             <ThemeButton
               navigation={navigation}
@@ -340,6 +429,12 @@ export function NivelDificil({ navigation }) {
               imagePath={require('./../../../assets/escritor.png')}
               count={escritoras}
               screenName="EscritorasDificil"
+              buyLevel={getBuyLevel("Escritoras")}
+              setShowModalTheme={setShowModalTheme}
+              setComprarTema={setComprarTema}
+              setPriceTheme={setPriceTheme}
+              moedas={moedas}
+              setShowModalSemSaldo={setShowModalSemSaldo}
             />
           </View>
         </View>

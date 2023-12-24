@@ -211,8 +211,8 @@ export default function FilmesDificil({ navigation, rows = 10, cols = 10 }) {
     let level = parseInt(filmes) + 1;
     if (filmes < 30) addFilmes(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(62);
+    setMoedasGanhas(62);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

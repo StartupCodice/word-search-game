@@ -193,8 +193,8 @@ export default function NaturezaPro({ navigation, rows = 12, cols = 12 }) {
     let level = parseInt(natureza) + 1;
     if (natureza < 30) addNatureza(level.toString());
 
-    adicionarMoedas(16);
-    setMoedasGanhas(16);
+    adicionarMoedas(86);
+    setMoedasGanhas(86);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

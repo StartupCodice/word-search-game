@@ -190,8 +190,8 @@ export default function ArvoresPro({ navigation, rows = 12, cols = 12 }) {
     let level = parseInt(arvores) + 1;
     if (arvores < 30) addArvores(level.toString());
 
-    adicionarMoedas(16);
-    setMoedasGanhas(16);
+    adicionarMoedas(86);
+    setMoedasGanhas(86);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

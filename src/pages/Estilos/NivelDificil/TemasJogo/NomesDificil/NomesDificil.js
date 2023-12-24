@@ -213,8 +213,8 @@ export default function NomesDificil({ navigation, rows = 10, cols = 10 }) {
     let level = parseInt(nomes) + 1;
     if (nomes < 30) addNomes(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(62);
+    setMoedasGanhas(62);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

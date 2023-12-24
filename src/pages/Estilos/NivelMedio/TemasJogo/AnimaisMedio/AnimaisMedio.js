@@ -208,8 +208,8 @@ export default function AnimaisMedio({ navigation, rows = 8, cols = 8 }) {
     let level = parseInt(animais) + 1;
     if (animais < 30) addAnimais(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(44);
+    setMoedasGanhas(44);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

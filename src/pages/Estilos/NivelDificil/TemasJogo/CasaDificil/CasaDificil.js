@@ -197,8 +197,8 @@ export default function CasaDificil({ navigation, rows = 10, cols = 10 }) {
     let level = parseInt(casa) + 1;
     if (casa < 30) addCasa(level.toString());
 
-    adicionarMoedas(8);
-    setMoedasGanhas(8);
+    adicionarMoedas(62);
+    setMoedasGanhas(62);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);

@@ -192,8 +192,8 @@ export default function RoupasPro({ navigation, rows = 12, cols = 12 }) {
     let level = parseInt(roupas) + 1;
     if (roupas < 30) addRoupas(level.toString());
 
-    adicionarMoedas(16);
-    setMoedasGanhas(16);
+    adicionarMoedas(86);
+    setMoedasGanhas(86);
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);
