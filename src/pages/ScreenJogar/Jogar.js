@@ -13,10 +13,9 @@ import LevelComponent from '../../components/storageLevel';
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const CELL_SIZE = Math.floor(Dimensions.get('window').width * 0.1);
-const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
+const CELL_PADDING = Math.floor(scale(10) * 0.1);
 
 const Cell = React.memo(({ letter, selected }) => (
-
   <View style={[styles.cell, letter.isSelected && styles.selected, selected && styles.selected]}>
     <Text style={styles.cellText}>{letter.letter}</Text>
   </View>
@@ -40,6 +39,7 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
   const { level, addLevel } = LevelComponent();
   const [moedasGanhas, setMoedasGanhas] = useState(0);
   const [currentCell, setCurrentCell] = useState(null);
+  const [initialCell, setInitialCell] = useState(null);
 
   const isMountedRef = useRef(true);
 
@@ -183,7 +183,7 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
     const minutos = Math.floor(tempoDecorrido / 60);
     const segundos = Math.floor(tempoDecorrido % 60);
   
-    const tempoFormatado = `${minutos} min ${segundos} seg`;
+    const tempoFormatado = `${minutos} min ${segundos} seg `;
 
     adicionarMoedas(6);
     setMoedasGanhas(6);
@@ -238,68 +238,83 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
   };
 
   const [selectedCells, setSelectedCells] = useState([]);
-const panRef = useRef(null);
+  const panRef = useRef(null);
 
-const isCellSelected = useCallback(
-  (row, col) => selectedCells.some(cell => cell.row === row && cell.col === col),
-  [selectedCells]
-);
+  const isCellSelected = useCallback(
+    (row, col) => selectedCells.some(cell => cell.row === row && cell.col === col),
+    [selectedCells]
+  );
 
-const onGestureEvent = (event) => {
-  const { x, y } = event.nativeEvent;
-  const row = Math.floor(y / CELL_SIZE);
-  const col = Math.floor(x / CELL_SIZE);
-  if (row >= 0 && col >= 0 && row < rows && col < cols && (currentCell?.row !== row || currentCell?.col !== col)) {
-    setCurrentCell({ row, col });
-    if (!isCellSelected(row, col)) {
-      setSelectedCells(prevCells => [...prevCells, { row, col }]);
+  const onGestureEvent = (event) => {
+    const { x, y } = event.nativeEvent;
+    const row = Math.floor(y / (CELL_SIZE + CELL_PADDING));
+    const col = Math.floor(x / (CELL_SIZE + CELL_PADDING));
+
+    if (row >= 0 && col >= 0 && row < rows && col < cols) {
+      if (!initialCell) {
+        setInitialCell({ row, col });
+      }
+
+      if (isAligned(initialCell, { row, col })) {
+        setCurrentCell({ row, col });
+        if (!isCellSelected(row, col)) {
+          setSelectedCells(prevCells => [...prevCells, { row, col }]);
+        }
+      }
     }
-  }
-};
+  };
 
-const onHandlerStateChange = (event, item) => {
-  let letterSelected = '';
+  const onHandlerStateChange = (event, item) => {
+    let letterSelected = '';
 
-  if (event.nativeEvent.state === State.END) {
-    selectedCells.forEach((cell) => {
-      board.game.board.forEach((row) => {
-        row.forEach((letter) => {
-          if (cell.col === letter.column && cell.row === letter.row) {
-            letterSelected += letter.letter;
-          }
-        })
-      })
-    });
+    if (event.nativeEvent.state === State.END) {
+      selectedCells.forEach((cell) => {
+        if (isAligned(initialCell, cell)) {
+            board.game.board.forEach((row) => {
+              row.forEach((letter) => {
+                  if (cell.col === letter.column && cell.row === letter.row) {
+                    letterSelected += letter.letter;
+                  }
+              })
+            });
+        }
+      });
+    }
 
     let game = board.game;
     game.board.forEach((row) => {
       row.forEach((column) => {
-        if (!column.isSelected) {
+          if (!column.isSelected) {
           if (column.word[0] === letterSelected) {
-            game.board[column.row][column.column].setIsSelected(true);
+              game.board[column.row][column.column].setIsSelected(true);
           }
-        }
+          }
       });
+    });
+
+    palavras.forEach((palavra) => {
+      if (palavra.name === letterSelected) {
+          palavra.found = true;
+      }
     });
 
     setBoard({ game });
     setSelectedCells([]);
     setCurrentCell(null);
-    
-
-    palavras.forEach((palavra) => {
-      if (palavra.name === letterSelected) {
-        palavra.found = true;
-      }
-    });
+    setInitialCell(null);
 
     setPalavras([...palavras]);
-
     userWin();
-  }
-};
+  };
 
+  const isAligned = (cell1, cell2) => {
+    if (!cell1 || !cell2) return false;
+    if (cell1.row === cell2.row) return true;
+    if (cell1.col === cell2.col) return true;
 
+    if (Math.abs(cell1.row - cell2.row) === Math.abs(cell1.col - cell2.col)) return true;
+    return false;
+  };
 
   return (
     <View style={styles.container}>
@@ -358,7 +373,7 @@ const onHandlerStateChange = (event, item) => {
                   <View key={indexRow} style={styles.row}>
                     {
                       row.map((letter, colIndex) => (
-                        <Cell 
+                        <Cell
                           key={`cell-${indexRow}-${colIndex}`} 
                           letter={letter} 
                           selected={isCellSelected(indexRow, colIndex)} 
@@ -414,4 +429,3 @@ const onHandlerStateChange = (event, item) => {
     </View>
   );
 }
-
