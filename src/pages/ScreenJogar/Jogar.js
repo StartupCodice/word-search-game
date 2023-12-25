@@ -13,7 +13,7 @@ import LevelComponent from '../../components/storageLevel';
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const CELL_SIZE = Math.floor(Dimensions.get('window').width * 0.1);
-const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
+const CELL_PADDING = Math.floor(scale(10) * 0.1);
 
 const Cell = React.memo(({ letter, selected }) => (
   <View style={[styles.cell, letter.isSelected && styles.selected, selected && styles.selected]}>
