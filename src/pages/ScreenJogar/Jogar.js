@@ -247,8 +247,8 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
 
   const onGestureEvent = (event) => {
     const { x, y } = event.nativeEvent;
-    const row = Math.floor(y / (CELL_SIZE + CELL_PADDING));
-    const col = Math.floor(x / (CELL_SIZE + CELL_PADDING));
+    const row = Math.floor(y / (CELL_SIZE));
+    const col = Math.floor(x / (CELL_SIZE));
 
     if (row >= 0 && col >= 0 && row < rows && col < cols) {
       if (!initialCell) {

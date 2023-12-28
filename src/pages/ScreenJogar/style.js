@@ -237,7 +237,6 @@ const styles = StyleSheet.create({
     margin: CELL_PADDING,   
   },
   cellText: {
-    fontSize: wp(6),
   },
   selected: {
     backgroundColor: 'gray',
