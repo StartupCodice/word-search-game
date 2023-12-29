@@ -138,7 +138,7 @@ export default function EsportesDificil({ navigation, rows = 10, cols = 10 }) {
         { name: 'PISTA', found: false },
         { name: 'LUCHA', found: false },
         { name: 'BOLA', found: false },
-        { name: 'RAQUET', found: false },
+
         { name: 'TIRO', found: false },
         { name: 'VETOR', found: false },
         { name: 'CANOA', found: false },
@@ -214,12 +214,10 @@ export default function EsportesDificil({ navigation, rows = 10, cols = 10 }) {
       { name: 'JUDO', found: false },
       { name: 'VOLTA', found: false },
       { name: 'CICLO', found: false },
-      { name: 'RAQUET', found: false },
       { name: 'LUVA', found: false },
       { name: 'PISTA', found: false },
       { name: 'LUCHA', found: false },
       { name: 'BOLA', found: false },
-      { name: 'RAQUET', found: false },
       { name: 'TIRO', found: false },
       { name: 'VETOR', found: false },
       { name: 'CANOA', found: false },
@@ -319,12 +317,12 @@ const onHandlerStateChange = (event, item) => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('./../../../../../assets/templatejogo.jpg')} style={styles.imageBackground}>
+      <ImageBackground source={require('./../../../../../assets/fundoAzul.jpg')} style={styles.imageBackground}>
         
       <TouchableOpacity onPress={mostrarDica}>
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <ImageBackground
-            source={require('./../../../../../assets/chapeu.png')}
+            source={require('./../../../../../assets/lampada.png')}
             style={styles.Dica}
           >
             <Text style={styles.dicaNumber}>{4 - numDicasUsadas}</Text>

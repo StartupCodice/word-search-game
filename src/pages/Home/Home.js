@@ -8,7 +8,7 @@ import Botoes from '../../components/Botoes';
 export default function Home({ navigation }) {    
     return (
         <View style={styles.container}>
-            <ImageBackground source={require('../../assets/bg2.jpeg')} style={styles.imageBackground}>
+            <ImageBackground source={require('../../assets/fundoAzul.jpg')} style={styles.imageBackground}>
                 <View style={styles.buttonContainer}>                  
                     <Botoes navigation={navigation}/>                          
                     <ModalSettings />

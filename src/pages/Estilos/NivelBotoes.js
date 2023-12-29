@@ -10,7 +10,7 @@ export default function NiveisBotoes() {
 
     return (
         <View style={styles.container}>
-            <ImageBackground source={require('../../assets/natalbotões.jpg')} style={styles.imageBackground}>
+            <ImageBackground source={require('../../assets/fundoclaro.jpg')} style={styles.imageBackground}>
                 <View style={styles.container}>
                     <TouchableOpacity>
                     <Ionicons 

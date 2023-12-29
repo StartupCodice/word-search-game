@@ -12,7 +12,7 @@ import LevelComponent from '../../components/storageLevel';
 
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
-const CELL_SIZE = Math.floor(Dimensions.get('window').width * 0.1);
+const CELL_SIZE = Math.floor(400 * 0.1);
 const CELL_PADDING = Math.floor(scale(10) * 0.1);
 
 const Cell = React.memo(({ letter, selected }) => {
@@ -140,7 +140,6 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
         { name: 'GANSO', found: false },
         { name: 'MESSA', found: false },
         { name: 'SALSA', found: false },
-        { name: 'TORTA', found: false },
         { name: 'NOZES', found: false },
         { name: 'COCA', found: false },
         { name: 'PÃO', found: false },
@@ -150,7 +149,6 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
         { name: 'BRIN', found: false },
         { name: 'VELA', found: false },
         { name: 'SINO', found: false },
-        { name: 'FAMÍLIA', found: false },
         { name: 'LUZES', found: false },
         { name: 'PAZ', found: false },
         { name: 'AMOR', found: false },
@@ -165,7 +163,6 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
         { name: 'SOFA', found: false },
         { name: 'CAIXA', found: false },
         { name: 'CIRCO', found: false },
-        { name: 'MILHO', found: false },
         { name: 'DADO', found: false },
         { name: 'PIPO', found: false },
         { name: 'CELO', found: false },
@@ -230,8 +227,8 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
   
     const tempoFormatado = `${minutos} min ${segundos} seg `;
 
-    adicionarMoedas(6);
-    setMoedasGanhas(6);
+    adicionarMoedas(28);
+    setMoedasGanhas(28);
   
     setTempoDecorrido(tempoFormatado);
 
@@ -396,12 +393,12 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('./../../assets/templatejogo.jpg')} style={styles.imageBackground}>
+      <ImageBackground source={require('./../../assets/fundoAzul.jpg')} style={styles.imageBackground}>
         
       <TouchableOpacity onPress={mostrarDica}>
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <ImageBackground
-            source={require('./../../assets/chapeu.png')}
+            source={require('./../../assets/lampada.png')}
             style={styles.Dica}
           >
             <Text style={styles.dicaNumber}>{3 - numDicasUsadas}</Text>

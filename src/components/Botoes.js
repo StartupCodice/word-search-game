@@ -18,7 +18,7 @@ export default function Botoes() {
         <View style={styles.ScreenContainer}>
             <TouchableHighlight underlayColor="null" onPress={() => navigation.navigate('ScreenJogar')}>
                 <ImageBackground
-                    source={require('./../assets/presenteVermelho.png')}
+                    source={require('./../assets/botãovermelho.png')}
                     style={styles.ScreenButton}
                 >
                     <Text style={styles.ScreenTextJogar}>
@@ -31,7 +31,7 @@ export default function Botoes() {
             </TouchableHighlight>
             <TouchableHighlight underlayColor="null" onPress={() => navigation.navigate('Estilos')}>
                 <ImageBackground
-                    source={require('./../assets/presenteVerde.png')}
+                    source={require('./../assets/botãoverde.png')}
                     style={styles.ScreenButton}
                 >
                     <Text style={styles.ScreenText}>
@@ -41,7 +41,7 @@ export default function Botoes() {
             </TouchableHighlight>
             <TouchableHighlight underlayColor="null" onPress={openInfinitoModal}>
                 <ImageBackground
-                source={require('./../assets/presenteAmarelo.png')}
+                source={require('./../assets/botãoamarelo.png')}
                 style={styles.ScreenButton}
                 >
                 <Text style={styles.ScreenText}>

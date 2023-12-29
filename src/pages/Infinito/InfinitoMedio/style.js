@@ -133,6 +133,8 @@ const styles = StyleSheet.create({
     height: scale(20),
     textAlign: 'center',
     fontSize: scale(12),
+    left: scale(12),
+    top: scale(12)
   },
   modalContainer: {
     backgroundColor: 'white',

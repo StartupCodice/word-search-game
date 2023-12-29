@@ -274,21 +274,21 @@ const styles = StyleSheet.create({
         color: '#000',
         textAlign: 'center',
         fontWeight: 'bold',
-        top: moderateScale(60, 0.90),
+        top: moderateScale(30, 0.90),
       },   
       ScreenTextNivel: {
         fontSize: wp(3.5),
         color: '#000',
         textAlign: 'center',
         fontWeight: 'bold',
-        top: moderateScale(50, 0.90),
+        top: moderateScale(30, 0.90),
       },
       ScreenTextJogar: {
         fontSize: wp(5),
         color: '#000',
         textAlign: 'center',
         fontWeight: 'bold',
-        top: moderateScale(50, 0.90),
+        top: moderateScale(30, 0.90),
       },
     selected: {
       backgroundColor: 'gray',
@@ -345,8 +345,8 @@ const styles = StyleSheet.create({
       color: 'black',
     },
     ScreenButton: {
-      width: scale(200),
-      height: scale(100),
+      width: scale(220),
+      height: scale(88),
       margin: scale(14),
       top: scale(16)
     },
@@ -362,7 +362,7 @@ const styles = StyleSheet.create({
     },  
     ButtonTextNiveis: {
         fontSize: scale(22),
-        color: 'white',
+        color: 'black',
         textAlign: 'center',
         fontWeight: 'bold',
     }, 
