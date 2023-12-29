@@ -15,11 +15,13 @@ import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-g
 const CELL_SIZE = Math.floor(Dimensions.get('window').width * 0.1);
 const CELL_PADDING = Math.floor(scale(10) * 0.1);
 
-const Cell = React.memo(({ letter, selected }) => (
-  <View style={[styles.cell, letter.isSelected && styles.selected, selected && styles.selected]}>
-    <Text style={styles.cellText}>{letter.letter}</Text>
-  </View>
-));
+const Cell = React.memo(({ letter, selected }) => {
+  return (
+    <View style={[styles.cell, letter.isSelected && styles.selected, selected && styles.selected]}>
+      <Text style={styles.cellText}>{letter.letter}</Text>
+    </View>
+  )
+});
 
 
 export default function Jogar({ navigation, rows = 8, cols = 8 }) {
@@ -40,7 +42,14 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
   const [moedasGanhas, setMoedasGanhas] = useState(0);
   const [currentCell, setCurrentCell] = useState(null);
   const [initialCell, setInitialCell] = useState(null);
-
+  const [state, setState] = useState({
+    startX: 0,
+    startY: 0,
+    endX: 0,
+    endY: 0,
+    gestureType: null,
+  });
+  
   const isMountedRef = useRef(true);
 
   const selectRandomWords = (totalWords, numWords) => {
@@ -137,6 +146,42 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
         { name: 'PÃO', found: false },
         { name: 'FIGO', found: false },
         { name: 'UVA', found: false },
+        { name: 'RÉVE', found: false },
+        { name: 'BRIN', found: false },
+        { name: 'VELA', found: false },
+        { name: 'SINO', found: false },
+        { name: 'FAMÍLIA', found: false },
+        { name: 'LUZES', found: false },
+        { name: 'PAZ', found: false },
+        { name: 'AMOR', found: false },
+        { name: 'BOLA', found: false },
+        { name: 'GATO', found: false },
+        { name: 'CASA', found: false },
+        { name: 'SOL', found: false },
+        { name: 'BIFE', found: false },
+        { name: 'RIO', found: false },
+        { name: 'CÉU', found: false },
+        { name: 'MESA', found: false },
+        { name: 'SOFA', found: false },
+        { name: 'CAIXA', found: false },
+        { name: 'CIRCO', found: false },
+        { name: 'MILHO', found: false },
+        { name: 'DADO', found: false },
+        { name: 'PIPO', found: false },
+        { name: 'CELO', found: false },
+        { name: 'RAIZ', found: false },
+        { name: 'POLO', found: false },
+        { name: 'LADO', found: false },
+        { name: 'BICO', found: false },
+        { name: 'CUME', found: false },
+        { name: 'MIMO', found: false },
+        { name: 'BOLA', found: false },
+        { name: 'RIMA', found: false },
+        { name: 'ROSA', found: false },
+        { name: 'VEIO', found: false },
+        { name: 'DEDO', found: false },
+        { name: 'VILA', found: false },
+        { name: 'RUIM', found: false },      
       ];
 
     if (isMountedRef.current) {
@@ -210,6 +255,42 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
       { name: 'PÃO', found: false },
       { name: 'FIGO', found: false },
       { name: 'UVA', found: false },
+      { name: 'RÉVE', found: false },
+      { name: 'BRIN', found: false },
+      { name: 'VELA', found: false },
+      { name: 'SINO', found: false },
+      { name: 'FAMÍLIA', found: false },
+      { name: 'LUZES', found: false },
+      { name: 'PAZ', found: false },
+      { name: 'AMOR', found: false },
+      { name: 'BOLA', found: false },
+      { name: 'GATO', found: false },
+      { name: 'CASA', found: false },
+      { name: 'SOL', found: false },
+      { name: 'BIFE', found: false },
+      { name: 'RIO', found: false },
+      { name: 'CÉU', found: false },
+      { name: 'MESA', found: false },
+      { name: 'SOFA', found: false },
+      { name: 'CAIXA', found: false },
+      { name: 'CIRCO', found: false },
+      { name: 'MILHO', found: false },
+      { name: 'DADO', found: false },
+      { name: 'PIPO', found: false },
+      { name: 'CELO', found: false },
+      { name: 'RAIZ', found: false },
+      { name: 'POLO', found: false },
+      { name: 'LADO', found: false },
+      { name: 'BICO', found: false },
+      { name: 'CUME', found: false },
+      { name: 'MIMO', found: false },
+      { name: 'BOLA', found: false },
+      { name: 'RIMA', found: false },
+      { name: 'ROSA', found: false },
+      { name: 'VEIO', found: false },
+      { name: 'DEDO', found: false },
+      { name: 'VILA', found: false },
+      { name: 'RUIM', found: false },
     ];
 
     const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 4);
@@ -250,16 +331,14 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
     const row = Math.floor(y / (CELL_SIZE));
     const col = Math.floor(x / (CELL_SIZE));
 
-    if (row >= 0 && col >= 0 && row < rows && col < cols) {
-      if (!initialCell) {
-        setInitialCell({ row, col });
-      }
+    if (!initialCell) {
+      setInitialCell({ row, col });
+    }
 
-      if (isAligned(initialCell, { row, col })) {
-        setCurrentCell({ row, col });
-        if (!isCellSelected(row, col)) {
-          setSelectedCells(prevCells => [...prevCells, { row, col }]);
-        }
+    if (isAligned(initialCell, { row, col })) {
+      setCurrentCell({ row, col });
+      if (!isCellSelected(row, col)) {
+        setSelectedCells(prevCells => [...prevCells, { row, col }]);
       }
     }
   };
@@ -267,27 +346,25 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
   const onHandlerStateChange = (event, item) => {
     let letterSelected = '';
 
-    if (event.nativeEvent.state === State.END) {
       selectedCells.forEach((cell) => {
         if (isAligned(initialCell, cell)) {
             board.game.board.forEach((row) => {
               row.forEach((letter) => {
                   if (cell.col === letter.column && cell.row === letter.row) {
-                    letterSelected += letter.letter;
+                    if (!letter.isSelected) letterSelected += letter.letter;
                   }
               })
             });
         }
       });
-    }
 
     let game = board.game;
     game.board.forEach((row) => {
       row.forEach((column) => {
           if (!column.isSelected) {
-          if (column.word[0] === letterSelected) {
+            if (column.word[0] === letterSelected) {
               game.board[column.row][column.column].setIsSelected(true);
-          }
+            }
           }
       });
     });
@@ -309,12 +386,13 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
 
   const isAligned = (cell1, cell2) => {
     if (!cell1 || !cell2) return false;
-    if (cell1.row === cell2.row) return true;
-    if (cell1.col === cell2.col) return true;
-
-    if (Math.abs(cell1.row - cell2.row) === Math.abs(cell1.col - cell2.col)) return true;
-    return false;
+  
+    const rowDiff = Math.abs(cell1.row - cell2.row);
+    const colDiff = Math.abs(cell1.col - cell2.col);
+  
+    return rowDiff === colDiff || cell1.row === cell2.row || cell1.col === cell2.col;
   };
+  
 
   return (
     <View style={styles.container}>
