@@ -11,7 +11,7 @@ import ThemeStorage from '../../../components/storageTheme';
 
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
-const CELL_SIZE = Math.floor(300 * 0.1);
+const CELL_SIZE = Math.floor(315 * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 
 const Cell = React.memo(({ letter, selected }) => (
@@ -362,8 +362,8 @@ const isCellSelected = useCallback(
 
 const onGestureEvent = (event) => {
   const { x, y } = event.nativeEvent;
-  const row = Math.floor(y / (CELL_SIZE));
-  const col = Math.floor(x / (CELL_SIZE));
+  const row = Math.floor(y / scale(CELL_SIZE));
+  const col = Math.floor(x / scale(CELL_SIZE));
 
   if (!initialCell) {
     setInitialCell({ row, col });

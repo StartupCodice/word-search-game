@@ -2,7 +2,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { StyleSheet, Dimensions } from "react-native";
 import { moderateScale, verticalScale, scale, moderateVerticalScale } from 'react-native-size-matters';
 const CELL_SIZE = Math.floor(Dimensions.get('window').width * 0.1);
-const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
+const CELL_PADDING = Math.floor(scale(CELL_SIZE) * 0.1);
 
 
 const styles = StyleSheet.create({
@@ -10,15 +10,15 @@ const styles = StyleSheet.create({
   cell: {
     width: scale(26),
     height: scale(25),
-    padding: CELL_PADDING,
     justifyContent: 'center',
     alignItems: 'center',
+    margin: scale(0.5)
   },
   row: {
     flexDirection: 'row',
   },
   cellText: {
-    fontSize: wp(4),
+    fontSize: wp(4.5),
   },
   palavrasContainer: {
     top: hp(56),
@@ -85,8 +85,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   retangulo: {
-    width: scale(270),
-    height: moderateScale(270, 0.9),
+    width: scale(280),
+    height: moderateScale(280, 0.9),
     borderRadius: scale(7),
     justifyContent: 'center',
     alignItems: 'center',

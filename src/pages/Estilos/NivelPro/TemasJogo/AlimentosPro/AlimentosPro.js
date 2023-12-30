@@ -13,7 +13,7 @@ import NiveisPro from '../../../../../components/storageNivelPro';
 
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
-const CELL_SIZE = Math.floor(218 * 0.1);
+const CELL_SIZE = Math.floor(220 * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 
 const Cell = React.memo(({ letter, selected }) => (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Text, View, ImageBackground, Image, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
+import { Text, View, ImageBackground, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import Modal from 'react-native-modal';
@@ -10,10 +10,10 @@ import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../../../../components/storage';
 import NiveisFaceis from '../../../../../components/storageNivelFacil';
 
-import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
+import { PanGestureHandler, GestureHandlerRootView } from 'react-native-gesture-handler';
 
-const CELL_SIZE = Math.floor(Dimensions.get('window').width * 0.1);
-const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
+const CELL_SIZE = Math.floor(350 * 0.1);
+const CELL_PADDING = Math.floor(scale(10) * 0.1);
 
 const Cell = React.memo(({ letter, selected }) => (
 
@@ -260,8 +260,8 @@ const isCellSelected = useCallback(
 
 const onGestureEvent = (event) => {
   const { x, y } = event.nativeEvent;
-  const row = Math.floor(y / (CELL_SIZE));
-  const col = Math.floor(x / (CELL_SIZE));
+  const row = Math.floor(y / scale(CELL_SIZE));
+  const col = Math.floor(x / scale(CELL_SIZE));
 
   if (!initialCell) {
     setInitialCell({ row, col });
