@@ -2,23 +2,24 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { StyleSheet, Dimensions } from "react-native";
 import { moderateScale, verticalScale, scale, moderateVerticalScale } from 'react-native-size-matters';
 const {height, width} = Dimensions.get('window');
-const CELL_SIZE = Math.floor(scale(280) * 0.1);
-const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
+const CELL_SIZE = Math.floor(Dimensions.get('window').width * 0.1);
+const CELL_PADDING = Math.floor(scale(10) * 0.1);
 
   const styles = StyleSheet.create({
 
   cell: {
-    width: scale(22),
-    height: scale(21),
+    width: scale(26),
+    height: scale(24),
     padding: CELL_PADDING,
     justifyContent: 'center',
     alignItems: 'center',
+    margin: scale(0.2)
   },
   row: {
     flexDirection: 'row',
   },
   cellText: {
-    fontSize: wp(3.8),
+    fontSize: wp(4),
   },
   palavrasContainer: {
     top: hp(56),
@@ -84,15 +85,6 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
         alignItems: 'center',
         justifyContent: 'center',
       },
-        retangulo: {
-        width: wp(80),
-        height: scale(320),
-        borderColor: 'white',
-        borderRadius: 7,
-        justifyContent: 'center',
-        alignItems: 'center',
-        bottom: hp(13)
-        },
         button: {
           width: wp(20),
           padding: scale(20),
@@ -160,14 +152,14 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
     justifyContent: 'center',
   },
   retangulo: {
-    width: scale(270),
-    height: moderateScale(260, 1),
+    width: scale(290),
+    height: moderateScale(270, 1),
     borderRadius: scale(7),
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
     textAlign: 'center',
-    bottom: moderateVerticalScale(24, 15.5),
+    bottom: moderateVerticalScale(22, 15.5),
   },
   button: {
     width: wp(20),
