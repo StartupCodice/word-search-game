@@ -11,7 +11,7 @@ import MoedasComponent from '../../../../../components/storage';
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 import NiveisMedio from '../../../../../components/storageNivelMedio';
 
-const CELL_SIZE = Math.floor(300 * 0.1);
+const CELL_SIZE = Math.floor(310 * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 
 const Cell = React.memo(({ letter, selected }) => (

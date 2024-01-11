@@ -13,10 +13,7 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
     padding: CELL_PADDING,
     justifyContent: 'center',
     alignItems: 'center',
-<<<<<<< Updated upstream
-=======
-    margin: scale(1)
->>>>>>> Stashed changes
+    margin: scale(0.5)
   },
   row: {
     flexDirection: 'row',
@@ -88,15 +85,7 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
         alignItems: 'center',
         justifyContent: 'center',
       },
-        retangulo: {
-        width: wp(80),
-        height: scale(320),
-        borderColor: 'white',
-        borderRadius: 7,
-        justifyContent: 'center',
-        alignItems: 'center',
-        bottom: hp(13)
-        },
+
         button: {
           width: wp(20),
           padding: scale(20),
@@ -126,6 +115,8 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
             height: scale(20),
             textAlign: 'center',
             fontSize: scale(12),
+            left: scale(12),
+            top: scale(12)
           },
           modalContainer: {
             backgroundColor: 'white',
@@ -164,14 +155,14 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
     justifyContent: 'center',
   },
   retangulo: {
-    width: scale(270),
-    height: moderateScale(260, 1),
+    width: scale(280),
+    height: moderateScale(270, 1),
     borderRadius: scale(7),
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
     textAlign: 'center',
-    bottom: moderateVerticalScale(20, 15.5),
+    bottom: moderateVerticalScale(23, 15.5),
   },
   button: {
     width: wp(20),

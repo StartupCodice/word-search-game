@@ -141,7 +141,7 @@ export function ModalEvento(){
                                 <Pressable
                                 style={[styles.ScreenSnowButton, styles.buttonOpen]}
                                 onPress={() => setModalVisible(true)}>
-                                    <Ionicons name="snow" size={scale(18)} color="white" style={styles.textStyle} />
+                                    <Ionicons name="calendar" size={scale(18)} color="white" style={styles.textStyle} />
                                 </Pressable>
                     </View>
     )

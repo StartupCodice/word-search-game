@@ -91,7 +91,7 @@ export function NivelMedio({ navigation }) {
 
   return (
     <ScrollView style={styles.scrollContainer}>
-      <ImageBackground source={require('../../../assets/temanatal.jpg')} style={styles.imageBackground}>
+      <ImageBackground source={require('../../../assets/fundoAzul.jpg')} style={styles.imageBackground}>
       <View style={styles.moedasContainer}>
         <View style={styles.IconMoeda}></View>
         <Text style={styles.moedasText}>{moedas}</Text>

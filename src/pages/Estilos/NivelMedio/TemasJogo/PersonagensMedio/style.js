@@ -8,11 +8,12 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 const styles = StyleSheet.create({
 
   cell: {
-    width: scale(30),
+    width: scale(32),
     height: scale(29),
     padding: CELL_PADDING,
     justifyContent: 'center',
     alignItems: 'center',
+    margin: scale(0.5)
   },
   row: {
     flexDirection: 'row',
@@ -21,7 +22,7 @@ const styles = StyleSheet.create({
     fontSize: wp(5),
   },
   palavrasContainer: {
-    top: hp(55),
+    top: hp(56),
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -94,13 +95,13 @@ const styles = StyleSheet.create({
   },
   retangulo: {
     width: scale(270),
-    height: moderateScale(250, 1),
+    height: moderateScale(260, 1),
     borderRadius: scale(7),
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
     textAlign: 'center',
-    bottom: scale(90)
+    bottom: scale(120)
 
   },
   button: {
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
     right: scale(2),
   },
   palavras: {
-    fontSize: scale(14),
+    fontSize: scale(16),
     color: 'white',
     fontWeight: 'bold',
     padding: scale(1),
@@ -133,6 +134,8 @@ const styles = StyleSheet.create({
     height: scale(20),
     textAlign: 'center',
     fontSize: scale(12),
+    left: scale(12),
+    top: scale(12)
   },
   modalContainer: {
     backgroundColor: 'white',

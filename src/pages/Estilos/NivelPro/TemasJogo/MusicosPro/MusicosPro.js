@@ -11,7 +11,7 @@ import MoedasComponent from '../../../../../components/storage';
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 import NiveisPro from '../../../../../components/storageNivelPro';
 
-const CELL_SIZE = Math.floor(218 * 0.1);
+const CELL_SIZE = Math.floor(220 * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 
 const Cell = React.memo(({ letter, selected }) => (
@@ -41,6 +41,14 @@ export default function MusicosPro({ navigation, rows = 12, cols = 12 }) {
   const { moedas, adicionarMoedas } = MoedasComponent();
   const [moedasGanhas, setMoedasGanhas] = useState(0);
   const [currentCell, setCurrentCell] = useState(null);
+  const [initialCell, setInitialCell] = useState(null);
+  const [state, setState] = useState({
+    startX: 0,
+    startY: 0,
+    endX: 0,
+    endY: 0,
+    gestureType: null,
+  });
   const isMountedRef = useRef(true);
 
   const selectRandomWords = (totalWords, numWords) => {
@@ -261,7 +269,12 @@ const onGestureEvent = (event) => {
   const { x, y } = event.nativeEvent;
   const row = Math.floor(y / scale(CELL_SIZE));
   const col = Math.floor(x / scale(CELL_SIZE));
-  if (row >= 0 && col >= 0 && row < rows && col < cols && (currentCell?.row !== row || currentCell?.col !== col)) {
+
+  if (!initialCell) {
+    setInitialCell({ row, col });
+  }
+
+  if (isAligned(initialCell, { row, col })) {
     setCurrentCell({ row, col });
     if (!isCellSelected(row, col)) {
       setSelectedCells(prevCells => [...prevCells, { row, col }]);
@@ -272,44 +285,53 @@ const onGestureEvent = (event) => {
 const onHandlerStateChange = (event, item) => {
   let letterSelected = '';
 
-  if (event.nativeEvent.state === State.END) {
     selectedCells.forEach((cell) => {
-      board.game.board.forEach((row) => {
-        row.forEach((letter) => {
-          if (cell.col === letter.column && cell.row === letter.row) {
-            letterSelected += letter.letter;
-          }
-        })
-      })
+      if (isAligned(initialCell, cell)) {
+          board.game.board.forEach((row) => {
+            row.forEach((letter) => {
+                if (cell.col === letter.column && cell.row === letter.row) {
+                  if (!letter.isSelected) letterSelected += letter.letter;
+                }
+            })
+          });
+      }
     });
 
-    let game = board.game;
-    game.board.forEach((row) => {
-      row.forEach((column) => {
+  let game = board.game;
+  game.board.forEach((row) => {
+    row.forEach((column) => {
         if (!column.isSelected) {
           if (column.word[0] === letterSelected) {
             game.board[column.row][column.column].setIsSelected(true);
           }
         }
-      });
     });
+  });
 
-    setBoard({ game });
-    setSelectedCells([]);
-    setCurrentCell(null);
-    
-
-    palavras.forEach((palavra) => {
-      if (palavra.name === letterSelected) {
+  palavras.forEach((palavra) => {
+    if (palavra.name === letterSelected) {
         palavra.found = true;
-      }
-    });
+    }
+  });
 
-    setPalavras([...palavras]);
+  setBoard({ game });
+  setSelectedCells([]);
+  setCurrentCell(null);
+  setInitialCell(null);
 
-    userWin();
-  }
+  setPalavras([...palavras]);
+  userWin();
 };
+
+const isAligned = (cell1, cell2) => {
+  if (!cell1 || !cell2) return false;
+
+  const rowDiff = Math.abs(cell1.row - cell2.row);
+  const colDiff = Math.abs(cell1.col - cell2.col);
+
+  return rowDiff === colDiff || cell1.row === cell2.row || cell1.col === cell2.col;
+};
+
 
 
 

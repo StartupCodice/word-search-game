@@ -19,7 +19,7 @@ export const MusicGlobalProvider = ({ children }) => {
     try {
       if (!soundRef.current) {
         const { sound } = await Audio.Sound.createAsync(
-          require('../assets/DecktheHalls.mp3')
+          require('../assets/somambiente.mp3')
         );
         soundRef.current = sound;
         setSound(soundRef.current);
