@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     padding: scale(3),
   },
   cacaContainer: {
+    top: scale(50),
     alignItems: 'center',
     justifyContent: 'center',
   },

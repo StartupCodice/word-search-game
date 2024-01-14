@@ -46,6 +46,7 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
     padding: scale(3),
   },
   cacaContainer: {
+    top: scale(50),
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -186,14 +187,6 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
     justifyContent: 'center',
     alignContent: 'center',
     alignItems: 'center',
-  },
-  dicaNumber: {
-    backgroundColor: 'yellow',
-    borderRadius: 50,
-    width: scale(20),
-    height: scale(20),
-    textAlign: 'center',
-    fontSize: scale(12),
   },
   modalContainer: {
     backgroundColor: 'white',

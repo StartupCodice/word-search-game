@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     fontSize: wp(5),
   },
   palavrasContainer: {
-    top: hp(57),
+    top: hp(50),
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   cacaContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    top: 90
+    top: 40
   },
   caca: {
     flexWrap: 'wrap',
