@@ -9,6 +9,8 @@ import styles from './style';
 import {scale} from 'react-native-size-matters';
 import ThemeStorage from '../../../components/storageTheme';
 import MoedasComponent from '../../../components/storage';
+import { BannerAds } from '../../../components/BannerAds';
+import Tip from '../../../components/Tip';
 
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -50,6 +52,8 @@ export default function EventoFacil({ navigation, rows = 6, cols = 8 }) {
     endY: 0,
     gestureType: null,
   });
+  const [resetGame, setResetGame] = useState(false);
+  const [totalTips, setTotalTips] = useState(2);
 
   const isMountedRef = useRef(true);
 
@@ -122,7 +126,7 @@ export default function EventoFacil({ navigation, rows = 6, cols = 8 }) {
   
         // atualiza a state de palavras apenas se houve alterações
         setPalavras([...novasPalavras]);
-  
+        userWin();
         setNumDicasUsadas(numDicasUsadas + 1);
       } else {
         setHintsExhausted(true);
@@ -353,6 +357,7 @@ export default function EventoFacil({ navigation, rows = 6, cols = 8 }) {
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);
+    setResetGame(true);
   };
 
   const [selectedCells, setSelectedCells] = useState([]);
@@ -421,32 +426,30 @@ const onHandlerStateChange = (event, item) => {
   userWin();
 };
 
-const isAligned = (cell1, cell2) => {
-  if (!cell1 || !cell2) return false;
+  const isAligned = (cell1, cell2) => {
+    if (!cell1 || !cell2) return false;
 
-  const rowDiff = Math.abs(cell1.row - cell2.row);
-  const colDiff = Math.abs(cell1.col - cell2.col);
+    const rowDiff = Math.abs(cell1.row - cell2.row);
+    const colDiff = Math.abs(cell1.col - cell2.col);
 
-  return rowDiff === colDiff || cell1.row === cell2.row || cell1.col === cell2.col;
-};
+    return rowDiff === colDiff || cell1.row === cell2.row || cell1.col === cell2.col;
+  };
 
-
-
+  const receiveAwards = () => {
+    setNumDicasUsadas(numDicasUsadas - 1);
+    fecharModalDicasEsgotadas();
+  }
 
   return (
     <View style={styles.container}>
       <ImageBackground source={require('./../../../assets/fundoAzul.jpg')} style={styles.imageBackground}>
         
-      <TouchableOpacity onPress={mostrarDica}>
-        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <ImageBackground
-            source={require('./../../../assets/lampada.png')}
-            style={styles.Dica}
-          >
-            <Text style={styles.dicaNumber}>{2 - numDicasUsadas}</Text>
-          </ImageBackground>
-        </View>
-      </TouchableOpacity>
+      <Tip 
+        mostrarDica={mostrarDica} 
+        totalTips={totalTips}
+        reset={resetGame}
+        receiveAwards={receiveAwards}
+      />
       
           <Ionicons style={styles.button} name="arrow-back" size={scale(40)} color="white"
             onPress={() => navigation.navigate('Home')} />
@@ -496,6 +499,10 @@ const isAligned = (cell1, cell2) => {
             </PanGestureHandler>
           </GestureHandlerRootView>
         </View>
+        </View>
+
+        <View style={{ marginTop: scale(200) }}>
+          <BannerAds />
         </View>
 
         <Modal isVisible={hintsExhausted} onBackdropPress={fecharModalDicasEsgotadas} style={styles.modalContainer2}>

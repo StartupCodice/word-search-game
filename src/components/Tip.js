@@ -18,8 +18,10 @@ export default function Tip({ mostrarDica, totalTips, reset, receiveAwards }) {
     setCountTipsUsed(prevCount => {
       const newCount = prevCount + 1;
       const result = totalTips - newCount;
+
       if (result >= 0) setTips(result);
-      
+      else setTips(0);
+
       return newCount;
     });
     
