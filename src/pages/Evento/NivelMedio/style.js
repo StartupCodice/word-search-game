@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     fontSize: wp(5),
   },
   palavrasContainer: {
-    top: hp(58),
+    top: hp(45),
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
   cacaContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    top: 90
   },
   caca: {
     flexWrap: 'wrap',
@@ -133,6 +132,8 @@ const styles = StyleSheet.create({
     height: scale(20),
     textAlign: 'center',
     fontSize: scale(12),
+    left: scale(12),
+    top: scale(12)
   },
   modalContainer: {
     backgroundColor: 'white',

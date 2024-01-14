@@ -9,8 +9,9 @@ import styles from './style';
 import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../components/storage';
 import LevelComponent from '../../components/storageLevel';
-import Tip from '../../components/Tip';
 import { BannerAds } from '../../components/BannerAds';
+import { InterstitialAds } from '../../components/InterstitialAds';
+import { RewardedAds } from '../../components/RewardedAds';
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const CELL_SIZE = Math.floor(350 * 0.1);
@@ -50,9 +51,10 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
     endY: 0,
     gestureType: null,
   });
-  const [totalTips, setTotalTips] = useState(3);
-  const [resetGame, setResetGame] = useState(false);
-
+  const [showIntersititial, setShowIntersititial] = useState(false);
+  const [showRewarded, setShowRewarded] = useState(false);
+  const [addTip, setAddTip] = useState(false);
+  
   const isMountedRef = useRef(true);
 
   const selectRandomWords = (totalWords, numWords) => {
@@ -68,7 +70,7 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
   };
 
   const mostrarDica = () => {
-    if (numDicasUsadas < 3) {
+    if (numDicasUsadas < 3 || addTip) {
       const palavrasNaoEncontradas = palavras.filter((palavra) => !palavra.found);
   
       if (palavrasNaoEncontradas.length > 0) {
@@ -104,13 +106,14 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
         setPalavras([...novasPalavras]);
         userWin();
         setNumDicasUsadas(numDicasUsadas + 1);
+        setAddTip(false);
       } else {
         setHintsExhausted(true);
       }
     } else {
       setHintsExhausted(true);
     }
-  };
+    };
 
   const fecharModalDicasEsgotadas = () => {
     setHintsExhausted(false);
@@ -311,12 +314,11 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
     setColumns([]);
     setCurrentCell(null);
     setSelectedCells([]);
-
   };
 
   const closeModal = () => {
+    setShowIntersititial(true);
     reiniciarJogo();
-    setResetGame(true);
   };
 
   const [selectedCells, setSelectedCells] = useState([]);
@@ -394,8 +396,10 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
     return rowDiff === colDiff || cell1.row === cell2.row || cell1.col === cell2.col;
   };
 
-  const receiveAwards = () => {
-    setNumDicasUsadas(numDicasUsadas - 1);
+  const getRewarded = () => {
+    setShowRewarded(false);
+    setNumDicasUsadas(2);
+    setAddTip(true);
     fecharModalDicasEsgotadas();
   }
   
@@ -403,12 +407,16 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
     <View style={styles.container}>
       <ImageBackground source={require('./../../assets/fundoAzul.jpg')} style={styles.imageBackground}>
 
-      <Tip 
-        mostrarDica={mostrarDica} 
-        totalTips={totalTips}
-        reset={resetGame}
-        receiveAwards={receiveAwards}
-      />
+      <TouchableOpacity onPress={mostrarDica}>
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <ImageBackground
+            source={require('../../assets/lampada.png')}
+            style={styles.Dica}
+          >
+            <Text style={styles.dicaNumber}>{3 - numDicasUsadas}</Text>
+          </ImageBackground>
+        </View>
+      </TouchableOpacity>
 
       <View style={styles.nivelContainer}>
           <Text style={styles.palavras}>Nível: {level}</Text>
@@ -478,6 +486,9 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
           <Text style={styles.modalText}>
             As dicas acabaram!
           </Text>
+          <TouchableOpacity style={styles.modalButton} onPress={() => setShowRewarded(true)}>
+            <Text style={styles.modalButtonText}>+1 dica</Text>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.modalButton} onPress={fecharModalDicasEsgotadas}>
             <Text style={styles.modalButtonText}>Fechar</Text>
           </TouchableOpacity>
@@ -505,6 +516,18 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
           
         </View>
       </Modal>
+
+      {
+        showIntersititial ?
+          <InterstitialAds closeInterstitial={() => setShowIntersititial(false)} />
+        : null
+      }
+
+      {       
+        showRewarded ?
+          <RewardedAds getRewarded={getRewarded} />
+        : null
+      }
       
         <StatusBar style="auto" />
       </ImageBackground>

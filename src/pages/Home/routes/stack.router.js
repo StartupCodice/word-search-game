@@ -148,6 +148,15 @@ export function StackRoutes() {
              />  
 
             <Screen 
+              name="EventoMedio"
+              component={EventoMedio}  
+              options={{ 
+                title: '',
+                headerShown: false   
+            }}
+             />  
+
+            <Screen 
               name="EsportesFacil"
               component={EsportesFacil}  
               options={{ 

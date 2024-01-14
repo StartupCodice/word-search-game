@@ -7,7 +7,7 @@ const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
   keywords: ['fashion', 'clothing'],
 });
 
-export function InterstitialAds() {
+export function InterstitialAds({ closeInterstitial }) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -15,6 +15,10 @@ export function InterstitialAds() {
       setLoaded(true);
       interstitial.show();
     });
+
+    const closeModal = interstitial.addAdEventListener(AdEventType.CLOSED, () => {
+      closeInterstitial();
+    })
 
     interstitial.load();
     return unsubscribe;

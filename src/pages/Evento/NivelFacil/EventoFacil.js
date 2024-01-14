@@ -10,7 +10,8 @@ import {scale} from 'react-native-size-matters';
 import ThemeStorage from '../../../components/storageTheme';
 import MoedasComponent from '../../../components/storage';
 import { BannerAds } from '../../../components/BannerAds';
-import Tip from '../../../components/Tip';
+import { InterstitialAds } from '../../../components/InterstitialAds';
+import { RewardedAds } from '../../../components/RewardedAds';
 
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -52,8 +53,9 @@ export default function EventoFacil({ navigation, rows = 6, cols = 8 }) {
     endY: 0,
     gestureType: null,
   });
-  const [resetGame, setResetGame] = useState(false);
-  const [totalTips, setTotalTips] = useState(2);
+  const [showIntersititial, setShowIntersititial] = useState(false);
+  const [showRewarded, setShowRewarded] = useState(false);
+  const [addTip, setAddTip] = useState(false);
 
   const isMountedRef = useRef(true);
 
@@ -357,7 +359,7 @@ export default function EventoFacil({ navigation, rows = 6, cols = 8 }) {
   
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);
-    setResetGame(true);
+    setShowIntersititial(true);
   };
 
   const [selectedCells, setSelectedCells] = useState([]);
@@ -435,21 +437,27 @@ const onHandlerStateChange = (event, item) => {
     return rowDiff === colDiff || cell1.row === cell2.row || cell1.col === cell2.col;
   };
 
-  const receiveAwards = () => {
-    setNumDicasUsadas(numDicasUsadas - 1);
+  const getRewarded = () => {
+    setShowRewarded(false);
+    setNumDicasUsadas(1);
+    setAddTip(true);
     fecharModalDicasEsgotadas();
   }
-
+  
   return (
     <View style={styles.container}>
       <ImageBackground source={require('./../../../assets/fundoAzul.jpg')} style={styles.imageBackground}>
         
-      <Tip 
-        mostrarDica={mostrarDica} 
-        totalTips={totalTips}
-        reset={resetGame}
-        receiveAwards={receiveAwards}
-      />
+      <TouchableOpacity onPress={mostrarDica}>
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <ImageBackground
+            source={require('../../../assets/lampada.png')}
+            style={styles.Dica}
+          >
+            <Text style={styles.dicaNumber}>{2 - numDicasUsadas}</Text>
+          </ImageBackground>
+        </View>
+      </TouchableOpacity>
       
           <Ionicons style={styles.button} name="arrow-back" size={scale(40)} color="white"
             onPress={() => navigation.navigate('Home')} />
@@ -510,6 +518,9 @@ const onHandlerStateChange = (event, item) => {
             <Text style={styles.modalText}>
               As dicas acabaram!
             </Text>
+            <TouchableOpacity style={styles.modalButton} onPress={() => setShowRewarded(true)}>
+              <Text style={styles.modalButtonText}>+1 dica</Text>
+            </TouchableOpacity>
             <TouchableOpacity style={styles.modalButton} onPress={fecharModalDicasEsgotadas}>
               <Text style={styles.modalButtonText}>Fechar</Text>
             </TouchableOpacity>
@@ -545,6 +556,18 @@ const onHandlerStateChange = (event, item) => {
           
         </View>
       </Modal>
+
+      {
+        showIntersititial ?
+          <InterstitialAds closeInterstitial={() => setShowIntersititial(false)} />
+        : null
+      }
+
+      {       
+        showRewarded ?
+          <RewardedAds getRewarded={getRewarded} />
+        : null
+      }
 
         <StatusBar style="auto" />
       </ImageBackground>
