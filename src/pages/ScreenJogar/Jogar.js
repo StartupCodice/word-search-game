@@ -9,7 +9,8 @@ import styles from './style';
 import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../components/storage';
 import LevelComponent from '../../components/storageLevel';
-
+import Tip from '../../components/Tip';
+import { BannerAds } from '../../components/BannerAds';
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const CELL_SIZE = Math.floor(350 * 0.1);
@@ -49,7 +50,9 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
     endY: 0,
     gestureType: null,
   });
-  
+  const [totalTips, setTotalTips] = useState(3);
+  const [resetGame, setResetGame] = useState(false);
+
   const isMountedRef = useRef(true);
 
   const selectRandomWords = (totalWords, numWords) => {
@@ -313,6 +316,7 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
 
   const closeModal = () => {
     reiniciarJogo();
+    setResetGame(true);
   };
 
   const [selectedCells, setSelectedCells] = useState([]);
@@ -389,22 +393,22 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
   
     return rowDiff === colDiff || cell1.row === cell2.row || cell1.col === cell2.col;
   };
-  
 
+  const receiveAwards = () => {
+    setNumDicasUsadas(numDicasUsadas - 1);
+    fecharModalDicasEsgotadas();
+  }
+  
   return (
     <View style={styles.container}>
       <ImageBackground source={require('./../../assets/fundoAzul.jpg')} style={styles.imageBackground}>
-        
-      <TouchableOpacity onPress={mostrarDica}>
-        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <ImageBackground
-            source={require('./../../assets/lampada.png')}
-            style={styles.Dica}
-          >
-            <Text style={styles.dicaNumber}>{3 - numDicasUsadas}</Text>
-          </ImageBackground>
-        </View>
-      </TouchableOpacity>
+
+      <Tip 
+        mostrarDica={mostrarDica} 
+        totalTips={totalTips}
+        reset={resetGame}
+        receiveAwards={receiveAwards}
+      />
 
       <View style={styles.nivelContainer}>
           <Text style={styles.palavras}>Nível: {level}</Text>
@@ -464,7 +468,10 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
         </View>
         </View>
 
-        
+        <View style={{ marginTop: scale(200) }}>
+          <BannerAds />
+        </View>
+
 
         <Modal isVisible={hintsExhausted} onBackdropPress={fecharModalDicasEsgotadas} style={styles.modalContainer2}>
         <View style={styles.modalContainer}>

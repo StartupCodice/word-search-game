@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { RewardedAd, TestIds } from 'react-native-google-mobile-ads';
+import { RewardedAd, TestIds, RewardedAdEventType } from 'react-native-google-mobile-ads';
 
 const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';
 
@@ -7,7 +7,7 @@ const rewarded = RewardedAd.createForAdRequest(adUnitId, {
   keywords: ['fashion', 'clothing'],
 });
 
-export function RewardedAds() {
+export function RewardedAds({ getRewarded }) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export function RewardedAds() {
     const unsubscribeEarned = rewarded.addAdEventListener(
       RewardedAdEventType.EARNED_REWARD,
       reward => {
-        console.log('User earned reward of ', reward);
+        getRewarded();
       },
     );
 
