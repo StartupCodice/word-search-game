@@ -9,6 +9,9 @@ import styles from './style';
 import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../../../../components/storage';
 import NiveisMedio from '../../../../../components/storageNivelMedio';
+import { BannerAds } from '../../../../../components/BannerAds';
+import { InterstitialAds } from '../../../../../components/InterstitialAds';
+import { RewardedAds } from '../../../../../components/RewardedAds';
 
 import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -50,7 +53,9 @@ export default function AmizadeMedio({ navigation, rows = 8, cols = 8 }) {
     endY: 0,
     gestureType: null,
   });
-
+  const [showIntersititial, setShowIntersititial] = useState(false);
+  const [showRewarded, setShowRewarded] = useState(false);
+  const [addTip, setAddTip] = useState(false);
 
   const isMountedRef = useRef(true);
 
@@ -250,6 +255,7 @@ export default function AmizadeMedio({ navigation, rows = 8, cols = 8 }) {
 
   const closeModal = () => {
     reiniciarJogo();
+    setShowIntersititial(true);
   };
 
   const [selectedCells, setSelectedCells] = useState([]);
@@ -318,15 +324,21 @@ const onHandlerStateChange = (event, item) => {
   userWin();
 };
 
-const isAligned = (cell1, cell2) => {
-  if (!cell1 || !cell2) return false;
+  const isAligned = (cell1, cell2) => {
+    if (!cell1 || !cell2) return false;
 
-  const rowDiff = Math.abs(cell1.row - cell2.row);
-  const colDiff = Math.abs(cell1.col - cell2.col);
+    const rowDiff = Math.abs(cell1.row - cell2.row);
+    const colDiff = Math.abs(cell1.col - cell2.col);
 
-  return rowDiff === colDiff || cell1.row === cell2.row || cell1.col === cell2.col;
-};
+    return rowDiff === colDiff || cell1.row === cell2.row || cell1.col === cell2.col;
+  };
 
+  const getRewarded = () => {
+    setShowRewarded(false);
+    setNumDicasUsadas(2);
+    setAddTip(true);
+    fecharModalDicasEsgotadas();
+  }
 
   return (
     <View style={styles.container}>
@@ -396,11 +408,18 @@ const isAligned = (cell1, cell2) => {
         </View>
         </View>
 
+        <View style={{ marginTop: scale(200) }}>
+          <BannerAds />
+        </View>
+
         <Modal isVisible={hintsExhausted} onBackdropPress={fecharModalDicasEsgotadas} style={styles.modalContainer2}>
         <View style={styles.modalContainer}>
           <Text style={styles.modalText}>
             As dicas acabaram!
           </Text>
+          <TouchableOpacity style={styles.modalButton} onPress={() => setShowRewarded(true)}>
+            <Text style={styles.modalButtonText}>+1 dica</Text>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.modalButton} onPress={fecharModalDicasEsgotadas}>
             <Text style={styles.modalButtonText}>Fechar</Text>
           </TouchableOpacity>
@@ -428,6 +447,18 @@ const isAligned = (cell1, cell2) => {
           
         </View>
       </Modal>
+
+      {
+        showIntersititial ?
+          <InterstitialAds closeInterstitial={() => setShowIntersititial(false)} />
+        : null
+      }
+
+      {       
+        showRewarded ?
+          <RewardedAds getRewarded={getRewarded} />
+        : null
+      }
 
         <StatusBar style="auto" />
       </ImageBackground>
