@@ -107,14 +107,6 @@ const CELL_PADDING = Math.floor(scale(10) * 0.1);
             alignContent: 'center',
             alignItems: 'center',
           },
-          dicaNumber: {
-            backgroundColor: 'yellow',
-            borderRadius: 50,
-            width: scale(20),
-            height: scale(20),
-            textAlign: 'center',
-            fontSize: scale(12),
-          },
           modalContainer: {
             backgroundColor: 'white',
             borderRadius: 10,
@@ -191,6 +183,8 @@ const CELL_PADDING = Math.floor(scale(10) * 0.1);
     height: scale(20),
     textAlign: 'center',
     fontSize: scale(12),
+    left: scale(12),
+    top: scale(12)
   },
   modalContainer: {
     backgroundColor: 'white',
