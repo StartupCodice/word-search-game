@@ -1,153 +1,120 @@
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import { StyleSheet, Dimensions } from "react-native";
-import { moderateScale, verticalScale, scale, moderateVerticalScale } from 'react-native-size-matters';
-const {height, width} = Dimensions.get('window');
+import {
+  moderateScale,
+  verticalScale,
+  scale,
+  moderateVerticalScale,
+} from "react-native-size-matters";
+// const { height, width } = Dimensions.get("window");
 const CELL_SIZE = Math.floor(scale(280) * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 
-  const styles = StyleSheet.create({
+const { width, height } = Dimensions.get("screen");
 
+const styles = StyleSheet.create({
+  // cell: {
+  //   width: scale(22),
+  //   height: scale(21),
+  //   padding: CELL_PADDING,
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  // },
+  cacaContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  retangulo: {
+    width: width * 0.91,
+    height: height * 0.6,
+    // borderRadius: scale(7),
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+    marginBottom: 10,
+    borderRadius: 10,
+  },
   cell: {
-    width: scale(22),
-    height: scale(21),
-    padding: CELL_PADDING,
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: (width * 0.9) / 12,
+    height: (height * 0.6) / 12,
+    // backgroundColor: "gray",
+    alignItems: "center",
+    justifyContent: "center",
+    // margin: 3,
+    // backgroundColor: "red",
+    borderRadius: 5,
   },
+  // row: {
+  //   flexDirection: "row",
+  // },
   row: {
-    flexDirection: 'row',
+    // width: width * 0.9,
+    // height: (height * 0.4) / 12,
+    // backgroundColor: "aqua",
+    // justifyContent: "center",
+    // alignItems: "center",
+    flexDirection: "row",
+    // marginVertical: 1,
   },
+
   cellText: {
     fontSize: wp(3.8),
   },
   palavrasContainer: {
-    top: hp(56),
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'center',
-    rowGap: 20,
-    columnGap: 20,
+    // top: hp(56),
+    width: "90%",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 20,
+    // gap: 20,
+    // marginTop: 40,
   },
   selected: {
-    backgroundColor: 'gray',
-    color: 'white',
+    backgroundColor: "gray",
+    color: "white",
     borderRadius: scale(5),
   },
   LetterContainer: {
     marginTop: scale(2),
   },
   GestureContainer: {
-    zIndex: 100
+    zIndex: 100,
   },
   wordFound: {
-    color: 'black',
+    color: "black",
     padding: scale(3),
   },
-  cacaContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+
   caca: {
-    flexWrap: 'wrap',
-    flexDirection: 'row',
+    flexWrap: "wrap",
+    flexDirection: "row",
   },
 
-      sendLetter: {
-        flexDirection: 'row',
-        marginTop: 30,
-        gap: 20,
-        justifyContent: 'center',
-      },
-      inputLetter: {
-        width: 200,
-        height: 40,
-        paddingLeft: 10, 
-        backgroundColor: 'gray',
-        color: 'black',
-      },
-      
-      ScreenText: {
-        fontSize: 20,
-        color: '#000',
-        textAlign: 'center',
-        fontWeight: 'bold',
-        top: 48
-      },
-      imageBackground: {
-        flex: 1,
-        resizeMode: "cover",
-        width: "100%",
-      },
-      container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
-        retangulo: {
-        width: wp(80),
-        height: scale(320),
-        borderColor: 'white',
-        borderRadius: 7,
-        justifyContent: 'center',
-        alignItems: 'center',
-        bottom: hp(13)
-        },
-        button: {
-          width: wp(20),
-          padding: scale(20),
-          bottom: moderateVerticalScale(30, 0.6),
-          right: scale(2),
-        },
-        palavras: {
-          fontSize: scale(11),
-          color: 'white',
-          fontWeight: 'bold',
-          marginBottom: scale(12),
-          borderRadius: scale(16),
-        },
-          Dica: {
-            width: scale(80),
-            height: scale(54),
-            top: moderateScale(50, 1),
-            left: scale(120),
-            justifyContent: 'center',
-            alignContent: 'center',
-            alignItems: 'center',
-          },
-          dicaNumber: {
-            backgroundColor: 'yellow',
-            borderRadius: 50,
-            width: scale(20),
-            height: scale(20),
-            textAlign: 'center',
-            fontSize: scale(12),
-          },
-          modalContainer: {
-            backgroundColor: 'white',
-            borderRadius: 10,
-            width: '100%',
-            height: '100%',
-            justifyContent: 'center',
-            alignContent: 'center',
-            alignItems: 'center',
-            
-          },
-          modalContainer2: {
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderWidth: 5,
-            borderColor: '#007BFF',
-            borderRadius: 18,
-          },
+  sendLetter: {
+    flexDirection: "row",
+    marginTop: 30,
+    gap: 20,
+    justifyContent: "center",
+  },
+  inputLetter: {
+    width: 200,
+    height: 40,
+    paddingLeft: 10,
+    backgroundColor: "gray",
+    color: "black",
+  },
 
   ScreenText: {
     fontSize: 20,
-    color: '#000',
-    textAlign: 'center',
-    fontWeight: 'bold',
-    top: 48
+    color: "#000",
+    textAlign: "center",
+    fontWeight: "bold",
+    top: 48,
   },
   imageBackground: {
     flex: 1,
@@ -156,19 +123,20 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
   },
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
-  retangulo: {
-    width: scale(270),
-    height: moderateScale(260, 1),
-    borderRadius: scale(7),
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    textAlign: 'center',
-    bottom: moderateVerticalScale(24, 15.5),
-  },
+
+  // retangulo: {
+  //   width: wp(80),
+  //   height: scale(320),
+  //   borderColor: "white",
+  //   borderRadius: 7,
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  //   bottom: hp(13),
+  // },
+
   button: {
     width: wp(20),
     padding: scale(20),
@@ -176,47 +144,127 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
     right: scale(2),
   },
   palavras: {
-    fontSize: scale(12),
-    color: 'white',
-    fontWeight: 'bold',
-    padding: scale(1),
-    borderRadius: scale(20),
-    margin: scale(2)
+    fontSize: scale(11),
+    color: "white",
+    fontWeight: "bold",
+    marginBottom: scale(12),
+    borderRadius: scale(16),
   },
   Dica: {
     width: scale(80),
     height: scale(54),
     top: moderateScale(50, 1),
     left: scale(120),
-    justifyContent: 'center',
-    alignContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
   },
   dicaNumber: {
-    backgroundColor: 'yellow',
+    backgroundColor: "yellow",
     borderRadius: 50,
     width: scale(20),
     height: scale(20),
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: scale(12),
   },
   modalContainer: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 10,
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-    alignContent: 'center',
-    alignItems: 'center',
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
   },
   modalContainer2: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderWidth: 5,
-    borderColor: '#007BFF',
+    borderColor: "#007BFF",
     borderRadius: 18,
+  },
 
+  ScreenText: {
+    fontSize: 20,
+    color: "#000",
+    textAlign: "center",
+    fontWeight: "bold",
+    top: 48,
+  },
+  imageBackground: {
+    flex: 1,
+    resizeMode: "cover",
+    width: "100%",
+    paddingTop: 20,
+    // paddingBottom: 20,
+    alignItems: "center",
+    // justifyContent: "space-between",
+  },
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  // retangulo: {
+  //   width: scale(270),
+  //   height: moderateScale(260, 1),
+  //   borderRadius: scale(7),
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  //   backgroundColor: "white",
+  //   textAlign: "center",
+  //   bottom: moderateVerticalScale(24, 15.5),
+  // },
+  button: {
+    // backgroundColor: "gray",
+    // width: 30,
+    // height: 30,
+    // padding: 20,
+    // bottom: (30, 0.6),
+    // right: scale(2),
+  },
+  palavras: {
+    fontSize: 16,
+    color: "white",
+    fontWeight: "bold",
+    padding: scale(1),
+    borderRadius: scale(20),
+    margin: scale(2),
+  },
+  Dica: {
+    width: 80,
+    height: 54,
+    // top: moderate50, 1
+    // left: scale(120),
+    justifyContent: "center",
+    // alignContent: "center",
+    alignItems: "center",
+  },
+  dicaNumber: {
+    backgroundColor: "yellow",
+    borderRadius: 50,
+    width: scale(20),
+    height: scale(20),
+    textAlign: "center",
+    fontSize: scale(12),
+  },
+  modalContainer: {
+    backgroundColor: "white",
+    borderRadius: 10,
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+  },
+  modalContainer2: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 5,
+    borderColor: "#007BFF",
+    borderRadius: 18,
   },
 
   modalText: {
@@ -224,86 +272,85 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
     margin: 20,
   },
   modalGanhos: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     padding: 10,
   },
 
   modalButton: {
-    backgroundColor: '#007BFF',
+    backgroundColor: "#007BFF",
     padding: 10,
     borderRadius: 5,
-    alignItems: 'center',
+    alignItems: "center",
     margin: 20,
-    width: '80%'
+    width: "80%",
   },
 
   modalButtonText: {
-    color: 'white',
+    color: "white",
     fontSize: scale(24),
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   modalVoltarHome: {
-    backgroundColor: '#007BFF',
+    backgroundColor: "#007BFF",
     padding: 10,
     borderRadius: 5,
-    alignItems: 'center',
+    alignItems: "center",
     margin: 20,
     bottom: 150,
-    right: 100
-    
+    right: 100,
   },
   textTempo: {
     fontSize: scale(18),
-    fontWeight: 'bold',
-    alignItems: 'center',
-    justifyContent: 'center',
-    textAlign: 'center'
+    fontWeight: "bold",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
   },
   moedasContainer: {
-    width: scale(80),
-    height: scale(40),
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#7bdacb',
+    width: 80,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#7bdacb",
     borderWidth: scale(2),
-    borderColor: '#1d5950',
+    borderColor: "#1d5950",
     padding: 10,
-    borderRadius: scale(10),
-    left: scale(130),
-    top: scale(60),
-    display: 'flex',
-    flexDirection: 'row',
-    gap: 16,
-    position: 'absolute',
+    borderRadius: 10,
+    // left: scale(130),
+    // top: scale(60),
+    // display: "flex",
+    flexDirection: "row",
+    // gap: 16,
+    // position: "absolute",
   },
   moedasText: {
     fontSize: scale(15),
-    bottom: 4
+    bottom: 4,
   },
   textMoedas: {
     fontSize: scale(18),
-    fontWeight: 'bold',
-    color: '#FFD700',  // Cor amarela para moedas
+    fontWeight: "bold",
+    color: "#FFD700", // Cor amarela para moedas
   },
   IconMoeda: {
     width: scale(20),
     height: scale(20),
-    backgroundColor: 'yellow',
+    backgroundColor: "yellow",
     borderRadius: 50,
     borderWidth: 1,
-    borderColor: '#b0b912'
+    borderColor: "#b0b912",
   },
   textMoeda: {
     fontSize: scale(20),
-    fontWeight: 'bold',
-    alignItems: 'center',
-    justifyContent: 'center',
-    textAlign: 'center',
+    fontWeight: "bold",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
   },
 });
 
-export default styles
+export default styles;
