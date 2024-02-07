@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-  useMemo,
-} from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
   Text,
   View,
@@ -24,15 +18,9 @@ import styles from "./style";
 import { scale } from "react-native-size-matters";
 import MoedasComponent from "../../../../../components/storage";
 
-import NiveisMedio from "../../../../../components/storageNivelMedio";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
-import {
-  PanGestureHandler,
-  State,
-  GestureHandlerRootView,
-  GestureDetector,
-  Gesture,
-} from "react-native-gesture-handler";
+import NiveisMedio from "../../../../../components/storageNivelMedio";
 
 const CELL_SIZE = Math.floor(315 * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
@@ -76,6 +64,8 @@ export default function PresentesMedio({ navigation, rows = 8, cols = 8 }) {
   });
 
   const isMountedRef = useRef(true);
+
+  const { width, height } = Dimensions.get("screen");
 
   const selectRandomWords = (totalWords, numWords) => {
     const selectedWords = [];
@@ -283,7 +273,6 @@ export default function PresentesMedio({ navigation, rows = 8, cols = 8 }) {
   const closeModal = () => {
     reiniciarJogo();
   };
-
   const [selectedCells, setSelectedCells] = useState([]);
   const panRef = useRef(null);
 
@@ -292,8 +281,6 @@ export default function PresentesMedio({ navigation, rows = 8, cols = 8 }) {
       selectedCells.some((cell) => cell.row === row && cell.col === col),
     [selectedCells]
   );
-
-  const { width, height } = Dimensions.get("screen");
 
   const onGestureEvent = (event) => {
     const { x, y } = event.nativeEvent;
@@ -388,79 +375,100 @@ export default function PresentesMedio({ navigation, rows = 8, cols = 8 }) {
   const widthCell = (width * 0.8) / 8;
   const heightCell = (height * 0.45) / 8;
 
-  const gesture = useMemo(
-    () =>
-      Gesture.Pan()
-        .onStart(({ x, y }) => {
-          const row = Math.floor(y / heightCell);
-          const col = Math.floor(x / widthCell);
+  const filterCellsByMovement = useCallback(
+    (selectedCells) => {
+      const n = selectedCells.length;
 
-          if (!initialCell) {
-            setInitialCell({ row, col });
-          }
-          if (isAligned(initialCell, { row, col })) {
-            setSelectedCells((prevCells) => [...prevCells, { row, col }]);
-          }
-        })
-        .onUpdate(({ x, y }) => {
-          const row = Math.floor(y / heightCell);
-          const col = Math.floor(x / widthCell);
+      if (n <= 2) {
+        return selectedCells;
+      }
 
-          if (!isCellSelected(row, col)) {
-            if (isAligned(initialCell, { row, col })) {
-              setSelectedCells((prevCells) => [...prevCells, { row, col }]);
-            }
-          }
-        })
-        .onFinalize(() => {
-          console.log("finalizou");
+      const firstCell = selectedCells[0];
+      const lastCell = selectedCells[n - 1];
 
-          let letterSelected = "";
+      const expectedSlope =
+        (lastCell.row - firstCell.row) / (lastCell.col - firstCell.col);
 
-          /// verifica se a palavra é uma das escilhidas
-          selectedCells.forEach((cell) => {
-            if (isAligned(initialCell, cell)) {
-              board.game.board.forEach((row) => {
-                row.forEach((letter) => {
-                  if (cell.col === letter.column && cell.row === letter.row) {
-                    if (!letter.isSelected) letterSelected += letter.letter;
-                  }
-                });
-              });
-            }
-          });
+      return selectedCells.filter((cell, index) => {
+        if (index === 0 || index === n - 1) {
+          return true;
+        }
 
-          let game = board.game;
+        const currentSlope =
+          (cell.row - firstCell.row) / (cell.col - firstCell.col);
+        return currentSlope === expectedSlope;
+      });
+    },
+    [selectedCells]
+  );
 
-          /// deixar as palavras selecionadas
-          game.board.forEach((row) => {
-            row.forEach((column) => {
-              if (!column.isSelected) {
-                if (column.word[0] === letterSelected) {
-                  game.board[column.row][column.column].setIsSelected(true);
-                }
+  const gesture = Gesture.Pan()
+    .onStart(({ x, y }) => {
+      const row = Math.floor(y / heightCell);
+      const col = Math.floor(x / widthCell);
+
+      if (!initialCell) {
+        setInitialCell({ row, col });
+      }
+    })
+    .onUpdate(({ x, y }) => {
+      const row = Math.floor(y / heightCell);
+      const col = Math.floor(x / widthCell);
+
+      if (isAligned(initialCell, { row, col })) {
+        if (!isCellSelected(row, col)) {
+          setSelectedCells((prevCells) => [...prevCells, { row, col }]);
+          const filteredCells = filterCellsByMovement([
+            ...selectedCells,
+            { row, col },
+          ]);
+
+          setSelectedCells(filteredCells);
+        }
+      }
+    })
+    .onFinalize(() => {
+      let letterSelected = "";
+
+      selectedCells.forEach((cell) => {
+        if (isAligned(initialCell, cell)) {
+          board.game.board.forEach((row) => {
+            row.forEach((letter) => {
+              if (cell.col === letter.column && cell.row === letter.row) {
+                if (!letter.isSelected) letterSelected += letter.letter;
               }
             });
           });
+        }
+      });
 
-          // marca como encontrada
-          palavras.forEach((palavra) => {
-            if (palavra.name === letterSelected) {
-              palavra.found = true;
+      let game = board.game;
+      game.board.forEach((row) => {
+        row.forEach((column) => {
+          if (!column.isSelected) {
+            if (column.word[0] === letterSelected) {
+              game.board[column.row][column.column].setIsSelected(true);
             }
-          });
+          }
+        });
+      });
 
-          setBoard({ game });
-          setSelectedCells([]);
-          setCurrentCell(null);
-          setInitialCell(null);
+      palavras.forEach((palavra) => {
+        if (palavra.name === letterSelected) {
+          palavra.found = true;
+        }
+      });
 
-          setPalavras([...palavras]);
-          userWin();
-        })
-        .shouldCancelWhenOutside(true),
-    [selectedCells, initialCell, isCellSelected]
-  );
+      setBoard({ game });
+      setSelectedCells([]);
+      setCurrentCell(null);
+      setInitialCell(null);
+
+      setPalavras([...palavras]);
+      userWin();
+    })
+    .shouldCancelWhenOutside(true);
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -493,18 +501,6 @@ export default function PresentesMedio({ navigation, rows = 8, cols = 8 }) {
 
         <View style={styles.cacaContainer}>
           <View style={styles.retangulo}>
-            {/* <GestureHandlerRootView style={{ flex: 1 }}> */}
-            {/* <PanGestureHandler
-            onGestureEvent={onGestureEvent}
-            onHandlerStateChange={onHandlerStateChange}
-            ref={panRef}
-            minDist={0}
-            minVelocity={1}
-            enabled={true}
-            shouldCancelWhenOutside={false}
-            runOnJS={true}
-            minPointers={1}
-          > */}
             <GestureDetector gesture={gesture}>
               <FlatList
                 data={board.game.board}
@@ -524,47 +520,24 @@ export default function PresentesMedio({ navigation, rows = 8, cols = 8 }) {
                   );
                 }}
               />
-
-              {/* <FlatList
-                data={board.game.board}
-                keyExtractor={(_, i) => i.toString()}
-                scrollEnabled={false}
-                renderItem={({ index, item }) => {
-                  return (
-                    <View style={[styles.row]}>
-                      {item.map((letter, colIndex) => (
-                        <Cell
-                          key={`cell-${letter.row}-${letter.column}`}
-                          letter={letter}
-                          selected={isCellSelected(letter.row, letter.column)}
-                        />
-                      ))}
-                    </View>
-                  );
-                }}
-              /> */}
-              {/* </PanGestureHandler> */}
             </GestureDetector>
-
-            {/* </GestureHandlerRootView> */}
-          </View>
-          <View style={styles.palavrasContainer}>
-            {palavras.map((palavra, index) => (
-              <Text
-                key={index}
-                style={[
-                  styles.palavras,
-                  palavra.found ? { backgroundColor: cores[index] } : null,
-                  palavra.found ? styles.wordFound : null,
-                ]}
-              >
-                {palavra.name}
-              </Text>
-            ))}
           </View>
         </View>
-
-        {/* <Modal
+        <View style={styles.palavrasContainer}>
+          {palavras.map((palavra, index) => (
+            <Text
+              key={index}
+              style={[
+                styles.palavras,
+                palavra.found ? { backgroundColor: cores[index] } : null,
+                palavra.found ? styles.wordFound : null,
+              ]}
+            >
+              {palavra.name}
+            </Text>
+          ))}
+        </View>
+        <Modal
           isVisible={hintsExhausted}
           onBackdropPress={fecharModalDicasEsgotadas}
           style={styles.modalContainer2}
@@ -578,9 +551,9 @@ export default function PresentesMedio({ navigation, rows = 8, cols = 8 }) {
               <Text style={styles.modalButtonText}>Fechar</Text>
             </TouchableOpacity>
           </View>
-        </Modal> */}
+        </Modal>
 
-        {/* <Modal
+        <Modal
           isVisible={isModalVisible}
           onBackdropPress={closeModal}
           style={styles.modalContainer2}
@@ -606,7 +579,7 @@ export default function PresentesMedio({ navigation, rows = 8, cols = 8 }) {
               <Text style={styles.modalButtonText}>Continuar</Text>
             </TouchableOpacity>
           </View>
-        </Modal> */}
+        </Modal>
 
         <StatusBar style="auto" />
       </ImageBackground>

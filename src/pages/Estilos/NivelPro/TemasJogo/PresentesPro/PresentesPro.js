@@ -9,10 +9,8 @@ import {
   Text,
   View,
   ImageBackground,
-  Image,
   TouchableOpacity,
   Dimensions,
-  StyleSheet,
   FlatList,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
@@ -25,11 +23,7 @@ import { scale } from "react-native-size-matters";
 import MoedasComponent from "../../../../../components/storage";
 import NiveisPro from "../../../../../components/storageNivelPro";
 
-import {
-  GestureDetector,
-  PanGestureHandler,
-  Gesture,
-} from "react-native-gesture-handler";
+import { GestureDetector, Gesture } from "react-native-gesture-handler";
 
 const CELL_SIZE = Math.floor(220 * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
@@ -276,118 +270,13 @@ export default function PresentesPro({ navigation, rows = 12, cols = 12 }) {
   };
 
   const [selectedCells, setSelectedCells] = useState([]);
-  const panRef = useRef(null);
+  // const panRef = useRef(null);
 
   const isCellSelected = useCallback(
     (row, col) =>
       selectedCells.some((cell) => cell.row === row && cell.col === col),
     [selectedCells]
   );
-
-  // const onGestureEvent = (event) => {
-  //   const { x, y } = event.nativeEvent;
-  //   const row = Math.floor(y / scale(CELL_SIZE));
-  //   const col = Math.floor(x / scale(CELL_SIZE));
-
-  //   if (!initialCell) {
-  //     setInitialCell({ row, col });
-  //   }
-
-  //   if (isAligned(initialCell, { row, col })) {
-  //     setCurrentCell({ row, col });
-  //     if (!isCellSelected(row, col)) {
-  //       setSelectedCells((prevCells) => [...prevCells, { row, col }]);
-  //     }
-  //   }
-  // };
-
-  const onGestureEvent = (event) => {
-    const { x, y } = event.nativeEvent;
-
-    const widthCell = (width * 0.9) / 12;
-    const heightCell = (height * 0.6) / 12;
-
-    const row = Math.floor(y / heightCell);
-    const col = Math.floor(x / widthCell);
-
-    const index = row * 12 + col;
-    // setSelected((prev) => [...prev, index]);
-
-    // if (selecteds.includes(index)) {
-    //   return false;
-    // } else {
-    //   setSelected((prev) => [...prev, index]);
-    // }
-    console.log(index, "INDEX");
-    // setSelected((prev) => [...prev, index]);
-
-    // console.log("row:", row, "col:", col);
-
-    // console.log(initialCell, "INITIAL");
-    if (!initialCell) {
-      setInitialCell({ row, col });
-      setSelected((prev) => [...prev, index]);
-    }
-
-    if (isAligned(initialCell, { row, col })) {
-      // setCurrentCell({ row, col });
-      // if (!isCellSelected(row, col)) {
-      setSelected((prev) => [...prev, index]);
-      // setSelectedCells((prevCells) => [...prevCells, { row, col }]);
-      // }
-    }
-  };
-
-  const onHandlerStateChange = (event, item) => {
-    let letterSelected = "";
-
-    const { x, y } = event.nativeEvent;
-
-    const widthCell = (width * 0.9) / 12;
-    const heightCell = (height * 0.6) / 12;
-
-    const row = Math.floor(y / heightCell);
-    const col = Math.floor(x / widthCell);
-
-    const index = row * 12 + col;
-
-    selectedCells.forEach((cell) => {
-      if (isAligned(initialCell, cell)) {
-        board.game.board.forEach((row) => {
-          row.forEach((letter) => {
-            if (cell.col === letter.column && cell.row === letter.row) {
-              if (!letter.isSelected) letterSelected += letter.letter;
-            }
-          });
-        });
-      }
-    });
-
-    let game = board.game;
-    game.board.forEach((row) => {
-      row.forEach((column) => {
-        if (!column.isSelected) {
-          if (column.word[0] === letterSelected) {
-            game.board[column.row][column.column].setIsSelected(true);
-          }
-        }
-      });
-    });
-
-    palavras.forEach((palavra) => {
-      if (palavra.name === letterSelected) {
-        palavra.found = true;
-      }
-    });
-
-    setBoard({ game });
-    setSelectedCells([]);
-    setCurrentCell(null);
-    setInitialCell(null);
-
-    setPalavras([...palavras]);
-    userWin();
-  };
 
   const isAligned = (cell1, cell2) => {
     if (!cell1 || !cell2) return false;
@@ -400,8 +289,35 @@ export default function PresentesPro({ navigation, rows = 12, cols = 12 }) {
     );
   };
 
-  const widthCell = (width * 0.9) / 12;
+  const widthCell = (width * 0.85) / 12;
   const heightCell = (height * 0.6) / 12;
+
+  const filterCellsByMovement = useCallback(
+    (selectedCells) => {
+      const n = selectedCells.length;
+
+      if (n <= 2) {
+        return selectedCells;
+      }
+
+      const firstCell = selectedCells[0];
+      const lastCell = selectedCells[n - 1];
+
+      const expectedSlope =
+        (lastCell.row - firstCell.row) / (lastCell.col - firstCell.col);
+
+      return selectedCells.filter((cell, index) => {
+        if (index === 0 || index === n - 1) {
+          return true;
+        }
+
+        const currentSlope =
+          (cell.row - firstCell.row) / (cell.col - firstCell.col);
+        return currentSlope === expectedSlope;
+      });
+    },
+    [selectedCells]
+  );
 
   const gesture = useMemo(
     () =>
@@ -413,17 +329,20 @@ export default function PresentesPro({ navigation, rows = 12, cols = 12 }) {
           if (!initialCell) {
             setInitialCell({ row, col });
           }
-          if (isAligned(initialCell, { row, col })) {
-            setSelectedCells((prevCells) => [...prevCells, { row, col }]);
-          }
         })
         .onUpdate(({ x, y }) => {
           const row = Math.floor(y / heightCell);
           const col = Math.floor(x / widthCell);
 
-          if (!isCellSelected(row, col)) {
-            if (isAligned(initialCell, { row, col })) {
+          if (isAligned(initialCell, { row, col })) {
+            if (!isCellSelected(row, col)) {
               setSelectedCells((prevCells) => [...prevCells, { row, col }]);
+              const filteredCells = filterCellsByMovement([
+                ...selectedCells,
+                { row, col },
+              ]);
+
+              setSelectedCells(filteredCells);
             }
           }
         })
@@ -468,7 +387,7 @@ export default function PresentesPro({ navigation, rows = 12, cols = 12 }) {
           userWin();
         })
         .shouldCancelWhenOutside(true),
-    [selectedCells, initialCell, isCellSelected, isAligned]
+    [initialCell, isCellSelected, filterCellsByMovement, selectedCells]
   );
 
   return (
@@ -477,75 +396,54 @@ export default function PresentesPro({ navigation, rows = 12, cols = 12 }) {
         source={require("./../../../../../assets/templatejogo.jpg")}
         style={styles.imageBackground}
       >
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            width: "90%",
-            marginBottom: 20,
-          }}
-        >
-          <Ionicons
-            style={styles.button}
-            name="arrow-back"
-            size={40}
-            color="white"
-            onPress={() => navigation.navigate("NivelPro")}
-          />
-
-          <View style={styles.moedasContainer}>
-            <View style={styles.IconMoeda}></View>
-            <Text style={styles.moedasText}>{moedas}</Text>
-          </View>
-          <TouchableOpacity onPress={mostrarDica}>
+        <TouchableOpacity onPress={mostrarDica}>
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
             <ImageBackground
               source={require("./../../../../../assets/chapeu.png")}
               style={styles.Dica}
             >
-              <Text style={styles.dicaNumber}>{5 - numDicasUsadas}</Text>
+              <Text style={styles.dicaNumber}>{3 - numDicasUsadas}</Text>
             </ImageBackground>
-          </TouchableOpacity>
+          </View>
+        </TouchableOpacity>
+
+        <View style={styles.moedasContainer}>
+          <View style={styles.IconMoeda}></View>
+          <Text style={styles.moedasText}>{moedas}</Text>
         </View>
 
-        {/* <View style={styles.cacaContainer}> */}
-        <View style={styles.retangulo}>
-          {/* <GestureHandlerRootView style={{ flex: 1 }}> */}
-          {/* <PanGestureHandler
-            onGestureEvent={onGestureEvent}
-            onHandlerStateChange={onHandlerStateChange}
-            ref={panRef}
-            minDist={0}
-            minVelocity={1}
-            enabled={true}
-            shouldCancelWhenOutside={false}
-            runOnJS={true}
-            minPointers={1}
-          > */}
-          <GestureDetector gesture={gesture}>
-            <FlatList
-              data={board.game.board}
-              keyExtractor={(_, i) => i.toString()}
-              scrollEnabled={false}
-              renderItem={({ index, item }) => {
-                return (
-                  <View style={[styles.row]}>
-                    {item.map((letter, index) => (
-                      <Cell
-                        key={`cell-${letter.row}-${letter.column}`}
-                        letter={letter}
-                        selected={isCellSelected(letter.row, letter.column)}
-                      />
-                    ))}
-                  </View>
-                );
-              }}
-            />
-          </GestureDetector>
+        <Ionicons
+          style={styles.button}
+          name="arrow-back"
+          size={scale(40)}
+          color="white"
+          onPress={() => navigation.navigate("NivelMedio")}
+        />
 
-          {/* </GestureHandlerRootView> */}
+        <View style={styles.cacaContainer}>
+          <View style={styles.retangulo}>
+            <GestureDetector gesture={gesture}>
+              <FlatList
+                data={board.game.board}
+                keyExtractor={(_, i) => i.toString()}
+                scrollEnabled={false}
+                renderItem={({ index, item }) => {
+                  return (
+                    <View style={[styles.row]}>
+                      {item.map((letter, index) => (
+                        <Cell
+                          key={`cell-${letter.row}-${letter.column}`}
+                          letter={letter}
+                          selected={isCellSelected(letter.row, letter.column)}
+                        />
+                      ))}
+                    </View>
+                  );
+                }}
+              />
+            </GestureDetector>
+          </View>
         </View>
-        {/* </View> */}
         <View style={styles.palavrasContainer}>
           {palavras.map((palavra, index) => (
             <Text
@@ -559,19 +457,6 @@ export default function PresentesPro({ navigation, rows = 12, cols = 12 }) {
               {palavra.name}
             </Text>
           ))}
-        </View>
-        <View
-          style={{
-            height: "10%",
-            position: "absolute",
-            bottom: 0,
-            width: "100%",
-            backgroundColor: "white",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Text>Anuncio</Text>
         </View>
         <Modal
           isVisible={hintsExhausted}
@@ -588,27 +473,36 @@ export default function PresentesPro({ navigation, rows = 12, cols = 12 }) {
             </TouchableOpacity>
           </View>
         </Modal>
+
         <Modal
           isVisible={isModalVisible}
           onBackdropPress={closeModal}
           style={styles.modalContainer2}
         >
           <View style={styles.modalContainer}>
-            <Text style={styles.modalText}>TEMPO:</Text>
-            <Text style={styles.textTempo}>{tempoDecorrido}s</Text>
-            <Text>Moedas ganhas nesta partida: {moedasGanhas}</Text>
-            <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
-              <Text style={styles.modalButtonText}>Continuar</Text>
-            </TouchableOpacity>
             <TouchableOpacity
-              style={styles.modalButton}
+              style={styles.modalVoltarHome}
               onPress={() => navigation.navigate("Home")}
             >
               <Text style={styles.modalButtonText}>Voltar</Text>
             </TouchableOpacity>
+            <View style={styles.modalGanhos}>
+              <View>
+                <Text style={styles.modalText}>TEMPO:</Text>
+                <Text style={styles.textTempo}>{tempoDecorrido}</Text>
+              </View>
+              <View>
+                <Text style={styles.modalText}>MOEDAS:</Text>
+                <Text style={styles.textMoeda}>+{moedasGanhas}</Text>
+              </View>
+            </View>
+            <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
+              <Text style={styles.modalButtonText}>Continuar</Text>
+            </TouchableOpacity>
           </View>
         </Modal>
-        <StatusBar style="auto " />
+
+        <StatusBar style="auto" />
       </ImageBackground>
     </View>
   );

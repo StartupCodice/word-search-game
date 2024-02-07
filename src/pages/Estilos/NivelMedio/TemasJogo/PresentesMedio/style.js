@@ -5,7 +5,6 @@ import {
 import { StyleSheet, Dimensions } from "react-native";
 import {
   moderateScale,
-  verticalScale,
   scale,
   moderateVerticalScale,
 } from "react-native-size-matters";
@@ -20,15 +19,12 @@ const CELL_HEIGHT = ((height - 6 * (CELL_MARGIN * 2)) / 6) * 0.33;
 
 const styles = StyleSheet.create({
   retangulo: {
-    width: width * 0.82,
-    // padding: 5,
+    width: width * 0.81,
     height: height * 0.45,
-    // borderRadius: 5,
+    borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
-    // textAlign: "center",
-    // bottom: scale(80),
   },
 
   LetterContainer: {
@@ -36,19 +32,9 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
-    // textAlign: 'center',
-    // rowGap: 10,
-    // bottom: moderateVerticalScale(25, 1.5),
-    // marginTop: scale(10),
   },
   row: {
-    // width: width * 0.8,
-    // height: (height * 0.4) / 6,
-    // backgroundColor: "aqua",
-    // justifyContent: "center",
-    // alignItems: "center",
     flexDirection: "row",
-    // margin: 2,
   },
   cell: {
     width: (width * 0.8) / 8,
@@ -56,26 +42,12 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
-    // margin: 1,
-    // marginVertical: 6,
-    // borderRadius: 5,
   },
 
-  // cell: {
-  //   width: CELL_SIZE,
-  //   height: CELL_SIZE,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   margin: CELL_PADDING,
-  // },
-  // row: {
-  //   flexDirection: 'row',
-  // },
   cellText: {
     fontSize: wp(6),
   },
   palavrasContainer: {
-    // top: hp(58),
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
@@ -88,16 +60,7 @@ const styles = StyleSheet.create({
     color: "white",
     borderRadius: 10,
   },
-  // LetterContainer: {
-  //   // flexDirection: 'row',
-  //   // flexWrap: 'wrap',
-  //   // justifyContent: 'center',
-  //   // alignItems: 'center',
-  //   // textAlign: 'center',
-  //   // rowGap: 10,
-  //   // bottom: moderateVerticalScale(25, 1.5),
-  //   marginTop: scale(10),
-  // },
+
   GestureContainer: {
     zIndex: 100,
   },
@@ -146,17 +109,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  // retangulo: {
-  //   width: scale(300),
-  //   height: moderateScale(250, 1),
-  //   borderRadius: scale(7),
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   backgroundColor: 'white',
-  //   textAlign: 'center',
-  //   bottom: scale(80)
 
-  // },
   button: {
     width: wp(20),
     padding: scale(20),

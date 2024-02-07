@@ -298,76 +298,90 @@ export default function Presentes({ navigation, rows = 8, cols = 8 }) {
     [selectedCells]
   );
 
-  // const onGestureEvent = (event) => {
-  //   const { x, y, absoluteX, absoluteY } = event.nativeEvent;
+  const onGestureEvent = (event) => {
+    const { x, y } = event.nativeEvent;
 
-  //   // console.log("absoluteX:", absoluteX, "absoluteY:", absoluteY);
-  //   // console.log("x:", x, "y:", y);
+    const widthCell = (width * 0.8) / 8;
+    const heightCell = (height * 0.4) / 8;
 
-  //   const row = Math.floor(y / heightCell);
-  //   const col = Math.floor(x / widthCell);
+    const row = Math.floor(y / heightCell);
+    const col = Math.floor(x / widthCell);
 
-  //   // console.log(row * 8 + col);
-  //   console.log(row, col);
+    console.log(row, col);
 
-  //   if (!initialCell) {
-  //     setInitialCell({ row, col });
-  //     setSelectedCells((prevCells) => [...prevCells, { row, col }]);
-  //   }
+    if (!initialCell) {
+      setInitialCell({ row, col });
+      setSelectedCells((prevCells) => [...prevCells, { row, col }]);
+    }
 
-  //   if (isAligned(initialCell, { row, col })) {
-  //     if (!isCellSelected(row, col)) {
-  //       setSelectedCells((prevCells) => [...prevCells, { row, col }]);
-  //     }
-  //   }
-  // };
+    console.log(initialCell, "INICIAL");
 
-  // const onHandlerStateChange = (event, item) => {
-  //   let letterSelected = "";
+    if (isAligned(initialCell, { row, col })) {
+      setCurrentCell({ row, col });
+      if (!isCellSelected(row, col)) {
+        setSelectedCells((prevCells) => [...prevCells, { row, col }]);
+      }
+    }
+  };
 
-  //   /// verifica se a palavra é uma das escilhidas
-  //   selectedCells.forEach((cell) => {
-  //     if (isAligned(initialCell, cell)) {
-  //       board.game.board.forEach((row) => {
-  //         row.forEach((letter) => {
-  //           if (cell.col === letter.column && cell.row === letter.row) {
-  //             if (!letter.isSelected) letterSelected += letter.letter;
-  //           }
-  //         });
-  //       });
-  //     }
-  //   });
+  const onHandlerStateChange = (event, item) => {
+    let letterSelected = "";
 
-  //   let game = board.game;
+    const { x, y } = event.nativeEvent;
 
-  //   /// deixar as palavras selecionadas
-  //   game.board.forEach((row) => {
-  //     row.forEach((column) => {
-  //       if (!column.isSelected) {
-  //         if (column.word[0] === letterSelected) {
-  //           game.board[column.row][column.column].setIsSelected(true);
-  //         }
-  //       }
-  //     });
-  //   });
+    const widthCell = (width * 0.8) / 8;
+    const heightCell = (height * 0.4) / 8;
 
-  //   // marca como encontrada
-  //   palavras.forEach((palavra) => {
-  //     if (palavra.name === letterSelected) {
-  //       palavra.found = true;
-  //     }
-  //   });
+    const row = Math.floor(y / heightCell);
+    const col = Math.floor(x / widthCell);
 
-  //   setBoard({ game });
-  //   setSelectedCells([]);
-  //   setCurrentCell(null);
-  //   setInitialCell(null);
+    console.log(row, col);
 
-  //   setPalavras([...palavras]);
-  //   userWin();
-  // };
+    setSelectedCells((prevCells) => [...prevCells, { row, col }]);
+
+    selectedCells.forEach((cell) => {
+      if (isAligned(initialCell, cell)) {
+        board.game.board.forEach((row) => {
+          row.forEach((letter) => {
+            if (cell.col === letter.column && cell.row === letter.row) {
+              if (!letter.isSelected) letterSelected += letter.letter;
+            }
+          });
+        });
+      }
+    });
+
+    let game = board.game;
+    game.board.forEach((row) => {
+      row.forEach((column) => {
+        if (!column.isSelected) {
+          if (column.word[0] === letterSelected) {
+            game.board[column.row][column.column].setIsSelected(true);
+          }
+        }
+      });
+    });
+
+    palavras.forEach((palavra) => {
+      if (palavra.name === letterSelected) {
+        palavra.found = true;
+      }
+    });
+
+    setBoard({ game });
+    setSelectedCells([]);
+    setCurrentCell(null);
+    setInitialCell(null);
+
+    setPalavras([...palavras]);
+    userWin();
+  };
+
+  const { width, height } = Dimensions.get("screen");
 
   const isAligned = (cell1, cell2) => {
+    if (!cell1 || !cell2) return false;
+
     const rowDiff = Math.abs(cell1.row - cell2.row);
     const colDiff = Math.abs(cell1.col - cell2.col);
 
@@ -376,138 +390,113 @@ export default function Presentes({ navigation, rows = 8, cols = 8 }) {
     );
   };
 
-  const [startIndex, setStartIndex] = useState();
-  const [selectds, setSelectds] = useState([]);
-
-  const isWithinRange = useCallback(
-    (index) => {
-      return selectds.some((cell) => cell === index);
-    },
-    [selectds]
-  );
-
   const widthCell = (width * 0.8) / 8;
   const heightCell = (height * 0.4) / 6;
 
-  /// filtrar segunda celula se for adjacente a primeira na diagonal
-  // const filterCellsByMovement = (selectedCells) => {
-  //   const n = selectedCells.length;
+  const filterCellsByMovement = useCallback(
+    (selectedCells) => {
+      const n = selectedCells.length;
 
-  //   if (n <= 2) {
-  //     return selectedCells; // Se tiver 2 ou menos pontos, não há nada para filtrar
-  //   }
+      if (n <= 2) {
+        return selectedCells;
+      }
 
-  //   const firstCell = selectedCells[0];
-  //   const lastCell = selectedCells[n - 1];
+      const firstCell = selectedCells[0];
+      const lastCell = selectedCells[n - 1];
 
-  //   // Calcular a inclinação esperada para uma linha reta
-  //   const expectedSlope =
-  //     (lastCell.row - firstCell.row) / (lastCell.col - firstCell.col);
+      const expectedSlope =
+        (lastCell.row - firstCell.row) / (lastCell.col - firstCell.col);
 
-  //   // Filtrar os pontos intermediários
-  //   const filteredCells = [firstCell];
-  //   for (let i = 1; i < n - 1; i++) {
-  //     const currentSlope =
-  //       (selectedCells[i].row - firstCell.row) /
-  //       (selectedCells[i].col - firstCell.col);
+      return selectedCells.filter((cell, index) => {
+        if (index === 0 || index === n - 1) {
+          return true;
+        }
 
-  //     if (currentSlope === expectedSlope) {
-  //       filteredCells.push(selectedCells[i]);
-  //     }
-  //   }
+        const currentSlope =
+          (cell.row - firstCell.row) / (cell.col - firstCell.col);
+        return currentSlope === expectedSlope;
+      });
+    },
+    [selectedCells]
+  );
 
-  //   filteredCells.push(lastCell);
+  const gesture = Gesture.Pan()
+    .onStart(({ x, y }) => {
+      const row = Math.floor(y / heightCell);
+      const col = Math.floor(x / widthCell);
 
-  //   return filteredCells;
-  // };
+      if (!initialCell) {
+        setInitialCell({ row, col });
+      }
+    })
+    .onUpdate(({ x, y }) => {
+      const row = Math.floor(y / heightCell);
+      const col = Math.floor(x / widthCell);
 
-  const gesture = useMemo(
-    () =>
-      Gesture.Pan()
-        .onBegin(({ x, y }) => {
-          const row = Math.floor(y / heightCell);
-          const col = Math.floor(x / widthCell);
+      if (isAligned(initialCell, { row, col })) {
+        if (!isCellSelected(row, col)) {
+          setSelectedCells((prevCells) => [...prevCells, { row, col }]);
+          const filteredCells = filterCellsByMovement([
+            ...selectedCells,
+            { row, col },
+          ]);
 
-          const cell = { row: row, col: col };
+          setSelectedCells(filteredCells);
+        }
+      }
+    })
+    .onFinalize(() => {
+      let letterSelected = "";
 
-          if (!initialCell) {
-            setInitialCell({ row, col });
-            setSelectedCells((prevCells) => [...prevCells, { row, col }]);
-          }
-          // console.log(cell);
-        })
-        .onChange(({ x, y }) => {
-          const row = Math.floor(y / heightCell);
-          const col = Math.floor(x / widthCell);
-
-          const cell = { row: row, col: col };
-          // console.log(cell);
-          if (isAligned(initialCell, cell)) {
-            if (!isCellSelected(row, col)) {
-              setSelectedCells((prevCells) => [...prevCells, { row, col }]);
-            }
-          }
-        })
-        .onFinalize(() => {
-          console.log("finalizou");
-
-          let letterSelected = "";
-
-          /// verifica se a palavra é uma das escilhidas
-          selectedCells.forEach((cell) => {
-            if (isAligned(initialCell, cell)) {
-              board.game.board.forEach((row) => {
-                row.forEach((letter) => {
-                  if (cell.col === letter.column && cell.row === letter.row) {
-                    if (!letter.isSelected) letterSelected += letter.letter;
-                  }
-                });
-              });
-            }
-          });
-
-          let game = board.game;
-
-          /// deixar as palavras selecionadas
-          game.board.forEach((row) => {
-            row.forEach((column) => {
-              if (!column.isSelected) {
-                if (column.word[0] === letterSelected) {
-                  game.board[column.row][column.column].setIsSelected(true);
-                }
+      selectedCells.forEach((cell) => {
+        if (isAligned(initialCell, cell)) {
+          board.game.board.forEach((row) => {
+            row.forEach((letter) => {
+              if (cell.col === letter.column && cell.row === letter.row) {
+                if (!letter.isSelected) letterSelected += letter.letter;
               }
             });
           });
+        }
+      });
 
-          // marca como encontrada
-          palavras.forEach((palavra) => {
-            if (palavra.name === letterSelected) {
-              palavra.found = true;
+      let game = board.game;
+      game.board.forEach((row) => {
+        row.forEach((column) => {
+          if (!column.isSelected) {
+            if (column.word[0] === letterSelected) {
+              game.board[column.row][column.column].setIsSelected(true);
             }
-          });
+          }
+        });
+      });
 
-          setBoard({ game });
-          setSelectedCells([]);
-          setCurrentCell(null);
-          setInitialCell(null);
+      palavras.forEach((palavra) => {
+        if (palavra.name === letterSelected) {
+          palavra.found = true;
+        }
+      });
 
-          setPalavras([...palavras]);
-          userWin();
-        })
-        .shouldCancelWhenOutside(true),
-    [selectedCells, initialCell, isCellSelected]
-  );
+      setBoard({ game });
+      setSelectedCells([]);
+      setCurrentCell(null);
+      setInitialCell(null);
+
+      setPalavras([...palavras]);
+      userWin();
+    })
+    .shouldCancelWhenOutside(true);
 
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("./../../../../../assets/fundoAzul.jpg")}
+        source={require("./../../../../../assets/templatejogo.jpg")}
         style={styles.imageBackground}
       >
         <TouchableOpacity onPress={mostrarDica}>
           <View style={{ justifyContent: "center", alignItems: "center" }}>
             <ImageBackground
-              source={require("./../../../../../assets/lampada.png")}
+              source={require("./../../../../../assets/chapeu.png")}
               style={styles.Dica}
             >
               <Text style={styles.dicaNumber}>{3 - numDicasUsadas}</Text>
@@ -525,37 +514,11 @@ export default function Presentes({ navigation, rows = 8, cols = 8 }) {
           name="arrow-back"
           size={scale(40)}
           color="white"
-          onPress={() => navigation.navigate("NivelFacil")}
+          onPress={() => navigation.navigate("NivelMedio")}
         />
 
-        <View style={styles.palavrasContainer}>
-          {palavras.map((palavra, index) => (
-            <Text
-              key={index}
-              style={[
-                styles.palavras,
-                palavra.found ? { backgroundColor: cores[index] } : null,
-                palavra.found ? styles.wordFound : null,
-              ]}
-            >
-              {palavra.name}
-            </Text>
-          ))}
-        </View>
         <View style={styles.cacaContainer}>
           <View style={styles.retangulo}>
-            {/* <GestureHandlerRootView style={{ flex: 1 }}> */}
-            {/* <PanGestureHandler
-            onGestureEvent={onGestureEvent}
-            onHandlerStateChange={onHandlerStateChange}
-            ref={panRef}
-            minDist={0}
-            minVelocity={1}
-            enabled={true}
-            shouldCancelWhenOutside={false}
-            runOnJS={true}
-            minPointers={1}
-          > */}
             <GestureDetector gesture={gesture}>
               <FlatList
                 data={board.game.board}
@@ -575,31 +538,23 @@ export default function Presentes({ navigation, rows = 8, cols = 8 }) {
                   );
                 }}
               />
-              {/* <FlatList
-                data={board.game.board}
-                keyExtractor={(_, i) => i.toString()}
-                scrollEnabled={false}
-                renderItem={({ index, item }) => {
-                  return (
-                    <View style={[styles.row]}>
-                      {item.map((letter, colIndex) => (
-                        <Cell
-                          key={`cell-${letter.row}-${letter.column}`}
-                          letter={letter}
-                          selected={isCellSelected(letter.row, letter.column)}
-                        />
-                      ))}
-                    </View>
-                  );
-                }}
-              /> */}
-              {/* </PanGestureHandler> */}
             </GestureDetector>
-
-            {/* </GestureHandlerRootView> */}
           </View>
         </View>
-
+        <View style={styles.palavrasContainer}>
+          {palavras.map((palavra, index) => (
+            <Text
+              key={index}
+              style={[
+                styles.palavras,
+                palavra.found ? { backgroundColor: cores[index] } : null,
+                palavra.found ? styles.wordFound : null,
+              ]}
+            >
+              {palavra.name}
+            </Text>
+          ))}
+        </View>
         <Modal
           isVisible={hintsExhausted}
           onBackdropPress={fecharModalDicasEsgotadas}
