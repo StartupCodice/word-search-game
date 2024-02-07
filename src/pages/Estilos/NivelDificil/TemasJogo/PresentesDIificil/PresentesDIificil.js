@@ -36,6 +36,24 @@ import {
 const CELL_SIZE = Math.floor(260 * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 
+const arrayOfColors = [
+  "#FF5733",
+  "#33FF57",
+  "#5733FF",
+  "#FFFF33",
+  "#FF33FF",
+  "#FF3333",
+  "#33FF33",
+  "#3333FF",
+  "#FF9933",
+  "#FF33CC",
+  "#33CCFF",
+  "#CC33FF",
+  "#CCFF33",
+  "#33FFCC",
+  "#FF6600", // Cor laranja adicionada para manter a contagem
+];
+
 const Cell = React.memo(({ letter, selected }) => (
   <View
     style={[
@@ -52,11 +70,12 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
   const { presentes, addPresentes } = NiveisDificil();
   const [selecteds, setSelected] = useState([]);
 
+  const [cores, setCores] = useState([]);
+
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
     game: new createGame(10, 10, []),
   });
-  const [cores, setCores] = useState([]);
   const [startTime, setStartTime] = useState(new Date());
   const [isModalVisible, setModalVisible] = useState(false);
   const [tempoDecorrido, setTempoDecorrido] = useState(0);
@@ -295,7 +314,7 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
   };
 
   const [selectedCells, setSelectedCells] = useState([]);
-  const panRef = useRef(null);
+  // const panRef = useRef(null);
 
   const isCellSelected = useCallback(
     (row, col) =>
@@ -303,95 +322,86 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
     [selectedCells]
   );
 
+  // const onGestureEvent = (event) => {
+  //   const { x, y } = event.nativeEvent;
+
+  //   const widthCell = (width * 0.8) / 8;
+  //   const heightCell = (height * 0.4) / 8;
+
+  //   const row = Math.floor(y / heightCell);
+  //   const col = Math.floor(x / widthCell);
+
+  //   console.log(row, col);
+
+  //   if (!initialCell) {
+  //     setInitialCell({ row, col });
+  //     setSelectedCells((prevCells) => [...prevCells, { row, col }]);
+  //   }
+
+  //   console.log(initialCell, "INICIAL");
+
+  //   if (isAligned(initialCell, { row, col })) {
+  //     setCurrentCell({ row, col });
+  //     if (!isCellSelected(row, col)) {
+  //       setSelectedCells((prevCells) => [...prevCells, { row, col }]);
+  //     }
+  //   }
+  // };
+
+  // const onHandlerStateChange = (event, item) => {
+  //   let letterSelected = "";
+
+  //   const { x, y } = event.nativeEvent;
+
+  //   const widthCell = (width * 0.8) / 8;
+  //   const heightCell = (height * 0.4) / 8;
+
+  //   const row = Math.floor(y / heightCell);
+  //   const col = Math.floor(x / widthCell);
+
+  //   console.log(row, col);
+
+  //   setSelectedCells((prevCells) => [...prevCells, { row, col }]);
+
+  //   selectedCells.forEach((cell) => {
+  //     if (isAligned(initialCell, cell)) {
+  //       board.game.board.forEach((row) => {
+  //         row.forEach((letter) => {
+  //           if (cell.col === letter.column && cell.row === letter.row) {
+  //             if (!letter.isSelected) letterSelected += letter.letter;
+  //           }
+  //         });
+  //       });
+  //     }
+  //   });
+
+  //   let game = board.game;
+  //   game.board.forEach((row) => {
+  //     row.forEach((column) => {
+  //       if (!column.isSelected) {
+  //         if (column.word[0] === letterSelected) {
+  //           game.board[column.row][column.column].setIsSelected(true);
+  //         }
+  //       }
+  //     });
+  //   });
+
+  //   palavras.forEach((palavra) => {
+  //     if (palavra.name === letterSelected) {
+  //       palavra.found = true;
+  //     }
+  //   });
+
+  //   setBoard({ game });
+  //   setSelectedCells([]);
+  //   setCurrentCell(null);
+  //   setInitialCell(null);
+
+  //   setPalavras([...palavras]);
+  //   userWin();
+  // };
+
   const { width, height } = Dimensions.get("screen");
-
-  const onGestureEvent = (event) => {
-    const { x, y } = event.nativeEvent;
-
-    const widthCell = (width * 0.9) / 10;
-    const heightCell = (height * 0.55) / 10;
-
-    const row = Math.floor(y / heightCell);
-    const col = Math.floor(x / widthCell);
-
-    const index = row * 10 + col;
-    // setSelected((prev) => [...prev, index]);
-
-    // if (selecteds.includes(index)) {
-    //   return false;
-    // } else {
-    //   setSelected((prev) => [...prev, index]);
-    // }
-    console.log(index, "INDEX");
-    // setSelected((prev) => [...prev, index]);
-
-    // console.log("row:", row, "col:", col);
-
-    // console.log(initialCell, "INITIAL");
-    if (!initialCell) {
-      setInitialCell({ row, col });
-      setSelected((prev) => [...prev, index]);
-    }
-
-    if (isAligned(initialCell, { row, col })) {
-      // setCurrentCell({ row, col });
-      // if (!isCellSelected(row, col)) {
-      setSelected((prev) => [...prev, index]);
-      // setSelectedCells((prevCells) => [...prevCells, { row, col }]);
-      // }
-    }
-  };
-
-  const onHandlerStateChange = (event, item) => {
-    let letterSelected = "";
-
-    const { x, y } = event.nativeEvent;
-
-    const widthCell = (width * 0.9) / 10;
-    const heightCell = (height * 0.55) / 10;
-
-    const row = Math.floor(y / heightCell);
-    const col = Math.floor(x / widthCell);
-
-    const index = row * 10 + col;
-
-    // selectedCells.forEach((cell) => {
-    //   if (isAligned(initialCell, cell)) {
-    //       board.game.board.forEach((row) => {
-    //         row.forEach((letter) => {
-    //             if (cell.col === letter.column && cell.row === letter.row) {
-    //               if (!letter.isSelected) letterSelected += letter.letter;
-    //             }
-    //         })
-    //       });
-    //   }
-    // });
-
-    let game = board.game;
-    // game.board.forEach((row) => {
-    //   row.forEach((column) => {
-    //       if (!column.isSelected) {
-    //         if (column.word[0] === letterSelected) {
-    //           game.board[column.row][column.column].setIsSelected(true);
-    //         }
-    //       }
-    //   });
-    // });
-
-    palavras.forEach((palavra) => {
-      if (palavra.name === letterSelected) {
-        palavra.found = true;
-      }
-    });
-
-    setBoard({ game });
-    setSelectedCells([]);
-    setCurrentCell(null);
-    setInitialCell(null);
-
-    setPalavras([...palavras]);
-    userWin();
-  };
 
   const isAligned = (cell1, cell2) => {
     if (!cell1 || !cell2) return false;
@@ -405,7 +415,34 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
   };
 
   const widthCell = (width * 0.85) / 10;
-  const heightCell = (height * 0.55) / 10;
+  const heightCell = (height * 0.5) / 10;
+
+  const filterCellsByMovement = useCallback(
+    (selectedCells) => {
+      const n = selectedCells.length;
+
+      if (n <= 2) {
+        return selectedCells;
+      }
+
+      const firstCell = selectedCells[0];
+      const lastCell = selectedCells[n - 1];
+
+      const expectedSlope =
+        (lastCell.row - firstCell.row) / (lastCell.col - firstCell.col);
+
+      return selectedCells.filter((cell, index) => {
+        if (index === 0 || index === n - 1) {
+          return true;
+        }
+
+        const currentSlope =
+          (cell.row - firstCell.row) / (cell.col - firstCell.col);
+        return currentSlope === expectedSlope;
+      });
+    },
+    [selectedCells]
+  );
 
   const gesture = useMemo(
     () =>
@@ -417,9 +454,6 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
           if (!initialCell) {
             setInitialCell({ row, col });
           }
-          if (isAligned(initialCell, { row, col })) {
-            setSelectedCells((prevCells) => [...prevCells, { row, col }]);
-          }
         })
         .onUpdate(({ x, y }) => {
           const row = Math.floor(y / heightCell);
@@ -428,6 +462,12 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
           if (isAligned(initialCell, { row, col })) {
             if (!isCellSelected(row, col)) {
               setSelectedCells((prevCells) => [...prevCells, { row, col }]);
+              const filteredCells = filterCellsByMovement([
+                ...selectedCells,
+                { row, col },
+              ]);
+
+              setSelectedCells(filteredCells);
             }
           }
         })
@@ -470,8 +510,9 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
 
           setPalavras([...palavras]);
           userWin();
-        }),
-    [selectedCells, initialCell, isCellSelected, isAligned]
+        })
+        .shouldCancelWhenOutside(true),
+    [initialCell, isCellSelected, filterCellsByMovement, selectedCells]
   );
 
   return (
@@ -486,7 +527,7 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
               source={require("./../../../../../assets/chapeu.png")}
               style={styles.Dica}
             >
-              <Text style={styles.dicaNumber}>{4 - numDicasUsadas}</Text>
+              <Text style={styles.dicaNumber}>{3 - numDicasUsadas}</Text>
             </ImageBackground>
           </View>
         </TouchableOpacity>
@@ -501,22 +542,11 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
           name="arrow-back"
           size={scale(40)}
           color="white"
-          onPress={() => navigation.navigate("NivelDificil")}
+          onPress={() => navigation.navigate("NivelMedio")}
         />
+
         <View style={styles.cacaContainer}>
           <View style={styles.retangulo}>
-            {/* <GestureHandlerRootView style={{ flex: 1 }}> */}
-            {/* <PanGestureHandler
-            onGestureEvent={onGestureEvent}
-            onHandlerStateChange={onHandlerStateChange}
-            ref={panRef}
-            minDist={0}
-            minVelocity={1}
-            enabled={true}
-            shouldCancelWhenOutside={false}
-            runOnJS={true}
-            minPointers={1}
-          > */}
             <GestureDetector gesture={gesture}>
               <FlatList
                 data={board.game.board}
@@ -526,21 +556,6 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
                   return (
                     <View style={[styles.row]}>
                       {item.map((letter, index) => (
-                        // <View
-                        //   key={letter.row * 8 + letter.column}
-                        //   style={[
-                        //     styles.cell,
-                        //     {
-                        //       backgroundColor: isWithinRange(
-                        //         letter.row * 8 + letter.column
-                        //       )
-                        //         ? "red"
-                        //         : "white",
-                        //     },
-                        //   ]}
-                        // >
-                        //   <Text>{letter.letter}</Text>
-                        // </View>
                         <Cell
                           key={`cell-${letter.row}-${letter.column}`}
                           letter={letter}
@@ -551,28 +566,7 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
                   );
                 }}
               />
-              {/* <FlatList
-                data={board.game.board}
-                keyExtractor={(_, i) => i.toString()}
-                scrollEnabled={false}
-                renderItem={({ index, item }) => {
-                  return (
-                    <View style={[styles.row]}>
-                      {item.map((letter, colIndex) => (
-                        <Cell
-                          key={`cell-${letter.row}-${letter.column}`}
-                          letter={letter}
-                          selected={isCellSelected(letter.row, letter.column)}
-                        />
-                      ))}
-                    </View>
-                  );
-                }}
-              /> */}
-              {/* </PanGestureHandler> */}
             </GestureDetector>
-
-            {/* </GestureHandlerRootView> */}
           </View>
         </View>
         <View style={styles.palavrasContainer}>
@@ -611,17 +605,24 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
           style={styles.modalContainer2}
         >
           <View style={styles.modalContainer}>
-            <Text style={styles.modalText}>TEMPO:</Text>
-            <Text style={styles.textTempo}>{tempoDecorrido}s</Text>
-            <Text>Moedas ganhas nesta partida: {moedasGanhas}</Text>
-            <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
-              <Text style={styles.modalButtonText}>Continuar</Text>
-            </TouchableOpacity>
             <TouchableOpacity
-              style={styles.modalButton}
+              style={styles.modalVoltarHome}
               onPress={() => navigation.navigate("Home")}
             >
               <Text style={styles.modalButtonText}>Voltar</Text>
+            </TouchableOpacity>
+            <View style={styles.modalGanhos}>
+              <View>
+                <Text style={styles.modalText}>TEMPO:</Text>
+                <Text style={styles.textTempo}>{tempoDecorrido}</Text>
+              </View>
+              <View>
+                <Text style={styles.modalText}>MOEDAS:</Text>
+                <Text style={styles.textMoeda}>+{moedasGanhas}</Text>
+              </View>
+            </View>
+            <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
+              <Text style={styles.modalButtonText}>Continuar</Text>
             </TouchableOpacity>
           </View>
         </Modal>

@@ -5,91 +5,74 @@ import {
 import { StyleSheet, Dimensions } from "react-native";
 import {
   moderateScale,
-  verticalScale,
   scale,
   moderateVerticalScale,
 } from "react-native-size-matters";
-// const { height, width } = Dimensions.get("window");
-const CELL_SIZE = Math.floor(scale(280) * 0.1);
-const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
+const CELL_SIZE = Math.floor(Dimensions.get("window").width * 0.1);
+const CELL_PADDING = Math.floor(scale(10) * 0.1);
 
 const { width, height } = Dimensions.get("screen");
 
+const CELL_MARGIN = 2;
+const CELL_WIDTH = ((width - 8 * (CELL_MARGIN * 2)) / 8) * 0.9;
+const CELL_HEIGHT = ((height - 6 * (CELL_MARGIN * 2)) / 6) * 0.33;
+
 const styles = StyleSheet.create({
-  // cell: {
-  //   width: scale(22),
-  //   height: scale(21),
-  //   padding: CELL_PADDING,
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  // },
-  cacaContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
   retangulo: {
-    width: width * 0.91,
+    width: width * 0.86,
     height: height * 0.6,
-    // borderRadius: scale(7),
+    borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
-    marginBottom: 10,
-    borderRadius: 10,
-  },
-  cell: {
-    width: (width * 0.9) / 12,
-    height: (height * 0.6) / 12,
-    // backgroundColor: "gray",
-    alignItems: "center",
-    justifyContent: "center",
-    // margin: 3,
-    // backgroundColor: "red",
-    borderRadius: 5,
-  },
-  // row: {
-  //   flexDirection: "row",
-  // },
-  row: {
-    // width: width * 0.9,
-    // height: (height * 0.4) / 12,
-    // backgroundColor: "aqua",
-    // justifyContent: "center",
-    // alignItems: "center",
-    flexDirection: "row",
-    // marginVertical: 1,
   },
 
-  cellText: {
-    fontSize: wp(3.8),
-  },
-  palavrasContainer: {
-    // top: hp(56),
-    width: "90%",
+  LetterContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 20,
-    // gap: 20,
-    // marginTop: 40,
+  },
+  row: {
+    flexDirection: "row",
+  },
+  cell: {
+    width: (width * 0.85) / 12,
+    height: (height * 0.6) / 12,
+    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  cellText: {
+    fontSize: wp(6),
+  },
+  palavrasContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignItems: "center",
+    rowGap: 20,
+    columnGap: 20,
   },
   selected: {
     backgroundColor: "gray",
     color: "white",
-    borderRadius: scale(5),
+    borderRadius: 10,
   },
-  LetterContainer: {
-    marginTop: scale(2),
-  },
+
   GestureContainer: {
     zIndex: 100,
   },
   wordFound: {
     color: "black",
-    padding: scale(3),
+    padding: 10,
   },
-
+  cacaContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    // top: 90,
+  },
   caca: {
     flexWrap: "wrap",
     flexDirection: "row",
@@ -127,16 +110,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
-  // retangulo: {
-  //   width: wp(80),
-  //   height: scale(320),
-  //   borderColor: "white",
-  //   borderRadius: 7,
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  //   bottom: hp(13),
-  // },
-
   button: {
     width: wp(20),
     padding: scale(20),
@@ -144,11 +117,11 @@ const styles = StyleSheet.create({
     right: scale(2),
   },
   palavras: {
-    fontSize: scale(11),
+    fontSize: scale(18),
     color: "white",
     fontWeight: "bold",
-    marginBottom: scale(12),
-    borderRadius: scale(16),
+    padding: scale(2),
+    borderRadius: scale(20),
   },
   Dica: {
     width: scale(80),
@@ -166,88 +139,8 @@ const styles = StyleSheet.create({
     height: scale(20),
     textAlign: "center",
     fontSize: scale(12),
-  },
-  modalContainer: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
-    alignContent: "center",
-    alignItems: "center",
-  },
-  modalContainer2: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 5,
-    borderColor: "#007BFF",
-    borderRadius: 18,
-  },
-
-  ScreenText: {
-    fontSize: 20,
-    color: "#000",
-    textAlign: "center",
-    fontWeight: "bold",
-    top: 48,
-  },
-  imageBackground: {
-    flex: 1,
-    resizeMode: "cover",
-    width: "100%",
-    paddingTop: 20,
-    // paddingBottom: 20,
-    alignItems: "center",
-    // justifyContent: "space-between",
-  },
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  // retangulo: {
-  //   width: scale(270),
-  //   height: moderateScale(260, 1),
-  //   borderRadius: scale(7),
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  //   backgroundColor: "white",
-  //   textAlign: "center",
-  //   bottom: moderateVerticalScale(24, 15.5),
-  // },
-  button: {
-    // backgroundColor: "gray",
-    // width: 30,
-    // height: 30,
-    // padding: 20,
-    // bottom: (30, 0.6),
-    // right: scale(2),
-  },
-  palavras: {
-    fontSize: 16,
-    color: "white",
-    fontWeight: "bold",
-    padding: scale(1),
-    borderRadius: scale(20),
-    margin: scale(2),
-  },
-  Dica: {
-    width: 80,
-    height: 54,
-    // top: moderate50, 1
-    // left: scale(120),
-    justifyContent: "center",
-    // alignContent: "center",
-    alignItems: "center",
-  },
-  dicaNumber: {
-    backgroundColor: "yellow",
-    borderRadius: 50,
-    width: scale(20),
-    height: scale(20),
-    textAlign: "center",
-    fontSize: scale(12),
+    left: scale(12),
+    top: scale(12),
   },
   modalContainer: {
     backgroundColor: "white",
@@ -311,21 +204,21 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   moedasContainer: {
-    width: 80,
-    height: 40,
+    width: scale(80),
+    height: scale(40),
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#7bdacb",
     borderWidth: scale(2),
     borderColor: "#1d5950",
     padding: 10,
-    borderRadius: 10,
-    // left: scale(130),
-    // top: scale(60),
-    // display: "flex",
+    borderRadius: scale(10),
+    left: scale(130),
+    top: scale(60),
+    display: "flex",
     flexDirection: "row",
-    // gap: 16,
-    // position: "absolute",
+    gap: 16,
+    position: "absolute",
   },
   moedasText: {
     fontSize: scale(15),
