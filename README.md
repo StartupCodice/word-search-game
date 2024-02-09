@@ -7,8 +7,8 @@
   - Lucas Henschel
 
 - Novos colaboradores:
-  - 1 back-end
-  - 2 fron-end
+  - 2 back-end
+  - 1 fron-end
 
 ## Seções
 
