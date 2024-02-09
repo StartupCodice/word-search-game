@@ -2,8 +2,8 @@
 
 - Data de entrega: 16/11/2023
 - Colaboradores:
-  - Adryan
   - Calvin soares
+  - Lucas Chagaz
   - Lucas
 
 - Novos colaboradores:
