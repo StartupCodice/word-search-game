@@ -4,7 +4,7 @@
 - Colaboradores:
   - Calvin soares
   - Lucas Chagaz
-  - Lucas
+  - Lucas Henschel
 
 - Novos colaboradores:
   - 1 back-end
