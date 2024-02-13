@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     fontSize: wp(6),
   },
   palavrasContainer: {
-    // top: hp(58),
+    marginTop: scale(100),
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
@@ -56,7 +56,6 @@ const styles = StyleSheet.create({
     columnGap: 20,
   },
   selected: {
-    backgroundColor: "gray",
     color: "white",
     borderRadius: 10,
   },
@@ -65,7 +64,7 @@ const styles = StyleSheet.create({
     zIndex: 100,
   },
   wordFound: {
-    color: "black",
+    color: "gray",
     padding: 10,
   },
   cacaContainer: {

@@ -39,7 +39,7 @@ export default function EventoFacil({ navigation, rows = 6, cols = 8 }) {
   const { moedas, adicionarMoedas } = MoedasComponent();
   const [moedasGanhas, setMoedasGanhas] = useState(0);
   const [currentCell, setCurrentCell] = useState(null);
-  const [timeRemaining, setTimeRemaining] = useState(90); 
+  const [timeRemaining, setTimeRemaining] = useState(90);
   const [tempoAcabou, setTempoAcabou] = useState(false);
   const { getTheme, addTheme } = ThemeStorage();
   const [initialCell, setInitialCell] = useState(null);
@@ -90,7 +90,7 @@ export default function EventoFacil({ navigation, rows = 6, cols = 8 }) {
   const mostrarDica = () => {
     if (numDicasUsadas < 2) {
       const palavrasNaoEncontradas = palavras.filter((palavra) => !palavra.found);
-  
+
       if (palavrasNaoEncontradas.length > 0) {
         const indiceAleatorio = Math.floor(Math.random() * palavrasNaoEncontradas.length);
         const palavraAleatoria = palavrasNaoEncontradas[indiceAleatorio];
@@ -109,20 +109,20 @@ export default function EventoFacil({ navigation, rows = 6, cols = 8 }) {
             }
           }
         });
-  
+
         // atualiza a state do board
         setBoard({ game: novoTabuleiro });
-  
+
         // muda o fundo da palavra encontrada
         novasPalavras.forEach((palavra) => {
           if (palavra.name === palavraAleatoria.name) {
             palavra.found = true;
           }
         });
-  
+
         // atualiza a state de palavras apenas se houve alterações
         setPalavras([...novasPalavras]);
-  
+
         setNumDicasUsadas(numDicasUsadas + 1);
       } else {
         setHintsExhausted(true);
@@ -148,7 +148,7 @@ export default function EventoFacil({ navigation, rows = 6, cols = 8 }) {
 
   useEffect(() => {
     buildColumnsArray();
-  }, [board.game]); 
+  }, [board.game]);
 
   const getWordsToTheme = (th) => {
     switch (th) {
@@ -311,24 +311,24 @@ export default function EventoFacil({ navigation, rows = 6, cols = 8 }) {
       try {
         const th = await getTheme().then((t) => {
           return t;
-        });        
-          
+        });
+
         fetchData(th);
-  
+
         setTimeRemaining(90);
         intervalId = startTimer();
       } catch (error) {
         console.error('Erro ao obter o tema:', error);
       }
     };
-  
+
     fetchDataAndStartTimer();
-  
+
     return () => {
       isMountedRef.current = false;
       clearInterval(intervalId);
     };
-  }, []); 
+  }, []);
 
 
   function userWin() {
@@ -341,16 +341,16 @@ export default function EventoFacil({ navigation, rows = 6, cols = 8 }) {
 
   const mostrarResultado = () => {
     const endTime = new Date();
-    const tempoDecorrido = (endTime - startTime) / 1000;  
-  
+    const tempoDecorrido = (endTime - startTime) / 1000;
+
     const minutos = Math.floor(tempoDecorrido / 60);
     const segundos = Math.floor(tempoDecorrido % 60);
-  
+
     const tempoFormatado = `${minutos} min ${segundos} seg`;
 
     adicionarMoedas(26);
     setMoedasGanhas(26);
-  
+
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);
   };
@@ -436,7 +436,7 @@ const isAligned = (cell1, cell2) => {
   return (
     <View style={styles.container}>
       <ImageBackground source={require('./../../../assets/fundoAzul.jpg')} style={styles.imageBackground}>
-        
+
       <TouchableOpacity onPress={mostrarDica}>
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <ImageBackground
@@ -447,7 +447,7 @@ const isAligned = (cell1, cell2) => {
           </ImageBackground>
         </View>
       </TouchableOpacity>
-      
+
           <Ionicons style={styles.button} name="arrow-back" size={scale(40)} color="white"
             onPress={() => navigation.navigate('Home')} />
 
@@ -469,7 +469,7 @@ const isAligned = (cell1, cell2) => {
           }
         </View>
         <View style={styles.cacaContainer}>
-          <View style={styles.retangulo}> 
+          <View style={styles.retangulo}>
           <GestureHandlerRootView style={{ flex: 1 }}>
             <PanGestureHandler
               onGestureEvent={onGestureEvent}
@@ -482,10 +482,10 @@ const isAligned = (cell1, cell2) => {
                   <View key={indexRow} style={styles.row}>
                     {
                       row.map((letter, colIndex) => (
-                        <Cell 
-                          key={`cell-${indexRow}-${colIndex}`} 
-                          letter={letter} 
-                          selected={isCellSelected(indexRow, colIndex)} 
+                        <Cell
+                          key={`cell-${indexRow}-${colIndex}`}
+                          letter={letter}
+                          selected={isCellSelected(indexRow, colIndex)}
                         />
                       ))
                     }
@@ -534,8 +534,8 @@ const isAligned = (cell1, cell2) => {
                 <Text style={styles.textMoeda}>+{moedasGanhas}</Text>
                 </View>
               </View>
-          </View>   
-          
+          </View>
+
         </View>
       </Modal>
 

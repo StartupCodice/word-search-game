@@ -4,15 +4,16 @@ import { moderateScale, verticalScale, scale, moderateVerticalScale } from 'reac
 const CELL_SIZE = Math.floor(Dimensions.get('window').width * 0.1);
 const CELL_PADDING = Math.floor(scale(10) * 0.1);
 
+const { width, height } = Dimensions.get("screen");
 
 const styles = StyleSheet.create({
 
   row: {
     flexDirection: 'row',
   },
-  
+
   palavrasContainer: {
-    top: hp(55),
+    marginTop: scale(50),
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -35,13 +36,12 @@ const styles = StyleSheet.create({
     zIndex: 100
   },
   wordFound: {
-    color: 'black',
+    color: 'gray',
     padding: 10,
   },
   cacaContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    top: 90
   },
   caca: {
     flexWrap: 'wrap',
@@ -80,15 +80,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   retangulo: {
-    width: scale(300),
-    height: moderateScale(244, 1),
-    borderRadius: scale(7),
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    textAlign: 'center',
-    bottom: scale(80)
-
+    width: width * 0.81,
+    height: height * 0.4,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
   },
   button: {
     width: wp(20),
@@ -176,7 +172,7 @@ const styles = StyleSheet.create({
     margin: 20,
     bottom: 150,
     right: 100
-    
+
   },
   textTempo: {
     fontSize: scale(18),
@@ -227,16 +223,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   nivelContainer: {
-    justifyContent: 'center', 
-    alignItems: 'center', 
-    top: scale(18) 
-  },
-  cell: {
-    width: CELL_SIZE,  
-    height: CELL_SIZE,  
     justifyContent: 'center',
     alignItems: 'center',
-    margin: CELL_PADDING,   
+    top: scale(18)
+  },
+  cell: {
+    width: (width * 0.8) / 8,
+    height: (height * 0.4) / 6,
+    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
   },
   cellText: {
     fontSize: wp(6),
