@@ -8,11 +8,11 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
   const styles = StyleSheet.create({
 
   cell: {
-    width: scale(22),
-    height: scale(21),
-    padding: CELL_PADDING,
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: (width * 0.8) / 8,
+    height: (height * 0.4) / 6,
+    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
   },
   row: {
     flexDirection: 'row',
@@ -21,7 +21,7 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
     fontSize: wp(3.8),
   },
   palavrasContainer: {
-    top: hp(56),
+    marginTop: scale(80),
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -41,7 +41,7 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
     zIndex: 100
   },
   wordFound: {
-    color: 'black',
+    color: 'gray',
     padding: scale(3),
   },
   cacaContainer: {
@@ -62,11 +62,11 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
       inputLetter: {
         width: 200,
         height: 40,
-        paddingLeft: 10, 
+        paddingLeft: 10,
         backgroundColor: 'gray',
         color: 'black',
       },
-      
+
       ScreenText: {
         fontSize: 20,
         color: '#000',
@@ -131,7 +131,7 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
             justifyContent: 'center',
             alignContent: 'center',
             alignItems: 'center',
-            
+
           },
           modalContainer2: {
             flex: 1,
@@ -254,7 +254,7 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
     margin: 20,
     bottom: 150,
     right: 100
-    
+
   },
   textTempo: {
     fontSize: scale(18),

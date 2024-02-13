@@ -4,15 +4,16 @@ import { moderateScale, verticalScale, scale, moderateVerticalScale } from 'reac
 const CELL_SIZE = Math.floor(Dimensions.get('window').width * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 
+const { width, height } = Dimensions.get("screen");
 
 const styles = StyleSheet.create({
 
   cell: {
-    width: scale(30),
-    height: scale(29),
-    padding: CELL_PADDING,
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: (width * 0.8) / 8,
+    height: (height * 0.4) / 6,
+    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
   },
   row: {
     flexDirection: 'row',
@@ -21,7 +22,7 @@ const styles = StyleSheet.create({
     fontSize: wp(5),
   },
   palavrasContainer: {
-    top: hp(58),
+    marginTop: scale(80),
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
     zIndex: 100
   },
   wordFound: {
-    color: 'black',
+    color: 'gray',
     padding: 10,
   },
   cacaContainer: {
@@ -188,7 +189,7 @@ const styles = StyleSheet.create({
     margin: 20,
     bottom: 150,
     right: 100
-    
+
   },
   textTempo: {
     fontSize: scale(18),
