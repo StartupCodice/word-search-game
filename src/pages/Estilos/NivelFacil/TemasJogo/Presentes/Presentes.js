@@ -315,88 +315,12 @@ export default function Presentes({ navigation, rows = 8, cols = 8 }) {
   };
 
   const [selectedCells, setSelectedCells] = useState([]);
-  const panRef = useRef(null);
 
   const isCellSelected = useCallback(
     (row, col) =>
       selectedCells.some((cell) => cell.row === row && cell.col === col),
     [selectedCells]
   );
-
-  const onGestureEvent = (event) => {
-    const { x, y } = event.nativeEvent;
-
-    const widthCell = (width * 0.8) / 8;
-    const heightCell = (height * 0.4) / 8;
-
-    const row = Math.floor(y / heightCell);
-    const col = Math.floor(x / widthCell);
-
-    if (!initialCell) {
-      setInitialCell({ row, col });
-      setSelectedCells((prevCells) => [...prevCells, { row, col }]);
-    }
-
-    if (isAligned(initialCell, { row, col })) {
-      setCurrentCell({ row, col });
-      if (!isCellSelected(row, col)) {
-        setSelectedCells((prevCells) => [...prevCells, { row, col }]);
-      }
-    }
-  };
-
-  const onHandlerStateChange = (event, item) => {
-    let letterSelected = "";
-
-    const { x, y } = event.nativeEvent;
-
-    const widthCell = (width * 0.8) / 8;
-    const heightCell = (height * 0.4) / 8;
-
-    const row = Math.floor(y / heightCell);
-    const col = Math.floor(x / widthCell);
-
-    setSelectedCells((prevCells) => [...prevCells, { row, col }]);
-
-    selectedCells.forEach((cell) => {
-      if (isAligned(initialCell, cell)) {
-        board.game.board.forEach((row) => {
-          row.forEach((letter) => {
-            if (cell.col === letter.column && cell.row === letter.row) {
-              if (!letter.isSelected) letterSelected += letter.letter;
-            }
-          });
-        });
-      }
-    });
-
-    let game = board.game;
-    game.board.forEach((row) => {
-      row.forEach((column) => {
-        if (!column.isSelected) {
-          if (column.word[0] === letterSelected) {
-            game.board[column.row][column.column].setIsSelected(true);
-          }
-        }
-      });
-    });
-
-    palavras.forEach((palavra) => {
-      if (palavra.name === letterSelected) {
-        palavra.found = true;
-        setWordsFound(wordsFound + 1);
-        atualizarPalavraParaCor(palavraAleatoria.name, cores[wordsFound]);
-      }
-    });
-
-    setBoard({ game });
-    setSelectedCells([]);
-    setCurrentCell(null);
-    setInitialCell(null);
-
-    setPalavras([...palavras]);
-    userWin();
-  };
 
   const { width, height } = Dimensions.get("screen");
 

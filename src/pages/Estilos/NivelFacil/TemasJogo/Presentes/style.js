@@ -8,14 +8,8 @@ import {
   scale,
   moderateVerticalScale,
 } from "react-native-size-matters";
-const CELL_SIZE = Math.floor(Dimensions.get("window").width * 0.1);
-const CELL_PADDING = Math.floor(scale(10) * 0.1);
 
 const { width, height } = Dimensions.get("screen");
-
-const CELL_MARGIN = 2;
-const CELL_WIDTH = ((width - 8 * (CELL_MARGIN * 2)) / 8) * 0.9;
-const CELL_HEIGHT = ((height - 6 * (CELL_MARGIN * 2)) / 6) * 0.33;
 
 const styles = StyleSheet.create({
   retangulo: {
@@ -108,17 +102,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  // retangulo: {
-  //   width: scale(300),
-  //   height: moderateScale(250, 1),
-  //   borderRadius: scale(7),
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   backgroundColor: 'white',
-  //   textAlign: 'center',
-  //   bottom: scale(80)
-
-  // },
   button: {
     width: wp(20),
     padding: scale(20),
