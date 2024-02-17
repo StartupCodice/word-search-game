@@ -469,82 +469,21 @@ export default function EventoFacil({ navigation, rows = 6, cols = 8 }) {
   };
 
   const [selectedCells, setSelectedCells] = useState([]);
-const panRef = useRef(null);
+  const panRef = useRef(null);
 
-const isCellSelected = useCallback(
-  (row, col) => selectedCells.some(cell => cell.row === row && cell.col === col),
-  [selectedCells]
-);
+  const isCellSelected = useCallback(
+    (row, col) => selectedCells.some(cell => cell.row === row && cell.col === col),
+    [selectedCells]
+  );
 
-const onGestureEvent = (event) => {
-  const { x, y } = event.nativeEvent;
-  const row = Math.floor(y / scale(CELL_SIZE));
-  const col = Math.floor(x / scale(CELL_SIZE));
+  const isAligned = (cell1, cell2) => {
+    if (!cell1 || !cell2) return false;
 
-  if (!initialCell) {
-    setInitialCell({ row, col });
-  }
+    const rowDiff = Math.abs(cell1.row - cell2.row);
+    const colDiff = Math.abs(cell1.col - cell2.col);
 
-  if (isAligned(initialCell, { row, col })) {
-    setCurrentCell({ row, col });
-    if (!isCellSelected(row, col)) {
-      setSelectedCells(prevCells => [...prevCells, { row, col }]);
-    }
-  }
-};
-
-const onHandlerStateChange = (event, item) => {
-  let letterSelected = '';
-
-    selectedCells.forEach((cell) => {
-      if (isAligned(initialCell, cell)) {
-          board.game.board.forEach((row) => {
-            row.forEach((letter) => {
-                if (cell.col === letter.column && cell.row === letter.row) {
-                  if (!letter.isSelected) letterSelected += letter.letter;
-                }
-            })
-          });
-      }
-    });
-
-  let game = board.game;
-  game.board.forEach((row) => {
-    row.forEach((column) => {
-        if (!column.isSelected) {
-          if (column.word[0] === letterSelected) {
-            game.board[column.row][column.column].setIsSelected(true);
-          }
-        }
-    });
-  });
-
-  palavras.forEach((palavra) => {
-    if (palavra.name === letterSelected) {
-        palavra.found = true;
-    }
-  });
-
-  setBoard({ game });
-  setSelectedCells([]);
-  setCurrentCell(null);
-  setInitialCell(null);
-
-  setPalavras([...palavras]);
-  userWin();
-};
-
-const isAligned = (cell1, cell2) => {
-  if (!cell1 || !cell2) return false;
-
-  const rowDiff = Math.abs(cell1.row - cell2.row);
-  const colDiff = Math.abs(cell1.col - cell2.col);
-
-  return rowDiff === colDiff || cell1.row === cell2.row || cell1.col === cell2.col;
-};
-
-
-
+    return rowDiff === colDiff || cell1.row === cell2.row || cell1.col === cell2.col;
+  };
 
   return (
     <View style={styles.container}>

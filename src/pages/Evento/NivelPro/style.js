@@ -8,8 +8,8 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
   const styles = StyleSheet.create({
 
   cell: {
-    width: (width * 0.8) / 8,
-    height: (height * 0.4) / 6,
+    width: (width * 0.8) / 12,
+    height: (height * 0.45) / 12,
     backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
@@ -84,15 +84,14 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
         alignItems: 'center',
         justifyContent: 'center',
       },
-        retangulo: {
-        width: wp(80),
-        height: scale(320),
-        borderColor: 'white',
-        borderRadius: 7,
-        justifyContent: 'center',
-        alignItems: 'center',
-        bottom: hp(13)
-        },
+      retangulo: {
+        width: width * 0.81,
+        height: height * 0.45,
+        borderRadius: 5,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "white",
+      },
         button: {
           width: wp(20),
           padding: scale(20),

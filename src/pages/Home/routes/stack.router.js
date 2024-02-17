@@ -130,1105 +130,1114 @@ import EventoPro from '../../Evento/NivelPro/EventoPro';
 export function StackRoutes() {
     return (
         <Navigator>
-            <Screen 
+            <Screen
                 name="Home"
-                component={Home}   
-                options={{ 
-                    headerShown: false      
+                component={Home}
+                options={{
+                    headerShown: false
             }}
              />
-            
-            <Screen 
+
+            <Screen
+              name="EventoMedio"
+              component={EventoMedio}
+              options={{
+                title: '',
+                headerShown: false
+            }}
+             />
+
+            <Screen
               name="EventoFacil"
-              component={EventoFacil}  
-              options={{ 
+              component={EventoFacil}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-             />  
+             />
 
-            <Screen 
+            <Screen
               name="EsportesFacil"
-              component={EsportesFacil}  
-              options={{ 
+              component={EsportesFacil}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="CoresFacil"
-              component={CoresFacil}  
-              options={{ 
+              component={CoresFacil}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="EmpregosFacil"
-              component={EmpregosFacil}  
-              options={{ 
+              component={EmpregosFacil}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="PaisesFacil"
-              component={PaisesFacil}  
-              options={{ 
+              component={PaisesFacil}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
             />
 
-            <Screen 
+            <Screen
               name="AnimaisMedio"
-              component={AnimaisMedio}  
-              options={{ 
+              component={AnimaisMedio}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="DocesMedio"
-              component={DocesMedio}  
-              options={{ 
+              component={DocesMedio}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="ArvoresMedio"
-              component={ArvoresMedio}  
-              options={{ 
+              component={ArvoresMedio}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="AtoresMedio"
-              component={AtoresMedio}  
-              options={{ 
+              component={AtoresMedio}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="TransportesMedio"
-              component={TransportesMedio}  
-              options={{ 
+              component={TransportesMedio}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="BebidasMedio"
-              component={BebidasMedio}  
-              options={{ 
+              component={BebidasMedio}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="AmizadeMedio"
-              component={AmizadeMedio}  
-              options={{ 
+              component={AmizadeMedio}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="NomesMedio"
-              component={NomesMedio}  
-              options={{ 
+              component={NomesMedio}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="RoupasMedio"
-              component={RoupasMedio}  
-              options={{ 
+              component={RoupasMedio}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="NaturezaMedio"
-              component={NaturezaMedio}  
-              options={{ 
+              component={NaturezaMedio}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="PintoresMedio"
-              component={PintoresMedio}  
-              options={{ 
+              component={PintoresMedio}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="CasaMedio"
-              component={CasaMedio}  
-              options={{ 
+              component={CasaMedio}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
-            <Screen 
+            />
+            <Screen
               name="CarrosMedio"
-              component={CarrosMedio}  
-              options={{ 
+              component={CarrosMedio}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="FilmesMedio"
-              component={FilmesMedio}  
-              options={{ 
+              component={FilmesMedio}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="EspaçoMedio"
-              component={EspaçoMedio}  
-              options={{ 
+              component={EspaçoMedio}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="MusicosMedio"
-              component={MusicosMedio}  
-              options={{ 
+              component={MusicosMedio}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="MarcasMedio"
-              component={MarcasMedio}  
-              options={{ 
+              component={MarcasMedio}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="MusicasMedio"
-              component={MusicasMedio}  
-              options={{ 
+              component={MusicasMedio}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
             />
 
-            <Screen 
+            <Screen
             name="EscritorasMedio"
-            component={EscritorasMedio}  
-            options={{ 
+            component={EscritorasMedio}
+            options={{
               title: '',
-              headerShown: false   
+              headerShown: false
             }}
-            />       
+            />
 
-            <Screen 
+            <Screen
               name="EmpregosMedio"
-              component={EmpregosMedio}  
-              options={{ 
+              component={EmpregosMedio}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            /> 
+            />
 
-            <Screen 
+            <Screen
               name="CoresMedio"
-              component={CoresMedio}  
-              options={{ 
+              component={CoresMedio}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            /> 
+            />
 
-            <Screen 
+            <Screen
               name="PaisesMedio"
-              component={PaisesMedio}  
-              options={{ 
+              component={PaisesMedio}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            /> 
+            />
 
-            <Screen 
+            <Screen
               name="EsportesMedio"
-              component={EsportesMedio}  
-              options={{ 
+              component={EsportesMedio}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="Animais"
-              component={Animais}  
-              options={{ 
+              component={Animais}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="Doces"
-              component={Doces}  
-              options={{ 
+              component={Doces}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="Arvores"
-              component={Arvores}  
-              options={{ 
+              component={Arvores}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="Atores"
-              component={Atores}  
-              options={{ 
+              component={Atores}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="Transportes"
-              component={Transportes}  
-              options={{ 
+              component={Transportes}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="Bebidas"
-              component={Bebidas}  
-              options={{ 
+              component={Bebidas}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="Amizade"
-              component={Amizade}  
-              options={{ 
+              component={Amizade}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="Nomes"
-              component={Nomes}  
-              options={{ 
+              component={Nomes}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="Roupas"
-              component={Roupas}  
-              options={{ 
+              component={Roupas}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="Natureza"
-              component={Natureza}  
-              options={{ 
+              component={Natureza}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="Pintores"
-              component={Pintores}  
-              options={{ 
+              component={Pintores}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="Casa"
-              component={Casa}  
-              options={{ 
+              component={Casa}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
-            <Screen 
+            />
+            <Screen
               name="Carros"
-              component={Carros}  
-              options={{ 
+              component={Carros}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="Filmes"
-              component={Filmes}  
-              options={{ 
+              component={Filmes}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="Espaço"
-              component={Espaço}  
-              options={{ 
+              component={Espaço}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="Musicos"
-              component={Musicos}  
-              options={{ 
+              component={Musicos}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="Marcas"
-              component={Marcas}  
-              options={{ 
+              component={Marcas}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="Musicas"
-              component={Musicas}  
-              options={{ 
+              component={Musicas}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
             />
 
-            <Screen 
+            <Screen
             name="Escritoras"
-            component={Escritoras}  
-            options={{ 
+            component={Escritoras}
+            options={{
               title: '',
-              headerShown: false   
+              headerShown: false
             }}
             />
 
-            <Screen 
+            <Screen
               name="EventoPro"
-              component={EventoPro}  
-              options={{ 
+              component={EventoPro}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
-                
-            <Screen 
-              name="ScreenJogar"
-              component={Jogar}  
-              options={{ 
-                title: '',
-                headerShown: false   
-            }}
-             />   
+            />
 
-             <Screen 
+            <Screen
+              name="ScreenJogar"
+              component={Jogar}
+              options={{
+                title: '',
+                headerShown: false
+            }}
+             />
+
+             <Screen
              name="Estilos"
              component={NiveisBotoes}
-             options={{ 
+             options={{
                 title: '',
-                headerShown: false       
+                headerShown: false
             }}
              />
 
-            <Screen 
+            <Screen
              name="NivelFacil"
              component={NivelFacil}
-             options={{ 
+             options={{
                 title: '',
-                headerShown: false       
+                headerShown: false
             }}
              />
 
-            <Screen 
+            <Screen
              name="Alimentos"
              component={Alimentos}
-             options={{ 
+             options={{
                 title: '',
-                headerShown: false       
+                headerShown: false
             }}
              />
 
-            <Screen 
+            <Screen
              name="Decoracoes"
              component={Decoracoes}
-             options={{ 
+             options={{
                 title: '',
-                headerShown: false       
+                headerShown: false
             }}
              />
-            <Screen 
+            <Screen
              name="Personagens"
              component={Personagens}
-             options={{ 
+             options={{
                 title: '',
-                headerShown: false       
+                headerShown: false
             }}
              />
 
-             <Screen 
+             <Screen
              name="Presentes"
              component={Presentes}
-             options={{ 
+             options={{
                 title: '',
-                headerShown: false       
+                headerShown: false
             }}
              />
 
 
-            <Screen 
+            <Screen
              name="NivelMedio"
              component={NivelMedio}
-             options={{ 
+             options={{
                 title: '',
-                headerShown: false       
+                headerShown: false
             }}
              />
 
-            <Screen 
+            <Screen
              name="AlimentosMedio"
              component={AlimentosMedio}
-             options={{ 
+             options={{
                 title: '',
-                headerShown: false       
+                headerShown: false
             }}
              />
 
-            <Screen 
+            <Screen
              name="DecoracoesMedio"
              component={DecoracoesMedio}
-             options={{ 
+             options={{
                 title: '',
-                headerShown: false       
+                headerShown: false
             }}
              />
-            <Screen 
+            <Screen
              name="PersonagensMedio"
              component={PersonagensMedio}
-             options={{ 
+             options={{
                 title: '',
-                headerShown: false       
+                headerShown: false
             }}
              />
 
-             <Screen 
+             <Screen
              name="PresentesMedio"
              component={PresentesMedio}
-             options={{ 
+             options={{
                 title: '',
-                headerShown: false       
+                headerShown: false
             }}
              />
-            
-            <Screen 
+
+            <Screen
              name="NivelDificil"
              component={NivelDificil}
-             options={{ 
+             options={{
                 title: '',
-                headerShown: false       
+                headerShown: false
             }}
              />
 
-            <Screen 
+            <Screen
              name="AlimentosDificil"
              component={AlimentosDificil}
-             options={{ 
+             options={{
                 title: '',
-                headerShown: false       
+                headerShown: false
             }}
              />
 
-            <Screen 
+            <Screen
              name="DecoracoesDificil"
              component={DecoracoesDificil}
-             options={{ 
+             options={{
                 title: '',
-                headerShown: false       
+                headerShown: false
             }}
              />
-            <Screen 
+            <Screen
              name="PersonagensDificil"
              component={PersonagensDificil}
-             options={{ 
+             options={{
                 title: '',
-                headerShown: false       
+                headerShown: false
             }}
              />
 
-            <Screen 
+            <Screen
              name="MonumentosDificil"
              component={MonumentosDificil}
-             options={{ 
+             options={{
                 title: '',
-                headerShown: false       
+                headerShown: false
             }}
              />
 
-             <Screen 
+             <Screen
              name="PresentesDificil"
              component={PresentesDificil}
-             options={{ 
+             options={{
                 title: '',
-                headerShown: false       
+                headerShown: false
             }}
              />
 
-             
-            <Screen 
+
+            <Screen
               name="AnimaisDificil"
-              component={AnimaisDificil}  
-              options={{ 
+              component={AnimaisDificil}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="DocesDificil"
-              component={DocesDificil}  
-              options={{ 
+              component={DocesDificil}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="ArvoresDificil"
-              component={ArvoresDificil}  
-              options={{ 
+              component={ArvoresDificil}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="AtoresDificil"
-              component={AtoresDificil}  
-              options={{ 
+              component={AtoresDificil}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="TransportesDificil"
-              component={TransportesDificil}  
-              options={{ 
+              component={TransportesDificil}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="BebidasDificil"
-              component={BebidasDificil}  
-              options={{ 
+              component={BebidasDificil}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="AmizadeDificil"
-              component={AmizadeDificil}  
-              options={{ 
+              component={AmizadeDificil}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="NomesDificil"
-              component={NomesDificil}  
-              options={{ 
+              component={NomesDificil}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="RoupasDificil"
-              component={RoupasDificil}  
-              options={{ 
+              component={RoupasDificil}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="NaturezaDificil"
-              component={NaturezaDificil}  
-              options={{ 
+              component={NaturezaDificil}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="PintoresDificil"
-              component={PintoresDificil}  
-              options={{ 
+              component={PintoresDificil}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="CasaDificil"
-              component={CasaDificil}  
-              options={{ 
+              component={CasaDificil}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
-            <Screen 
+            />
+            <Screen
               name="CarrosDificil"
-              component={CarrosDificil}  
-              options={{ 
+              component={CarrosDificil}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="FilmesDificil"
-              component={FilmesDificil}  
-              options={{ 
+              component={FilmesDificil}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="EspaçoDificil"
-              component={EspaçoDificil}  
-              options={{ 
+              component={EspaçoDificil}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="MusicosDificil"
-              component={MusicosDificil}  
-              options={{ 
+              component={MusicosDificil}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="MarcasDificil"
-              component={MarcasDificil}  
-              options={{ 
+              component={MarcasDificil}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="MusicasDificil"
-              component={MusicasDificil}  
-              options={{ 
+              component={MusicasDificil}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
             />
 
-            <Screen 
+            <Screen
             name="EscritorasDificil"
-            component={EscritorasDificil}  
-            options={{ 
+            component={EscritorasDificil}
+            options={{
               title: '',
-              headerShown: false   
-            }}
-            />       
-
-            <Screen 
-              name="EmpregosDificil"
-              component={EmpregosDificil}  
-              options={{ 
-                title: '',
-                headerShown: false   
-            }}
-            /> 
-
-            <Screen 
-              name="CoresDificil"
-              component={CoresDificil}  
-              options={{ 
-                title: '',
-                headerShown: false   
-            }}
-            /> 
-
-            <Screen 
-              name="PaisesDificil"
-              component={PaisesDificil}  
-              options={{ 
-                title: '',
-                headerShown: false   
-            }}
-            /> 
-
-            <Screen 
-              name="EsportesDificil"
-              component={EsportesDificil}  
-              options={{ 
-                title: '',
-                headerShown: false   
+              headerShown: false
             }}
             />
 
-            <Screen 
+            <Screen
+              name="EmpregosDificil"
+              component={EmpregosDificil}
+              options={{
+                title: '',
+                headerShown: false
+            }}
+            />
+
+            <Screen
+              name="CoresDificil"
+              component={CoresDificil}
+              options={{
+                title: '',
+                headerShown: false
+            }}
+            />
+
+            <Screen
+              name="PaisesDificil"
+              component={PaisesDificil}
+              options={{
+                title: '',
+                headerShown: false
+            }}
+            />
+
+            <Screen
+              name="EsportesDificil"
+              component={EsportesDificil}
+              options={{
+                title: '',
+                headerShown: false
+            }}
+            />
+
+            <Screen
              name="NivelPro"
              component={NivelPro}
-             options={{ 
+             options={{
                 title: '',
-                headerShown: false       
+                headerShown: false
             }}
              />
 
-            <Screen 
+            <Screen
              name="AlimentosPro"
              component={AlimentosPro}
-             options={{ 
+             options={{
                 title: '',
-                headerShown: false       
+                headerShown: false
             }}
              />
 
-            <Screen 
+            <Screen
              name="DecoracoesPro"
              component={DecoracoesPro}
-             options={{ 
+             options={{
                 title: '',
-                headerShown: false       
+                headerShown: false
             }}
              />
-            <Screen 
+            <Screen
              name="PersonagensPro"
              component={PersonagensPro}
-             options={{ 
+             options={{
                 title: '',
-                headerShown: false       
+                headerShown: false
             }}
              />
 
-             <Screen 
+             <Screen
              name="PresentesPro"
              component={PresentesPro}
-             options={{ 
+             options={{
                 title: '',
-                headerShown: false       
+                headerShown: false
             }}
              />
 
-            <Screen 
+            <Screen
               name="AnimaisPro"
-              component={AnimaisPro}  
-              options={{ 
+              component={AnimaisPro}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="DocesPro"
-              component={DocesPro}  
-              options={{ 
+              component={DocesPro}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="ArvoresPro"
-              component={ArvoresPro}  
-              options={{ 
+              component={ArvoresPro}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
              name="MonumentosPro"
              component={MonumentosPro}
-             options={{ 
+             options={{
                 title: '',
-                headerShown: false       
+                headerShown: false
             }}
              />
 
-            <Screen 
+            <Screen
               name="AtoresPro"
-              component={AtoresPro}  
-              options={{ 
+              component={AtoresPro}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="TransportesPro"
-              component={TransportesPro}  
-              options={{ 
+              component={TransportesPro}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="BebidasPro"
-              component={BebidasPro}  
-              options={{ 
+              component={BebidasPro}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="AmizadePro"
-              component={AmizadePro}  
-              options={{ 
+              component={AmizadePro}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="NomesPro"
-              component={NomesPro}  
-              options={{ 
+              component={NomesPro}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="RoupasPro"
-              component={RoupasPro}  
-              options={{ 
+              component={RoupasPro}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="NaturezaPro"
-              component={NaturezaPro}  
-              options={{ 
+              component={NaturezaPro}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="PintoresPro"
-              component={PintoresPro}  
-              options={{ 
+              component={PintoresPro}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="CasaPro"
-              component={CasaPro}  
-              options={{ 
+              component={CasaPro}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
-            <Screen 
+            />
+            <Screen
               name="CarrosPro"
-              component={CarrosPro}  
-              options={{ 
+              component={CarrosPro}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="FilmesPro"
-              component={FilmesPro}  
-              options={{ 
+              component={FilmesPro}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="EspaçoPro"
-              component={EspaçoPro}  
-              options={{ 
+              component={EspaçoPro}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="MusicosPro"
-              component={MusicosPro}  
-              options={{ 
+              component={MusicosPro}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="MarcasPro"
-              component={MarcasPro}  
-              options={{ 
+              component={MarcasPro}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
-            />  
+            />
 
-            <Screen 
+            <Screen
               name="MusicasPro"
-              component={MusicasPro}  
-              options={{ 
+              component={MusicasPro}
+              options={{
                 title: '',
-                headerShown: false   
+                headerShown: false
             }}
             />
 
-            <Screen 
+            <Screen
             name="EscritorasPro"
-            component={EscritorasPro}  
-            options={{ 
+            component={EscritorasPro}
+            options={{
               title: '',
-              headerShown: false   
-            }}
-            />       
-
-            <Screen 
-              name="EmpregosPro"
-              component={EmpregosPro}  
-              options={{ 
-                title: '',
-                headerShown: false   
-            }}
-            /> 
-
-            <Screen 
-              name="CoresPro"
-              component={CoresPro}  
-              options={{ 
-                title: '',
-                headerShown: false   
-            }}
-            /> 
-
-            <Screen 
-              name="PaisesPro"
-              component={PaisesPro}  
-              options={{ 
-                title: '',
-                headerShown: false   
-            }}
-            /> 
-
-            <Screen 
-              name="EsportesPro"
-              component={EsportesPro}  
-              options={{ 
-                title: '',
-                headerShown: false   
+              headerShown: false
             }}
             />
 
-            <Screen 
+            <Screen
+              name="EmpregosPro"
+              component={EmpregosPro}
+              options={{
+                title: '',
+                headerShown: false
+            }}
+            />
+
+            <Screen
+              name="CoresPro"
+              component={CoresPro}
+              options={{
+                title: '',
+                headerShown: false
+            }}
+            />
+
+            <Screen
+              name="PaisesPro"
+              component={PaisesPro}
+              options={{
+                title: '',
+                headerShown: false
+            }}
+            />
+
+            <Screen
+              name="EsportesPro"
+              component={EsportesPro}
+              options={{
+                title: '',
+                headerShown: false
+            }}
+            />
+
+            <Screen
              name="InfinitoFacil"
              component={InfinitoFacil}
-             options={{ 
+             options={{
                 title: '',
-                headerShown: false       
+                headerShown: false
             }}
              />
 
-            <Screen 
+            <Screen
              name="InfinitoMedio"
              component={InfinitoMedio}
-             options={{ 
+             options={{
                 title: '',
-                headerShown: false       
-            }}
-             />
-             
-             <Screen 
-             name="InfinitoDificil"
-             component={InfinitoDificil}
-             options={{ 
-                title: '',
-                headerShown: false       
+                headerShown: false
             }}
              />
 
-            <Screen 
+             <Screen
+             name="InfinitoDificil"
+             component={InfinitoDificil}
+             options={{
+                title: '',
+                headerShown: false
+            }}
+             />
+
+            <Screen
              name="InfinitoPro"
              component={InfinitoPro}
-             options={{ 
+             options={{
                 title: '',
-                headerShown: false       
+                headerShown: false
             }}
-             /> 
+             />
         </Navigator>
     )
 }

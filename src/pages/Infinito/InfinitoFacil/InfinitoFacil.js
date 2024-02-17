@@ -11,9 +11,6 @@ import MoedasComponent from '../../../components/storage';
 
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 
-const CELL_SIZE = Math.floor(350 * 0.1);
-const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
-
 const { width, height } = Dimensions.get("screen");
 
 const Cell = React.memo(({ letter, selected, palavraParaCor, cores, wordsFound }) => {
@@ -87,15 +84,11 @@ export default function InfinitoFacil({ navigation, rows = 6, cols = 8 }) {
   };
 
   const mostrarDica = () => {
-    if (numDicasUsadas < 2) {
-      const palavrasNaoEncontradas = palavras.filter(
-        (palavra) => !palavra.found
-      );
+    if (numDicasUsadas < 3) {
+      const palavrasNaoEncontradas = palavras.filter((palavra) => !palavra.found);
 
       if (palavrasNaoEncontradas.length > 0) {
-        const indiceAleatorio = Math.floor(
-          Math.random() * palavrasNaoEncontradas.length
-        );
+        const indiceAleatorio = Math.floor(Math.random() * palavrasNaoEncontradas.length);
         const palavraAleatoria = palavrasNaoEncontradas[indiceAleatorio];
         const novoTabuleiro = { ...board.game };
         const novasPalavras = [...palavras];
@@ -108,7 +101,7 @@ export default function InfinitoFacil({ navigation, rows = 6, cols = 8 }) {
             setCurrentCell({ row, col });
             novoTabuleiro.board[column.row][column.column].setIsSelected(true);
             if (!isCellSelected(row, col)) {
-              setSelectedCells((prevCells) => [...prevCells, { row, col }]);
+              setSelectedCells(prevCells => [...prevCells, { row, col }]);
             }
           }
         });
@@ -117,8 +110,6 @@ export default function InfinitoFacil({ navigation, rows = 6, cols = 8 }) {
         novasPalavras.forEach((palavra) => {
           if (palavra.name === palavraAleatoria.name) {
             palavra.found = true;
-            setWordsFound(wordsFound + 1);
-            atualizarPalavraParaCor(palavraAleatoria.name, cores[wordsFound]);
           }
         });
 
@@ -309,22 +300,22 @@ export default function InfinitoFacil({ navigation, rows = 6, cols = 8 }) {
         { name: 'CASA', found: false },
       ];
 
-    if (isMountedRef.current) {
-      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 4);
-    setPalavras(palavrasEscolhidas);
+      if (isMountedRef.current) {
+        const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 4);
+        setPalavras(palavrasEscolhidas);
 
-    const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(6, 8, palavrasJogo) });
+        const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
+        setBoard({ game: new createGame(6, 8, palavrasJogo) });
 
-    const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
-    setCores(coresAleatorias);
+        const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
+        setCores(coresAleatorias);
 
-    setStartTime(new Date());
-    setModalVisible(false);
-    setTempoDecorrido(0);
-    setWordsFound(0);
-    setPalavraParaCor([]);
-    }
+        setStartTime(new Date());
+        setModalVisible(false);
+        setTempoDecorrido(0);
+        setWordsFound(0);
+        setPalavraParaCor([]);
+      }
     } catch (error) {
       console.error('Erro ao buscar dados: ', error);
     }
@@ -445,81 +436,21 @@ export default function InfinitoFacil({ navigation, rows = 6, cols = 8 }) {
   };
 
   const [selectedCells, setSelectedCells] = useState([]);
-const panRef = useRef(null);
+  const panRef = useRef(null);
 
-const isCellSelected = useCallback(
-  (row, col) => selectedCells.some(cell => cell.row === row && cell.col === col),
-  [selectedCells]
-);
+  const isCellSelected = useCallback(
+    (row, col) => selectedCells.some(cell => cell.row === row && cell.col === col),
+    [selectedCells]
+  );
 
-const onGestureEvent = (event) => {
-  const { x, y } = event.nativeEvent;
-  const row = Math.floor(y / scale(CELL_SIZE));
-  const col = Math.floor(x / scale(CELL_SIZE));
+  const isAligned = (cell1, cell2) => {
+    if (!cell1 || !cell2) return false;
 
-  if (!initialCell) {
-    setInitialCell({ row, col });
-  }
+    const rowDiff = Math.abs(cell1.row - cell2.row);
+    const colDiff = Math.abs(cell1.col - cell2.col);
 
-  if (isAligned(initialCell, { row, col })) {
-    setCurrentCell({ row, col });
-    if (!isCellSelected(row, col)) {
-      setSelectedCells(prevCells => [...prevCells, { row, col }]);
-    }
-  }
-};
-
-const onHandlerStateChange = (event, item) => {
-  let letterSelected = '';
-
-    selectedCells.forEach((cell) => {
-      if (isAligned(initialCell, cell)) {
-          board.game.board.forEach((row) => {
-            row.forEach((letter) => {
-                if (cell.col === letter.column && cell.row === letter.row) {
-                  if (!letter.isSelected) letterSelected += letter.letter;
-                }
-            })
-          });
-      }
-    });
-
-  let game = board.game;
-  game.board.forEach((row) => {
-    row.forEach((column) => {
-        if (!column.isSelected) {
-          if (column.word[0] === letterSelected) {
-            game.board[column.row][column.column].setIsSelected(true);
-          }
-        }
-    });
-  });
-
-  palavras.forEach((palavra) => {
-    if (palavra.name === letterSelected) {
-        palavra.found = true;
-        setWordsFound(wordsFound + 1);
-        atualizarPalavraParaCor(letterSelected, cores[wordsFound]);
-    }
-  });
-
-  setBoard({ game });
-  setSelectedCells([]);
-  setCurrentCell(null);
-  setInitialCell(null);
-
-  setPalavras([...palavras]);
-  userWin();
-};
-
-const isAligned = (cell1, cell2) => {
-  if (!cell1 || !cell2) return false;
-
-  const rowDiff = Math.abs(cell1.row - cell2.row);
-  const colDiff = Math.abs(cell1.col - cell2.col);
-
-  return rowDiff === colDiff || cell1.row === cell2.row || cell1.col === cell2.col;
-};
+    return rowDiff === colDiff || cell1.row === cell2.row || cell1.col === cell2.col;
+  };
 
 
 

@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
 
   cell: {
     width: (width * 0.8) / 8,
-    height: (height * 0.4) / 6,
+    height: (height * 0.45) / 8,
     backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     fontSize: wp(5),
   },
   palavrasContainer: {
-    marginTop: scale(80),
+    marginTop: scale(20),
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
     columnGap: 20,
   },
   selected: {
-    backgroundColor: 'gray',
     color: 'white',
     borderRadius: 10,
   },
@@ -55,7 +54,7 @@ const styles = StyleSheet.create({
   cacaContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    top: 90
+    top: -30,
   },
   caca: {
     flexWrap: 'wrap',
@@ -94,15 +93,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   retangulo: {
-    width: scale(270),
-    height: moderateScale(250, 1),
-    borderRadius: scale(7),
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    textAlign: 'center',
-    bottom: scale(90)
-
+    width: width * 0.81,
+    height: height * 0.45,
+    borderRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
   },
   button: {
     width: wp(20),
@@ -134,6 +130,8 @@ const styles = StyleSheet.create({
     height: scale(20),
     textAlign: 'center',
     fontSize: scale(12),
+    left: scale(12),
+    top: scale(12)
   },
   modalContainer: {
     backgroundColor: 'white',

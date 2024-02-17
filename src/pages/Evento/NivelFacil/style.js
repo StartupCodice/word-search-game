@@ -36,13 +36,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   LetterContainer: {
-    // flexDirection: 'row',
-    // flexWrap: 'wrap',
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // textAlign: 'center',
-    // rowGap: 10,
-    // bottom: moderateVerticalScale(25, 1.5),
     marginTop: scale(10),
   },
   GestureContainer: {
@@ -55,7 +48,6 @@ const styles = StyleSheet.create({
   cacaContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    top: 90
   },
   caca: {
     flexWrap: 'wrap',
@@ -94,15 +86,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   retangulo: {
-    width: scale(300),
-    height: moderateScale(244, 1),
-    borderRadius: scale(7),
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    textAlign: 'center',
-    bottom: scale(100)
-
+    width: width * 0.81,
+    height: height * 0.4,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
   },
   button: {
     width: wp(20),
