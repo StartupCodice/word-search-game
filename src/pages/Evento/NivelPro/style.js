@@ -21,7 +21,7 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
     fontSize: wp(3.8),
   },
   palavrasContainer: {
-    marginTop: scale(80),
+    marginTop: scale(20),
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -121,6 +121,8 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
             height: scale(20),
             textAlign: 'center',
             fontSize: scale(12),
+            left: scale(12),
+            top: scale(12)
           },
           modalContainer: {
             backgroundColor: 'white',
@@ -159,14 +161,12 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
     justifyContent: 'center',
   },
   retangulo: {
-    width: scale(270),
-    height: moderateScale(260, 1),
-    borderRadius: scale(7),
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    textAlign: 'center',
-    bottom: moderateVerticalScale(20, 15.5),
+    width: width * 0.81,
+    height: height * 0.45,
+    borderRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
   },
   button: {
     width: wp(20),
@@ -190,14 +190,6 @@ const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
     justifyContent: 'center',
     alignContent: 'center',
     alignItems: 'center',
-  },
-  dicaNumber: {
-    backgroundColor: 'yellow',
-    borderRadius: 50,
-    width: scale(20),
-    height: scale(20),
-    textAlign: 'center',
-    fontSize: scale(12),
   },
   modalContainer: {
     backgroundColor: 'white',

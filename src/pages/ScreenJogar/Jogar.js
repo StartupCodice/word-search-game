@@ -382,7 +382,6 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
       { name: 'BRIN', found: false },
       { name: 'VELA', found: false },
       { name: 'SINO', found: false },
-      { name: 'FAMÍLIA', found: false },
       { name: 'LUZES', found: false },
       { name: 'PAZ', found: false },
       { name: 'AMOR', found: false },

@@ -490,64 +490,6 @@ const isCellSelected = useCallback(
   [selectedCells]
 );
 
-const onGestureEvent = (event) => {
-  const { x, y } = event.nativeEvent;
-  const row = Math.floor(y / scale(CELL_SIZE));
-  const col = Math.floor(x / scale(CELL_SIZE));
-
-  if (!initialCell) {
-    setInitialCell({ row, col });
-  }
-
-  if (isAligned(initialCell, { row, col })) {
-    setCurrentCell({ row, col });
-    if (!isCellSelected(row, col)) {
-      setSelectedCells(prevCells => [...prevCells, { row, col }]);
-    }
-  }
-};
-
-const onHandlerStateChange = (event, item) => {
-  let letterSelected = '';
-
-    selectedCells.forEach((cell) => {
-      if (isAligned(initialCell, cell)) {
-          board.game.board.forEach((row) => {
-            row.forEach((letter) => {
-                if (cell.col === letter.column && cell.row === letter.row) {
-                  if (!letter.isSelected) letterSelected += letter.letter;
-                }
-            })
-          });
-      }
-    });
-
-  let game = board.game;
-  game.board.forEach((row) => {
-    row.forEach((column) => {
-        if (!column.isSelected) {
-          if (column.word[0] === letterSelected) {
-            game.board[column.row][column.column].setIsSelected(true);
-          }
-        }
-    });
-  });
-
-  palavras.forEach((palavra) => {
-    if (palavra.name === letterSelected) {
-        palavra.found = true;
-    }
-  });
-
-  setBoard({ game });
-  setSelectedCells([]);
-  setCurrentCell(null);
-  setInitialCell(null);
-
-  setPalavras([...palavras]);
-  userWin();
-};
-
 const isAligned = (cell1, cell2) => {
   if (!cell1 || !cell2) return false;
 
