@@ -33,7 +33,6 @@ const Cell = React.memo(({ letter, selected, palavraParaCor, cores, wordsFound }
   )
 });
 
-
 export default function Alimentos({ navigation, rows = 6, cols = 8 }) {
   const {
     alimentos,
