@@ -10,7 +10,7 @@ import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../../../../components/storage';
 import NiveisFaceis from '../../../../../components/storageNivelFacil';
 
-import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
+import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 
 const { width, height } = Dimensions.get("screen");
 
@@ -425,8 +425,6 @@ export default function Animais({ navigation, rows = 8, cols = 8 }) {
 
     return rowDiff === colDiff || cell1.row === cell2.row || cell1.col === cell2.col;
   };
-
-
 
   return (
     <View style={styles.container}>
