@@ -8,7 +8,6 @@ import randomcolor from 'randomcolor';
 import styles from './style';
 import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../../../../components/storage';
-import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 import NiveisMedio from '../../../../../components/storageNivelMedio';
 
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
