@@ -402,7 +402,7 @@ export default function PresentesPro({ navigation, rows = 12, cols = 12 }) {
               source={require("./../../../../../assets/chapeu.png")}
               style={styles.Dica}
             >
-              <Text style={styles.dicaNumber}>{3 - numDicasUsadas}</Text>
+              <Text style={styles.dicaNumber}>{5 - numDicasUsadas}</Text>
             </ImageBackground>
           </View>
         </TouchableOpacity>
@@ -444,13 +444,13 @@ export default function PresentesPro({ navigation, rows = 12, cols = 12 }) {
             </GestureDetector>
           </View>
         </View>
+
         <View style={styles.palavrasContainer}>
           {palavras.map((palavra, index) => (
             <Text
               key={index}
               style={[
                 styles.palavras,
-                palavra.found ? { backgroundColor: cores[index] } : null,
                 palavra.found ? styles.wordFound : null,
               ]}
             >

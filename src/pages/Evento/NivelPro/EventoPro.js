@@ -64,8 +64,8 @@ export default function EventoPro({ navigation, rows = 12, cols = 12 }) {
 
   const[wordsFound, setWordsFound] = useState(0);
   const [palavraParaCor, setPalavraParaCor] = useState([]);
-  const widthCell = (width * 0.80) / 12;
-  const heightCell = (height * 0.45) / 12;
+  const widthCell = (width * 0.85) / 12;
+  const heightCell = (height * 0.6) / 12;
 
   const atualizarPalavraParaCor = useCallback((palavra, cor) => {
     setPalavraParaCor((prev) => ({

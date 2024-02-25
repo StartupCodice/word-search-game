@@ -48,8 +48,9 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
-    rowGap: 20,
-    columnGap: 20,
+    rowGap: scale(10),
+    columnGap: scale(10),
+    marginTop: scale(20),
   },
   selected: {
     backgroundColor: "gray",
@@ -61,13 +62,13 @@ const styles = StyleSheet.create({
     zIndex: 100,
   },
   wordFound: {
-    color: "black",
+    color: "gray",
     padding: 10,
   },
   cacaContainer: {
     alignItems: "center",
     justifyContent: "center",
-    // top: 90,
+    marginTop: scale(-20),
   },
   caca: {
     flexWrap: "wrap",
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
     right: scale(2),
   },
   palavras: {
-    fontSize: scale(18),
+    fontSize: scale(15),
     color: "white",
     fontWeight: "bold",
     padding: scale(2),

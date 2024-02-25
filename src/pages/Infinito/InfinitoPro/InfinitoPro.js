@@ -11,9 +11,6 @@ import MoedasComponent from '../../../components/storage';
 
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 
-const CELL_SIZE = Math.floor(220 * 0.1);
-const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
-
 const { width, height } = Dimensions.get("screen");
 
 const Cell = React.memo(({ letter, selected, palavraParaCor, cores, wordsFound }) => {
@@ -63,8 +60,8 @@ export default function InfinitoPro({ navigation, rows = 12, cols = 12 }) {
 
   const[wordsFound, setWordsFound] = useState(0);
   const [palavraParaCor, setPalavraParaCor] = useState([]);
-  const widthCell = (width * 0.80) / 12;
-  const heightCell = (height * 0.45) / 12;
+  const widthCell = (width * 0.85) / 12;
+  const heightCell = (height * 0.6) / 12;
 
   const atualizarPalavraParaCor = useCallback((palavra, cor) => {
     setPalavraParaCor((prev) => ({
