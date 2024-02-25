@@ -316,6 +316,8 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
         setStartTime(new Date());
         setModalVisible(false);
         setTempoDecorrido(0);
+        setWordsFound(0);
+        setPalavraParaCor([]);
       }
     } catch (error) {
       console.error("Erro ao buscar dados: ", error);
@@ -404,6 +406,8 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
     setColumns([]);
     setCurrentCell(null);
     setSelectedCells([]);
+    setWordsFound(0);
+    setPalavraParaCor([]);
   };
 
   const closeModal = () => {
