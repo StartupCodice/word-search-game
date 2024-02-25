@@ -11,8 +11,6 @@ import {
 
 const { width, height } = Dimensions.get("screen");
 
-const CELL_MARGIN = 2;
-
 const styles = StyleSheet.create({
   retangulo: {
     width: width * 0.86,

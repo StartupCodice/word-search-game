@@ -10,7 +10,6 @@ import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../../../../components/storage';
 import NiveisMedio from '../../../../../components/storageNivelMedio';
 
-
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
 const { width, height } = Dimensions.get("screen");
