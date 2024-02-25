@@ -30,10 +30,10 @@ export function Infinito({ modalVisible, setModalVisible }) {
         <View style={styles.modalContainer}>
           <View style={styles.ScreenSnow}>
             <View style={styles.modalView}>
-              
+
                 <Text style={styles.textHeader}>INFINITO</Text>
-              
-              
+
+
               <TouchableHighlight
                 style={styles.buttonInsideEvento}
                 underlayColor="null"
@@ -142,7 +142,7 @@ export function Infinito({ modalVisible, setModalVisible }) {
           </View>
         </View>
       </Modal>
-     
+
     </View>
   );
 }

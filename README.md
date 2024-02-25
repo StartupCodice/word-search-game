@@ -2,13 +2,13 @@
 
 - Data de entrega: 16/11/2023
 - Colaboradores:
-  - Adryan
   - Calvin soares
-  - Lucas
+  - Lucas Chagaz
+  - Lucas Henschel
 
 - Novos colaboradores:
-  - 1 back-end
-  - 2 fron-end
+  - 2 back-end
+  - 1 fron-end
 
 ## Seções
 
