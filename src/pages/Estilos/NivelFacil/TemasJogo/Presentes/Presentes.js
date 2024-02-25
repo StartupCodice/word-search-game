@@ -36,17 +36,25 @@ import {
 const CELL_SIZE = Math.floor(350 * 0.1);
 const CELL_PADDING = Math.floor(scale(10) * 0.1);
 
-const Cell = React.memo(({ letter, selected }) => (
-  <View
-    style={[
-      styles.cell,
-      letter.isSelected && styles.selected,
-      selected && styles.selected,
-    ]}
-  >
-    <Text style={styles.cellText}>{letter.letter}</Text>
-  </View>
-));
+const Cell = React.memo(({ letter, selected, palavraParaCor, cores, wordsFound }) => {
+  const color = palavraParaCor[letter.word] || cores[wordsFound];
+
+  return (
+    <View
+      style={[
+        styles.cell,
+        (letter.isSelected) && [
+          styles.selected,
+          { backgroundColor: color },
+        ],
+        selected && [styles.selected, { backgroundColor: color }],
+      ]}
+    >
+      <Text style={styles.cellText}>{letter.letter}</Text>
+    </View>
+
+  )
+});
 
 const { width, height } = Dimensions.get("screen");
 const CELL_MARGIN = 2;
@@ -57,6 +65,8 @@ const CELL_HEIGHT = ((height - 6 * (CELL_MARGIN * 2)) / 6) * 0.4;
 export default function Presentes({ navigation, rows = 8, cols = 8 }) {
   const { presentes, addPresentes } = NiveisFaceis();
 
+  const[wordsFound, setWordsFound] = useState(0);
+  const [palavraParaCor, setPalavraParaCor] = useState([]);
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
     game: new createGame(6, 8, []),
@@ -79,6 +89,13 @@ export default function Presentes({ navigation, rows = 8, cols = 8 }) {
     endY: 0,
     gestureType: null,
   });
+
+  const atualizarPalavraParaCor = useCallback((palavra, cor) => {
+    setPalavraParaCor((prev) => ({
+      ...prev,
+      [palavra]: cor,
+    }));
+  }, []);
 
   const isMountedRef = useRef(true);
 
@@ -121,17 +138,21 @@ export default function Presentes({ navigation, rows = 8, cols = 8 }) {
           }
         });
 
-        // atualiza a state do board
-        setBoard({ game: novoTabuleiro });
-
         // muda o fundo da palavra encontrada
         novasPalavras.forEach((palavra) => {
           if (palavra.name === palavraAleatoria.name) {
             palavra.found = true;
+            setWordsFound(wordsFound + 1);
+            atualizarPalavraParaCor(palavraAleatoria.name, cores[wordsFound]);
           }
         });
 
         // atualiza a state de palavras apenas se houve alterações
+        setBoard({ game: novoTabuleiro });
+        setSelectedCells([]);
+        setCurrentCell(null);
+        setInitialCell(null);
+
         setPalavras([...novasPalavras]);
         userWin();
         setNumDicasUsadas(numDicasUsadas + 1);
@@ -200,6 +221,8 @@ export default function Presentes({ navigation, rows = 8, cols = 8 }) {
         setStartTime(new Date());
         setModalVisible(false);
         setTempoDecorrido(0);
+        setWordsFound(0);
+        setPalavraParaCor([]);
       }
     } catch (error) {
       console.error("Erro ao buscar dados: ", error);
@@ -283,6 +306,8 @@ export default function Presentes({ navigation, rows = 8, cols = 8 }) {
     setColumns([]);
     setCurrentCell(null);
     setSelectedCells([]);
+    setWordsFound(0);
+    setPalavraParaCor([]);
   };
 
   const closeModal = () => {
@@ -290,92 +315,12 @@ export default function Presentes({ navigation, rows = 8, cols = 8 }) {
   };
 
   const [selectedCells, setSelectedCells] = useState([]);
-  const panRef = useRef(null);
 
   const isCellSelected = useCallback(
     (row, col) =>
       selectedCells.some((cell) => cell.row === row && cell.col === col),
     [selectedCells]
   );
-
-  const onGestureEvent = (event) => {
-    const { x, y } = event.nativeEvent;
-
-    const widthCell = (width * 0.8) / 8;
-    const heightCell = (height * 0.4) / 8;
-
-    const row = Math.floor(y / heightCell);
-    const col = Math.floor(x / widthCell);
-
-    console.log(row, col);
-
-    if (!initialCell) {
-      setInitialCell({ row, col });
-      setSelectedCells((prevCells) => [...prevCells, { row, col }]);
-    }
-
-    console.log(initialCell, "INICIAL");
-
-    if (isAligned(initialCell, { row, col })) {
-      setCurrentCell({ row, col });
-      if (!isCellSelected(row, col)) {
-        setSelectedCells((prevCells) => [...prevCells, { row, col }]);
-      }
-    }
-  };
-
-  const onHandlerStateChange = (event, item) => {
-    let letterSelected = "";
-
-    const { x, y } = event.nativeEvent;
-
-    const widthCell = (width * 0.8) / 8;
-    const heightCell = (height * 0.4) / 8;
-
-    const row = Math.floor(y / heightCell);
-    const col = Math.floor(x / widthCell);
-
-    console.log(row, col);
-
-    setSelectedCells((prevCells) => [...prevCells, { row, col }]);
-
-    selectedCells.forEach((cell) => {
-      if (isAligned(initialCell, cell)) {
-        board.game.board.forEach((row) => {
-          row.forEach((letter) => {
-            if (cell.col === letter.column && cell.row === letter.row) {
-              if (!letter.isSelected) letterSelected += letter.letter;
-            }
-          });
-        });
-      }
-    });
-
-    let game = board.game;
-    game.board.forEach((row) => {
-      row.forEach((column) => {
-        if (!column.isSelected) {
-          if (column.word[0] === letterSelected) {
-            game.board[column.row][column.column].setIsSelected(true);
-          }
-        }
-      });
-    });
-
-    palavras.forEach((palavra) => {
-      if (palavra.name === letterSelected) {
-        palavra.found = true;
-      }
-    });
-
-    setBoard({ game });
-    setSelectedCells([]);
-    setCurrentCell(null);
-    setInitialCell(null);
-
-    setPalavras([...palavras]);
-    userWin();
-  };
 
   const { width, height } = Dimensions.get("screen");
 
@@ -474,6 +419,8 @@ export default function Presentes({ navigation, rows = 8, cols = 8 }) {
       palavras.forEach((palavra) => {
         if (palavra.name === letterSelected) {
           palavra.found = true;
+          setWordsFound(wordsFound + 1);
+          atualizarPalavraParaCor(letterSelected, cores[wordsFound]);
         }
       });
 
@@ -532,6 +479,9 @@ export default function Presentes({ navigation, rows = 8, cols = 8 }) {
                           key={`cell-${letter.row}-${letter.column}`}
                           letter={letter}
                           selected={isCellSelected(letter.row, letter.column)}
+                          palavraParaCor={palavraParaCor}
+                          cores={cores}
+                          wordsFound={wordsFound}
                         />
                       ))}
                     </View>
@@ -541,13 +491,13 @@ export default function Presentes({ navigation, rows = 8, cols = 8 }) {
             </GestureDetector>
           </View>
         </View>
+
         <View style={styles.palavrasContainer}>
           {palavras.map((palavra, index) => (
             <Text
               key={index}
               style={[
                 styles.palavras,
-                palavra.found ? { backgroundColor: cores[index] } : null,
                 palavra.found ? styles.wordFound : null,
               ]}
             >
@@ -555,6 +505,7 @@ export default function Presentes({ navigation, rows = 8, cols = 8 }) {
             </Text>
           ))}
         </View>
+
         <Modal
           isVisible={hintsExhausted}
           onBackdropPress={fecharModalDicasEsgotadas}
@@ -579,7 +530,7 @@ export default function Presentes({ navigation, rows = 8, cols = 8 }) {
           <View style={styles.modalContainer}>
             <TouchableOpacity
               style={styles.modalVoltarHome}
-              onPress={() => navigation.navigate("Home")}
+              onPress={() => navigation.navigate("NivelFacil")}
             >
               <Text style={styles.modalButtonText}>Voltar</Text>
             </TouchableOpacity>

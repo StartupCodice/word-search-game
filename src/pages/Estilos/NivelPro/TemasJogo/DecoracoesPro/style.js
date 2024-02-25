@@ -8,14 +8,8 @@ import {
   scale,
   moderateVerticalScale,
 } from "react-native-size-matters";
-const CELL_SIZE = Math.floor(Dimensions.get("window").width * 0.1);
-const CELL_PADDING = Math.floor(scale(10) * 0.1);
 
 const { width, height } = Dimensions.get("screen");
-
-const CELL_MARGIN = 2;
-const CELL_WIDTH = ((width - 8 * (CELL_MARGIN * 2)) / 8) * 0.9;
-const CELL_HEIGHT = ((height - 6 * (CELL_MARGIN * 2)) / 6) * 0.33;
 
 const styles = StyleSheet.create({
   retangulo: {
@@ -52,8 +46,9 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
-    rowGap: 20,
-    columnGap: 20,
+    rowGap: scale(10),
+    columnGap: scale(10),
+    marginTop: scale(20),
   },
   selected: {
     backgroundColor: "gray",
@@ -65,13 +60,13 @@ const styles = StyleSheet.create({
     zIndex: 100,
   },
   wordFound: {
-    color: "black",
+    color: "gray",
     padding: 10,
   },
   cacaContainer: {
     alignItems: "center",
     justifyContent: "center",
-    // top: 90,
+    marginTop: scale(-20),
   },
   caca: {
     flexWrap: "wrap",
@@ -117,7 +112,7 @@ const styles = StyleSheet.create({
     right: scale(2),
   },
   palavras: {
-    fontSize: scale(18),
+    fontSize: scale(15),
     color: "white",
     fontWeight: "bold",
     padding: scale(2),

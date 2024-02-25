@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Text, View, ImageBackground, Image, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
+import { Text, View, ImageBackground, Image, TouchableOpacity, Dimensions, FlatList } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import Modal from 'react-native-modal';
@@ -8,22 +8,35 @@ import randomcolor from 'randomcolor';
 import styles from './style';
 import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../../../../components/storage';
-import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 import NiveisMedio from '../../../../../components/storageNivelMedio';
 
-const CELL_SIZE = Math.floor(315 * 0.1);
-const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
-const Cell = React.memo(({ letter, selected }) => (
+const { width, height } = Dimensions.get("screen");
 
-  <View style={[styles.cell, letter.isSelected && styles.selected, selected && styles.selected]}>
-    <Text style={styles.cellText}>{letter.letter}</Text>
-  </View>
-));
+const Cell = React.memo(({ letter, selected, palavraParaCor, cores, wordsFound }) => {
+  const color = palavraParaCor[letter.word] || cores[wordsFound];
+
+  return (
+    <View
+      style={[
+        styles.cell,
+        (letter.isSelected) && [
+          styles.selected,
+          { backgroundColor: color },
+        ],
+        selected && [styles.selected, { backgroundColor: color }],
+      ]}
+    >
+      <Text style={styles.cellText}>{letter.letter}</Text>
+    </View>
+  )
+});
+
 
 export default function EmpregosMedio({ navigation, rows = 8, cols = 8 }) {
-  const { 
-    empregos, 
+  const {
+    empregos,
     addEmpregos,
   } = NiveisMedio();
 
@@ -50,6 +63,17 @@ export default function EmpregosMedio({ navigation, rows = 8, cols = 8 }) {
     gestureType: null,
   });
 
+  const[wordsFound, setWordsFound] = useState(0);
+  const [palavraParaCor, setPalavraParaCor] = useState([]);
+  const widthCell = (width * 0.8) / 8;
+  const heightCell = (height * 0.45) / 8;
+
+  const atualizarPalavraParaCor = useCallback((palavra, cor) => {
+    setPalavraParaCor((prev) => ({
+      ...prev,
+      [palavra]: cor,
+    }));
+  }, []);
 
   const isMountedRef = useRef(true);
 
@@ -67,10 +91,14 @@ export default function EmpregosMedio({ navigation, rows = 8, cols = 8 }) {
 
   const mostrarDica = () => {
     if (numDicasUsadas < 3) {
-      const palavrasNaoEncontradas = palavras.filter((palavra) => !palavra.found);
-  
+      const palavrasNaoEncontradas = palavras.filter(
+        (palavra) => !palavra.found
+      );
+
       if (palavrasNaoEncontradas.length > 0) {
-        const indiceAleatorio = Math.floor(Math.random() * palavrasNaoEncontradas.length);
+        const indiceAleatorio = Math.floor(
+          Math.random() * palavrasNaoEncontradas.length
+        );
         const palavraAleatoria = palavrasNaoEncontradas[indiceAleatorio];
         const novoTabuleiro = { ...board.game };
         const novasPalavras = [...palavras];
@@ -83,22 +111,26 @@ export default function EmpregosMedio({ navigation, rows = 8, cols = 8 }) {
             setCurrentCell({ row, col });
             novoTabuleiro.board[column.row][column.column].setIsSelected(true);
             if (!isCellSelected(row, col)) {
-              setSelectedCells(prevCells => [...prevCells, { row, col }]);
+              setSelectedCells((prevCells) => [...prevCells, { row, col }]);
             }
           }
         });
-  
-        // atualiza a state do board
-        setBoard({ game: novoTabuleiro });
-  
+
         // muda o fundo da palavra encontrada
         novasPalavras.forEach((palavra) => {
           if (palavra.name === palavraAleatoria.name) {
             palavra.found = true;
+            setWordsFound(wordsFound + 1);
+            atualizarPalavraParaCor(palavraAleatoria.name, cores[wordsFound]);
           }
         });
-  
+
         // atualiza a state de palavras apenas se houve alterações
+        setBoard({ game: novoTabuleiro });
+        setSelectedCells([]);
+        setCurrentCell(null);
+        setInitialCell(null);
+
         setPalavras([...novasPalavras]);
         userWin();
         setNumDicasUsadas(numDicasUsadas + 1);
@@ -126,9 +158,103 @@ export default function EmpregosMedio({ navigation, rows = 8, cols = 8 }) {
 
   useEffect(() => {
     buildColumnsArray();
-  }, [board.game]); 
+  }, [board.game]);
 
- 
+  const filterCellsByMovement = useCallback(
+    (selectedCells) => {
+      const n = selectedCells.length;
+
+      if (n <= 2) {
+        return selectedCells;
+      }
+
+      const firstCell = selectedCells[0];
+      const lastCell = selectedCells[n - 1];
+
+      const expectedSlope =
+        (lastCell.row - firstCell.row) / (lastCell.col - firstCell.col);
+
+      return selectedCells.filter((cell, index) => {
+        if (index === 0 || index === n - 1) {
+          return true;
+        }
+
+        const currentSlope =
+          (cell.row - firstCell.row) / (cell.col - firstCell.col);
+        return currentSlope === expectedSlope;
+      });
+    },
+    [selectedCells]
+  );
+
+  const gesture = Gesture.Pan()
+    .onStart(({ x, y }) => {
+      const row = Math.floor(y / heightCell);
+      const col = Math.floor(x / widthCell);
+
+      if (!initialCell) {
+        setInitialCell({ row, col });
+      }
+    })
+    .onUpdate(({ x, y }) => {
+      const row = Math.floor(y / heightCell);
+      const col = Math.floor(x / widthCell);
+
+      if (isAligned(initialCell, { row, col })) {
+        if (!isCellSelected(row, col)) {
+          setSelectedCells((prevCells) => [...prevCells, { row, col }]);
+          const filteredCells = filterCellsByMovement([
+            ...selectedCells,
+            { row, col },
+          ]);
+
+          setSelectedCells(filteredCells);
+        }
+      }
+    })
+    .onFinalize(() => {
+      let letterSelected = "";
+
+      selectedCells.forEach((cell) => {
+        if (isAligned(initialCell, cell)) {
+          board.game.board.forEach((row) => {
+            row.forEach((letter) => {
+              if (cell.col === letter.column && cell.row === letter.row) {
+                if (!letter.isSelected) letterSelected += letter.letter;
+              }
+            });
+          });
+        }
+      });
+
+      let game = board.game;
+      game.board.forEach((row) => {
+        row.forEach((column) => {
+          if (!column.isSelected) {
+            if (column.word[0] === letterSelected) {
+              game.board[column.row][column.column].setIsSelected(true);
+            }
+          }
+        });
+      });
+
+      palavras.forEach((palavra) => {
+        if (palavra.name === letterSelected) {
+          palavra.found = true;
+          setWordsFound(wordsFound + 1);
+          atualizarPalavraParaCor(letterSelected, cores[wordsFound]);
+        }
+      });
+
+      setBoard({ game });
+      setSelectedCells([]);
+      setCurrentCell(null);
+      setInitialCell(null);
+
+      setPalavras([...palavras]);
+      userWin();
+    })
+    .shouldCancelWhenOutside(true);
 
   const fetchData = async () => {
     try {
@@ -148,20 +274,22 @@ export default function EmpregosMedio({ navigation, rows = 8, cols = 8 }) {
         { name: 'OTICA', found: false },
       ];
 
-    if (isMountedRef.current) {
-      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 6);
-    setPalavras(palavrasEscolhidas);
+      if (isMountedRef.current) {
+        const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 6);
+        setPalavras(palavrasEscolhidas);
 
-    const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(8, 8, palavrasJogo) });
+        const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
+        setBoard({ game: new createGame(8, 8, palavrasJogo) });
 
-    const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
-    setCores(coresAleatorias);
+        const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
+        setCores(coresAleatorias);
 
-    setStartTime(new Date());
-    setModalVisible(false);
-    setTempoDecorrido(0);
-    }
+        setStartTime(new Date());
+        setModalVisible(false);
+        setTempoDecorrido(0);
+        setWordsFound(0);
+        setPalavraParaCor([]);
+      }
     } catch (error) {
       console.error('Erro ao buscar dados: ', error);
     }
@@ -172,7 +300,7 @@ export default function EmpregosMedio({ navigation, rows = 8, cols = 8 }) {
 
     return () => {
       isMountedRef.current = false;
-    } 
+    }
   }, []);
 
 
@@ -186,19 +314,19 @@ export default function EmpregosMedio({ navigation, rows = 8, cols = 8 }) {
 
   const mostrarResultado = () => {
     const endTime = new Date();
-    const tempoDecorrido = (endTime - startTime) / 1000;  
-  
+    const tempoDecorrido = (endTime - startTime) / 1000;
+
     const minutos = Math.floor(tempoDecorrido / 60);
     const segundos = Math.floor(tempoDecorrido % 60);
-  
+
     const tempoFormatado = `${minutos} min ${segundos} seg`;
-    
+
     let level = parseInt(empregos) + 1;
     if (empregos < 30) addEmpregos(level.toString());
 
     adicionarMoedas(44);
     setMoedasGanhas(44);
-  
+
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);
   };
@@ -229,7 +357,6 @@ export default function EmpregosMedio({ navigation, rows = 8, cols = 8 }) {
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
 
- 
     setStartTime(new Date());
     setModalVisible(false);
     setTempoDecorrido(0);
@@ -238,7 +365,8 @@ export default function EmpregosMedio({ navigation, rows = 8, cols = 8 }) {
     setColumns([]);
     setCurrentCell(null);
     setSelectedCells([]);
-
+    setWordsFound(0);
+    setPalavraParaCor([]);
   };
 
   const closeModal = () => {
@@ -246,85 +374,84 @@ export default function EmpregosMedio({ navigation, rows = 8, cols = 8 }) {
   };
 
   const [selectedCells, setSelectedCells] = useState([]);
-const panRef = useRef(null);
+  const panRef = useRef(null);
 
-const isCellSelected = useCallback(
-  (row, col) => selectedCells.some(cell => cell.row === row && cell.col === col),
-  [selectedCells]
-);
+  const isCellSelected = useCallback(
+    (row, col) => selectedCells.some(cell => cell.row === row && cell.col === col),
+    [selectedCells]
+  );
 
-const onGestureEvent = (event) => {
-  const { x, y } = event.nativeEvent;
-  const row = Math.floor(y / scale(CELL_SIZE));
-  const col = Math.floor(x / scale(CELL_SIZE));
+  const onGestureEvent = (event) => {
+    const { x, y } = event.nativeEvent;
+    const row = Math.floor(y / scale(CELL_SIZE));
+    const col = Math.floor(x / scale(CELL_SIZE));
 
-  if (!initialCell) {
-    setInitialCell({ row, col });
-  }
-
-  if (isAligned(initialCell, { row, col })) {
-    setCurrentCell({ row, col });
-    if (!isCellSelected(row, col)) {
-      setSelectedCells(prevCells => [...prevCells, { row, col }]);
+    if (!initialCell) {
+      setInitialCell({ row, col });
     }
-  }
-};
 
-const onHandlerStateChange = (event, item) => {
-  let letterSelected = '';
+    if (isAligned(initialCell, { row, col })) {
+      setCurrentCell({ row, col });
+      if (!isCellSelected(row, col)) {
+        setSelectedCells(prevCells => [...prevCells, { row, col }]);
+      }
+    }
+  };
 
-    selectedCells.forEach((cell) => {
-      if (isAligned(initialCell, cell)) {
-          board.game.board.forEach((row) => {
-            row.forEach((letter) => {
-                if (cell.col === letter.column && cell.row === letter.row) {
-                  if (!letter.isSelected) letterSelected += letter.letter;
-                }
-            })
-          });
+  const onHandlerStateChange = (event, item) => {
+    let letterSelected = '';
+
+      selectedCells.forEach((cell) => {
+        if (isAligned(initialCell, cell)) {
+            board.game.board.forEach((row) => {
+              row.forEach((letter) => {
+                  if (cell.col === letter.column && cell.row === letter.row) {
+                    if (!letter.isSelected) letterSelected += letter.letter;
+                  }
+              })
+            });
+        }
+      });
+
+    let game = board.game;
+    game.board.forEach((row) => {
+      row.forEach((column) => {
+          if (!column.isSelected) {
+            if (column.word[0] === letterSelected) {
+              game.board[column.row][column.column].setIsSelected(true);
+            }
+          }
+      });
+    });
+
+    palavras.forEach((palavra) => {
+      if (palavra.name === letterSelected) {
+          palavra.found = true;
       }
     });
 
-  let game = board.game;
-  game.board.forEach((row) => {
-    row.forEach((column) => {
-        if (!column.isSelected) {
-          if (column.word[0] === letterSelected) {
-            game.board[column.row][column.column].setIsSelected(true);
-          }
-        }
-    });
-  });
+    setBoard({ game });
+    setSelectedCells([]);
+    setCurrentCell(null);
+    setInitialCell(null);
 
-  palavras.forEach((palavra) => {
-    if (palavra.name === letterSelected) {
-        palavra.found = true;
-    }
-  });
+    setPalavras([...palavras]);
+    userWin();
+  };
 
-  setBoard({ game });
-  setSelectedCells([]);
-  setCurrentCell(null);
-  setInitialCell(null);
+  const isAligned = (cell1, cell2) => {
+    if (!cell1 || !cell2) return false;
 
-  setPalavras([...palavras]);
-  userWin();
-};
+    const rowDiff = Math.abs(cell1.row - cell2.row);
+    const colDiff = Math.abs(cell1.col - cell2.col);
 
-const isAligned = (cell1, cell2) => {
-  if (!cell1 || !cell2) return false;
-
-  const rowDiff = Math.abs(cell1.row - cell2.row);
-  const colDiff = Math.abs(cell1.col - cell2.col);
-
-  return rowDiff === colDiff || cell1.row === cell2.row || cell1.col === cell2.col;
-};
-
+    return rowDiff === colDiff || cell1.row === cell2.row || cell1.col === cell2.col;
+  };
 
   return (
     <View style={styles.container}>
       <ImageBackground source={require('./../../../../../assets/templatejogo.jpg')} style={styles.imageBackground}>
-        
+
       <TouchableOpacity onPress={mostrarDica}>
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <ImageBackground
@@ -339,55 +466,54 @@ const isAligned = (cell1, cell2) => {
       <View style={styles.moedasContainer}>
         <View style={styles.IconMoeda}></View>
         <Text style={styles.moedasText}>{moedas}</Text>
-        
+
       </View>
-      
+
           <Ionicons style={styles.button} name="arrow-back" size={scale(40)} color="white"
             onPress={() => navigation.navigate('NivelMedio')} />
 
 
-        <View style={styles.palavrasContainer}>
-          {
-            palavras.map((palavra, index) => (
-              <Text key={index} style={[
-                styles.palavras,
-                (palavra.found) ? { backgroundColor: cores[index] } : null,
-                (palavra.found) ? styles.wordFound : null,
-              ]}>
-                {palavra.name}
-              </Text>
-            ))
-          }
-        </View>
-        <View style={styles.cacaContainer}>
-          <View style={styles.retangulo}> 
-          <GestureHandlerRootView style={{ flex: 1 }}>
-            <PanGestureHandler
-              onGestureEvent={onGestureEvent}
-              onHandlerStateChange={onHandlerStateChange}
-              ref={panRef}
-            >
-              <View style={styles.LetterContainer}>
-              {
-                board.game.board.map((row, indexRow) => (
-                  <View key={indexRow} style={styles.row}>
-                    {
-                      row.map((letter, colIndex) => (
-                        <Cell 
-                          key={`cell-${indexRow}-${colIndex}`} 
-                          letter={letter} 
-                          selected={isCellSelected(indexRow, colIndex)} 
-                        />
-                      ))
-                    }
+      <View style={styles.cacaContainer}>
+        <View style={styles.retangulo}>
+          <GestureDetector gesture={gesture}>
+            <FlatList
+              data={board.game.board}
+              keyExtractor={(_, i) => i.toString()}
+              scrollEnabled={false}
+              renderItem={({ index, item }) => {
+                return (
+                  <View style={[styles.row]}>
+                    {item.map((letter, index) => (
+                      <Cell
+                        key={`cell-${letter.row}-${letter.column}`}
+                        letter={letter}
+                        selected={isCellSelected(letter.row, letter.column)}
+                        palavraParaCor={palavraParaCor}
+                        cores={cores}
+                        wordsFound={wordsFound}
+                      />
+                    ))}
                   </View>
-                ))
-              }
-              </View>
-            </PanGestureHandler>
-          </GestureHandlerRootView>
+                );
+              }}
+            />
+          </GestureDetector>
         </View>
-        </View>
+      </View>
+
+      <View style={styles.palavrasContainer}>
+        {
+          palavras.map((palavra, index) => (
+            <Text key={index} style={[
+              styles.palavras,
+              (palavra.found) ? styles.wordFound : null,
+            ]}>
+              {palavra.name}
+            </Text>
+          ))
+        }
+      </View>
+
 
         <Modal isVisible={hintsExhausted} onBackdropPress={fecharModalDicasEsgotadas} style={styles.modalContainer2}>
         <View style={styles.modalContainer}>
@@ -414,11 +540,11 @@ const isAligned = (cell1, cell2) => {
                 <Text style={styles.modalText}>MOEDAS:</Text>
                 <Text style={styles.textMoeda}>+{moedasGanhas}</Text>
               </View>
-          </View>   
+          </View>
           <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
             <Text style={styles.modalButtonText}>Continuar</Text>
           </TouchableOpacity>
-          
+
         </View>
       </Modal>
 

@@ -23,22 +23,28 @@ import { scale } from "react-native-size-matters";
 import MoedasComponent from "../../../../../components/storage";
 import NiveisPro from "../../../../../components/storageNivelPro";
 
-import { GestureDetector, Gesture } from "react-native-gesture-handler";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
-const CELL_SIZE = Math.floor(220 * 0.1);
-const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
+const { width, height } = Dimensions.get("screen");
 
-const Cell = React.memo(({ letter, selected }) => (
-  <View
-    style={[
-      styles.cell,
-      letter.isSelected && styles.selected,
-      selected && styles.selected,
-    ]}
-  >
-    <Text style={styles.cellText}>{letter.letter}</Text>
-  </View>
-));
+const Cell = React.memo(({ letter, selected, palavraParaCor, cores, wordsFound }) => {
+  const color = palavraParaCor[letter.word] || cores[wordsFound];
+
+  return (
+    <View
+      style={[
+        styles.cell,
+        (letter.isSelected) && [
+          styles.selected,
+          { backgroundColor: color },
+        ],
+        selected && [styles.selected, { backgroundColor: color }],
+      ]}
+    >
+      <Text style={styles.cellText}>{letter.letter}</Text>
+    </View>
+  )
+});
 
 export default function PresentesPro({ navigation, rows = 12, cols = 12 }) {
   const { presentes, addPresentes } = NiveisPro();
@@ -66,6 +72,18 @@ export default function PresentesPro({ navigation, rows = 12, cols = 12 }) {
     gestureType: null,
   });
 
+  const[wordsFound, setWordsFound] = useState(0);
+  const [palavraParaCor, setPalavraParaCor] = useState([]);
+  const widthCell = (width * 0.85) / 12;
+  const heightCell = (height * 0.6) / 12;
+
+  const atualizarPalavraParaCor = useCallback((palavra, cor) => {
+    setPalavraParaCor((prev) => ({
+      ...prev,
+      [palavra]: cor,
+    }));
+  }, []);
+
   const isMountedRef = useRef(true);
 
   const selectRandomWords = (totalWords, numWords) => {
@@ -79,8 +97,6 @@ export default function PresentesPro({ navigation, rows = 12, cols = 12 }) {
 
     return selectedWords;
   };
-
-  const { width, height } = Dimensions.get("screen");
 
   const mostrarDica = () => {
     if (numDicasUsadas < 5) {
@@ -109,17 +125,21 @@ export default function PresentesPro({ navigation, rows = 12, cols = 12 }) {
           }
         });
 
-        // atualiza a state do board
-        setBoard({ game: novoTabuleiro });
-
         // muda o fundo da palavra encontrada
         novasPalavras.forEach((palavra) => {
           if (palavra.name === palavraAleatoria.name) {
             palavra.found = true;
+            setWordsFound(wordsFound + 1);
+            atualizarPalavraParaCor(palavraAleatoria.name, cores[wordsFound]);
           }
         });
 
         // atualiza a state de palavras apenas se houve alterações
+        setBoard({ game: novoTabuleiro });
+        setSelectedCells([]);
+        setCurrentCell(null);
+        setInitialCell(null);
+
         setPalavras([...novasPalavras]);
         userWin();
         setNumDicasUsadas(numDicasUsadas + 1);
@@ -148,6 +168,102 @@ export default function PresentesPro({ navigation, rows = 12, cols = 12 }) {
   useEffect(() => {
     buildColumnsArray();
   }, [board.game]);
+
+  const filterCellsByMovement = useCallback(
+    (selectedCells) => {
+      const n = selectedCells.length;
+
+      if (n <= 2) {
+        return selectedCells;
+      }
+
+      const firstCell = selectedCells[0];
+      const lastCell = selectedCells[n - 1];
+
+      const expectedSlope =
+        (lastCell.row - firstCell.row) / (lastCell.col - firstCell.col);
+
+      return selectedCells.filter((cell, index) => {
+        if (index === 0 || index === n - 1) {
+          return true;
+        }
+
+        const currentSlope =
+          (cell.row - firstCell.row) / (cell.col - firstCell.col);
+        return currentSlope === expectedSlope;
+      });
+    },
+    [selectedCells]
+  );
+
+  const gesture = Gesture.Pan()
+    .onStart(({ x, y }) => {
+      const row = Math.floor(y / heightCell);
+      const col = Math.floor(x / widthCell);
+
+      if (!initialCell) {
+        setInitialCell({ row, col });
+      }
+    })
+    .onUpdate(({ x, y }) => {
+      const row = Math.floor(y / heightCell);
+      const col = Math.floor(x / widthCell);
+
+      if (isAligned(initialCell, { row, col })) {
+        if (!isCellSelected(row, col)) {
+          setSelectedCells((prevCells) => [...prevCells, { row, col }]);
+          const filteredCells = filterCellsByMovement([
+            ...selectedCells,
+            { row, col },
+          ]);
+
+          setSelectedCells(filteredCells);
+        }
+      }
+    })
+    .onFinalize(() => {
+      let letterSelected = "";
+
+      selectedCells.forEach((cell) => {
+        if (isAligned(initialCell, cell)) {
+          board.game.board.forEach((row) => {
+            row.forEach((letter) => {
+              if (cell.col === letter.column && cell.row === letter.row) {
+                if (!letter.isSelected) letterSelected += letter.letter;
+              }
+            });
+          });
+        }
+      });
+
+      let game = board.game;
+      game.board.forEach((row) => {
+        row.forEach((column) => {
+          if (!column.isSelected) {
+            if (column.word[0] === letterSelected) {
+              game.board[column.row][column.column].setIsSelected(true);
+            }
+          }
+        });
+      });
+
+      palavras.forEach((palavra) => {
+        if (palavra.name === letterSelected) {
+          palavra.found = true;
+          setWordsFound(wordsFound + 1);
+          atualizarPalavraParaCor(letterSelected, cores[wordsFound]);
+        }
+      });
+
+      setBoard({ game });
+      setSelectedCells([]);
+      setCurrentCell(null);
+      setInitialCell(null);
+
+      setPalavras([...palavras]);
+      userWin();
+    })
+    .shouldCancelWhenOutside(true);
 
   const fetchData = () => {
     const palavrasOriginais = [
@@ -185,6 +301,8 @@ export default function PresentesPro({ navigation, rows = 12, cols = 12 }) {
       setStartTime(new Date());
       setModalVisible(false);
       setTempoDecorrido(0);
+      setWordsFound(0);
+      setPalavraParaCor([]);
     }
   };
 
@@ -263,6 +381,8 @@ export default function PresentesPro({ navigation, rows = 12, cols = 12 }) {
     setColumns([]);
     setCurrentCell(null);
     setSelectedCells([]);
+    setWordsFound(0);
+    setPalavraParaCor([]);
   };
 
   const closeModal = () => {
@@ -289,107 +409,6 @@ export default function PresentesPro({ navigation, rows = 12, cols = 12 }) {
     );
   };
 
-  const widthCell = (width * 0.85) / 12;
-  const heightCell = (height * 0.6) / 12;
-
-  const filterCellsByMovement = useCallback(
-    (selectedCells) => {
-      const n = selectedCells.length;
-
-      if (n <= 2) {
-        return selectedCells;
-      }
-
-      const firstCell = selectedCells[0];
-      const lastCell = selectedCells[n - 1];
-
-      const expectedSlope =
-        (lastCell.row - firstCell.row) / (lastCell.col - firstCell.col);
-
-      return selectedCells.filter((cell, index) => {
-        if (index === 0 || index === n - 1) {
-          return true;
-        }
-
-        const currentSlope =
-          (cell.row - firstCell.row) / (cell.col - firstCell.col);
-        return currentSlope === expectedSlope;
-      });
-    },
-    [selectedCells]
-  );
-
-  const gesture = useMemo(
-    () =>
-      Gesture.Pan()
-        .onStart(({ x, y }) => {
-          const row = Math.floor(y / heightCell);
-          const col = Math.floor(x / widthCell);
-
-          if (!initialCell) {
-            setInitialCell({ row, col });
-          }
-        })
-        .onUpdate(({ x, y }) => {
-          const row = Math.floor(y / heightCell);
-          const col = Math.floor(x / widthCell);
-
-          if (isAligned(initialCell, { row, col })) {
-            if (!isCellSelected(row, col)) {
-              setSelectedCells((prevCells) => [...prevCells, { row, col }]);
-              const filteredCells = filterCellsByMovement([
-                ...selectedCells,
-                { row, col },
-              ]);
-
-              setSelectedCells(filteredCells);
-            }
-          }
-        })
-        .onFinalize(() => {
-          let letterSelected = "";
-
-          selectedCells.forEach((cell) => {
-            if (isAligned(initialCell, cell)) {
-              board.game.board.forEach((row) => {
-                row.forEach((letter) => {
-                  if (cell.col === letter.column && cell.row === letter.row) {
-                    if (!letter.isSelected) letterSelected += letter.letter;
-                  }
-                });
-              });
-            }
-          });
-
-          let game = board.game;
-          game.board.forEach((row) => {
-            row.forEach((column) => {
-              if (!column.isSelected) {
-                if (column.word[0] === letterSelected) {
-                  game.board[column.row][column.column].setIsSelected(true);
-                }
-              }
-            });
-          });
-
-          palavras.forEach((palavra) => {
-            if (palavra.name === letterSelected) {
-              palavra.found = true;
-            }
-          });
-
-          setBoard({ game });
-          setSelectedCells([]);
-          setCurrentCell(null);
-          setInitialCell(null);
-
-          setPalavras([...palavras]);
-          userWin();
-        })
-        .shouldCancelWhenOutside(true),
-    [initialCell, isCellSelected, filterCellsByMovement, selectedCells]
-  );
-
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -402,7 +421,7 @@ export default function PresentesPro({ navigation, rows = 12, cols = 12 }) {
               source={require("./../../../../../assets/chapeu.png")}
               style={styles.Dica}
             >
-              <Text style={styles.dicaNumber}>{3 - numDicasUsadas}</Text>
+              <Text style={styles.dicaNumber}>{5 - numDicasUsadas}</Text>
             </ImageBackground>
           </View>
         </TouchableOpacity>
@@ -420,44 +439,47 @@ export default function PresentesPro({ navigation, rows = 12, cols = 12 }) {
           onPress={() => navigation.navigate("NivelMedio")}
         />
 
-        <View style={styles.cacaContainer}>
-          <View style={styles.retangulo}>
-            <GestureDetector gesture={gesture}>
-              <FlatList
-                data={board.game.board}
-                keyExtractor={(_, i) => i.toString()}
-                scrollEnabled={false}
-                renderItem={({ index, item }) => {
-                  return (
-                    <View style={[styles.row]}>
-                      {item.map((letter, index) => (
-                        <Cell
-                          key={`cell-${letter.row}-${letter.column}`}
-                          letter={letter}
-                          selected={isCellSelected(letter.row, letter.column)}
-                        />
-                      ))}
-                    </View>
-                  );
-                }}
-              />
-            </GestureDetector>
-          </View>
+      <View style={styles.cacaContainer}>
+        <View style={styles.retangulo}>
+          <GestureDetector gesture={gesture}>
+            <FlatList
+              data={board.game.board}
+              keyExtractor={(_, i) => i.toString()}
+              scrollEnabled={false}
+              renderItem={({ index, item }) => {
+                return (
+                  <View style={[styles.row]}>
+                    {item.map((letter, index) => (
+                      <Cell
+                        key={`cell-${letter.row}-${letter.column}`}
+                        letter={letter}
+                        selected={isCellSelected(letter.row, letter.column)}
+                        palavraParaCor={palavraParaCor}
+                        cores={cores}
+                        wordsFound={wordsFound}
+                      />
+                    ))}
+                  </View>
+                );
+              }}
+            />
+          </GestureDetector>
         </View>
-        <View style={styles.palavrasContainer}>
-          {palavras.map((palavra, index) => (
-            <Text
-              key={index}
-              style={[
-                styles.palavras,
-                palavra.found ? { backgroundColor: cores[index] } : null,
-                palavra.found ? styles.wordFound : null,
-              ]}
-            >
+      </View>
+
+      <View style={styles.palavrasContainer}>
+        {
+          palavras.map((palavra, index) => (
+            <Text key={index} style={[
+              styles.palavras,
+              (palavra.found) ? styles.wordFound : null,
+            ]}>
               {palavra.name}
             </Text>
-          ))}
-        </View>
+          ))
+        }
+      </View>
+
         <Modal
           isVisible={hintsExhausted}
           onBackdropPress={fecharModalDicasEsgotadas}
