@@ -8,24 +8,39 @@ import randomcolor from 'randomcolor';
 import styles from './style';
 import {scale} from 'react-native-size-matters';
 import MoedasComponent from '../../../../../components/storage';
-import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
 import NiveisDificil from '../../../../../components/storageNivelDificil';
 
-const CELL_SIZE = Math.floor(260 * 0.1);
-const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
+import {
+  Gesture,
+  GestureDetector,
+} from "react-native-gesture-handler";
 
-const Cell = React.memo(({ letter, selected }) => (
+const { width, height } = Dimensions.get("screen");
 
-  <View style={[styles.cell, letter.isSelected && styles.selected, selected && styles.selected]}>
-    <Text style={styles.cellText}>{letter.letter}</Text>
-  </View>
-));
+const Cell = React.memo(({ letter, selected, palavraParaCor, cores, wordsFound }) => {
+  const color = palavraParaCor[letter.word] || cores[wordsFound];
+
+  return (
+    <View
+      style={[
+        styles.cell,
+        (letter.isSelected) && [
+          styles.selected,
+          { backgroundColor: color },
+        ],
+        selected && [styles.selected, { backgroundColor: color }],
+      ]}
+    >
+      <Text style={styles.cellText}>{letter.letter}</Text>
+    </View>
+  )
+});
 
 export default function DocesDificil({ navigation, rows = 10, cols = 10 }) {
-  const { 
-    doces, 
+  const {
+    doces,
     addDoces,
-  } = NiveisFaceis();
+  } = NiveisDificil();
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
@@ -50,6 +65,17 @@ export default function DocesDificil({ navigation, rows = 10, cols = 10 }) {
     gestureType: null,
   });
 
+  const[wordsFound, setWordsFound] = useState(0);
+  const [palavraParaCor, setPalavraParaCor] = useState([]);
+  const widthCell = (width * 0.85) / 10;
+  const heightCell = (height * 0.5) / 10;
+
+  const atualizarPalavraParaCor = useCallback((palavra, cor) => {
+    setPalavraParaCor((prev) => ({
+      ...prev,
+      [palavra]: cor,
+    }));
+  }, []);
 
   const isMountedRef = useRef(true);
 
@@ -67,10 +93,14 @@ export default function DocesDificil({ navigation, rows = 10, cols = 10 }) {
 
   const mostrarDica = () => {
     if (numDicasUsadas < 4) {
-      const palavrasNaoEncontradas = palavras.filter((palavra) => !palavra.found);
-  
+      const palavrasNaoEncontradas = palavras.filter(
+        (palavra) => !palavra.found
+      );
+
       if (palavrasNaoEncontradas.length > 0) {
-        const indiceAleatorio = Math.floor(Math.random() * palavrasNaoEncontradas.length);
+        const indiceAleatorio = Math.floor(
+          Math.random() * palavrasNaoEncontradas.length
+        );
         const palavraAleatoria = palavrasNaoEncontradas[indiceAleatorio];
         const novoTabuleiro = { ...board.game };
         const novasPalavras = [...palavras];
@@ -83,22 +113,26 @@ export default function DocesDificil({ navigation, rows = 10, cols = 10 }) {
             setCurrentCell({ row, col });
             novoTabuleiro.board[column.row][column.column].setIsSelected(true);
             if (!isCellSelected(row, col)) {
-              setSelectedCells(prevCells => [...prevCells, { row, col }]);
+              setSelectedCells((prevCells) => [...prevCells, { row, col }]);
             }
           }
         });
-  
-        // atualiza a state do board
-        setBoard({ game: novoTabuleiro });
-  
+
         // muda o fundo da palavra encontrada
         novasPalavras.forEach((palavra) => {
           if (palavra.name === palavraAleatoria.name) {
             palavra.found = true;
+            setWordsFound(wordsFound + 1);
+            atualizarPalavraParaCor(palavraAleatoria.name, cores[wordsFound]);
           }
         });
-  
+
         // atualiza a state de palavras apenas se houve alterações
+        setBoard({ game: novoTabuleiro });
+        setSelectedCells([]);
+        setCurrentCell(null);
+        setInitialCell(null);
+
         setPalavras([...novasPalavras]);
         userWin();
         setNumDicasUsadas(numDicasUsadas + 1);
@@ -126,9 +160,103 @@ export default function DocesDificil({ navigation, rows = 10, cols = 10 }) {
 
   useEffect(() => {
     buildColumnsArray();
-  }, [board.game]); 
+  }, [board.game]);
 
- 
+  const filterCellsByMovement = useCallback(
+    (selectedCells) => {
+      const n = selectedCells.length;
+
+      if (n <= 2) {
+        return selectedCells;
+      }
+
+      const firstCell = selectedCells[0];
+      const lastCell = selectedCells[n - 1];
+
+      const expectedSlope =
+        (lastCell.row - firstCell.row) / (lastCell.col - firstCell.col);
+
+      return selectedCells.filter((cell, index) => {
+        if (index === 0 || index === n - 1) {
+          return true;
+        }
+
+        const currentSlope =
+          (cell.row - firstCell.row) / (cell.col - firstCell.col);
+        return currentSlope === expectedSlope;
+      });
+    },
+    [selectedCells]
+  );
+
+  const gesture = Gesture.Pan()
+    .onStart(({ x, y }) => {
+      const row = Math.floor(y / heightCell);
+      const col = Math.floor(x / widthCell);
+
+      if (!initialCell) {
+        setInitialCell({ row, col });
+      }
+    })
+    .onUpdate(({ x, y }) => {
+      const row = Math.floor(y / heightCell);
+      const col = Math.floor(x / widthCell);
+
+      if (isAligned(initialCell, { row, col })) {
+        if (!isCellSelected(row, col)) {
+          setSelectedCells((prevCells) => [...prevCells, { row, col }]);
+          const filteredCells = filterCellsByMovement([
+            ...selectedCells,
+            { row, col },
+          ]);
+
+          setSelectedCells(filteredCells);
+        }
+      }
+    })
+    .onFinalize(() => {
+      let letterSelected = "";
+
+      selectedCells.forEach((cell) => {
+        if (isAligned(initialCell, cell)) {
+          board.game.board.forEach((row) => {
+            row.forEach((letter) => {
+              if (cell.col === letter.column && cell.row === letter.row) {
+                if (!letter.isSelected) letterSelected += letter.letter;
+              }
+            });
+          });
+        }
+      });
+
+      let game = board.game;
+      game.board.forEach((row) => {
+        row.forEach((column) => {
+          if (!column.isSelected) {
+            if (column.word[0] === letterSelected) {
+              game.board[column.row][column.column].setIsSelected(true);
+            }
+          }
+        });
+      });
+
+      palavras.forEach((palavra) => {
+        if (palavra.name === letterSelected) {
+          palavra.found = true;
+          setWordsFound(wordsFound + 1);
+          atualizarPalavraParaCor(letterSelected, cores[wordsFound]);
+        }
+      });
+
+      setBoard({ game });
+      setSelectedCells([]);
+      setCurrentCell(null);
+      setInitialCell(null);
+
+      setPalavras([...palavras]);
+      userWin();
+    })
+    .shouldCancelWhenOutside(true);
 
   const fetchData = async () => {
     try {
@@ -163,6 +291,8 @@ export default function DocesDificil({ navigation, rows = 10, cols = 10 }) {
     setStartTime(new Date());
     setModalVisible(false);
     setTempoDecorrido(0);
+    setWordsFound(0);
+    setPalavraParaCor([]);
     }
     } catch (error) {
       console.error('Erro ao buscar dados: ', error);
@@ -174,7 +304,7 @@ export default function DocesDificil({ navigation, rows = 10, cols = 10 }) {
 
     return () => {
       isMountedRef.current = false;
-    } 
+    }
   }, []);
 
 
@@ -188,19 +318,19 @@ export default function DocesDificil({ navigation, rows = 10, cols = 10 }) {
 
   const mostrarResultado = () => {
     const endTime = new Date();
-    const tempoDecorrido = (endTime - startTime) / 1000;  
-  
+    const tempoDecorrido = (endTime - startTime) / 1000;
+
     const minutos = Math.floor(tempoDecorrido / 60);
     const segundos = Math.floor(tempoDecorrido % 60);
-  
+
     const tempoFormatado = `${minutos} min ${segundos} seg`;
-    
+
     let level = parseInt(doces) + 1;
     if (doces < 30) addDoces(level.toString());
 
     adicionarMoedas(62);
     setMoedasGanhas(62);
-  
+
     setModalVisible(true);
     setTempoDecorrido(tempoFormatado);
   };
@@ -234,7 +364,7 @@ export default function DocesDificil({ navigation, rows = 10, cols = 10 }) {
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
 
- 
+
     setStartTime(new Date());
     setModalVisible(false);
     setTempoDecorrido(0);
@@ -243,7 +373,8 @@ export default function DocesDificil({ navigation, rows = 10, cols = 10 }) {
     setColumns([]);
     setCurrentCell(null);
     setSelectedCells([]);
-
+    setWordsFound(0);
+    setPalavraParaCor([]);
   };
 
   const closeModal = () => {
@@ -330,7 +461,7 @@ const isAligned = (cell1, cell2) => {
   return (
     <View style={styles.container}>
       <ImageBackground source={require('./../../../../../assets/fundoAzul.jpg')} style={styles.imageBackground}>
-        
+
       <TouchableOpacity onPress={mostrarDica}>
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <ImageBackground
@@ -345,55 +476,53 @@ const isAligned = (cell1, cell2) => {
       <View style={styles.moedasContainer}>
         <View style={styles.IconMoeda}></View>
         <Text style={styles.moedasText}>{moedas}</Text>
-        
+
       </View>
-      
+
           <Ionicons style={styles.button} name="arrow-back" size={scale(40)} color="white"
             onPress={() => navigation.navigate('NivelDificil')} />
 
 
-        <View style={styles.palavrasContainer}>
-          {
-            palavras.map((palavra, index) => (
-              <Text key={index} style={[
-                styles.palavras,
-                (palavra.found) ? { backgroundColor: cores[index] } : null,
-                (palavra.found) ? styles.wordFound : null,
-              ]}>
-                {palavra.name}
-              </Text>
-            ))
-          }
-        </View>
-        <View style={styles.cacaContainer}>
-          <View style={styles.retangulo}> 
-          <GestureHandlerRootView style={{ flex: 1 }}>
-            <PanGestureHandler
-              onGestureEvent={onGestureEvent}
-              onHandlerStateChange={onHandlerStateChange}
-              ref={panRef}
-            >
-              <View style={styles.LetterContainer}>
-              {
-                board.game.board.map((row, indexRow) => (
-                  <View key={indexRow} style={styles.row}>
-                    {
-                      row.map((letter, colIndex) => (
-                        <Cell 
-                          key={`cell-${indexRow}-${colIndex}`} 
-                          letter={letter} 
-                          selected={isCellSelected(indexRow, colIndex)} 
-                        />
-                      ))
-                    }
+      <View style={styles.cacaContainer}>
+        <View style={styles.retangulo}>
+          <GestureDetector gesture={gesture}>
+            <FlatList
+              data={board.game.board}
+              keyExtractor={(_, i) => i.toString()}
+              scrollEnabled={false}
+              renderItem={({ index, item }) => {
+                return (
+                  <View style={[styles.row]}>
+                    {item.map((letter, index) => (
+                      <Cell
+                        key={`cell-${letter.row}-${letter.column}`}
+                        letter={letter}
+                        selected={isCellSelected(letter.row, letter.column)}
+                        palavraParaCor={palavraParaCor}
+                        cores={cores}
+                        wordsFound={wordsFound}
+                      />
+                    ))}
                   </View>
-                ))
-              }
-              </View>
-            </PanGestureHandler>
-          </GestureHandlerRootView>
+                );
+              }}
+            />
+          </GestureDetector>
         </View>
-        </View>
+      </View>
+
+      <View style={styles.palavrasContainer}>
+        {
+          palavras.map((palavra, index) => (
+            <Text key={index} style={[
+              styles.palavras,
+              (palavra.found) ? styles.wordFound : null,
+            ]}>
+              {palavra.name}
+            </Text>
+          ))
+        }
+      </View>
 
         <Modal isVisible={hintsExhausted} onBackdropPress={fecharModalDicasEsgotadas} style={styles.modalContainer2}>
         <View style={styles.modalContainer}>
@@ -420,11 +549,11 @@ const isAligned = (cell1, cell2) => {
                 <Text style={styles.modalText}>MOEDAS:</Text>
                 <Text style={styles.textMoeda}>+{moedasGanhas}</Text>
               </View>
-          </View>   
+          </View>
           <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
             <Text style={styles.modalButtonText}>Continuar</Text>
           </TouchableOpacity>
-          
+
         </View>
       </Modal>
 
