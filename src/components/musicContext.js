@@ -1,8 +1,14 @@
 // MusicGlobalContext.js
-import React, { createContext, useContext, useState, useRef, useEffect } from 'react';
-import { Audio } from 'expo-av';
-import Slider from '@react-native-community/slider';
-import styles from '../pages/Home/style';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useRef,
+  useEffect,
+} from "react";
+import { Audio } from "expo-av";
+import Slider from "@react-native-community/slider";
+import styles from "../pages/Home/style";
 
 const MusicGlobalContext = createContext();
 
@@ -13,13 +19,13 @@ export const useMusicGlobal = () => {
 export const MusicGlobalProvider = ({ children }) => {
   const [sound, setSound] = useState(null);
   const soundRef = useRef(sound);
-  const [volume, setVolume] = useState(1.0);
+  const [volume, setVolume] = useState(0.09);
 
   const playMusic = async () => {
     try {
       if (!soundRef.current) {
         const { sound } = await Audio.Sound.createAsync(
-          require('../assets/somambiente.mp3')
+          require("../assets/somambiente.mp3")
         );
         soundRef.current = sound;
         setSound(soundRef.current);
@@ -28,7 +34,7 @@ export const MusicGlobalProvider = ({ children }) => {
         soundRef.current.setVolumeAsync(volume);
       }
     } catch (error) {
-      console.error('Erro ao reproduzir música', error);
+      console.error("Erro ao reproduzir música", error);
     }
   };
 
@@ -56,7 +62,9 @@ export const MusicGlobalProvider = ({ children }) => {
   }, []);
 
   return (
-    <MusicGlobalContext.Provider value={{ playMusic, stopMusic, handleVolumeChange }}>
+    <MusicGlobalContext.Provider
+      value={{ playMusic, stopMusic, handleVolumeChange }}
+    >
       {children}
     </MusicGlobalContext.Provider>
   );

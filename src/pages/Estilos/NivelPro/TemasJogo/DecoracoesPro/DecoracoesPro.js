@@ -27,26 +27,27 @@ import NiveisPro from "../../../../../components/storageNivelPro";
 
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
+import { Audio } from "expo-av";
+
 const { width, height } = Dimensions.get("screen");
 
-const Cell = React.memo(({ letter, selected, palavraParaCor, cores, wordsFound }) => {
-  const color = palavraParaCor[letter.word] || cores[wordsFound];
+const Cell = React.memo(
+  ({ letter, selected, palavraParaCor, cores, wordsFound }) => {
+    const color = palavraParaCor[letter.word] || cores[wordsFound];
 
-  return (
-    <View
-      style={[
-        styles.cell,
-        (letter.isSelected) && [
-          styles.selected,
-          { backgroundColor: color },
-        ],
-        selected && [styles.selected, { backgroundColor: color }],
-      ]}
-    >
-      <Text style={styles.cellText}>{letter.letter}</Text>
-    </View>
-  )
-});
+    return (
+      <View
+        style={[
+          styles.cell,
+          letter.isSelected && [styles.selected, { backgroundColor: color }],
+          selected && [styles.selected, { backgroundColor: color }],
+        ]}
+      >
+        <Text style={styles.cellText}>{letter.letter}</Text>
+      </View>
+    );
+  }
+);
 
 export default function DecoracoesPro({ navigation, rows = 12, cols = 12 }) {
   const { decoracoes, addDecoracoes } = NiveisPro();
@@ -74,7 +75,7 @@ export default function DecoracoesPro({ navigation, rows = 12, cols = 12 }) {
     gestureType: null,
   });
 
-  const[wordsFound, setWordsFound] = useState(0);
+  const [wordsFound, setWordsFound] = useState(0);
   const [palavraParaCor, setPalavraParaCor] = useState([]);
   const widthCell = (width * 0.85) / 12;
   const heightCell = (height * 0.6) / 12;
@@ -198,10 +199,29 @@ export default function DecoracoesPro({ navigation, rows = 12, cols = 12 }) {
     [selectedCells]
   );
 
+  const [sound, setSound] = useState();
+
+  async function playSound() {
+    const { sound } = await Audio.Sound.createAsync(
+      require("../../../../../assets/tap.mp3")
+    );
+    setSound(sound);
+    await sound.playAsync();
+  }
+  async function wordFinded() {
+    const { sound } = await Audio.Sound.createAsync(
+      require("../../../../../assets/magicSound.mp3")
+    );
+    setSound(sound);
+    await sound.playAsync();
+  }
+
   const gesture = Gesture.Pan()
     .onStart(({ x, y }) => {
       const row = Math.floor(y / heightCell);
       const col = Math.floor(x / widthCell);
+
+      playSound();
 
       if (!initialCell) {
         setInitialCell({ row, col });
@@ -213,6 +233,7 @@ export default function DecoracoesPro({ navigation, rows = 12, cols = 12 }) {
 
       if (isAligned(initialCell, { row, col })) {
         if (!isCellSelected(row, col)) {
+          playSound();
           setSelectedCells((prevCells) => [...prevCells, { row, col }]);
           const filteredCells = filterCellsByMovement([
             ...selectedCells,
@@ -225,7 +246,6 @@ export default function DecoracoesPro({ navigation, rows = 12, cols = 12 }) {
     })
     .onFinalize(() => {
       let letterSelected = "";
-
       selectedCells.forEach((cell) => {
         if (isAligned(initialCell, cell)) {
           board.game.board.forEach((row) => {
@@ -252,6 +272,7 @@ export default function DecoracoesPro({ navigation, rows = 12, cols = 12 }) {
       palavras.forEach((palavra) => {
         if (palavra.name === letterSelected) {
           palavra.found = true;
+          wordFinded();
           setWordsFound(wordsFound + 1);
           atualizarPalavraParaCor(letterSelected, cores[wordsFound]);
         }
@@ -467,46 +488,44 @@ export default function DecoracoesPro({ navigation, rows = 12, cols = 12 }) {
           onPress={() => navigation.navigate("NivelMedio")}
         />
 
-      <View style={styles.cacaContainer}>
-        <View style={styles.retangulo}>
-          <GestureDetector gesture={gesture}>
-            <FlatList
-              data={board.game.board}
-              keyExtractor={(_, i) => i.toString()}
-              scrollEnabled={false}
-              renderItem={({ index, item }) => {
-                return (
-                  <View style={[styles.row]}>
-                    {item.map((letter, index) => (
-                      <Cell
-                        key={`cell-${letter.row}-${letter.column}`}
-                        letter={letter}
-                        selected={isCellSelected(letter.row, letter.column)}
-                        palavraParaCor={palavraParaCor}
-                        cores={cores}
-                        wordsFound={wordsFound}
-                      />
-                    ))}
-                  </View>
-                );
-              }}
-            />
-          </GestureDetector>
+        <View style={styles.cacaContainer}>
+          <View style={styles.retangulo}>
+            <GestureDetector gesture={gesture}>
+              <FlatList
+                data={board.game.board}
+                keyExtractor={(_, i) => i.toString()}
+                scrollEnabled={false}
+                renderItem={({ index, item }) => {
+                  return (
+                    <View style={[styles.row]}>
+                      {item.map((letter, index) => (
+                        <Cell
+                          key={`cell-${letter.row}-${letter.column}`}
+                          letter={letter}
+                          selected={isCellSelected(letter.row, letter.column)}
+                          palavraParaCor={palavraParaCor}
+                          cores={cores}
+                          wordsFound={wordsFound}
+                        />
+                      ))}
+                    </View>
+                  );
+                }}
+              />
+            </GestureDetector>
+          </View>
         </View>
-      </View>
 
-      <View style={styles.palavrasContainer}>
-        {
-          palavras.map((palavra, index) => (
-            <Text key={index} style={[
-              styles.palavras,
-              (palavra.found) ? styles.wordFound : null,
-            ]}>
+        <View style={styles.palavrasContainer}>
+          {palavras.map((palavra, index) => (
+            <Text
+              key={index}
+              style={[styles.palavras, palavra.found ? styles.wordFound : null]}
+            >
               {palavra.name}
             </Text>
-          ))
-        }
-      </View>
+          ))}
+        </View>
 
         <Modal
           isVisible={hintsExhausted}

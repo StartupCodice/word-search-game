@@ -36,25 +36,23 @@ import {
 const CELL_SIZE = Math.floor(350 * 0.1);
 const CELL_PADDING = Math.floor(scale(10) * 0.1);
 
-const Cell = React.memo(({ letter, selected, palavraParaCor, cores, wordsFound }) => {
-  const color = palavraParaCor[letter.word] || cores[wordsFound];
+const Cell = React.memo(
+  ({ letter, selected, palavraParaCor, cores, wordsFound }) => {
+    const color = palavraParaCor[letter.word] || cores[wordsFound];
 
-  return (
-    <View
-      style={[
-        styles.cell,
-        (letter.isSelected) && [
-          styles.selected,
-          { backgroundColor: color },
-        ],
-        selected && [styles.selected, { backgroundColor: color }],
-      ]}
-    >
-      <Text style={styles.cellText}>{letter.letter}</Text>
-    </View>
-
-  )
-});
+    return (
+      <View
+        style={[
+          styles.cell,
+          letter.isSelected && [styles.selected, { backgroundColor: color }],
+          selected && [styles.selected, { backgroundColor: color }],
+        ]}
+      >
+        <Text style={styles.cellText}>{letter.letter}</Text>
+      </View>
+    );
+  }
+);
 
 const { width, height } = Dimensions.get("screen");
 const CELL_MARGIN = 2;
@@ -65,7 +63,7 @@ const CELL_HEIGHT = ((height - 6 * (CELL_MARGIN * 2)) / 6) * 0.4;
 export default function Presentes({ navigation, rows = 8, cols = 8 }) {
   const { presentes, addPresentes } = NiveisFaceis();
 
-  const[wordsFound, setWordsFound] = useState(0);
+  const [wordsFound, setWordsFound] = useState(0);
   const [palavraParaCor, setPalavraParaCor] = useState([]);
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
@@ -365,10 +363,29 @@ export default function Presentes({ navigation, rows = 8, cols = 8 }) {
     [selectedCells]
   );
 
+  const [sound, setSound] = useState();
+
+  async function playSound() {
+    const { sound } = await Audio.Sound.createAsync(
+      require("../../../../../assets/tap.mp3")
+    );
+    setSound(sound);
+    await sound.playAsync();
+  }
+  async function wordFinded() {
+    const { sound } = await Audio.Sound.createAsync(
+      require("../../../../../assets/magicSound.mp3")
+    );
+    setSound(sound);
+    await sound.playAsync();
+  }
+
   const gesture = Gesture.Pan()
     .onStart(({ x, y }) => {
       const row = Math.floor(y / heightCell);
       const col = Math.floor(x / widthCell);
+
+      playSound();
 
       if (!initialCell) {
         setInitialCell({ row, col });
@@ -380,6 +397,7 @@ export default function Presentes({ navigation, rows = 8, cols = 8 }) {
 
       if (isAligned(initialCell, { row, col })) {
         if (!isCellSelected(row, col)) {
+          playSound();
           setSelectedCells((prevCells) => [...prevCells, { row, col }]);
           const filteredCells = filterCellsByMovement([
             ...selectedCells,
@@ -392,7 +410,6 @@ export default function Presentes({ navigation, rows = 8, cols = 8 }) {
     })
     .onFinalize(() => {
       let letterSelected = "";
-
       selectedCells.forEach((cell) => {
         if (isAligned(initialCell, cell)) {
           board.game.board.forEach((row) => {
@@ -419,6 +436,7 @@ export default function Presentes({ navigation, rows = 8, cols = 8 }) {
       palavras.forEach((palavra) => {
         if (palavra.name === letterSelected) {
           palavra.found = true;
+          wordFinded();
           setWordsFound(wordsFound + 1);
           atualizarPalavraParaCor(letterSelected, cores[wordsFound]);
         }
@@ -496,10 +514,7 @@ export default function Presentes({ navigation, rows = 8, cols = 8 }) {
           {palavras.map((palavra, index) => (
             <Text
               key={index}
-              style={[
-                styles.palavras,
-                palavra.found ? styles.wordFound : null,
-              ]}
+              style={[styles.palavras, palavra.found ? styles.wordFound : null]}
             >
               {palavra.name}
             </Text>

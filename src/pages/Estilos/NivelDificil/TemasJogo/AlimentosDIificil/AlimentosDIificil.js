@@ -1,46 +1,49 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Text, View, ImageBackground, Image, TouchableOpacity, Dimensions, FlatList } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { StatusBar } from 'expo-status-bar';
-import Modal from 'react-native-modal';
-import { createGame } from 'hunting-words';
-import randomcolor from 'randomcolor';
-import styles from './style';
-import {scale} from 'react-native-size-matters';
-import MoedasComponent from '../../../../../components/storage';
-import NiveisDificil from '../../../../../components/storageNivelDificil';
-
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
-  Gesture,
-  GestureDetector,
-} from "react-native-gesture-handler";
+  Text,
+  View,
+  ImageBackground,
+  Image,
+  TouchableOpacity,
+  Dimensions,
+  FlatList,
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { StatusBar } from "expo-status-bar";
+import Modal from "react-native-modal";
+import { createGame } from "hunting-words";
+import randomcolor from "randomcolor";
+import styles from "./style";
+import { scale } from "react-native-size-matters";
+import MoedasComponent from "../../../../../components/storage";
+import NiveisDificil from "../../../../../components/storageNivelDificil";
+
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
+
+import { Audio } from "expo-av";
 
 const { width, height } = Dimensions.get("screen");
 
-const Cell = React.memo(({ letter, selected, palavraParaCor, cores, wordsFound }) => {
-  const color = palavraParaCor[letter.word] || cores[wordsFound];
+const Cell = React.memo(
+  ({ letter, selected, palavraParaCor, cores, wordsFound }) => {
+    const color = palavraParaCor[letter.word] || cores[wordsFound];
 
-  return (
-    <View
-      style={[
-        styles.cell,
-        (letter.isSelected) && [
-          styles.selected,
-          { backgroundColor: color },
-        ],
-        selected && [styles.selected, { backgroundColor: color }],
-      ]}
-    >
-      <Text style={styles.cellText}>{letter.letter}</Text>
-    </View>
-  )
-});
+    return (
+      <View
+        style={[
+          styles.cell,
+          letter.isSelected && [styles.selected, { backgroundColor: color }],
+          selected && [styles.selected, { backgroundColor: color }],
+        ]}
+      >
+        <Text style={styles.cellText}>{letter.letter}</Text>
+      </View>
+    );
+  }
+);
 
 export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
-  const {
-    alimentos,
-    addAlimento,
-  } = NiveisDificil();
+  const { alimentos, addAlimento } = NiveisDificil();
 
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
@@ -65,7 +68,7 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
     gestureType: null,
   });
 
-  const[wordsFound, setWordsFound] = useState(0);
+  const [wordsFound, setWordsFound] = useState(0);
   const [palavraParaCor, setPalavraParaCor] = useState([]);
   const widthCell = (width * 0.85) / 10;
   const heightCell = (height * 0.5) / 10;
@@ -189,10 +192,29 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
     [selectedCells]
   );
 
+  const [sound, setSound] = useState();
+
+  async function playSound() {
+    const { sound } = await Audio.Sound.createAsync(
+      require("../../../../../assets/tap.mp3")
+    );
+    setSound(sound);
+    await sound.playAsync();
+  }
+  async function wordFinded() {
+    const { sound } = await Audio.Sound.createAsync(
+      require("../../../../../assets/magicSound.mp3")
+    );
+    setSound(sound);
+    await sound.playAsync();
+  }
+
   const gesture = Gesture.Pan()
     .onStart(({ x, y }) => {
       const row = Math.floor(y / heightCell);
       const col = Math.floor(x / widthCell);
+
+      playSound();
 
       if (!initialCell) {
         setInitialCell({ row, col });
@@ -204,6 +226,7 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
 
       if (isAligned(initialCell, { row, col })) {
         if (!isCellSelected(row, col)) {
+          playSound();
           setSelectedCells((prevCells) => [...prevCells, { row, col }]);
           const filteredCells = filterCellsByMovement([
             ...selectedCells,
@@ -216,7 +239,6 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
     })
     .onFinalize(() => {
       let letterSelected = "";
-
       selectedCells.forEach((cell) => {
         if (isAligned(initialCell, cell)) {
           board.game.board.forEach((row) => {
@@ -243,6 +265,7 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
       palavras.forEach((palavra) => {
         if (palavra.name === letterSelected) {
           palavra.found = true;
+          wordFinded();
           setWordsFound(wordsFound + 1);
           atualizarPalavraParaCor(letterSelected, cores[wordsFound]);
         }
@@ -261,50 +284,50 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
   const fetchData = () => {
     try {
       const palavrasOriginais = [
-        {name: 'PERU', found: false },
-        {name: 'PANETONE', found: false },
-        {name: 'CHESTER', found: false },
-        {name: 'RABANADA', found: false },
-        {name: 'BACALHAU', found: false },
-        {name: 'VINHO', found: false },
-        {name: 'FAROFA', found: false },
-        {name: 'CEIA', found: false },
-        {name: 'FRUTAS', found: false },
-        { name: 'BOLINHO', found: false },
-        { name: 'NOZES', found: false },
-        { name: 'GELEIA', found: false },
-        { name: 'LEITE', found: false },
-        { name: 'COCO', found: false },
-        { name: 'DOCE', found: false },
-        { name: 'GANSO', found: false },
-        { name: 'MAÇA', found: false },
-        { name: 'MESSA', found: false },
-        { name: 'MINGAU', found: false },
-        { name: 'PUDIM', found: false },
-        { name: 'SALSA', found: false },
-        { name: 'SORVETE', found: false },
-        { name: 'TORTA', found: false },
-        { name: 'PASSAS', found: false },
+        { name: "PERU", found: false },
+        { name: "PANETONE", found: false },
+        { name: "CHESTER", found: false },
+        { name: "RABANADA", found: false },
+        { name: "BACALHAU", found: false },
+        { name: "VINHO", found: false },
+        { name: "FAROFA", found: false },
+        { name: "CEIA", found: false },
+        { name: "FRUTAS", found: false },
+        { name: "BOLINHO", found: false },
+        { name: "NOZES", found: false },
+        { name: "GELEIA", found: false },
+        { name: "LEITE", found: false },
+        { name: "COCO", found: false },
+        { name: "DOCE", found: false },
+        { name: "GANSO", found: false },
+        { name: "MAÇA", found: false },
+        { name: "MESSA", found: false },
+        { name: "MINGAU", found: false },
+        { name: "PUDIM", found: false },
+        { name: "SALSA", found: false },
+        { name: "SORVETE", found: false },
+        { name: "TORTA", found: false },
+        { name: "PASSAS", found: false },
       ];
 
-    if (isMountedRef.current) {
-      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 8);
-      setPalavras(palavrasEscolhidas);
+      if (isMountedRef.current) {
+        const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 8);
+        setPalavras(palavrasEscolhidas);
 
-      const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-      setBoard({ game: new createGame(10, 10, palavrasJogo) });
+        const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
+        setBoard({ game: new createGame(10, 10, palavrasJogo) });
 
-      const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
-      setCores(coresAleatorias);
+        const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
+        setCores(coresAleatorias);
 
-      setStartTime(new Date());
-      setModalVisible(false);
-      setTempoDecorrido(0);
-      setWordsFound(0);
-      setPalavraParaCor([]);
-    }
+        setStartTime(new Date());
+        setModalVisible(false);
+        setTempoDecorrido(0);
+        setWordsFound(0);
+        setPalavraParaCor([]);
+      }
     } catch (error) {
-      console.error('Erro ao buscar dados: ', error);
+      console.error("Erro ao buscar dados: ", error);
     }
   };
 
@@ -313,9 +336,8 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
 
     return () => {
       isMountedRef.current = false;
-    }
+    };
   }, []);
-
 
   function userWin() {
     const isWin = palavras.every((palavra) => palavra.found === true);
@@ -346,30 +368,30 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
 
   const reiniciarJogo = () => {
     const palavrasOriginais = [
-      {name: 'PERU', found: false },
-      {name: 'PANETONE', found: false },
-      {name: 'CHESTER', found: false },
-      {name: 'RABANADA', found: false },
-      {name: 'BACALHAU', found: false },
-      {name: 'VINHO', found: false },
-      {name: 'FAROFA', found: false },
-      {name: 'CEIA', found: false },
-      {name: 'FRUTAS', found: false },
-      { name: 'BOLINHO', found: false },
-      { name: 'NOZES', found: false },
-      { name: 'GELEIA', found: false },
-      { name: 'LEITE', found: false },
-      { name: 'COCO', found: false },
-      { name: 'DOCE', found: false },
-      { name: 'GANSO', found: false },
-      { name: 'MAÇA', found: false },
-      { name: 'MESSA', found: false },
-      { name: 'MINGAU', found: false },
-      { name: 'PUDIM', found: false },
-      { name: 'SALSA', found: false },
-      { name: 'SORVETE', found: false },
-      { name: 'TORTA', found: false },
-      { name: 'PASSAS', found: false },
+      { name: "PERU", found: false },
+      { name: "PANETONE", found: false },
+      { name: "CHESTER", found: false },
+      { name: "RABANADA", found: false },
+      { name: "BACALHAU", found: false },
+      { name: "VINHO", found: false },
+      { name: "FAROFA", found: false },
+      { name: "CEIA", found: false },
+      { name: "FRUTAS", found: false },
+      { name: "BOLINHO", found: false },
+      { name: "NOZES", found: false },
+      { name: "GELEIA", found: false },
+      { name: "LEITE", found: false },
+      { name: "COCO", found: false },
+      { name: "DOCE", found: false },
+      { name: "GANSO", found: false },
+      { name: "MAÇA", found: false },
+      { name: "MESSA", found: false },
+      { name: "MINGAU", found: false },
+      { name: "PUDIM", found: false },
+      { name: "SALSA", found: false },
+      { name: "SORVETE", found: false },
+      { name: "TORTA", found: false },
+      { name: "PASSAS", found: false },
     ];
 
     const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 8);
@@ -380,7 +402,6 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
 
     const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
     setCores(coresAleatorias);
-
 
     setStartTime(new Date());
     setModalVisible(false);
@@ -402,7 +423,8 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
   const panRef = useRef(null);
 
   const isCellSelected = useCallback(
-    (row, col) => selectedCells.some(cell => cell.row === row && cell.col === col),
+    (row, col) =>
+      selectedCells.some((cell) => cell.row === row && cell.col === col),
     [selectedCells]
   );
 
@@ -418,40 +440,40 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
     if (isAligned(initialCell, { row, col })) {
       setCurrentCell({ row, col });
       if (!isCellSelected(row, col)) {
-        setSelectedCells(prevCells => [...prevCells, { row, col }]);
+        setSelectedCells((prevCells) => [...prevCells, { row, col }]);
       }
     }
   };
 
   const onHandlerStateChange = (event, item) => {
-    let letterSelected = '';
+    let letterSelected = "";
 
-      selectedCells.forEach((cell) => {
-        if (isAligned(initialCell, cell)) {
-            board.game.board.forEach((row) => {
-              row.forEach((letter) => {
-                  if (cell.col === letter.column && cell.row === letter.row) {
-                    if (!letter.isSelected) letterSelected += letter.letter;
-                  }
-              })
-            });
-        }
-      });
+    selectedCells.forEach((cell) => {
+      if (isAligned(initialCell, cell)) {
+        board.game.board.forEach((row) => {
+          row.forEach((letter) => {
+            if (cell.col === letter.column && cell.row === letter.row) {
+              if (!letter.isSelected) letterSelected += letter.letter;
+            }
+          });
+        });
+      }
+    });
 
     let game = board.game;
     game.board.forEach((row) => {
       row.forEach((column) => {
-          if (!column.isSelected) {
-            if (column.word[0] === letterSelected) {
-              game.board[column.row][column.column].setIsSelected(true);
-            }
+        if (!column.isSelected) {
+          if (column.word[0] === letterSelected) {
+            game.board[column.row][column.column].setIsSelected(true);
           }
+        }
       });
     });
 
     palavras.forEach((palavra) => {
       if (palavra.name === letterSelected) {
-          palavra.found = true;
+        palavra.found = true;
       }
     });
 
@@ -470,98 +492,116 @@ export default function AlimentosDificil({ navigation, rows = 10, cols = 10 }) {
     const rowDiff = Math.abs(cell1.row - cell2.row);
     const colDiff = Math.abs(cell1.col - cell2.col);
 
-    return rowDiff === colDiff || cell1.row === cell2.row || cell1.col === cell2.col;
+    return (
+      rowDiff === colDiff || cell1.row === cell2.row || cell1.col === cell2.col
+    );
   };
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('./../../../../../assets/fundoAzul.jpg')} style={styles.imageBackground}>
+      <ImageBackground
+        source={require("./../../../../../assets/fundoAzul.jpg")}
+        style={styles.imageBackground}
+      >
+        <TouchableOpacity onPress={mostrarDica}>
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <ImageBackground
+              source={require("./../../../../../assets/lampada.png")}
+              style={styles.Dica}
+            >
+              <Text style={styles.dicaNumber}>{4 - numDicasUsadas}</Text>
+            </ImageBackground>
+          </View>
+        </TouchableOpacity>
 
-      <TouchableOpacity onPress={mostrarDica}>
-        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <ImageBackground
-            source={require('./../../../../../assets/lampada.png')}
-            style={styles.Dica}
-          >
-            <Text style={styles.dicaNumber}>{4 - numDicasUsadas}</Text>
-          </ImageBackground>
+        <View style={styles.moedasContainer}>
+          <View style={styles.IconMoeda}></View>
+          <Text style={styles.moedasText}>{moedas}</Text>
         </View>
-      </TouchableOpacity>
 
-      <View style={styles.moedasContainer}>
-        <View style={styles.IconMoeda}></View>
-        <Text style={styles.moedasText}>{moedas}</Text>
-      </View>
+        <Ionicons
+          style={styles.button}
+          name="arrow-back"
+          size={scale(40)}
+          color="white"
+          onPress={() => navigation.navigate("NivelDificil")}
+        />
 
-
-          <Ionicons style={styles.button} name="arrow-back" size={scale(40)} color="white"
-            onPress={() => navigation.navigate('NivelDificil')} />
-
-      <View style={styles.cacaContainer}>
-        <View style={styles.retangulo}>
-          <GestureDetector gesture={gesture}>
-            <FlatList
-              data={board.game.board}
-              keyExtractor={(_, i) => i.toString()}
-              scrollEnabled={false}
-              renderItem={({ index, item }) => {
-                return (
-                  <View style={[styles.row]}>
-                    {item.map((letter, index) => (
-                      <Cell
-                        key={`cell-${letter.row}-${letter.column}`}
-                        letter={letter}
-                        selected={isCellSelected(letter.row, letter.column)}
-                        palavraParaCor={palavraParaCor}
-                        cores={cores}
-                        wordsFound={wordsFound}
-                      />
-                    ))}
-                  </View>
-                );
-              }}
-            />
-          </GestureDetector>
+        <View style={styles.cacaContainer}>
+          <View style={styles.retangulo}>
+            <GestureDetector gesture={gesture}>
+              <FlatList
+                data={board.game.board}
+                keyExtractor={(_, i) => i.toString()}
+                scrollEnabled={false}
+                renderItem={({ index, item }) => {
+                  return (
+                    <View style={[styles.row]}>
+                      {item.map((letter, index) => (
+                        <Cell
+                          key={`cell-${letter.row}-${letter.column}`}
+                          letter={letter}
+                          selected={isCellSelected(letter.row, letter.column)}
+                          palavraParaCor={palavraParaCor}
+                          cores={cores}
+                          wordsFound={wordsFound}
+                        />
+                      ))}
+                    </View>
+                  );
+                }}
+              />
+            </GestureDetector>
+          </View>
         </View>
-      </View>
 
-      <View style={styles.palavrasContainer}>
-        {
-          palavras.map((palavra, index) => (
-            <Text key={index} style={[
-              styles.palavras,
-              (palavra.found) ? styles.wordFound : null,
-            ]}>
+        <View style={styles.palavrasContainer}>
+          {palavras.map((palavra, index) => (
+            <Text
+              key={index}
+              style={[styles.palavras, palavra.found ? styles.wordFound : null]}
+            >
               {palavra.name}
             </Text>
-          ))
-        }
-      </View>
-
-        <Modal isVisible={hintsExhausted} onBackdropPress={fecharModalDicasEsgotadas} style={styles.modalContainer2}>
-        <View style={styles.modalContainer}>
-          <Text style={styles.modalText}>
-            As dicas acabaram!
-          </Text>
-          <TouchableOpacity style={styles.modalButton} onPress={fecharModalDicasEsgotadas}>
-            <Text style={styles.modalButtonText}>Fechar</Text>
-          </TouchableOpacity>
+          ))}
         </View>
-      </Modal>
 
-      <Modal isVisible={isModalVisible} onBackdropPress={closeModal} style={styles.modalContainer2}>
-        <View style={styles.modalContainer}>
-          <Text style={styles.modalText}>TEMPO:</Text>
-          <Text style={styles.textTempo}>{tempoDecorrido}s</Text>
-          <Text>Moedas ganhas nesta partida: {moedasGanhas}</Text>
-          <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
-            <Text style={styles.modalButtonText}>Continuar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.modalButton} onPress={() => navigation.navigate('Home')}>
-            <Text style={styles.modalButtonText}>Voltar</Text>
-          </TouchableOpacity>
-        </View>
-      </Modal>
+        <Modal
+          isVisible={hintsExhausted}
+          onBackdropPress={fecharModalDicasEsgotadas}
+          style={styles.modalContainer2}
+        >
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalText}>As dicas acabaram!</Text>
+            <TouchableOpacity
+              style={styles.modalButton}
+              onPress={fecharModalDicasEsgotadas}
+            >
+              <Text style={styles.modalButtonText}>Fechar</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+
+        <Modal
+          isVisible={isModalVisible}
+          onBackdropPress={closeModal}
+          style={styles.modalContainer2}
+        >
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalText}>TEMPO:</Text>
+            <Text style={styles.textTempo}>{tempoDecorrido}s</Text>
+            <Text>Moedas ganhas nesta partida: {moedasGanhas}</Text>
+            <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
+              <Text style={styles.modalButtonText}>Continuar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.modalButton}
+              onPress={() => navigation.navigate("Home")}
+            >
+              <Text style={styles.modalButtonText}>Voltar</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
 
         <StatusBar style="auto" />
       </ImageBackground>
