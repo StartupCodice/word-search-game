@@ -190,14 +190,14 @@ export default function InfinitoFacil({ navigation, rows = 6, cols = 8 }) {
 
   async function playSound() {
     const { sound } = await Audio.Sound.createAsync(
-      require("../../../../../assets/tap.mp3")
+      require("../../../assets/tap.mp3")
     );
     setSound(sound);
     await sound.playAsync();
   }
   async function wordFinded() {
     const { sound } = await Audio.Sound.createAsync(
-      require("../../../../../assets/magicSound.mp3")
+      require("../../../assets/magicSound.mp3")
     );
     setSound(sound);
     await sound.playAsync();

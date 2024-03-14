@@ -19,6 +19,7 @@ import ThemeStorage from "../../../components/storageTheme";
 import MoedasComponent from "../../../components/storage";
 
 import { GestureDetector, Gesture } from "react-native-gesture-handler";
+import { Audio } from "expo-av";
 
 const CELL_SIZE = Math.floor(350 * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
@@ -220,14 +221,14 @@ export default function EventoFacil({ navigation, rows = 6, cols = 8 }) {
 
   async function playSound() {
     const { sound } = await Audio.Sound.createAsync(
-      require("../../../../../assets/tap.mp3")
+      require("../../../assets/tap.mp3")
     );
     setSound(sound);
     await sound.playAsync();
   }
   async function wordFinded() {
     const { sound } = await Audio.Sound.createAsync(
-      require("../../../../../assets/magicSound.mp3")
+      require("../../../assets/magicSound.mp3")
     );
     setSound(sound);
     await sound.playAsync();

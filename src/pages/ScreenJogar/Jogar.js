@@ -25,6 +25,8 @@ const CELL_PADDING = Math.floor(scale(10) * 0.1);
 
 const { width, height } = Dimensions.get("screen");
 
+import { Audio } from "expo-av";
+
 const Cell = React.memo(
   ({ letter, selected, palavraParaCor, cores, wordsFound }) => {
     const color = palavraParaCor[letter.word] || cores[wordsFound];
@@ -195,14 +197,14 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
 
   async function playSound() {
     const { sound } = await Audio.Sound.createAsync(
-      require("../../../../../assets/tap.mp3")
+      require("../../assets/tap.mp3")
     );
     setSound(sound);
     await sound.playAsync();
   }
   async function wordFinded() {
     const { sound } = await Audio.Sound.createAsync(
-      require("../../../../../assets/magicSound.mp3")
+      require("../../assets/magicSound.mp3")
     );
     setSound(sound);
     await sound.playAsync();
