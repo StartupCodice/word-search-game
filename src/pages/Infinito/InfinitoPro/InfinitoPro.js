@@ -192,14 +192,14 @@ export default function InfinitoPro({ navigation, rows = 12, cols = 12 }) {
 
   async function playSound() {
     const { sound } = await Audio.Sound.createAsync(
-      require("../../../../../assets/tap.mp3")
+      require("../../../assets/tap.mp3")
     );
     setSound(sound);
     await sound.playAsync();
   }
   async function wordFinded() {
     const { sound } = await Audio.Sound.createAsync(
-      require("../../../../../assets/magicSound.mp3")
+      require("../../../assets/magicSound.mp3")
     );
     setSound(sound);
     await sound.playAsync();

@@ -208,6 +208,7 @@ export default function DecoracoesMedio({ navigation, rows = 8, cols = 8 }) {
     setSound(sound);
     await sound.playAsync();
   }
+
   async function wordFinded() {
     const { sound } = await Audio.Sound.createAsync(
       require("../../../../../assets/magicSound.mp3")

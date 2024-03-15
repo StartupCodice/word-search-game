@@ -10,8 +10,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import styles from "./style";
 import { scale } from "react-native-size-matters";
-import { useNavigation } from '@react-navigation/native';
-
+import { useNavigation } from "@react-navigation/native";
 
 export function Infinito({ modalVisible, setModalVisible }) {
   const navigation = useNavigation();
@@ -30,9 +29,7 @@ export function Infinito({ modalVisible, setModalVisible }) {
         <View style={styles.modalContainer}>
           <View style={styles.ScreenSnow}>
             <View style={styles.modalView}>
-
-                <Text style={styles.textHeader}>INFINITO</Text>
-
+              <Text style={styles.textHeader}>INFINITO</Text>
 
               <TouchableHighlight
                 style={styles.buttonInsideEvento}
@@ -56,7 +53,10 @@ export function Infinito({ modalVisible, setModalVisible }) {
                   padding: scale(8),
                   margin: scale(8),
                 }}
-                onPress={() => navigation.navigate('InfinitoFacil') ?? setModalVisible(!modalVisible)}
+                onPress={() =>
+                  navigation.navigate("InfinitoFacil") ??
+                  setModalVisible(!modalVisible)
+                }
               >
                 <Text
                   style={{
@@ -79,7 +79,10 @@ export function Infinito({ modalVisible, setModalVisible }) {
                   padding: scale(8),
                   margin: scale(8),
                 }}
-                onPress={() => navigation.navigate('InfinitoMedio') ?? setModalVisible(!modalVisible)}
+                onPress={() =>
+                  navigation.navigate("InfinitoMedio") ??
+                  setModalVisible(!modalVisible)
+                }
               >
                 <Text
                   style={{
@@ -102,7 +105,10 @@ export function Infinito({ modalVisible, setModalVisible }) {
                   padding: scale(8),
                   margin: scale(8),
                 }}
-                onPress={() => navigation.navigate('InfinitoDificil') ?? setModalVisible(!modalVisible)}
+                onPress={() =>
+                  navigation.navigate("InfinitoDificil") ??
+                  setModalVisible(!modalVisible)
+                }
               >
                 <Text
                   style={{
@@ -125,7 +131,10 @@ export function Infinito({ modalVisible, setModalVisible }) {
                   padding: scale(8),
                   margin: scale(8),
                 }}
-                onPress={() => navigation.navigate('InfinitoPro') ?? setModalVisible(!modalVisible)}
+                onPress={() =>
+                  navigation.navigate("InfinitoPro") ??
+                  setModalVisible(!modalVisible)
+                }
               >
                 <Text
                   style={{
@@ -142,7 +151,6 @@ export function Infinito({ modalVisible, setModalVisible }) {
           </View>
         </View>
       </Modal>
-
     </View>
   );
 }
