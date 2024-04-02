@@ -192,21 +192,56 @@ export default function MusicasDificil({ navigation, rows = 10, cols = 10 }) {
     [selectedCells]
   );
 
-  const [sound, setSound] = useState();
+  const tapSound = useRef(new Audio.Sound());
+  const magicSound = useRef(new Audio.Sound());
 
-  async function playSound() {
-    const { sound } = await Audio.Sound.createAsync(
+  useEffect(() => {
+    loadMagicAudio();
+    loadTapAudio();
+  }, []);
+
+  async function loadTapAudio() {
+    const { soundMagic } = await tapSound.current.loadAsync(
       require("../../../../../assets/tap.mp3")
     );
-    setSound(sound);
-    await sound.playAsync();
   }
-  async function wordFinded() {
-    const { sound } = await Audio.Sound.createAsync(
+
+  async function loadMagicAudio() {
+    const { soundTap } = await magicSound.current.loadAsync(
       require("../../../../../assets/magicSound.mp3")
     );
-    setSound(sound);
-    await sound.playAsync();
+  }
+
+  async function playSound() {
+    await tapSound?.current?.playAsync();
+    // const { sound } = await Audio.Sound.createAsync(
+    //   require("../../../../../assets/tap.mp3")
+    // );
+    // setSound(sound);
+  }
+
+  async function replaySound() {
+    await tapSound?.current?.replayAsync();
+    // const { sound } = await Audio.Sound.createAsync(
+    //   require("../../../../../assets/tap.mp3")
+    // );
+    // setSound(sound);
+  }
+
+  async function pauseSound() {
+    await tapSound?.current?.pauseAsync();
+    // const { sound } = await Audio.Sound.createAsync(
+    //   require("../../../../../assets/tap.mp3")
+    // );
+    // setSound(sound);
+  }
+
+  async function playMagicSound() {
+    await magicSound?.current?.playAsync();
+  }
+
+  async function replayMagicSound() {
+    await magicSound?.current?.replayAsync();
   }
 
   const gesture = Gesture.Pan()
@@ -226,7 +261,7 @@ export default function MusicasDificil({ navigation, rows = 10, cols = 10 }) {
 
       if (isAligned(initialCell, { row, col })) {
         if (!isCellSelected(row, col)) {
-          playSound();
+          replaySound();
           setSelectedCells((prevCells) => [...prevCells, { row, col }]);
           const filteredCells = filterCellsByMovement([
             ...selectedCells,
@@ -238,6 +273,7 @@ export default function MusicasDificil({ navigation, rows = 10, cols = 10 }) {
       }
     })
     .onFinalize(() => {
+      pauseSound();
       let letterSelected = "";
       selectedCells.forEach((cell) => {
         if (isAligned(initialCell, cell)) {
@@ -265,7 +301,7 @@ export default function MusicasDificil({ navigation, rows = 10, cols = 10 }) {
       palavras.forEach((palavra) => {
         if (palavra.name === letterSelected) {
           palavra.found = true;
-          wordFinded();
+          replayMagicSound();
           setWordsFound(wordsFound + 1);
           atualizarPalavraParaCor(letterSelected, cores[wordsFound]);
         }
