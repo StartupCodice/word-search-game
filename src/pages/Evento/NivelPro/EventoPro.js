@@ -1,43 +1,50 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Text, View, ImageBackground, Dimensions, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { StatusBar } from 'expo-status-bar';
-import Modal from 'react-native-modal';
-import { createGame } from 'hunting-words';
-import randomcolor from 'randomcolor';
-import styles from './style';
-import {scale} from 'react-native-size-matters';
-import ThemeStorage from '../../../components/storageTheme';
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import {
+  Text,
+  View,
+  ImageBackground,
+  Dimensions,
+  TouchableOpacity,
+  FlatList,
+  StyleSheet,
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { StatusBar } from "expo-status-bar";
+import Modal from "react-native-modal";
+import { createGame } from "hunting-words";
+import randomcolor from "randomcolor";
+import styles from "./style";
+import { scale } from "react-native-size-matters";
+import ThemeStorage from "../../../components/storageTheme";
 
-import { GestureDetector, Gesture } from 'react-native-gesture-handler';
+import { GestureDetector, Gesture } from "react-native-gesture-handler";
+
+import { Audio } from "expo-av";
 
 const CELL_SIZE = Math.floor(220 * 0.1);
 const CELL_PADDING = Math.floor(CELL_SIZE * 0.1);
 
 const { width, height } = Dimensions.get("screen");
 
-const Cell = React.memo(({ letter, selected, palavraParaCor, cores, wordsFound }) => {
-  const color = palavraParaCor[letter.word] || cores[wordsFound];
+const Cell = React.memo(
+  ({ letter, selected, palavraParaCor, cores, wordsFound }) => {
+    const color = palavraParaCor[letter.word] || cores[wordsFound];
 
-  return (
-    <View
-      style={[
-        styles.cell,
-        (letter.isSelected) && [
-          styles.selected,
-          { backgroundColor: color },
-        ],
-        selected && [styles.selected, { backgroundColor: color }],
-      ]}
-    >
-      <Text style={styles.cellText}>{letter.letter}</Text>
-    </View>
-  )
-});
-
+    return (
+      <View
+        style={[
+          styles.cell,
+          letter.isSelected && [styles.selected, { backgroundColor: color }],
+          selected && [styles.selected, { backgroundColor: color }],
+        ]}
+      >
+        <Text style={styles.cellText}>{letter.letter}</Text>
+      </View>
+    );
+  }
+);
 
 export default function EventoPro({ navigation, rows = 12, cols = 12 }) {
-
   const [palavras, setPalavras] = useState([]);
   const [board, setBoard] = useState({
     game: new createGame(12, 12, []),
@@ -62,7 +69,7 @@ export default function EventoPro({ navigation, rows = 12, cols = 12 }) {
     gestureType: null,
   });
 
-  const[wordsFound, setWordsFound] = useState(0);
+  const [wordsFound, setWordsFound] = useState(0);
   const [palavraParaCor, setPalavraParaCor] = useState([]);
   const widthCell = (width * 0.85) / 12;
   const heightCell = (height * 0.6) / 12;
@@ -79,156 +86,156 @@ export default function EventoPro({ navigation, rows = 12, cols = 12 }) {
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
   const startTimer = () => {
-      const intervalId = setInterval(() => {
-          setTimeRemaining(prevTime => {
-              if (prevTime > 0) {
-                  return prevTime - 1;
-              } else {
-                  clearInterval(intervalId);
-                  setTempoAcabou(true);
-                  return 0;
-              }
-          });
-      }, 1000);
+    const intervalId = setInterval(() => {
+      setTimeRemaining((prevTime) => {
+        if (prevTime > 0) {
+          return prevTime - 1;
+        } else {
+          clearInterval(intervalId);
+          setTempoAcabou(true);
+          return 0;
+        }
+      });
+    }, 1000);
 
-      return intervalId;
+    return intervalId;
   };
 
   const getWordsToTheme = (th) => {
     switch (th) {
-      case 'Presentes':
+      case "Presentes":
         return [
-          { name: 'PAPAI', found: false },
-          { name: 'MAMAE', found: false },
-          { name: 'ANJO', found: false },
-          { name: 'SANTA', found: false },
-          { name: 'CUPIDO', found: false },
-          { name: 'DUENDE', found: false },
-          { name: 'ELFO', found: false },
-          { name: 'REIS', found: false },
-          { name: 'BELA', found: false },
-          { name: 'RENA', found: false },
-          { name: 'NOEL', found: false },
-          { name: 'FADA', found: false },
-          { name: 'GRINCH', found: false },
-          { name: 'LILY', found: false },
-          { name: 'JACK', found: false },
-          { name: 'BONECO', found: false },
+          { name: "PAPAI", found: false },
+          { name: "MAMAE", found: false },
+          { name: "ANJO", found: false },
+          { name: "SANTA", found: false },
+          { name: "CUPIDO", found: false },
+          { name: "DUENDE", found: false },
+          { name: "ELFO", found: false },
+          { name: "REIS", found: false },
+          { name: "BELA", found: false },
+          { name: "RENA", found: false },
+          { name: "NOEL", found: false },
+          { name: "FADA", found: false },
+          { name: "GRINCH", found: false },
+          { name: "LILY", found: false },
+          { name: "JACK", found: false },
+          { name: "BONECO", found: false },
         ];
-      case 'Decorações':
+      case "Decorações":
         return [
-          { name: 'VISCO', found: false },
-          { name: 'COROA', found: false },
-          { name: 'LUZES', found: false },
-          { name: 'RENAS', found: false },
-          { name: 'VELAS', found: false },
-          { name: 'LAÇOS', found: false },
-          { name: 'BOLA', found: false },
-          { name: 'LIGHT', found: false },
-          { name: 'GIFT', found: false },
-          { name: 'TREE', found: false },
-          { name: 'STAR', found: false },
-          { name: 'BELL', found: false },
-          { name: 'SNOW', found: false },
-          { name: 'FITA', found: false },
-          { name: 'CENA', found: false },
-          { name: 'NOEL', found: false },
-          { name: 'NEVE', found: false },
-          { name: 'FELIZ', found: false },
-          { name: 'MEIAS', found: false },
-          { name: 'GLOBO', found: false },
-          { name: 'TETO', found: false },
-          { name: 'CASA', found: false },
-          { name: 'FLOCO', found: false },
-          { name: 'ESTRELA', found: false },
-          { name: 'CRIANÇA', found: false },
-          { name: 'NEON', found: false },
-          { name: 'PLACA', found: false },
-          { name: 'ARCO', found: false },
-          { name: 'CORDA', found: false },
-          { name: 'RIBBON', found: false },
-          { name: 'ARVORE', found: false },
-          { name: 'PISCA', found: false },
+          { name: "VISCO", found: false },
+          { name: "COROA", found: false },
+          { name: "LUZES", found: false },
+          { name: "RENAS", found: false },
+          { name: "VELAS", found: false },
+          { name: "LAÇOS", found: false },
+          { name: "BOLA", found: false },
+          { name: "LIGHT", found: false },
+          { name: "GIFT", found: false },
+          { name: "TREE", found: false },
+          { name: "STAR", found: false },
+          { name: "BELL", found: false },
+          { name: "SNOW", found: false },
+          { name: "FITA", found: false },
+          { name: "CENA", found: false },
+          { name: "NOEL", found: false },
+          { name: "NEVE", found: false },
+          { name: "FELIZ", found: false },
+          { name: "MEIAS", found: false },
+          { name: "GLOBO", found: false },
+          { name: "TETO", found: false },
+          { name: "CASA", found: false },
+          { name: "FLOCO", found: false },
+          { name: "ESTRELA", found: false },
+          { name: "CRIANÇA", found: false },
+          { name: "NEON", found: false },
+          { name: "PLACA", found: false },
+          { name: "ARCO", found: false },
+          { name: "CORDA", found: false },
+          { name: "RIBBON", found: false },
+          { name: "ARVORE", found: false },
+          { name: "PISCA", found: false },
         ];
-      case 'Alimentos':
+      case "Alimentos":
         return [
-          { name: 'PERU', found: false },
-          { name: 'VINHO', found: false },
-          { name: 'CEIA', found: false },
-          { name: 'LEITE', found: false },
-          { name: 'DOCE', found: false },
-          { name: 'GANSO', found: false },
-          { name: 'MESSA', found: false },
-          { name: 'SALSA', found: false },
-          { name: 'TORTA', found: false },
-          { name: 'NOZES', found: false },
-          { name: 'COCA', found: false },
-          { name: 'PAO', found: false },
-          { name: 'FIGO', found: false },
-          { name: 'UVA', found: false },
-          { name: 'RIO', found: false },
-          { name: 'FESTA', found: false },
-          { name: 'BIFE', found: false },
-          { name: 'MELAO', found: false },
-          { name: 'MESA', found: false },
-          { name: 'CASA', found: false },
-          { name: 'ABACO', found: false },
-          { name: 'AÇUCAR', found: false },
-          { name: 'FLORA', found: false },
-          { name: 'PESCA', found: false },
-          { name: 'BOLA', found: false },
-          { name: 'VILA', found: false },
-          { name: 'TINTO', found: false },
-          { name: 'TRIGO', found: false },
-          { name: 'LISO', found: false },
-          { name: 'NOME', found: false },
-          { name: 'VELOZ', found: false },
-          { name: 'LOBO', found: false },
-          { name: 'CARRO', found: false },
-          { name: 'TOGA', found: false },
-          { name: 'RODA', found: false },
-          { name: 'LAMA', found: false },
-          { name: 'ZOOM', found: false },
-          { name: 'SOL', found: false },
-          { name: 'CÉU', found: false },
-          { name: 'URSO', found: false },
-          { name: 'FITA', found: false },
-          { name: 'MOFO', found: false },
-          { name: 'CALMO', found: false },
-          { name: 'VERDE', found: false },
-          { name: 'ABRIL', found: false },
-          { name: 'FATO', found: false },
-          { name: 'GIZ', found: false },
-          { name: 'FOCA', found: false },
-          { name: 'PESO', found: false },
-          { name: 'ROLAR', found: false },
-          { name: 'CASA', found: false },
+          { name: "PERU", found: false },
+          { name: "VINHO", found: false },
+          { name: "CEIA", found: false },
+          { name: "LEITE", found: false },
+          { name: "DOCE", found: false },
+          { name: "GANSO", found: false },
+          { name: "MESSA", found: false },
+          { name: "SALSA", found: false },
+          { name: "TORTA", found: false },
+          { name: "NOZES", found: false },
+          { name: "COCA", found: false },
+          { name: "PAO", found: false },
+          { name: "FIGO", found: false },
+          { name: "UVA", found: false },
+          { name: "RIO", found: false },
+          { name: "FESTA", found: false },
+          { name: "BIFE", found: false },
+          { name: "MELAO", found: false },
+          { name: "MESA", found: false },
+          { name: "CASA", found: false },
+          { name: "ABACO", found: false },
+          { name: "AÇUCAR", found: false },
+          { name: "FLORA", found: false },
+          { name: "PESCA", found: false },
+          { name: "BOLA", found: false },
+          { name: "VILA", found: false },
+          { name: "TINTO", found: false },
+          { name: "TRIGO", found: false },
+          { name: "LISO", found: false },
+          { name: "NOME", found: false },
+          { name: "VELOZ", found: false },
+          { name: "LOBO", found: false },
+          { name: "CARRO", found: false },
+          { name: "TOGA", found: false },
+          { name: "RODA", found: false },
+          { name: "LAMA", found: false },
+          { name: "ZOOM", found: false },
+          { name: "SOL", found: false },
+          { name: "CÉU", found: false },
+          { name: "URSO", found: false },
+          { name: "FITA", found: false },
+          { name: "MOFO", found: false },
+          { name: "CALMO", found: false },
+          { name: "VERDE", found: false },
+          { name: "ABRIL", found: false },
+          { name: "FATO", found: false },
+          { name: "GIZ", found: false },
+          { name: "FOCA", found: false },
+          { name: "PESO", found: false },
+          { name: "ROLAR", found: false },
+          { name: "CASA", found: false },
         ];
-      case 'Personagens':
+      case "Personagens":
         return [
-          { name: 'PAPAI', found: false },
-          { name: 'MAMAE', found: false },
-          { name: 'ANJO', found: false },
-          { name: 'SANTA', found: false },
-          { name: 'CUPIDO', found: false },
-          { name: 'DUENDE', found: false },
-          { name: 'ELFO', found: false },
-          { name: 'REIS', found: false },
-          { name: 'BELA', found: false },
-          { name: 'RENA', found: false },
-          { name: 'NOEL', found: false },
-          { name: 'FADA', found: false },
-          { name: 'GRINCH', found: false },
-          { name: 'LILY', found: false },
-          { name: 'JACK', found: false },
-          { name: 'BONECO', found: false },
+          { name: "PAPAI", found: false },
+          { name: "MAMAE", found: false },
+          { name: "ANJO", found: false },
+          { name: "SANTA", found: false },
+          { name: "CUPIDO", found: false },
+          { name: "DUENDE", found: false },
+          { name: "ELFO", found: false },
+          { name: "REIS", found: false },
+          { name: "BELA", found: false },
+          { name: "RENA", found: false },
+          { name: "NOEL", found: false },
+          { name: "FADA", found: false },
+          { name: "GRINCH", found: false },
+          { name: "LILY", found: false },
+          { name: "JACK", found: false },
+          { name: "BONECO", found: false },
         ];
     }
-  }
+  };
 
   const selectRandomWords = (totalWords, numWords) => {
     const selectedWords = [];
@@ -340,10 +347,72 @@ export default function EventoPro({ navigation, rows = 12, cols = 12 }) {
     [selectedCells]
   );
 
+  const tapSound = useRef(new Audio.Sound());
+  const magicSound = useRef(new Audio.Sound());
+
+  useEffect(() => {
+    loadMagicAudio();
+    loadTapAudio();
+  }, []);
+
+  async function loadTapAudio() {
+    const { soundMagic } = await tapSound.current.loadAsync(
+      require("../../../assets/tap.mp3")
+    );
+  }
+
+  async function loadMagicAudio() {
+    const { soundTap } = await magicSound.current.loadAsync(
+      require("../../../assets/magicSound.mp3")
+    );
+  }
+
+  async function playSound() {
+    await tapSound?.current?.playAsync();
+    // const { sound } = await Audio.Sound.createAsync(
+    //   require("../../../../../assets/tap.mp3")
+    // );
+    // setSound(sound);
+  }
+
+  async function replaySound() {
+    await tapSound?.current?.replayAsync();
+    // const { sound } = await Audio.Sound.createAsync(
+    //   require("../../../../../assets/tap.mp3")
+    // );
+    // setSound(sound);
+  }
+
+  async function pauseSound() {
+    await tapSound?.current?.pauseAsync();
+    // const { sound } = await Audio.Sound.createAsync(
+    //   require("../../../../../assets/tap.mp3")
+    // );
+    // setSound(sound);
+  }
+
+  async function playMagicSound() {
+    await magicSound?.current?.playAsync();
+  }
+
+  async function replayMagicSound() {
+    await magicSound?.current?.replayAsync();
+  }
+
+  // async function wordFinded() {
+  //   // const { sound } = await Audio.Sound.createAsync(
+  //   //   require("../../../../../assets/magicSound.mp3")
+  //   // );
+  //   // setSound(sound);
+  //   await sound.current.playAsync();
+  // }
+
   const gesture = Gesture.Pan()
     .onStart(({ x, y }) => {
       const row = Math.floor(y / heightCell);
       const col = Math.floor(x / widthCell);
+
+      playSound();
 
       if (!initialCell) {
         setInitialCell({ row, col });
@@ -355,6 +424,7 @@ export default function EventoPro({ navigation, rows = 12, cols = 12 }) {
 
       if (isAligned(initialCell, { row, col })) {
         if (!isCellSelected(row, col)) {
+          replaySound();
           setSelectedCells((prevCells) => [...prevCells, { row, col }]);
           const filteredCells = filterCellsByMovement([
             ...selectedCells,
@@ -366,8 +436,8 @@ export default function EventoPro({ navigation, rows = 12, cols = 12 }) {
       }
     })
     .onFinalize(() => {
+      pauseSound();
       let letterSelected = "";
-
       selectedCells.forEach((cell) => {
         if (isAligned(initialCell, cell)) {
           board.game.board.forEach((row) => {
@@ -394,6 +464,7 @@ export default function EventoPro({ navigation, rows = 12, cols = 12 }) {
       palavras.forEach((palavra) => {
         if (palavra.name === letterSelected) {
           palavra.found = true;
+          replayMagicSound();
           setWordsFound(wordsFound + 1);
           atualizarPalavraParaCor(letterSelected, cores[wordsFound]);
         }
@@ -411,26 +482,26 @@ export default function EventoPro({ navigation, rows = 12, cols = 12 }) {
 
   const fetchData = async (th) => {
     try {
-      const palavrasOriginais = getWordsToTheme(th);;
+      const palavrasOriginais = getWordsToTheme(th);
 
-    if (isMountedRef.current) {
-      const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 9);
-    setPalavras(palavrasEscolhidas);
+      if (isMountedRef.current) {
+        const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 9);
+        setPalavras(palavrasEscolhidas);
 
-    const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
-    setBoard({ game: new createGame(12, 12, palavrasJogo) });
+        const palavrasJogo = palavrasEscolhidas.map((palavra) => palavra.name);
+        setBoard({ game: new createGame(12, 12, palavrasJogo) });
 
-    const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
-    setCores(coresAleatorias);
+        const coresAleatorias = palavrasEscolhidas.map(() => randomcolor());
+        setCores(coresAleatorias);
 
-    setStartTime(new Date());
-    setModalVisible(false);
-    setTempoDecorrido(0);
-    setWordsFound(0);
-    setPalavraParaCor([]);
-    }
+        setStartTime(new Date());
+        setModalVisible(false);
+        setTempoDecorrido(0);
+        setWordsFound(0);
+        setPalavraParaCor([]);
+      }
     } catch (error) {
-      console.error('Erro ao buscar dados: ', error);
+      console.error("Erro ao buscar dados: ", error);
     }
   };
 
@@ -448,7 +519,7 @@ export default function EventoPro({ navigation, rows = 12, cols = 12 }) {
         setTimeRemaining(150);
         intervalId = startTimer();
       } catch (error) {
-        console.error('Erro ao obter o tema:', error);
+        console.error("Erro ao obter o tema:", error);
       }
     };
 
@@ -459,7 +530,6 @@ export default function EventoPro({ navigation, rows = 12, cols = 12 }) {
       clearInterval(intervalId);
     };
   }, []);
-
 
   function userWin() {
     const isWin = palavras.every((palavra) => palavra.found === true);
@@ -483,44 +553,60 @@ export default function EventoPro({ navigation, rows = 12, cols = 12 }) {
   };
 
   const [selectedCells, setSelectedCells] = useState([]);
-const panRef = useRef(null);
+  const panRef = useRef(null);
 
-const isCellSelected = useCallback(
-  (row, col) => selectedCells.some(cell => cell.row === row && cell.col === col),
-  [selectedCells]
-);
+  const isCellSelected = useCallback(
+    (row, col) =>
+      selectedCells.some((cell) => cell.row === row && cell.col === col),
+    [selectedCells]
+  );
 
-const isAligned = (cell1, cell2) => {
-  if (!cell1 || !cell2) return false;
+  const isAligned = (cell1, cell2) => {
+    if (!cell1 || !cell2) return false;
 
-  const rowDiff = Math.abs(cell1.row - cell2.row);
-  const colDiff = Math.abs(cell1.col - cell2.col);
+    const rowDiff = Math.abs(cell1.row - cell2.row);
+    const colDiff = Math.abs(cell1.col - cell2.col);
 
-  return rowDiff === colDiff || cell1.row === cell2.row || cell1.col === cell2.col;
-};
-
-
+    return (
+      rowDiff === colDiff || cell1.row === cell2.row || cell1.col === cell2.col
+    );
+  };
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('./../../../assets/fundoAzul.jpg')} style={styles.imageBackground}>
+      <ImageBackground
+        source={require("./../../../assets/fundoAzul.jpg")}
+        style={styles.imageBackground}
+      >
+        <TouchableOpacity onPress={mostrarDica}>
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <ImageBackground
+              source={require("./../../../assets/lampada.png")}
+              style={styles.Dica}
+            >
+              <Text style={styles.dicaNumber}>{5 - numDicasUsadas}</Text>
+            </ImageBackground>
+          </View>
+        </TouchableOpacity>
 
-      <TouchableOpacity onPress={mostrarDica}>
-        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <ImageBackground
-            source={require('./../../../assets/lampada.png')}
-            style={styles.Dica}
-          >
-            <Text style={styles.dicaNumber}>{5 - numDicasUsadas}</Text>
-          </ImageBackground>
-        </View>
-      </TouchableOpacity>
+        <Ionicons
+          style={styles.button}
+          name="arrow-back"
+          size={scale(40)}
+          color="white"
+          onPress={() => navigation.navigate("Home")}
+        />
 
-          <Ionicons style={styles.button} name="arrow-back" size={scale(40)} color="white"
-            onPress={() => navigation.navigate('Home')} />
-
-        <View style={{ justifyContent: 'center', alignItems: 'center', top: scale(-80) }}>
-          <Text style={{ fontSize: scale(22), color: 'white' }}>{formatTime(timeRemaining)}</Text>
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            top: scale(-80),
+          }}
+        >
+          <Text style={{ fontSize: scale(22), color: "white" }}>
+            {formatTime(timeRemaining)}
+          </Text>
         </View>
 
         <View style={styles.cacaContainer}>
@@ -555,44 +641,51 @@ const isAligned = (cell1, cell2) => {
           {palavras.map((palavra, index) => (
             <Text
               key={index}
-              style={[
-                styles.palavras,
-                palavra.found ? styles.wordFound : null,
-              ]}
+              style={[styles.palavras, palavra.found ? [
+                styles.wordFound,
+                { backgroundColor: palavraParaCor[palavra.name] }
+              ] : null]}
             >
               {palavra.name}
             </Text>
           ))}
         </View>
 
-        <Modal isVisible={hintsExhausted} onBackdropPress={fecharModalDicasEsgotadas} style={styles.modalContainer2}>
-        <View style={styles.modalContainer}>
-          <Text style={styles.modalText}>
-            As dicas acabaram!
-          </Text>
-          <TouchableOpacity style={styles.modalButton} onPress={fecharModalDicasEsgotadas}>
-            <Text style={styles.modalButtonText}>Fechar</Text>
-          </TouchableOpacity>
-        </View>
-      </Modal>
+        <Modal
+          isVisible={hintsExhausted}
+          onBackdropPress={fecharModalDicasEsgotadas}
+          style={styles.modalContainer2}
+        >
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalText}>As dicas acabaram!</Text>
+            <TouchableOpacity
+              style={styles.modalButton}
+              onPress={fecharModalDicasEsgotadas}
+            >
+              <Text style={styles.modalButtonText}>Fechar</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
 
-      <Modal isVisible={isModalVisible} style={styles.modalContainer2}>
-        <View style={styles.modalContainer}>
-          <TouchableOpacity style={styles.modalVoltarHome} onPress={() => navigation.navigate('Home')}>
-            <Text style={styles.modalButtonText}>Voltar</Text>
-          </TouchableOpacity>
-          <View style={styles.modalGanhos}>
+        <Modal isVisible={isModalVisible} style={styles.modalContainer2}>
+          <View style={styles.modalContainer}>
+            <TouchableOpacity
+              style={styles.modalVoltarHome}
+              onPress={() => navigation.navigate("Home")}
+            >
+              <Text style={styles.modalButtonText}>Voltar</Text>
+            </TouchableOpacity>
+            <View style={styles.modalGanhos}>
               <View>
                 <Text style={styles.modalText}>TEMPO:</Text>
                 <Text style={styles.textTempo}>{tempoDecorrido}</Text>
               </View>
+            </View>
           </View>
-        </View>
-      </Modal>
+        </Modal>
 
         <StatusBar style="auto" />
       </ImageBackground>
     </View>
   );
 }
-
