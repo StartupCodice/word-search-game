@@ -591,7 +591,10 @@ export default function EscritorasDificil({
           {palavras.map((palavra, index) => (
             <Text
               key={index}
-              style={[styles.palavras, palavra.found ? styles.wordFound : null]}
+              style={[styles.palavras, palavra.found ? [
+                styles.wordFound,
+                { backgroundColor: palavraParaCor[palavra.name] }
+              ] : null]}
             >
               {palavra.name}
             </Text>

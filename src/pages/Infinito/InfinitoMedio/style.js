@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     zIndex: 100
   },
   wordFound: {
-    color: 'gray',
+    color: 'black',
     padding: 10,
   },
   cacaContainer: {
