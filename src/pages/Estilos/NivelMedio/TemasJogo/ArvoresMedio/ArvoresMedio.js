@@ -333,6 +333,13 @@ export default function ArvoresMedio({ navigation, rows = 8, cols = 8 }) {
         { name: "BONSAI", found: false },
         { name: "CEDRO", found: false },
         { name: "HERA", found: false },
+        { name: "IMBU", found: false },
+        { name: "CAJU", found: false },
+        { name: "CAPI", found: false },
+        { name: "CATA", found: false },
+        { name: "JACÁ", found: false },
+        { name: "PIPA", found: false },
+        { name: "PACA", found: false },
       ];
 
       if (isMountedRef.current) {
@@ -394,18 +401,25 @@ export default function ArvoresMedio({ navigation, rows = 8, cols = 8 }) {
   const reiniciarJogo = () => {
     const palavrasOriginais = [
       { name: "IPE", found: false },
-      { name: "MOGNO", found: false },
-      { name: "OITI", found: false },
-      { name: "CAMBU", found: false },
-      { name: "ABIL", found: false },
-      { name: "ARAÇA", found: false },
-      { name: "ABETO", found: false },
-      { name: "ROSA", found: false },
-      { name: "LIRIO", found: false },
-      { name: "GIESTA", found: false },
-      { name: "BONSAI", found: false },
-      { name: "CEDRO", found: false },
-      { name: "HERA", found: false },
+        { name: "MOGNO", found: false },
+        { name: "OITI", found: false },
+        { name: "CAMBU", found: false },
+        { name: "ABIL", found: false },
+        { name: "ARAÇA", found: false },
+        { name: "ABETO", found: false },
+        { name: "ROSA", found: false },
+        { name: "LIRIO", found: false },
+        { name: "GIESTA", found: false },
+        { name: "BONSAI", found: false },
+        { name: "CEDRO", found: false },
+        { name: "HERA", found: false },
+        { name: "IMBU", found: false },
+        { name: "CAJU", found: false },
+        { name: "CAPI", found: false },
+        { name: "CATA", found: false },
+        { name: "JACÁ", found: false },
+        { name: "PIPA", found: false },
+        { name: "PACA", found: false },
     ];
 
     const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 6);

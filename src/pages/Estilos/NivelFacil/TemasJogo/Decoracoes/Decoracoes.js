@@ -332,6 +332,13 @@ export default function Decoracoes({ navigation, rows = 8, cols = 8 }) {
         { name: "STAR", found: false },
         { name: "BELL", found: false },
         { name: "SNOW", found: false },
+        { name: "VASO", found: false },
+        { name: "LUZ", found: false },
+        { name: "VELA", found: false },
+        { name: "MESA", found: false },
+        { name: "SINO", found: false },
+        { name: "FITA", found: false },
+        { name: "FLOR", found: false },
       ];
 
       if (isMountedRef.current) {
@@ -393,18 +400,25 @@ export default function Decoracoes({ navigation, rows = 8, cols = 8 }) {
   const reiniciarJogo = () => {
     const palavrasOriginais = [
       { name: "VISCO", found: false },
-      { name: "COROA", found: false },
-      { name: "LUZES", found: false },
-      { name: "RENAS", found: false },
-      { name: "VELAS", found: false },
-      { name: "LAÇOS", found: false },
-      { name: "BOLA", found: false },
-      { name: "LIGHT", found: false },
-      { name: "GIFT", found: false },
-      { name: "TREE", found: false },
-      { name: "STAR", found: false },
-      { name: "BELL", found: false },
-      { name: "SNOW", found: false },
+        { name: "COROA", found: false },
+        { name: "LUZES", found: false },
+        { name: "RENAS", found: false },
+        { name: "VELAS", found: false },
+        { name: "LAÇOS", found: false },
+        { name: "BOLA", found: false },
+        { name: "LIGHT", found: false },
+        { name: "GIFT", found: false },
+        { name: "TREE", found: false },
+        { name: "STAR", found: false },
+        { name: "BELL", found: false },
+        { name: "SNOW", found: false },
+        { name: "VASO", found: false },
+        { name: "LUZ", found: false },
+        { name: "VELA", found: false },
+        { name: "MESA", found: false },
+        { name: "SINO", found: false },
+        { name: "FITA", found: false },
+        { name: "FLOR", found: false },
     ];
 
     const palavrasEscolhidas = selectRandomWords(palavrasOriginais, 4);
