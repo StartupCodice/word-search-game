@@ -121,6 +121,8 @@ export default function InfinitoFacil({ navigation, rows = 6, cols = 8 }) {
         novasPalavras.forEach((palavra) => {
           if (palavra.name === palavraAleatoria.name) {
             palavra.found = true;
+            setWordsFound(wordsFound + 1);
+            atualizarPalavraParaCor(palavraAleatoria.name, cores[wordsFound]);
           }
         });
 

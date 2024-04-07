@@ -33,6 +33,8 @@ import {
   Gesture,
 } from "react-native-gesture-handler";
 
+import { Audio } from "expo-av";
+
 const CELL_SIZE = Math.floor(350 * 0.1);
 const CELL_PADDING = Math.floor(scale(10) * 0.1);
 
