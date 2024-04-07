@@ -126,7 +126,7 @@ export default function CoresDificil({ navigation, rows = 10, cols = 10 }) {
           if (palavra.name === palavraAleatoria.name) {
             palavra.found = true;
             setWordsFound(wordsFound + 1);
-            atualizarPalavraParaCor(palavraAleatoria.name, cores[wordsFound]);
+            atualizarPalavraParaCor(palavraAleatoria.name, coresAleatorias[wordsFound]);
           }
         });
 
@@ -303,7 +303,7 @@ export default function CoresDificil({ navigation, rows = 10, cols = 10 }) {
           palavra.found = true;
           replayMagicSound();
           setWordsFound(wordsFound + 1);
-          atualizarPalavraParaCor(letterSelected, cores[wordsFound]);
+          atualizarPalavraParaCor(letterSelected, coresAleatorias[wordsFound]);
         }
       });
 
@@ -570,7 +570,7 @@ export default function CoresDificil({ navigation, rows = 10, cols = 10 }) {
                           letter={letter}
                           selected={isCellSelected(letter.row, letter.column)}
                           palavraParaCor={palavraParaCor}
-                          cores={cores}
+                          cores={coresAleatorias}
                           wordsFound={wordsFound}
                         />
                       ))}

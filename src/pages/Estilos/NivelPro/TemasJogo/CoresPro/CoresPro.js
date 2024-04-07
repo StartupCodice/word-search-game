@@ -126,7 +126,7 @@ export default function CoresPro({ navigation, rows = 12, cols = 12 }) {
           if (palavra.name === palavraAleatoria.name) {
             palavra.found = true;
             setWordsFound(wordsFound + 1);
-            atualizarPalavraParaCor(palavraAleatoria.name, cores[wordsFound]);
+            atualizarPalavraParaCor(palavraAleatoria.name, coresAleatorias[wordsFound]);
           }
         });
 
@@ -303,7 +303,7 @@ export default function CoresPro({ navigation, rows = 12, cols = 12 }) {
           palavra.found = true;
           replayMagicSound();
           setWordsFound(wordsFound + 1);
-          atualizarPalavraParaCor(letterSelected, cores[wordsFound]);
+          atualizarPalavraParaCor(letterSelected, coresAleatorias[wordsFound]);
         }
       });
 
@@ -571,7 +571,7 @@ export default function CoresPro({ navigation, rows = 12, cols = 12 }) {
                           letter={letter}
                           selected={isCellSelected(letter.row, letter.column)}
                           palavraParaCor={palavraParaCor}
-                          cores={cores}
+                          cores={coresAleatorias}
                           wordsFound={wordsFound}
                         />
                       ))}
