@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { RewardedAd, TestIds, RewardedAdEventType } from 'react-native-google-mobile-ads';
+import { RewardedAd, RewardedAdEventType, TestIds } from 'react-native-google-mobile-ads';
 
-const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';
+const adUnitId = 'ca-app-pub-2989564787961797/1947344165';
 
-const rewarded = RewardedAd.createForAdRequest(adUnitId, {
+const rewarded = RewardedAd.createForAdRequest(TestIds.REWARDED, {
   keywords: ['fashion', 'clothing'],
 });
 

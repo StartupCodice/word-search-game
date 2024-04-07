@@ -6,7 +6,13 @@ const CELL_PADDING = Math.floor(scale(10) * 0.1);
 
 
 const styles = StyleSheet.create({
-
+  bannerAd: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+  },
   row: {
     flexDirection: 'row',
   },
@@ -242,7 +248,6 @@ const styles = StyleSheet.create({
     fontSize: wp(6),
   },
   selected: {
-    backgroundColor: 'gray',
     color: 'white',
     borderRadius: 10,
   },

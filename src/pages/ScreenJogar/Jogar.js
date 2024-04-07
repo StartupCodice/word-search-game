@@ -17,9 +17,11 @@ import { PanGestureHandler, State, GestureHandlerRootView } from 'react-native-g
 const CELL_SIZE = Math.floor(350 * 0.1);
 const CELL_PADDING = Math.floor(scale(10) * 0.1);
 
-const Cell = React.memo(({ letter, selected }) => {
+const Cell = React.memo(({ letter, selected, cores, palavras }) => {
+  const wordsFound = palavras.filter((word) => word.found).length;
+
   return (
-    <View style={[styles.cell, letter.isSelected && styles.selected, selected && styles.selected]}>
+    <View style={[styles.cell, letter.isSelected && [styles.selected, { backgroundColor: cores[wordsFound] }], selected && [styles.selected, { backgroundColor: cores[wordsFound] }]]}>
       <Text style={styles.cellText}>{letter.letter}</Text>
     </View>
   )
@@ -39,7 +41,7 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
   const [numDicasUsadas, setNumDicasUsadas] = useState(0);
   const [hintsExhausted, setHintsExhausted] = useState(false);
   const [columns, setColumns] = useState([]);
-  const { moedas, adicionarMoedas } = MoedasComponent();
+  const { moedas, adicionarMoedas, removeMoedas } = MoedasComponent();
   const { level, addLevel } = LevelComponent();
   const [moedasGanhas, setMoedasGanhas] = useState(0);
   const [currentCell, setCurrentCell] = useState(null);
@@ -54,7 +56,9 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
   const [showIntersititial, setShowIntersititial] = useState(false);
   const [showRewarded, setShowRewarded] = useState(false);
   const [addTip, setAddTip] = useState(false);
-  
+  const [buyTip, setBuyTip] = useState(50);
+  const [showModalSemSaldo, setShowModalSemSaldo] = useState(false);
+
   const isMountedRef = useRef(true);
 
   const selectRandomWords = (totalWords, numWords) => {
@@ -402,6 +406,16 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
     setAddTip(true);
     fecharModalDicasEsgotadas();
   }
+
+  const buyTipWithCoin = () => {
+    if (moedas >= buyTip) {
+      setNumDicasUsadas(2);
+      fecharModalDicasEsgotadas();
+      removeMoedas(buyTip);
+    } else {
+      setShowModalSemSaldo(true);
+    }
+  }
   
   return (
     <View style={styles.container}>
@@ -464,6 +478,8 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
                           key={`cell-${indexRow}-${colIndex}`} 
                           letter={letter} 
                           selected={isCellSelected(indexRow, colIndex)} 
+                          cores={cores}
+                          palavras={palavras}
                         />
                       ))
                     }
@@ -476,7 +492,7 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
         </View>
         </View>
 
-        <View style={{ marginTop: scale(200) }}>
+        <View style={styles.bannerAd}>
           <BannerAds />
         </View>
 
@@ -486,11 +502,31 @@ export default function Jogar({ navigation, rows = 8, cols = 8 }) {
           <Text style={styles.modalText}>
             As dicas acabaram!
           </Text>
+          <Text style={[styles.modalText, { fontSize: scale(15), textAlign: 'center' }]}>
+            Para adquirir mais uma dica, assista a um vídeo ou compre com moedas
+          </Text>
           <TouchableOpacity style={styles.modalButton} onPress={() => setShowRewarded(true)}>
-            <Text style={styles.modalButtonText}>+1 dica</Text>
+            <Image
+              source={require('../../assets/banner-ad.png')}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.modalButton, { flexDirection: 'row', justifyContent: 'center', gap: 15 }]} onPress={buyTipWithCoin}>
+            <Text style={styles.modalButtonText}>{buyTip}</Text>
+            <View style={styles.IconMoeda}></View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.modalButton} onPress={fecharModalDicasEsgotadas}>
             <Text style={styles.modalButtonText}>Fechar</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
+
+      <Modal isVisible={showModalSemSaldo} style={styles.modalContainer2}>
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalText}>
+            Você não tem moedas sufientes para comprar uma dica!
+          </Text>
+          <TouchableOpacity style={styles.modalButton} onPress={() => setShowModalSemSaldo(false)}>
+            <Text style={styles.modalButtonText}>Voltar</Text>
           </TouchableOpacity>
         </View>
       </Modal>

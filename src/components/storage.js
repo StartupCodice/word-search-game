@@ -140,6 +140,11 @@ const MoedasComponent = () => {
     saveMoedasAcumuladas(moedas + quantidade);
   };
 
+  const removeMoedas = (quantidade) => {
+    setMoedas((moedasAntigas) => moedasAntigas - quantidade);
+    saveMoedasAcumuladas(moedas - quantidade);
+  };
+
   const buyTheme = (price) => {
     setMoedas((moedasAntigas) => moedasAntigas - price);
     saveMoedasAcumuladas(moedas - price);
@@ -241,6 +246,7 @@ const MoedasComponent = () => {
   return { 
     moedas,
     adicionarMoedas,
+    removeMoedas,
     buyTheme,
     temasPagosNivelFacil,
     adicionarTemasPagosNivelFacil,
