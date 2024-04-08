@@ -101,6 +101,13 @@ export default function DecoracoesPro({ navigation, rows = 12, cols = 12 }) {
     return selectedWords;
   };
 
+  const atualizarPalavraParaCor = useCallback((palavra, cor) => {
+    setPalavraParaCor((prev) => ({
+      ...prev,
+      [palavra]: cor,
+    }));
+  }, []);
+
   const mostrarDica = () => {
     if (numDicasUsadas < 5) {
       const palavrasNaoEncontradas = palavras.filter(

@@ -86,6 +86,13 @@ export default function EsportesMedio({ navigation, rows = 8, cols = 8 }) {
     return selectedWords;
   };
 
+  const atualizarPalavraParaCor = useCallback((palavra, cor) => {
+    setPalavraParaCor((prev) => ({
+      ...prev,
+      [palavra]: cor,
+    }));
+  }, []);
+
   const mostrarDica = () => {
     if (numDicasUsadas < 3) {
       const palavrasNaoEncontradas = palavras.filter(
