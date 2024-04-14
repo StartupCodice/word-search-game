@@ -275,7 +275,7 @@ const NivelFacilComponent = () => {
 
   const addCores = (cores) => {
     setCores(cores);
-    saveCores(cores.toString());
+    saveCores(cores);
   };
 
   const getEmpregos = async () => {
