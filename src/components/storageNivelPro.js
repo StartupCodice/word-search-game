@@ -258,7 +258,7 @@ const NivelProComponent = () => {
   const getCores = async () => {
     try {
       const cores = await AsyncStorage.getItem('nivelCoresPro');
-      return cores;
+      return cores ? cores : 0;
     } catch (error) {
       console.error('Erro ao obter as cores:', error);
       return null;
@@ -562,7 +562,7 @@ const NivelProComponent = () => {
       return 0;
     }
   };
-  
+
   const saveNivelNatureza = async (nivel) => {
     try {
       await AsyncStorage.setItem('nivelNaturezaPro', nivel.toString());
@@ -570,12 +570,12 @@ const NivelProComponent = () => {
       console.error('Erro ao salvar o nível de natureza:', error);
     }
   };
-  
+
   const addNatureza = (nivel) => {
     setNatureza(nivel);
     saveNivelNatureza(nivel);
   };
-  
+
   const getPintores = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelPintoresPro');
@@ -585,7 +585,7 @@ const NivelProComponent = () => {
       return 0;
     }
   };
-  
+
   const saveNivelPintores = async (nivel) => {
     try {
       await AsyncStorage.setItem('nivelPintoresPro', nivel.toString());
@@ -593,12 +593,12 @@ const NivelProComponent = () => {
       console.error('Erro ao salvar o nível de pintores:', error);
     }
   };
-  
+
   const addPintores = (nivel) => {
     setPintores(nivel);
     saveNivelPintores(nivel);
   };
-  
+
   const getCasa = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelCasaPro');
@@ -608,7 +608,7 @@ const NivelProComponent = () => {
       return 0;
     }
   };
-  
+
   const saveNivelCasa = async (nivel) => {
     try {
       await AsyncStorage.setItem('nivelCasaPro', nivel.toString());
@@ -616,7 +616,7 @@ const NivelProComponent = () => {
       console.error('Erro ao salvar o nível de casa:', error);
     }
   };
-  
+
   const addCasa = (nivel) => {
     setCasa(nivel);
     saveNivelCasa(nivel);
@@ -631,7 +631,7 @@ const NivelProComponent = () => {
       return 0;
     }
   };
-  
+
   const saveNivelCarros = async (nivel) => {
     try {
       await AsyncStorage.setItem('nivelCarrosPro', nivel.toString());
@@ -639,12 +639,12 @@ const NivelProComponent = () => {
       console.error('Erro ao salvar o nível de carros:', error);
     }
   };
-  
+
   const addCarros = (nivel) => {
     setCarros(nivel);
     saveNivelCarros(nivel);
   };
-  
+
   const getFilmes = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelFilmesPro');
@@ -654,7 +654,7 @@ const NivelProComponent = () => {
       return 0;
     }
   };
-  
+
   const saveNivelFilmes = async (nivel) => {
     try {
       await AsyncStorage.setItem('nivelFilmesPro', nivel.toString());
@@ -662,12 +662,12 @@ const NivelProComponent = () => {
       console.error('Erro ao salvar o nível de filmes:', error);
     }
   };
-  
+
   const addFilmes = (nivel) => {
     setFilmes(nivel);
     saveNivelFilmes(nivel);
   };
-  
+
   const getEspaco = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelEspacoPro');
@@ -677,7 +677,7 @@ const NivelProComponent = () => {
       return 0;
     }
   };
-  
+
   const saveNivelEspaco = async (nivel) => {
     try {
       await AsyncStorage.setItem('nivelEspacoPro', nivel.toString());
@@ -685,7 +685,7 @@ const NivelProComponent = () => {
       console.error('Erro ao salvar o nível de espaço:', error);
     }
   };
-  
+
   const addEspaco = (nivel) => {
     setEspaco(nivel);
     saveNivelEspaco(nivel);
@@ -700,7 +700,7 @@ const NivelProComponent = () => {
       return 0;
     }
   };
-  
+
   const saveNivelMusicos = async (nivel) => {
     try {
       await AsyncStorage.setItem('nivelMusicosPro', nivel.toString());
@@ -708,12 +708,12 @@ const NivelProComponent = () => {
       console.error('Erro ao salvar o nível de músicos:', error);
     }
   };
-  
+
   const addMusicos = (nivel) => {
     setMusicos(nivel);
     saveNivelMusicos(nivel);
   };
-  
+
   const getMarcas = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelMarcasPro');
@@ -723,7 +723,7 @@ const NivelProComponent = () => {
       return 0;
     }
   };
-  
+
   const saveNivelMarcas = async (nivel) => {
     try {
       await AsyncStorage.setItem('nivelMarcasPro', nivel.toString());
@@ -731,12 +731,12 @@ const NivelProComponent = () => {
       console.error('Erro ao salvar o nível de marcas:', error);
     }
   };
-  
+
   const addMarcas = (nivel) => {
     setMarcas(nivel);
     saveNivelMarcas(nivel);
   };
-  
+
   const getEscritoras = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelEscritorasPro');
@@ -746,7 +746,7 @@ const NivelProComponent = () => {
       return 0;
     }
   };
-  
+
   const saveNivelEscritoras = async (nivel) => {
     try {
       await AsyncStorage.setItem('nivelEscritorasPro', nivel.toString());
@@ -754,7 +754,7 @@ const NivelProComponent = () => {
       console.error('Erro ao salvar o nível de escritoras:', error);
     }
   };
-  
+
   const addEscritoras = (nivel) => {
     setEscritoras(nivel);
     saveNivelEscritoras(nivel);

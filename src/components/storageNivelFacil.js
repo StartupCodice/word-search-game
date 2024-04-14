@@ -258,7 +258,7 @@ const NivelFacilComponent = () => {
   const getCores = async () => {
     try {
       const cores = await AsyncStorage.getItem('nivelCoresFacil');
-      return cores;
+      return cores ? cores : 0;
     } catch (error) {
       console.error('Erro ao obter as cores:', error);
       return null;
@@ -275,7 +275,7 @@ const NivelFacilComponent = () => {
 
   const addCores = (cores) => {
     setCores(cores);
-    saveCores(cores);
+    saveCores(cores.toString());
   };
 
   const getEmpregos = async () => {
@@ -562,7 +562,7 @@ const NivelFacilComponent = () => {
       return 0;
     }
   };
-  
+
   const saveNivelNatureza = async (nivel) => {
     try {
       await AsyncStorage.setItem('nivelNaturezaFacil', nivel.toString());
@@ -570,12 +570,12 @@ const NivelFacilComponent = () => {
       console.error('Erro ao salvar o nível de natureza:', error);
     }
   };
-  
+
   const addNatureza = (nivel) => {
     setNatureza(nivel);
     saveNivelNatureza(nivel);
   };
-  
+
   const getPintores = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelPintoresFacil');
@@ -585,7 +585,7 @@ const NivelFacilComponent = () => {
       return 0;
     }
   };
-  
+
   const saveNivelPintores = async (nivel) => {
     try {
       await AsyncStorage.setItem('nivelPintoresFacil', nivel.toString());
@@ -593,12 +593,12 @@ const NivelFacilComponent = () => {
       console.error('Erro ao salvar o nível de pintores:', error);
     }
   };
-  
+
   const addPintores = (nivel) => {
     setPintores(nivel);
     saveNivelPintores(nivel);
   };
-  
+
   const getCasa = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelCasaFacil');
@@ -608,7 +608,7 @@ const NivelFacilComponent = () => {
       return 0;
     }
   };
-  
+
   const saveNivelCasa = async (nivel) => {
     try {
       await AsyncStorage.setItem('nivelCasaFacil', nivel.toString());
@@ -616,7 +616,7 @@ const NivelFacilComponent = () => {
       console.error('Erro ao salvar o nível de casa:', error);
     }
   };
-  
+
   const addCasa = (nivel) => {
     setCasa(nivel);
     saveNivelCasa(nivel);
@@ -631,7 +631,7 @@ const NivelFacilComponent = () => {
       return 0;
     }
   };
-  
+
   const saveNivelCarros = async (nivel) => {
     try {
       await AsyncStorage.setItem('nivelCarrosFacil', nivel.toString());
@@ -639,12 +639,12 @@ const NivelFacilComponent = () => {
       console.error('Erro ao salvar o nível de carros:', error);
     }
   };
-  
+
   const addCarros = (nivel) => {
     setCarros(nivel);
     saveNivelCarros(nivel);
   };
-  
+
   const getFilmes = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelFilmesFacil');
@@ -654,7 +654,7 @@ const NivelFacilComponent = () => {
       return 0;
     }
   };
-  
+
   const saveNivelFilmes = async (nivel) => {
     try {
       await AsyncStorage.setItem('nivelFilmesFacil', nivel.toString());
@@ -662,12 +662,12 @@ const NivelFacilComponent = () => {
       console.error('Erro ao salvar o nível de filmes:', error);
     }
   };
-  
+
   const addFilmes = (nivel) => {
     setFilmes(nivel);
     saveNivelFilmes(nivel);
   };
-  
+
   const getEspaco = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelEspacoFacil');
@@ -677,7 +677,7 @@ const NivelFacilComponent = () => {
       return 0;
     }
   };
-  
+
   const saveNivelEspaco = async (nivel) => {
     try {
       await AsyncStorage.setItem('nivelEspacoFacil', nivel.toString());
@@ -685,7 +685,7 @@ const NivelFacilComponent = () => {
       console.error('Erro ao salvar o nível de espaço:', error);
     }
   };
-  
+
   const addEspaco = (nivel) => {
     setEspaco(nivel);
     saveNivelEspaco(nivel);
@@ -700,7 +700,7 @@ const NivelFacilComponent = () => {
       return 0;
     }
   };
-  
+
   const saveNivelMusicos = async (nivel) => {
     try {
       await AsyncStorage.setItem('nivelMusicosFacil', nivel.toString());
@@ -708,12 +708,12 @@ const NivelFacilComponent = () => {
       console.error('Erro ao salvar o nível de músicos:', error);
     }
   };
-  
+
   const addMusicos = (nivel) => {
     setMusicos(nivel);
     saveNivelMusicos(nivel);
   };
-  
+
   const getMarcas = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelMarcasFacil');
@@ -723,7 +723,7 @@ const NivelFacilComponent = () => {
       return 0;
     }
   };
-  
+
   const saveNivelMarcas = async (nivel) => {
     try {
       await AsyncStorage.setItem('nivelMarcasFacil', nivel.toString());
@@ -731,12 +731,12 @@ const NivelFacilComponent = () => {
       console.error('Erro ao salvar o nível de marcas:', error);
     }
   };
-  
+
   const addMarcas = (nivel) => {
     setMarcas(nivel);
     saveNivelMarcas(nivel);
   };
-  
+
   const getEscritoras = async () => {
     try {
       const nivel = await AsyncStorage.getItem('nivelEscritorasFacil');
@@ -746,7 +746,7 @@ const NivelFacilComponent = () => {
       return 0;
     }
   };
-  
+
   const saveNivelEscritoras = async (nivel) => {
     try {
       await AsyncStorage.setItem('nivelEscritorasFacil', nivel.toString());
@@ -754,7 +754,7 @@ const NivelFacilComponent = () => {
       console.error('Erro ao salvar o nível de escritoras:', error);
     }
   };
-  
+
   const addEscritoras = (nivel) => {
     setEscritoras(nivel);
     saveNivelEscritoras(nivel);
@@ -815,6 +815,7 @@ const NivelFacilComponent = () => {
     addMarcas,
     escritoras,
     addEscritoras,
+    getCores,
   };
 };
 
